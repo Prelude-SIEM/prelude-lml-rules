@@ -1,0 +1,17 @@
+# Copyright (C) 2003 Laurent Oudot <oudot.laurent@wanadoo.fr>
+# All Rights Reserved
+
+#LOG:00:15:55 H=fmmailgate04.web.de [217.72.192.242] F=<xxx@xxxxxx> rejected RCPT andreas@xxxxxxxxxxx
+# This regex needs to be corrected; it still uses a reference to syslog headers.
+# More log samples are needed.
+regex=^\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d (.*) rejected; \
+ classification.text=Mail server request rejected; \
+ id=401; \
+ revision=1; \
+ analyzer(0).class=Service; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Exim refused a request : $1 rejected; \
+ target(0).service.name=smtp; \
+ last

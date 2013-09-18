@@ -1,0 +1,148 @@
+#####
+#
+# Copyright (C) 2006 Alexandre Racine
+# <alexandreracine@gmail.com> www.alexandreracine.com
+# Currently maintained by Alexandre Racine <alexandreracine@gmail.com>
+# All Rights Reserved - Tous droits reserves.
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+#
+# These rules where created from logs of Cisco switchs.
+# Some models but not limited to are :
+# - C3750
+# - C35xx series (C3500, C3500 in.power, C3550, C3560G, etc)
+# - C29xx series (C2900, C2900M, C2950 TSI, C2960, etc)
+#
+# At first, this file was cisco-switch.rules, but then I realize that there
+# are a load of Cisco messages that are the same for all IOS. So it is now
+# cisco-commons.rules. Logic would require to put some other rules in this
+# file. For example the "LINEPROTO-5-UPDOWN" rule in cisco-router.rules. But
+# that is only my opinion ;)
+#
+
+# Copyright (C) 2006 Alexandre Racine <alexandreracine@gmail.com>
+# All Rights Reserved - www.alexandreracine.com - Tous droits reserves.
+
+#LOG: %CDP-4-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on GigabitEthernet0/1 (1), with C3524pwr-049-1.somedomain.ca FastEthernet0/19 (49).
+#Cisco says: %CDP-4-NATIVE_VLAN_MISMATCH : Native VLAN mismatch discovered on [chars] ([dec]), with [chars] [chars] ([dec])
+regex=%CDP-\d-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on (\S+) \(\d+\), with (\S+) (\S+) \(\d+\); \
+ classification.text=Native VLAN mismatch; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=cisco_id; \
+ classification.reference(0).name=%CDP-4-NATIVE_VLAN_MISMATCH; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/ios/12_2/sem1/system/message/emfc6msf.html#wp946895; \
+ id=5500; \
+ revision=2; \
+ analyzer(0).name=Cisco IOS; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Router; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=CDP has discovered a mismatch of native VLAN configuration.; \
+ source(0).interface=$1; \
+ target(0).node.name=$2; \
+ target(0).service.name=CDP; \
+ target(0).interface=$3; \
+ last
+
+#LOG: 21w2d: %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on GigabitEthernet0/1 (not half duplex), with C3524pwr-049-1.cslaval.qc.ca FastEthernet0/19 (half duplex).
+#Cisco says: %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on [chars] ([chars]), with [chars] [chars] ([chars])
+regex=%CDP-\d-DUPLEX_MISMATCH: duplex mismatch discovered on (\S+) \([\w\s]+\), with (\S+) (\S+) \([\w\s]+\); \
+ classification.text=Duplex mismatch; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=cisco_id; \
+ classification.reference(0).name=%CDP-4-DUPLEX_MISMATCH; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/ios/12_2/sem1/system/message/emfc6msf.html#wp946885;\
+ id=5501; \
+ revision=2; \
+ analyzer(0).name=Cisco IOS; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Router; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=CDP has discovered a mismatch of duplex configuration.; \
+ source(0).interface=$1; \
+ target(0).node.name=$2; \
+ target(0).service.name=CDP; \
+ target(0).interface=$3; \
+ last
+
+#LOG: 18w5d: %PORT_SECURITY-2-SECURITYREJECT: Security violation occurred on module 0 port 6 caused by MAC address 0021.e6f2.e644
+#Cisco says: %PORT_SECURITY-2-SECURITYREJECT: Security violation occurred on module [dec] port [dec] caused by MAC address [enet]
+regex=%PORT_SECURITY-\d-SECURITYREJECT: Security violation occurred on module \d+ port \d+ caused by MAC address (\S*); \
+ classification.text=Port Security; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=cisco_id; \
+ classification.reference(0).name=%PORT_SECURITY-2-SECURITYREJECT; \
+ classification.reference(0).url=https://www.cisco.com/en/US/docs/switches/lan/catalyst2900xl_3500xl/release12.0_5_wc6/scg/swmsg.html#wp1007036; \
+ id=5502; \
+ revision=2; \
+ analyzer(0).name=Cisco IOS; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Router; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=A packet with an unexpected source address is received on a secure port.; \
+ source(0).node.address(0).category=mac; \
+ source(0).node.address(0).address=$1; \
+ last
+
+#LOG: 5d00h: %PORT_SECURITY-2-PSECURE_VIOLATION: Security violation occurred, caused by MAC address 0462.0000.0464 on port FastEthernet0/22.
+#Cisco says: %PORT_SECURITY-2-PSECURE_VIOLATION:  Security violation occurred caused by MAC [enet] on port [chars]
+regex=%PORT_SECURITY-\d-PSECURE_VIOLATION: Security violation occurred, caused by MAC address (\S*) on port (\S+); \
+ classification.text=Port Security; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=cisco_id; \
+ classification.reference(0).name=%PORT_SECURITY-2-PSECURE_VIOLATION; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/switches/lan/catalyst2955/software/release/12_1_12c_ea1/system/message/msg_desc.html#wp1103356; \
+ id=5503; \
+ revision=2; \
+ analyzer(0).name=Cisco IOS; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Router; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=This message means that an unauthorized device attempted to connect on a secure port. $1 is the MAC address of the unauthorized device, and $2 is the secure port.; \
+ source(0).node.address(0).category=mac; \
+ source(0).node.address(0).address=$1; \
+ source(0).interface=$2; \
+ last
+
+#LOG: 5d00h: %RTD-1-ADDR_FLAP: FastEthernet0/23 relearning 7 addrs per min
+#Cisco says: %RTD-1-ADDR_FLAP [chars] relearning [dec] addrs per min
+regex=%RTD-\d-ADDR_FLAP: (\S+) relearning (\d+) addrs per min; \
+ classification.text=Port Security; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=cisco_id; \
+ classification.reference(0).name=%RTD-1-ADDR_FLAP; \
+ classification.reference(0).url=http://supportwiki.cisco.com/ViewWiki/index.php/What_does_the_RTD-1-ADDR_FLAP_system_message_mean%3F; \
+ id=5504; \
+ revision=2; \
+ analyzer(0).name=Cisco IOS; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Router; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Normally, MAC addresses are learned once on a port. Occasionally, when a switched network reconfigures, due to either manual or STP reconfiguration, addresses learned on one port are relearned on a different port. However, if there is a port anywhere in the switched domain that is looped back to itself, addresses will jump back and forth between the real port and the port that is in the path to the looped back port. In this message, $1 is the interface, and $2 is the number of addresses being learnt.; \
+ source(0).interface=$2; \
+ last

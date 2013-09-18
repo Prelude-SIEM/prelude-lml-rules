@@ -1,0 +1,56 @@
+###################
+# Logging succeed #
+###################
+
+regex=to root on; \
+ id=10003; \
+ assessment.impact.type=admin; \
+ target(0).user.user_id(0).number=0; \
+ chained; silent;
+
+#LOG: Jul 18 17:12:49 hids su: afonyashin to root on /dev/ttyp0
+#LOG: Jul 18 17:12:49 hids su: afonyashin to alice on /dev/ttyp0
+optgoto=10003; regex=su: (\S+) to (\S+) on (\S+); \
+ classification.text=Credentials Change; \
+ id=10000; \
+ revision=1; \
+ analyzer(0).name=su; \
+ analyzer(0).class=Authentication; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=User $1 authenticated to $2 successfully; \
+ source(0).user.category=os-device; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$1;  \
+ source(0).user.user_id(0).tty=$3;  \
+ target(0).user.category=os-device; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$2; \
+ last;
+
+
+################
+# Login failed #
+################
+
+#LOG: Jul 18 17:12:44 hids su: BAD SU afonyashin to root on /dev/ttyp0
+#LOG: Jul 18 17:12:44 hids su: BAD SU afonyashin to alice on /dev/ttyp0
+regex=su: BAD SU (\S+) to (\S+) on (\S+); \
+ classification.text=Credentials Change; optgoto=10003; \
+ id=10002; \
+ revision=1; \
+ analyzer(0).name=su; \
+ analyzer(0).class=Authentication; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=User $1 tried to authenticate as $2 and failed; \
+ source(0).user.category=os-device; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$1;  \
+ source(0).user.user_id(0).tty=$3;  \
+ target(0).user.category=os-device; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$2; \
+ last;

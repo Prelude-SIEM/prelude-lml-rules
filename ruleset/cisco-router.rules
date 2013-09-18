@@ -1,0 +1,163 @@
+#####
+#
+# Copyright (C) 2002 Arnaud Guignard 
+# This ruleset is currently maintained by Dennis Hadderingh 
+# <dennis.hadderingh@is-company.nl>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by 
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+# Cisco router support for Prelude-LML
+#LOG:Sep 23 07:30:41 gate 301270: 5d17h: %SEC-6-IPACCESSLOGP: list 101 denied tcp 1.2.3.4(1929) -> 5.6.7.8(80), 1 packet
+#LOG:Jun  5 16:15:59 router1 8919: Jun  5 16:15:58.190 EDT: %SEC-6-IPACCESSLOGP: list somelist2 denied udp 10.12.7.4(42) -> 10.0.3.24(42), 1 packet
+regex=SEC-6-IPACCESSLOGP: list (\w+) denied (udp|tcp) ([\d\.]+)\((\d+)\).*-> ([\d\.]+)\((\d+)\), (\d+); \
+ classification.text=Packet denied; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=cisco_id; \
+ classification.reference(0).name=%SEC-6-IPACCESSLOGP; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/ios/12_2/sem2/system/message/emfsdllc.html#wp971288; \
+ id=500; \
+ revision=2; \
+ analyzer(0).name=Router; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Router; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Someone tried to bypass access-list #$1; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ source(0).service.iana_protocol_name=$2; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ target(0).service.iana_protocol_name=$2; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Events; \
+ additional_data(1).data=$6; \
+ last
+
+#LOG:Apr 11 20:13:49 wormhole.flash.net 2279: %RCMD-4-RSHPORTATTEMPT: Attempted to connect to RSHELL from 1.2.3.4
+regex=RCMD-4-RSHPORTATTEMPT:.* from ([\d\.]+); \
+ classification.text=RSH attempt; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=cisco_id; \
+ classification.reference(0).name=%RCMD-4-RSHPORTATTEMPT; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/ios/12_2/sem2/system/message/emfpquic.html#wp564542; \
+ id=501; \
+ revision=2; \
+ analyzer(0).name=Router; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Router; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Someone tried to connect to rshell; \
+ source(0).node.address(0).category=ipv4-addr; \ 
+ source(0).node.address(0).address=$1; \
+ target(0).service.name=rsh; \
+ last
+
+# Copyright (C) 2004 Dennis Hadderingh <dennis.hadderingh@is-company.nl>
+# All Rights Reserved
+
+#LOG:Jun  1 13:59:17 rtr-dsl-01 3972256: 5w5d: %LINEPROTO-5-UPDOWN: Line protocol on Interface BRI0:1, changed state to down
+regex=%LINEPROTO-5-UPDOWN: Line protocol on Interface (\S+), changed state to (down|up); \
+ classification.text=Interface $2; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=cisco_id; \
+ classification.reference(0).name=%LINEPROTO-5-UPDOWN; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/ios/11_0/system/message/etext.html#wp3717; \
+ id=502; \ 
+ revision=2; \
+ analyzer(0).name=Router; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Router; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=dos; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Interface $1 status changed to $2; \
+ target(0).interface=$1; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=New state; \
+ additional_data(0).data=$2; \
+ last
+
+# Match if a host has requested an unknown key exchange
+#LOG:Jun  1 15:20:39 rtr-dsl-01 3972364: 5w5d: %CRYPTO-6-IKMP_UNK_EXCHANGE: IKE peer at 1.1.1.1      sent a message with unknown exchange 1
+
+regex=%CRYPTO-6-IKMP_UNK_EXCHANGE: IKE peer at (\S+) * sent a message with unknown; \
+ classification.text=Router unknown IKE key exchange request; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=cisco_id; \
+ classification.reference(0).name=%CRYPTO-6-IKMP_UNK_EXCHANGE; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/ios/12_3t/system/messages/smg2tmsd.html#wp823320; \
+ id=503; \
+ revision=2; \
+ analyzer(0).name=Router; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Router; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=An unknown Internet Key Exchange request has been received from host: $1 ; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$1; \
+ target(0).service.port=500; \
+ target(0).service.name=isakmp; \
+ last
+
+#
+# Copyright (C) 2006 G Ramon Gomez <gene at gomezbrothers dot com>
+# Ragingwire Enterprise Solutions  (www.ragingwire.com)
+# All Rights Reserved
+#
+
+#LOG:Jul 10 17:56:13 somehost.ragingwire.net somehost/somehost 139826: .Jul 10 17:53:16 GMT: %IDS-4-TCP_SENDMAIL_VRFY_SIG: Sig:3103:Sendmail Reconnaissance - from 12.34.56.78 to 90.12.34.56
+#LOG:Jul 10 18:28:42 somehost.ragingwire.net somehost/somehost 3246718: .Jul 10 18:25:45 GMT: %IDS-4-IP_UNKNOWN_PROTO_SIG: Sig:1101:Unknown IP Protocol - from 12.34.56.78 to 90.12.34.56
+regex=%IDS-4-(\S+)_SIG: Sig:(\d+):(.+) - from ([\d\.]+) to ([\d\.]+); \
+ classification.text=$3; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=cisco_id; \
+ classification.reference(0).name=%IDS-4-$1_SIG; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/ios/12_2/sem1/system/message/emfgsrip.html#wp934986; \
+ id=504; \
+ revision=1; \
+ analyzer(0).name=Router; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Router; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=An IDS event of type "$3" was observed from $4 to $5 by the IOS IDS.; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Signature Name; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Signature Number; \
+ additional_data(1).data=$2; \
+ last

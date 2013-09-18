@@ -1,0 +1,164 @@
+# Krzysztof Zaraska <kzaraska@student.uci.agh.edu.pl>: FreeBSD IPFW support
+# 1. Deny rules
+
+#Feb  3 16:02:18 lhotse /kernel: ipfw: 65000 Deny UDP 200.65.7.49:1033 12.34.56.78:137 in via tun0
+#LOG:Feb  3 16:02:58 lhotse /kernel: ipfw: 2700 Deny TCP 213.76.70.104:1103 12.34.56.78:135 in via tun0
+regex=(\d+) Deny (TCP|UDP) ([\d\.]+):(\d+) ([\d\.]+):([\d]+) in via (\w+); \
+ classification.text=Incoming $2 packet dropped; \
+ id=800; \
+ revision=1; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Denied incoming packet (rule #$1) $2 $3:$4 -> $5:$6 on interface $7; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ source(0).service.iana_protocol_name=$2; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ target(0).service.iana_protocol_name=$2; \
+ source(0).interface=$7; \
+ last
+
+# LOG:Aug  4 10:57:26 r40e kernel: ipfw: 299 Deny TCP 1.2.3.4:49312 5.6.7.8:80 out via bge0
+regex=(\d+) Deny (TCP|UDP) ([\d\.]+):(\d+) ([\d\.]+):([\d]+) out via (\w+); \
+ classification.text=Outgoing $2 packet dropped; \
+ id=801; \
+ revision=1; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Denied outgoing packet (rule #$1) $2 $3:$4 -> $5:$6 on interface $7; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ source(0).service.iana_protocol_name=$2; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ target(0).service.iana_protocol_name=$2; \
+ target(0).interface=$7; \
+ last
+
+# LOG:Jan  6 22:31:29 lhotse /kernel: ipfw: 140 Deny ICMP:11.0 1.2.3.4 5.6.7.8 in via vx3 
+regex=(\d+) Deny ICMP:(\d+).(\d+) ([\d\.]+) ([\d\.]+) in via (\w+); \
+ classification.text=Incoming ICMP packet dropped; \
+ id=802; \
+ revision=1; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Denied incoming packet (rule #$1) ICMP type $2.$3 $4 -> $5 on interface $6; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.iana_protocol_name=ICMP; \
+ source(0).service.iana_protocol_number=1; \
+ source(0).interface=$6; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.iana_protocol_name=ICMP; \
+ target(0).service.iana_protocol_number=1; \
+ last
+
+# LOG:Feb  3 16:33:00 lhotse /kernel: ipfw: 65000 Deny ICMP:0.0 12.34.56.78 206.99.235.10 out via tun0 
+regex=(\d+) Deny ICMP:(\d+).(\d+) ([\d\.]+) ([\d\.]+) out via (\w+); \
+ classification.text=Outgoing ICMP packet dropped; \
+ id=803; \
+ revision=1; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Denied outgoing packet (rule #$1) ICMP type $2.$3 $4 -> $5 on interface $6; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.iana_protocol_name=ICMP; \
+ source(0).service.iana_protocol_number=1; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.iana_protocol_name=ICMP; \
+ target(0).service.iana_protocol_number=1; \
+ target(0).interface=$6; \
+ last
+
+# 2. Accept rules
+# LOG:Dec 13 18:08:58 kaskadimpex /kernel: ipfw: 20205 Accept TCP 1.2.3.4:1408 5.6.7.8:139 in via fxp1 
+regex=(\d+) Accept (TCP|UDP) ([\d\.]+):(\d+) ([\d\.]+):([\d]+) in via (\w+); \
+ classification.text=Incoming $2 packet accepted; \
+ id=804; \
+ revision=1; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Accepted incoming packet (rule #$1) $2 $3:$4 -> $5:$6 on interface $7; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ source(0).service.iana_protocol_name=$2; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ target(0).service.iana_protocol_name=$2; \
+ source(0).interface=$7; \
+ last
+
+# LOG:Dec 13 18:08:58 kaskadimpex /kernel: ipfw: 20206 Accept TCP 1.2.3.4:139 5.6.7.8:1408 out via fxp1 
+regex=(\d+) Accept (TCP|UDP) ([\d\.]+):(\d+) ([\d\.]+):([\d]+) out via (\w+); \
+ classification.text=Outgoing $2 packet accepted; \
+ id=805; \
+ revision=1; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Accepted outgoing packet (rule #$1) $2 $3:$4 -> $5:$6 on interface $7;  \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ source(0).service.iana_protocol_name=$2; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ target(0).service.iana_protocol_name=$2; \
+ target(0).interface=$7; \
+ last
+
+# LOG:May  5 16:57:38 myhost /kernel: ipfw: 40100 Accept ICMP:8.0 1.2.3.4 5.6.7.8 in via ed1
+regex=(\d+) Accept ICMP:(\d+).(\d+) ([\d\.]+) ([\d\.]+) in via (\w+); \
+ classification.text=Incoming ICMP Packet accepted; \
+ id=806; \
+ revision=1; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Accepted incoming packet (rule #$1) ICMP type $2.$3 $4 -> $5 on interface $6; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.iana_protocol_name=ICMP; \
+ source(0).service.iana_protocol_number=1; \
+ source(0).interface=$6; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.iana_protocol_name=ICMP; \
+ target(0).service.iana_protocol_number=1; \
+ last
+
+# LOG:May  5 16:57:38 myhost /kernel: ipfw: 40100 Accept ICMP:8.0 1.2.3.4 5.6.7.8 out via ed1
+regex=(\d+) Accept ICMP:(\d+).(\d+) ([\d\.]+) ([\d\.]+) out via (\w+); \
+ classification.text=Packet accepted by firewall; \
+ id=807; \
+ revision=1; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=Accepted outgoing packet (rule #$1) ICMP type $2.$3 $4 -> $5 on interface $6;  \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.iana_protocol_name=ICMP; \
+ source(0).service.iana_protocol_number=1; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.iana_protocol_name=ICMP; \
+ target(0).service.iana_protocol_number=1; \
+ target(0).interface=$6; \
+ last

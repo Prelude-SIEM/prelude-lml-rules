@@ -1,0 +1,227 @@
+#####
+#
+# Copyright (C) 2005 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#####
+#
+# The rules included here are EXPERIMENTAL.
+#
+#####
+
+
+#LOG:Nov 18 10:12:08 new-selinux2 kernel: avc:  denied  { relabelto } for  pid=12296 exe=/usr/bin/chcon name=shadow dev=03:02 ino=230036 scontext=takeuchi:user_r:user_t tcontext=system_u:object_r:shadow_t tclass=file
+regex=denied  { ([\w\ ]+) } for  pid=(\d+) exe=(\S+) name=(shadow|passwd|group) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
+ classification.text=RBAC authentication file $1 failure; \
+ id=4000; \
+ revision=1; \
+ analyzer(0).name=SELinux; \
+ analyzer(0).manufacturer=NSA; \
+ analyzer(0).class=Kernel; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=file; \
+ assessment.impact.description=An $1 attempt was made against the file $4 using $3.  This attempt was blocked.; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$5; \
+ source(0).user.user_id(1).type=current-group; \
+ source(0).user.user_id(1).name=$6; \
+ source(0).process.name=$3; \
+ source(0).process.pid=$2; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$7; \
+ target(0).decoy=no; \
+ last;
+
+#LOG:Aug  3 17:53:22 192 kernel: avc:  denied  { execute } for  pid=1007 exe=/usr/sbin/httpd path=/bin/bash dev=08:02 ino=162980 scontext=system_u:system_r:httpd_t tcontext=system_u:object_r:shell_exec_t tclass=file
+regex=denied  { ([\w\ ]+) } for  pid=(\d+) exe=(\S+) path=(\S*bin\S*sh) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
+ classification.text=RBAC shell $1 failure; \
+ id=4001; \
+ revision=1; \
+ analyzer(0).name=SELinux; \
+ analyzer(0).manufacturer=NSA; \
+ analyzer(0).class=Kernel; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=file; \
+ assessment.impact.description=An $1 attempt was made by $3 on $4.  This attempt was blocked.; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$5; \
+ source(0).user.user_id(1).type=current-group; \
+ source(0).user.user_id(1).name=$6; \
+ source(0).process.name=$3; \
+ source(0).process.pid=$2; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$7; \
+ last;
+
+#LOG:Nov 18 11:43:18 new-selinux2 kernel: avc:  denied  { execute } for  pid=14500 exe=/usr/bin/perl name=bash dev=03:02 ino=7995406 scontext=system_u:system_r:httpd_sys_script_process_t tcontext=system_u:object_r:shell_exec_t tclass=file
+#NOTE: This rule might have a high false-positive rate.
+regex=denied  { ([\w\ ]+) } for  pid=(\d+) exe=(\S+) name=(\S*sh) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
+ classification.text=RBAC shell $1 failure; \
+ id=4002; \
+ revision=1; \
+ analyzer(0).name=SELinux; \
+ analyzer(0).manufacturer=NSA; \
+ analyzer(0).class=Kernel; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=file; \
+ assessment.impact.description=An $1 attempt was made by $3 on $4.  This attempt was blocked.; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$5; \
+ source(0).user.user_id(1).type=current-group; \
+ source(0).user.user_id(1).name=$6; \
+ source(0).process.name=$3; \
+ source(0).process.pid=$2; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$7; \
+ last;
+
+#LOG:Nov 18 11:43:18 new-selinux2 kernel: avc:  denied  { read append } for  pid=14499 exe=/usr/bin/perl path=/var/log/httpd/error_log dev=03:02 ino=5177929 scontext=system_u:system_r:httpd_sys_script_process_t tcontext=root:object_r:unlabeled_t tclass=file
+regex=denied  { ([\w\ ]+) } for  pid=(\d+) exe=(\S+) path=(\/var\/log\/\S+) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
+ classification.text=RBAC log $1 failure; \
+ id=4003; \
+ revision=1; \
+ analyzer(0).name=SELinux; \
+ analyzer(0).manufacturer=NSA; \
+ analyzer(0).class=Kernel; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=file; \
+ assessment.impact.description=An $1 attempt was made by $3 on $4.  This attempt was blocked.; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$5; \
+ source(0).user.user_id(1).type=current-group; \
+ source(0).user.user_id(1).name=$6; \
+ source(0).process.name=$3; \
+ source(0).process.pid=$2; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$7; \
+ last;
+
+#LOG:Aug  2 01:15:10 192 kernel: avc:  denied  { execute } for  pid=32440 exe=/usr/sbin/smbd path=/bin/bash dev=08:02 ino=162980 scontext=system_u:system_r:smbd_t tcontext=system_u:object_r:shell_exec_t tclass=file
+regex=denied  { ([\w\ ]+) } for  pid=(\d+) exe=(\S+) path=(\S+) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
+ classification.text=RBAC $1 failure; \
+ id=4005; \
+ revision=1; \
+ analyzer(0).name=SELinux; \
+ analyzer(0).manufacturer=NSA; \
+ analyzer(0).class=Kernel; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=file; \
+ assessment.impact.description=An $1 attempt was made against $4 using $3.  This attempt was blocked.; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$5; \
+ source(0).user.user_id(1).type=current-group; \
+ source(0).user.user_id(1).name=$6; \
+ source(0).process.name=$3; \
+ source(0).process.pid=$2; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$7; \
+ last;
+
+#LOG:Nov 18 11:43:18 new-selinux2 kernel: avc:  denied  { execute } for  pid=14500 path=/lib/libnss_files-2.3.2.so dev=03:02 ino=8503320 scontext=system_u:system_r:httpd_sys_script_process_t tcontext=system_u:object_r:var_spool_t tclass=file
+regex=denied  { ([\w\ ]+) } for  pid=(\d+) path=(\S+) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
+ classification.text=RBAC $1 failure; \
+ id=4006; \
+ revision=1; \
+ analyzer(0).name=SELinux; \
+ analyzer(0).manufacturer=NSA; \
+ analyzer(0).class=Kernel; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=file; \
+ assessment.impact.description=An $1 attempt was made against $3.  This attempt was blocked.; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$4; \
+ source(0).user.user_id(1).type=current-group; \
+ source(0).user.user_id(1).name=$5; \
+ source(0).process.pid=$2; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$6; \
+ last;
+
+#LOG:Aug  6 15:08:02 localhost kernel: avc:  denied  { dac_override } for  pid=535 exe=/usr/bin/suidperl capability=1  scontext=system_u:user_r:user_t  tcontext=system_u:user_r:user_t  tclass=capability
+regex=denied  { ([\w\ ]+) } for  pid=(\d+) exe=(\S+) capability=\S+\s+scontext=(\S+):(\S+):\S+\s+tcontext=(\S+):\S+:; \
+ classification.text=RBAC $1 failure; \
+ id=4007; \
+ revision=1; \
+ analyzer(0).name=SELinux; \
+ analyzer(0).manufacturer=NSA; \
+ analyzer(0).class=Kernel; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.description=An $1 attempt was made against $3.  This attempt was blocked.; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$4; \
+ source(0).user.user_id(1).type=current-group; \
+ source(0).user.user_id(1).name=$5; \
+ source(0).process.name=$3; \
+ source(0).process.pid=$2; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$6; \
+ last;
+
+#LOG:Nov 18 11:09:24 new-selinux2 kernel: avc:  denied  { unlink } for  pid=10667 exe=/usr/local/java/j2sdk1.4.2_02/bin/java name=.index.log dev=03:02 ino=98986 scontext=user_u:user_r:user_t tcontext=user_u:object_r:unlabeled_t tclass=file
+regex=denied  { ([\w\ ]+) } for  pid=(\d+) exe=(\S+) name=(\S+) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
+ classification.text=RBAC $1 failure; \
+ id=4008; \
+ revision=1; \
+ analyzer(0).name=SELinux; \
+ analyzer(0).manufacturer=NSA; \
+ analyzer(0).class=Kernel; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=file; \
+ assessment.impact.description=An $1 attempt was made against the file $4 using $3.  This attempt was blocked.; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$5; \
+ source(0).user.user_id(1).type=current-group; \
+ source(0).user.user_id(1).name=$6; \
+ source(0).process.name=$3; \
+ source(0).process.pid=$2; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$7; \
+ last;
+
+#LOG:Nov 18 11:09:24 new-selinux2 kernel: avc:  denied  { unlink } for  pid=10667 exe=/usr/local/java/j2sdk1.4.2_02/bin/java name=.index.log dev=03:02 ino=98986 scontext=user_u:user_r:user_t tcontext=user_u:object_r:unlabeled_t tclass=file
+regex=denied  { ([\w\ ]+) } for  pid=(\d+) exe=(\S+) scontext=(\S+):(\S+):\S+ tcontext=(\S+):(\S+):; \
+ classification.text=RBAC $1 failure; \
+ id=4009; \
+ revision=1; \
+ analyzer(0).name=SELinux; \
+ analyzer(0).manufacturer=NSA; \
+ analyzer(0).class=Kernel; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=file; \
+ assessment.impact.description=An $1 attempt was made against $3.  This attempt was blocked.; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$4; \
+ source(0).user.user_id(1).type=current-group; \
+ source(0).user.user_id(1).name=$5; \
+ source(0).process.name=$3; \
+ source(0).process.pid=$2; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$6; \
+ last;

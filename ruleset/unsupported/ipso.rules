@@ -1,0 +1,246 @@
+#####
+#
+# Copyright (C) 2003 Vincent Glaume
+# All Rights Reserved
+# This ruleset is currently unmaintained.  Contact the Prelude
+# development team if you would like to maintain it.
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by 
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#############################################################################
+# 
+# This ruleset aims at analyzing the system logs of a Nokia appliance, as 
+# what can be found in simple.rules doesn't really fit this system.
+#
+#############################################################################
+
+
+###
+# I. Priority: alert
+###
+
+# 1. PAM alerts: often an authentification issue; high severity to comply with simple.rules
+# No log sample; please submit
+regex= (\w+) \[LOG_ALERT\] PAM_unix\[(\d+)\]: (.*); \
+ classification.text=Firewall: PAM alert; \
+ id=900; \
+ revision=1; \
+ analyzer(0).name=IPSO; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=high; \
+ assessment.impact.type=user; \
+ assessment.impact.description=PAM: $3; \
+ target(0).node.name=$1; \
+ target(0).process.pid=$2; \
+ last
+
+# 2. Misc ALERT logs
+# No log sample; please submit
+regex=regex= (\w+) \[LOG_ALERT\]; \
+ classification.text=Firewall: Misc. ALERT logs; \
+ id=901; \
+ revision=1; \
+ analyzer(0).name=IPSO; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.type=other; \
+ assessment.impact.description=ALERT log from $1; \
+ target(0).node.name=$1; \
+ last
+
+
+
+###
+# II. Priority: crit 
+###
+
+# 1. Rebooting or halting the system: severity should depend on the machine ?
+# LOG:Jan 16 14:12:42 spcssl [LOG_CRIT] reboot: rebooted by admin
+#
+regex= (\w+) \[LOG_CRIT\] reboot: rebooted by (\w+); \
+ classification.text=Firewall: Reboot; \
+ id=902; \
+ revision=1; \
+ analyzer(0).name=IPSO; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=dos; \
+ assessment.impact.description=$1 was rebooted; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$2; \
+ last
+
+# No log sample; please submit
+#
+regex= (\w+) \[LOG_CRIT\] reboot: Attempt to reboot by (\w+); \
+ classification.text=Firewall: Reboot attempt; \
+ id=903; \
+ revision=1; \
+ analyzer(0).name=IPSO; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=dos; \
+ assessment.impact.description=$2 attempted to reboot $1; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$2; \
+ last
+
+# No log sample; please submit
+regex= (\w+) \[LOG_CRIT\] halt: halted by (\w+); \
+ classification.text=Firewall: Stopping system; \
+ id=904; \
+ revision=1; \
+ analyzer(0).name=IPSO; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=dos; \
+ assessment.impact.description=$2 halted $1; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$2; \
+ last
+
+# No log sample; please submit
+regex= (\w+) \[LOG_CRIT\] halt: System reboots approximately in (.*); \
+ classification.text=Firewall: Reboot announce; \
+ id=905; \
+ revision=1; \
+ analyzer(0).name=IPSO; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=dos; \
+ assessment.impact.description=$1 is about to reboot, in $2; \
+ last
+
+
+# 2. Installation failure
+# No log sample; please submit
+regex= (\w+) \[LOG_CRIT\] PKG_INSTALL: \**INSTALL/UPGRADE PROCESS FAILED\**; \
+ classification.text=Firewall: Install/upgrade failure; \
+ id=906; \
+ revision=1; \
+ analyzer(0).name=IPSO; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=$1 installation failure; \
+ last
+
+
+# 3. Misc CRIT logs
+# No log sample; please submit
+regex=regex= (\w+) \[LOG_CRIT\]; \
+ classification.text=Firewall: Misc. CRIT logs; \
+ id=907; \
+ revision=1; \
+ analyzer(0).name=IPSO; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.type=other; \
+ assessment.impact.description=CRIT log from $1; \
+ target(0).node.name=$1; \
+ last
+
+
+
+###
+# III. Priority: err
+###
+
+# 1. SMTP: mail rejection
+# No log sample; please submit
+regex=  (\w+) \[LOG_ERR\] sSMTP mail\[(\d+)\]: smtp server didn't accept MAIL; \
+ classification.text=Firewall: Unauthorized SMTP use; \
+ id=908; \
+ revision=1; \
+ analyzer(0).name=IPSO; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.description=A mail was refused by the SMTP server of $1; \
+ target(0).node.name=$1; \
+ target(0).process.pid=$2; \
+ target(0).process.name=mail; \
+ last
+
+
+# 2. SMTP: can't open port 25
+# No log sample; please submit
+regex= (\w+) \[LOG_ERR\] sSMTP mail\[(\d+)\]: can't open the smtp port \((\d+)\) on ([\d\.]+); \
+ classification.text=Firewall: SMTP port failure; \
+ id=909; \
+ revision=1; \
+ analyzer(0).name=IPSO; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=dos; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=SMTP port #$3 could not be opened on $1; \
+ target(0).node.name=$1; \
+ target(0).process.pid=$2; \
+ target(0).process.name=mail; \
+ last
+
+
+# 3. SMTP: can't connect service SMTP
+# no log sample; please submit
+regex= (\w+) \[LOG_ERR\] sSMTP mail\[(\d+)\]: unable to connect to "([\d\.]+)" port (\d+); \
+ classification.text=Firewall: SMTP unreachable; \
+ id=910; \
+ revision=1; \
+ analyzer(0).name=IPSO; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=dos; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=$1 could not connect to the SMTP server $3:$4; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$3; \
+ target(0).service.port=$4; \
+ last
+
+
+# 4. Misc ERR logs
+# No log sample; please submit
+regex=regex= (\w+) \[LOG_ERR\]; \
+ classification.text=Firewall: Misc. ERR logs; \
+ id=911; \
+ revision=1; \
+ analyzer(0).name=IPSO; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.type=other; \
+ assessment.impact.description=ERR log from $1; \
+ target(0).node.name=$1; \
+ last

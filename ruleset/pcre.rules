@@ -1,0 +1,126 @@
+#
+# Rule format :
+#
+# For information about the fields and their meanings, please have a look at
+#  the IDMEF Draft located at :
+#
+# http://www.ietf.org/internet-drafts/draft-ietf-idwg-idmef-xml-16.txt
+#
+# CREATING AND CONTRIBUTING RULES:
+# Rulesets that you contribute to the Prelude-LML maintainer should follow
+# these guidelines:
+# - Avoid using .+ or .* in regex entries unless actually neccessary.  Doing so
+#   will make your rule CPU-costly to implement.
+# - Avoid capturing variables which you don't use.  This causes unneccessary
+#   memory consumption.
+# - At a minimum, include regex, classification().text,
+#   assessment.impact.severity, assessment.impact.type,
+#   assessment.impact.description.
+# - If it's correct for this application, include last.
+# - Put only a single field on each line of your rules.
+# - Include a sample log entry with each rule.
+# - Gather as many pieces of data, and fill as many IDMEF fields as possible
+#   from the log entry.
+# - If a similar rule exists in another ruleset (same function, different
+#   software), use the classification().text from the other rule.
+# - Use only the actual log message, none of the syslog headers (this generally
+#   includes timestamp, originating node, originating process, and pid).
+# - Submit new rulesets to the prelude-devel mailing list for consideration.
+#
+# See the existing rulesets for examples.
+#
+# LML-specific fields:
+#
+# - regex:
+#   A perl regex instruction to the rule on the correct way to parse the log
+#   entry concerned.
+#
+# - id:
+#   A unique number identifying this rule in the Prelude-LML ruleset.  Rulesets
+#   are assigned IDs in blocks of 100, so if the first rule in a ruleset is
+#   2300, all of the rules in that ruleset will be 23xx.
+#
+# - revision:
+#   The current revision of the rule.  Higher numbers indicate more recent
+#   versions.
+#
+# - last:
+#   Indicates to LML that if this rule is triggered, stop checking for further
+#   regex matches.
+
+# Prevent LML from matching its own output and creating a logging loop in case
+# of odd syslog configurations
+
+regex=no appropriate format defined for log entry; \
+  silent; \
+  last
+
+regex=EMU;                              include = apc-emu.rules;
+regex=(anomaly|since|firstSeen);        include = arbor.rules;
+regex=arpwatch;                         include = arpwatch.rules;
+regex=chan_sip.c;                       include = asterisk.rules;
+regex=CactiTholdLog;                    include = cacti-thold.rules;
+regex=product:;                         include = checkpoint.rules;
+regex=%\S+-\d+-\S+;                     include = cisco-asa.rules; \
+                                        include = cisco-common.rules; \
+                                        include = cisco-router.rules;
+regex=(IPV4|SSHD|NETMAN)-\d+;           include = cisco-css.rules;
+regex=snmptrapd;                        include = cisco-ips.rules;
+regex=SEV=;                             include = cisco-vpn.rules;
+# Using this regex rather than simpler clamd to handle events from clamav
+# logging format
+regex=(FOUND|virus);                    include = clamav.rules;
+regex=server administrator;             include = dell-om.rules
+regex=(kernel|grsec);                   include = grsecurity.rules;
+regex=(bigconf|kernel);                 include = f5-bigip.rules;
+regex=(honeyd|icmp|tcp|udp);            include = honeyd.rules;
+regex=\[([0-9-]+) ([0-9:]+)\];          include = honeytrap.rules
+regex=\[(SSHChannel|SSHService);        include = kojoney.rules
+# Using this somewhat complex regex instead of the simpler httpd due to the
+# fact that we might be directly monitoring httpd logs instead of httpd syslog
+# entries (in which case we won't have the process name to match against)
+regex=(\[error\]|Pass|httpd);           include = httpd.rules; \
+                                        include = modsecurity.rules;
+regex=(kernel|ulogd);                   include = ipchains.rules; \
+                                        include = netfilter.rules; \
+                                        include = bonding.rules;
+regex=ipfw;                             include = ipfw.rules;
+regex=[Ww]ireless;                      include = linksys-wap11.rules;
+regex=clussvc;                          include = ms-cluster.rules;
+regex=mssql;                            include = ms-sql.rules;
+regex=nagios;                           include = nagios.rules;
+regex=norton;                           include = navce.rules;
+regex=\[[^:]*:[^\]]*\]:;                include = netapp-ontap.rules;
+regex=system-(emergency|alert)-;        include = netscreen.rules;
+regex=security\[;                       include = ntsyslog.rules;
+regex=[Pp][Aa][Mm]_;                    include = pam.rules;
+regex=[Ss][Uu]:;                        include = su.rules;
+regex=pcanywhere;                       include = pcanywhere.rules;
+regex=portsentry;                       include = portsentry.rules;
+regex=postfix;                          include = postfix.rules;
+regex=proftpd;                          include = proftpd.rules;
+regex=popper;                           include = qpopper.rules;
+regex=(ppp|pptpd);                      include = ppp.rules;
+regex=INFO\s+srcIP;                     include = rishi.rules;
+regex=avc:;                             include = selinux.rules;
+regex=sendmail;                         include = sendmail.rules;
+regex=(user|group)(mod|add);            include = shadow-utils.rules;
+regex=id=firewall;                      include = sonicwall.rules;
+regex=spamd;                            include = spamassassin.rules;
+# More complex regex to handle data coming directly from Squid log files
+regex=(Acceptin|Squid|Disabled|DENIED); include = squid.rules;
+regex=sshd;                             include = ssh.rules;
+regex=sudo;                             include = sudo.rules;
+regex=suhosin;                          include = suhosin.rules;
+regex=tripwire;                         include = tripwire.rules;
+regex=[wl]an @Group:;                   include = vigor.rules;
+regex=vpopmail;                         include = vpopmail.rules;
+regex=webmin;                           include = webmin.rules;
+regex=ftpd;                             include = wu-ftp.rules;
+regex=MSWinEventLog;			include = snare_windows.rules;
+
+# Openhostapd.rules doesn't have specific stuff we can match:
+regex=(removed node|\(rate:\s(\d+)\/(\d+)\ssec\)|sent ADD notification|attached Host AP interface);    include = openhostapd.rules;
+
+# All rules that are standalone/not part of a ruleset go into single.rules
+include = single.rules;

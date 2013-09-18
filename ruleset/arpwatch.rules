@@ -1,0 +1,124 @@
+#####
+#
+# Copyright (C) 2005 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#####
+#
+# The rules included here were developed using arpwatch-2.1a11-7.9.3.
+# Please report any inconsistencies on other versions to G Ramon Gomez at the
+# address provided above
+#
+#####
+
+#LOG:Oct 14 00:47:50 hal arpwatch: new activity 12.34.56.78 0:20:a9:a:c:2a 
+regex=new (station|activity) ([\d\.]+) ([\da-f:]+); \
+ classification.text=New ARP address detected; \
+ id=4200; \
+ revision=1; \
+ analyzer(0).name=arpwatch; \
+ analyzer(0).manufacturer=http://ee.lbl.gov; \
+ analyzer(0).class=NIDS; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=This ethernet/ip address pair ($3/$2) is either new or has not been used recently.; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ source(0).node.address(1).category=mac; \
+ source(0).node.address(1).address=$3; \
+ last;
+
+#LOG:Apr 21 23:05:00 192.168.1.35 arpwatch: flip flop 192.168.1.33 0:90:6d:f2:24:0 (8:0:20:c8:fe:15) 
+regex=(flip flop|changed ethernet address|reused old ethernet address) ([\d\.]+) ([\da-f:]+) \(([\da-f:]+)\); \
+ classification.text=Ethernet address change detected; \
+ id=4201; \
+ revision=1; \
+ analyzer(0).name=arpwatch; \
+ analyzer(0).manufacturer=http://ee.lbl.gov; \
+ analyzer(0).class=NIDS; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=The ethernet address of $2 has changed from $3 to $4.; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ source(0).node.address(1).category=mac; \
+ source(0).node.address(1).address=$3; \
+ source(0).node.address(2).category=mac; \
+ source(0).node.address(2).address=$4; \
+ last;
+
+#LOG:Apr 21 16:53:59 soledad arpwatch: ethernet broadcast 100.100.100.150 0:0:0:0:0:0
+regex=(ethernet|ip) broadcast ([\d\.]+) ([\da-f:]+); \
+ classification.text=$1 broadcast address detected; \
+ id=4202; \
+ revision=1; \
+ analyzer(0).name=arpwatch; \
+ analyzer(0).manufacturer=http://ee.lbl.gov; \
+ analyzer(0).class=NIDS; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=The $1 address of this host is a broadcast address.; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ source(0).node.address(1).category=mac; \
+ source(0).node.address(1).address=$3; \
+ last;
+
+#LOG:Nov 18 15:57:50 fw arpwatch: bogon 169.254.189.71 0:c:f1:16:87:d9
+regex=bogon ([\d\.]+) ([\da-f:]+); \
+ classification.text=Bogus IP address detected; \
+ id=4203; \
+ revision=1; \
+ analyzer(0).name=arpwatch; \
+ analyzer(0).manufacturer=http://ee.lbl.gov; \
+ analyzer(0).class=NIDS; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=$1 is not local to the local subnet.; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$1; \
+ source(0).node.address(1).category=mac; \
+ source(0).node.address(1).address=$2; \
+ last;
+
+#LOG:Feb 24 19:18:36 hal arpwatch: ethernet mismatch 195.215.178.10 0:4:c1:a7:f6:38 (0:50:4:40:c9:8f)
+regex=ethernet mismatch ([\d\.]+) ([\da-f:]+) \(([\da-f:]+)\); \
+ classification.text=MAC address mismatch detected; \
+ id=4204; \
+ revision=1; \
+ analyzer(0).name=arpwatch; \
+ analyzer(0).manufacturer=http://ee.lbl.gov; \
+ analyzer(0).class=NIDS; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=The source mac ethernet address ($2) didn't match the address inside the arp packet ($3).; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$1; \
+ source(0).node.address(1).category=mac; \
+ source(0).node.address(1).address=$2; \
+ source(0).node.address(2).category=mac; \
+ source(0).node.address(2).address=$3; \
+ last;

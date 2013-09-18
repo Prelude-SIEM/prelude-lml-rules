@@ -1,0 +1,76 @@
+#####
+#
+# Copyright (C) 2006 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#####
+#
+# The rules included here were developed using thold 0.3.0.  Please report
+# any inconsistencies on other versions to G Ramon Gomez at the address provided
+# above
+# The rules assume you haven't modified the default format for graph names
+# significantly...some modification is acceptable, but the default location for
+# hostname has been used to gather that info.
+#
+#####
+
+#LOG:Oct  2 05:26:15 smf-syslog-02 172/172 CactiTholdLog[19647]: smf-core-02 - 5 Minute CPU went above threshold of 85 with 90.8067 at trigger 1 out of 1
+regex=(\S+) - (.+) went above threshold of ([\d\.]+) with ([\d\.]+) at trigger; \
+ classification.text=Service CRITICAL; \
+ id=4500; \
+ revision=1; \
+ analyzer(0).name=Cacti thold; \
+ analyzer(0).manufacturer=www.cactiusers.org; \
+ analyzer(0).class=State Monitoring; \
+ assessment.impact.severity=medium; \
+ assessment.impact.type=dos; \
+ assessment.impact.description=Service $2 on $1 has exceeded a pre-defined threshold; \
+ target(0).node.name=$1; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Service name; \
+ additional_data(0).data=$2; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Threshold; \
+ additional_data(1).data=$3; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Current value; \
+ additional_data(2).data=$4; \
+ last
+
+#LOG:Oct  2 05:30:46 smf-syslog-02 172/172 CactiTholdLog[25849]: smf-core-02 - 5 Minute CPU restored to normal with 68.1533 at trigger 1 out of 1
+regex=(\S+) - (.+) restored to normal with ([\d\.]+) at trigger; \
+ classification.text=Service OK; \
+ id=4501; \
+ revision=1; \
+ analyzer(0).name=Cacti thold; \
+ analyzer(0).manufacturer=www.cactiusers.org; \
+ analyzer(0).class=State Monitoring; \
+ assessment.impact.severity=medium; \
+ assessment.impact.type=dos; \
+ assessment.impact.description=Service $2 on $1 has returned to normal; \
+ target(0).node.name=$1; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Service name; \
+ additional_data(0).data=$2; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Current value; \
+ additional_data(1).data=$3; \
+ last

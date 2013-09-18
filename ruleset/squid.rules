@@ -1,0 +1,206 @@
+#####
+#
+# Copyright (C) 2003 Vincent Glaume
+# All Rights Reserved
+# Currently supported by G Ramon Gomez <gene at gomezbrothers dot com>
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by 
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+# I. Starting / stopping squid, and associated services (informational, do not show a real attack)
+
+# starting 
+#LOG:2005/11/28 06:00:42| Starting Squid Cache version 2.5.STABLE1 for i386-redhat-linux-gnu...
+regex=Starting Squid Cache version ([\w\.]+) for (\S+)\.\.\.; \
+ classification.text=Proxy started; \
+ id=1801; \
+ revision=2; \
+ analyzer(0).name=Squid; \
+ analyzer(0).manufacturer=www.squid-cache.org; \
+ analyzer(0).class=Proxy; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Squid Proxy was started; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Version; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Platform; \
+ additional_data(1).data=$2; \
+ last
+
+# accepting connections or disabled servicesa
+#LOG:2005/11/28 06:00:44| Accepting HTTP connections at 0.0.0.0, port 3128, FD 12.
+regex=Accepting HTTP connections at ([\d\.]+), port (\d+), FD (\d+)\.; \
+ classification.text=Proxy accepts HTTP; \
+ id=1802; \
+ revision=2; \
+ analyzer(0).name=Squid; \
+ analyzer(0).manufacturer=www.squid-cache.org; \
+ analyzer(0).class=Proxy; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Squid listens for incoming HTTP connections on $1:$2, file descriptor #$3; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$1; \
+ target(0).service.port=$2; \
+ target(0).service.name=HTTP; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=File descriptor; \
+ additional_data(0).data=$3; \
+ last
+
+#LOG:2005/11/28 06:00:44| Accepting ICP messages at 0.0.0.0, port 3130, FD 13.
+regex=Accepting ICP messages at ([\d\.]+), port (\d+), FD (\d+)\.; \
+ classification.text=Proxy accepts ICP; \
+ id=1803; \
+ revision=2; \
+ analyzer(0).name=Squid; \
+ analyzer(0).manufacturer=www.squid-cache.org; \
+ analyzer(0).class=Proxy; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Squid listens for incoming ICP messages on $1:$2, file descriptor #$3; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$1; \
+ target(0).service.port=$2; \
+ target(0).service.name=ICP; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=File descriptor; \
+ additional_data(0).data=$3; \
+ last
+
+# No log sample; please submit
+regex=Accepting HTCP messages on port (\d+), FD (\d+)\.; \
+ classification.text=Proxy accepts HTCP; \
+ id=1804; \
+ revision=2; \
+ analyzer(0).name=Squid; \
+ analyzer(0).manufacturer=www.squid-cache.org; \
+ analyzer(0).class=Proxy; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Squid listens for incoming HTCP messages on port $1, file descriptor #$2; \
+ target(0).service.port=$1; \
+ target(0).service.name=HTCP; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=File descriptor; \
+ additional_data(0).data=$2; \
+ last
+
+# No log sample; please submit
+regex=Accepting WCCP messages on port (\d+), FD (\d+)\.; \
+ classification.text=Proxy accepts WCCP; \
+ id=1805; \
+ revision=2; \
+ analyzer(0).name=Squid; \
+ analyzer(0).manufacturer=www.squid-cache.org; \
+ analyzer(0).class=Proxy; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Squid listens for incoming WCCP messages on port $1, file descriptor #$2; \
+ target(0).service.port=$1; \
+ target(0).service.name=WCCP; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=File descriptor; \
+ additional_data(0).data=$2; \
+ last
+
+# No log sample; please submit
+regex=HTCP Disabled\.; \
+ classification.text=Proxy started without HTCP; \
+ id=1806; \
+ revision=1; \
+ analyzer(0).name=Squid; \
+ analyzer(0).manufacturer=www.squid-cache.org; \
+ analyzer(0).class=Proxy; \
+ assessment.impact.severity=info; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Squid was invoked without the HTCP service; \
+ last
+
+#LOG:2005/11/28 06:00:44| WCCP Disabled.
+regex=WCCP Disabled\.; \
+ classification.text=Proxy started without WCCP; \
+ id=1807; \
+ revision=1; \
+ analyzer(0).name=Squid; \
+ analyzer(0).manufacturer=www.squid-cache.org; \
+ analyzer(0).class=Proxy; \
+ assessment.impact.severity=info; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Squid was invoked without the WCCP service; \
+ last
+
+#LOG:2005/11/28 06:00:44| Squid Parent: child process 10216 exited due to signal 6
+regex=Squid Parent: child process (\d+) exited due to signal (\d+); \
+ classification.text=Proxy child process stopped; \
+ id=1808; \
+ revision=2; \
+ analyzer(0).name=Squid; \
+ analyzer(0).manufacturer=www.squid-cache.org; \
+ analyzer(0).class=Proxy; \
+ assessment.impact.severity=medium; \
+ assessment.impact.type=other; \
+ assessment.impact.description=A Squid child process (pid $1) exited after receiving the signal $2; \
+ target(0).process.pid=$1; \
+ last
+
+
+# II. ACL log 
+# 1. From /var/log/squid/access.log
+
+#LOG:1133224765.027     23 12.34.56.78 TCP_DENIED/403 1387 GET http://was.nld.l.google.com:81/hit? - NONE/- text/html
+regex=(\d+) ([\d\.]+) (\S+DENIED)/(\d+) (\d+) (\S+) (\S+); \
+ classification.text=Proxy ACL violation attempt; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=squid_id; \
+ classification.reference(0).name=$3; \
+ classification.reference(0).url=http://www.squid-cache.org/Doc/FAQ/FAQ-6.html#ss6.7; \
+ classification.reference(1).origin=vendor-specific; \
+ classification.reference(1).meaning=squid_status; \
+ classification.reference(1).name=$4; \
+ classification.reference(1).url=http://www.squid-cache.org/Doc/FAQ/FAQ-6.html#ss6.8; \
+ id=1809; \
+ revision=2; \
+ analyzer(0).name=Squid; \
+ analyzer(0).manufacturer=www.squid-cache.org; \
+ analyzer(0).class=Proxy; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.description=Host $2 tried to violate Squid ACL; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Elapsed time; \
+ additional_data(0).data=$1 ms; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Bytes transmitted; \
+ additional_data(1).data=$5; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=HTTP method; \
+ additional_data(2).data=$6; \
+ additional_data(3).type=string; \
+ additional_data(3).meaning=URL; \
+ additional_data(3).data=$7; \
+ last

@@ -1,0 +1,114 @@
+# Copyright (c) 2005 Reyk Floeter <reyk@vantronix.net>
+#
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+#
+# Prelude Hybrid IDS LML sensor PCRE rules for the OpenBSD hostapd(8) 
+# http://www.prelude-ids.org/
+#
+
+# LOG: ath0: (rate: 100/3 sec) 00:02:dc:ed:3d:3f > 00:05:4e:45:d3:b8, bssid 00:05:4e:45:d3:b8: authentication request, <radiotap v0, chan 1, 11g, txpower 30dBm> 
+#
+regex=([a-z0-9]+):\s\(rate:\s(\d+)\/(\d+)\ssec\)\s([a-f\d\:]+)\s\>\s([a-f\d\:]+)\,\sbssid\s([a-f\d\:]+)\:\s([^\,]+); \
+ classification.text=IEEE 802.11 $7 flooding; \
+ id=4500; \
+ revision=1; \
+ analyzer(0).name=openhostapd; \
+ analyzer(0).manufacturer=http://www.openbsd.org; \
+ analyzer(0).class=Router; \
+ assessment.impact.type=dos; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=IEEE 802.11 $7 flooding from $4 to $5 on BSSID $6; \
+ source(0).interface=$1; \
+ target(0).node.address(0).category=mac; \
+ target(0).node.address(0).address=$5; \
+ target(0).node.address(1).category=mac; \
+ target(0).node.address(1).address=$6; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Event detection rate; \
+ additional_data(0).data=$2/$3 sec; \
+ last
+
+# LOG:Nov 23 19:05:49 ath0: (rate: 100/3 sec)
+#
+regex=([a-z0-9]+):\s\(rate:\s(\d+)\/(\d+)\ssec\); \
+ classification.text=IEEE 802.11 flooding; \
+ id=4501; \
+ revision=1; \
+ analyzer(0).name=openhostapd; \
+ analyzer(0).manufacturer=http://www.openbsd.org; \
+ analyzer(0).class=Router; \
+ assessment.impact.type=dos; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=IEEE 802.11 flooding on interface $1; \
+ source(0).interface=$1; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Event detection rate; \
+ additional_data(0).data=$2/$3 sec; \
+ last
+
+# LOG: ath0: removed node 00:05:4e:45:d3:b8
+#
+regex=([a-z0-9]+):\sremoved\snode\s([a-f\d\:]+); \
+ classification.text=Removed IEEE 802.11 node; \
+ id=4502; \
+ revision=1; \
+ analyzer(0).name=openhostapd; \
+ analyzer(0).manufacturer=http://www.openbsd.org; \
+ analyzer(0).class=Router; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=Removed node $2 on interface $1; \
+ assessment.impact.completion=succeeded; \
+ source(0).interface=$1; \
+ target(0).node.address(0).category=mac; \
+ target(0).node.address(0).address=$2; \
+ last
+
+# LOG: ath0/sis0: sent ADD notification for 00:05:4e:45:d3:b8
+#
+regex=([a-z0-9]+)\/([a-z0-9]+):\ssent\sADD\snotification\sfor\s([a-f\d\:]+); \
+ classification.text=Added IEEE 802.11 node; \
+ id=4503; \
+ revision=1; \
+ analyzer(0).name=openhostapd; \
+ analyzer(0).manufacturer=http://www.openbsd.org; \
+ analyzer(0).class=Router; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=Added node $3 on interface $1; \
+ assessment.impact.completion=succeeded; \
+ source(0).interface=$1; \
+ target(0).interface=$2; \
+ target(0).node.address(0).category=mac; \
+ target(0).node.address(0).address=$3; \
+ last
+
+# LOG: ath0/sis0: attached Host AP interface with BSSID 00:05:4e:45:d3:b8
+#
+regex=([a-z0-9]+)\/([a-z0-9]+):\sattached\sHost\sAP\sinterface\swith\sBSSID\s([a-f\d\:]+); \
+ classification.text=Attached IEEE 802.11 Host AP; \
+ id=4504; \
+ revision=1; \
+ analyzer(0).name=openhostapd; \
+ analyzer(0).manufacturer=http://www.openbsd.org; \
+ analyzer(0).class=Router; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=Attached Host AP $3 on interface $1; \
+ assessment.impact.completion=succeeded; \
+ source(0).interface=$1; \
+ target(0).node.address(0).category=mac; \
+ target(0).node.address(0).address=$3; \
+ target(0).interface=$2; \
+ last

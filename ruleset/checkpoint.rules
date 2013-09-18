@@ -1,0 +1,525 @@
+#####
+#
+# Copyright (C) 2003 Exaprobe
+# All Rights Reserved
+# This ruleset is currently unmaintained.  Contact the Prelude
+# development team if you would like to maintain it.
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+###
+# I. FireWall-1, VPN-1
+###
+
+# 1. Dropped packets; several cases depending on the service format.
+# 1.a Both ports are numbers
+# No sample log entry; please submit
+
+regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: (\d+). dst: ([\d\.]+). service: (\d+). proto: (\w+). rule: (\d+); \
+ classification.text=$8 packet denied; \
+ id=100; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=FireWall $1 dropped and logged a $8 packet sent by $4:$5 to $6:$7 (rule #$9); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.port=$5; \
+ source(0).service.protocol=$8; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.port=$7; \
+ target(0).service.protocol=$8; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$9; \
+ last
+
+# 1.b Source or Target port is a service name
+# No sample log entry; please submit
+regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: (\d+). dst: ([\d\.]+). service: ([\w-]+). proto: (\w+). rule: (\d+); \
+ classification.text=$8 packet denied; \
+ id=101; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=FireWall $1 dropped and logged a $8 packet sent by $4:$5 to $6:$7 (rule #$9); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.port=$5; \
+ source(0).service.protocol=$8; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.name=$7; \
+ target(0).service.protocol=$8; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$9; \
+ last
+
+# No sample log entry; please submit
+regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: (\d+). proto: (\w+). rule: (\d+); \
+ classification.text=$8 packet denied; \
+ id=102; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=FireWall $1 dropped and logged a $8 sent by $4:$5 to $6:$7 (rule #$9); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.name=$5; \
+ source(0).service.protocol=$8; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.port=$7; \
+ target(0).service.protocol=$8; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$9; \
+ last
+
+# 1.c Both ports are service names
+# No sample log entry; please submit
+regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: ([\w-]+). proto: (\w+). rule: (\d+); \
+ classification.text=$8 packet denied; \
+ id=103; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=FireWall $1 dropped and logged a $8 packet sent by $4:$5 to $6:$7 (rule #$9); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.name=$5; \
+ source(0).service.protocol=$8; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.name=$7; \
+ target(0).service.protocol=$8; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$9; \
+ last
+
+
+# 2. Accepted packets; same as above...
+# 2.a Both ports are numbers
+# No sample log entry; please submit
+regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: (\d+). dst: ([\d\.]+). service: (\d+). proto: (\w+). rule: (\d+); \
+ classification.text=$8 packet denied; \
+ id=104; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=FireWall $1 accepted and logged a $8 packet sent by $4:$5 to $6:$7 (rule #$9); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.port=$5; \
+ source(0).service.protocol=$8; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.port=$7; \
+ target(0).service.protocol=$8; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$9; \
+ last
+
+# 2.b One port is a service name
+#LOG:14Aug2006 16:38:54 accept 12.34.56.78 >eth1c0 product: VPN-1 & FireWall-1; src: 90.12.34.56; s_port: 41307; dst: 78.90.12.34; service: domain-udp; proto: udp; rule: 8;
+regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: (\d+). dst: ([\d\.]+). service: ([\w-]+). proto: (\w+). rule: (\d+); \
+ classification.text=$8 packet denied; \
+ id=105; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=FireWall $1 accepted and logged a $8 packet sent by $4:$5 to $6:$7 (rule #$9); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.port=$5; \
+ source(0).service.protocol=$8; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.name=$7; \
+ target(0).service.protocol=$8; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$9; \
+ last
+
+# No sample log entry; please submit
+regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: (\d+). proto: (\w+). rule: (\d+); \
+ classification.text=$8 packet denied; \
+ id=106; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=FireWall $1 accepted and logged a $8 packet sent by $4:$5 to $6:$7 (rule #$9); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.name=$5; \
+ source(0).service.protocol=$8; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.port=$7; \
+ target(0).service.protocol=$8; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$9; \
+ last
+
+# 2.c Only service names
+# No sample log entry; please submit
+regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: ([\w-]+). proto: (\w+). rule: (\d+); \
+ classification.text=$8 packet accepted; \
+ id=107; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=FireWall $1 accepted and logged a $8 packet sent by $4:$5 to $6:$7 (rule #$9); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.name=$5; \
+ source(0).service.protocol=$8; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.name=$7; \
+ target(0).service.protocol=$8; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$9; \
+ last
+
+
+# 3 ICMP packets
+# 3.1 Dropped packets
+# No sample log entry; please submit
+regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). dst: ([\d\.]+). proto: icmp. icmp-type: (\d+). icmp-code: (\d+). rule: (\d+); \
+ classification.text=ICMP packet denied; \
+ id=108; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=FireWall $1 dropped and logged an icmp packet sent by $4 to $5, with type $6 and code $7 (rule #$8); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.protocol=icmp; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.protocol=icmp; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=ICMP type; \
+ additional_data(0).data=$6; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=ICMP code; \
+ additional_data(1).data=$7; \
+ additional_data(2).type=integer; \
+ additional_data(2).meaning=ACL; \
+ additional_data(2).data=$8; \
+ last
+
+# 3.2 Accepted packets
+# No sample log entry; please submit
+regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). dst: ([\d\.]+). proto: icmp. icmp-type: (\d+). icmp-code: (\d+). rule: (\d+); \
+ classification.text=ICMP packet accepted; \
+ id=109; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=FireWall $1 dropped and logged an icmp packet sent by $4 to $5, with type $6 and code $7 (rule #$8); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.protocol=icmp; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.protocol=icmp; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=ICMP type; \
+ additional_data(0).data=$6; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=ICMP code; \
+ additional_data(1).data=$7; \
+ additional_data(2).type=integer; \
+ additional_data(2).meaning=ACL; \
+ additional_data(2).data=$8; \
+ last
+
+# 4. Misc. other Packets, we won't try to be as exhaustive as above
+# No sample log entry; please submit
+regex=product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: ([\w-]+). proto: (\w+). rule: (\d+); \
+ classification.text=Packet logged; \
+ id=110; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion = failed; \
+ assessment.impact.type = other; \
+ assessment.impact.severity = low; \
+ assessment.impact.description=FireWall-1 has logged a $5 packet sent by $1:$2 to $3:$4 (rule #$6); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.protocol=$5; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$3; \
+ target(0).service.protocol=$5; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$6; \
+ last
+
+
+# 5. Generic VPN-1 / FW-1 alert
+# No sample log entry; please submit
+regex=product: VPN-1 & FireWall-1; \
+ classification.text=Generic alert; \
+ id=111; \
+ revision=1; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=VPN-1 & FireWall-1 generic alert; \
+ last
+
+
+
+###
+# II. SmartDefense
+###
+
+#LOG:14Aug2006 16:39:44        12.34.56.78 >    alert product: SmartDefense; cpmad: CPMAD; attack: Port Scanning; dst: 90.12.34.56; src: 78.90.12.34; 
+regex=product: SmartDefense\;.+attack: (.+)\; dst: ([\d\.])+\; src: ([\d\.]+); \
+ classification.text=$1; \
+ id=112; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=low; \
+ assessment.impact.type=recon; \
+ assessment.impact.description=Checkpoint SmartDefense has detected a $1 from $3 to $2; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$2; \
+ last
+
+# 3. Successive multiple connections
+# No sample log entry; please submit
+regex=product: SmartDefense. service: ([\w-]+|\d+). attack: Successive Multiple Connections. dst: ([\d\.]+). src: ([\d\.]+); \
+ classification.text=Successive multiple connections; \
+ id=114; \
+ revision=1; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=Checkpoint Smart Defense: multiple connections from $3 to $2:$1; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$2; \
+ target(0).service.name=$1; \
+ last
+
+# 4. TODO: Come up with a name
+# 4.1 Port number to port number
+# No sample log entry; please submit
+regex=product: SmartDefense\;.+attack: (.+)\; src: ([\d\.]+)\; s_port: (\d+)\; dst: ([\d\.]+)\; service: (\d+)\; proto: ([\w\-]+|\d+); \
+ classification.text=$1; \
+ id=115; \
+ revision=2; \ 
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=$1 sent by $2:$3 to $4:$5; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ source(0).service.port=$3; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$4; \
+ target(0).service.port=$5; \
+ last
+
+#4.2 port number to Service Name
+# No sample log entry; please submit
+regex=product: SmartDefense. Attack Info: (.+). attack: Bad packet. src: ([\d\.]+). s_port: (\d+). dst: ([\d\.]+). service: ([\w-]+). proto: ([\w-]+|\d+); \
+ classification.text=Bad $6 flags; \
+ id=116; \
+ revision=1; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description= $1 sent by $2:$3 to $4:$5; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ source(0).service.port=$3; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$4; \
+ target(0).service.name=$5; \
+ last
+
+#4.3 Service Name to service name
+# No sample log entry; please submit
+regex=product: SmartDefense. Attack Info: (.+). attack: Bad packet. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: ([\w-]+). proto: ([\w-]+|\d+); \
+ classification.text=Bad $6 flags; \
+ id=117; \
+ revision=1; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description= $1 sent by $2:$3 to $4:$5; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ source(0).service.name=$3; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$4; \
+ target(0).service.name=$5; \
+ last
+
+#4.4 Service Name to port number
+# No sample log entry; please submit
+regex=product: SmartDefense. Attack Info: (.+). attack: Bad packet. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: (\d+). proto: ([\w-]+|\d+); \
+ classification.text=Bad $6 flags; \
+ id=118; \
+ revision=1; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description= $1 sent by $2:$3 to $4:$5; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ source(0).service.name=$3; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$4; \
+ target(0).service.port=$5; \
+ last
+
+# 5. Large ping
+# No sample log entry; please submit
+regex=product: SmartDefense\;.+attack: (.+)\; src: ([\d\.]+)\; dst: ([\d\.]+); \
+ classification.text=$1; \
+ id=119; \
+ revision=1; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=$1 sent by $2 to $3; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ target(0).node.address(0).category = ipv4-addr; \
+ target(0).node.address(0).address=$3; \
+ last
+
+# No sample log entry; please submit
+regex=product: SmartDefense\;.+attack: (.+?)\;; \
+ classification.text=$1; \
+ id=125; \
+ revision=2; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=low; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Checkpoint SmartDefense has detected a $1; \
+ last
+
+# 9. Generic Smart Defense alert
+# No sample log entry; please submit
+regex=product: SmartDefense; \
+ classification.text=Misc logs; \
+ id=126; \
+ revision=1; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=Checkpoint Smart Defense: generic alert; \
+ last
+
+###
+# III. System Monitor
+###
+# No sample log entry; please submit
+regex=([\d+\.]+) (<|>)\s+(\w+) System Alert message: (.+). Object: (\w+). (.+). product: System Monitor; \
+ classification.text=Checkpoint System Monitor; \
+ id=127; \
+ revision=1; \
+ analyzer(0).name=FW-1; \
+ analyzer(0).manufacturer=Checkpoint; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=System alert reported a $4; \
+ last
+
+#TODO:  Audit (and probably re-write) all SmartDefense events

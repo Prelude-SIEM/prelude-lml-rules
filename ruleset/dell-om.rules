@@ -1,0 +1,152 @@
+#####
+#
+# Copyright (C) 2004 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#####
+#
+# The rules included here were developed using an unknown version of Dell 
+# Open Management Server Administrator.  Please report any inconsistencies 
+# on other versions to G Ramon Gomez at the address provided above
+#
+#####
+
+#LOG:Jun  8 18:12:44 12.34.56.78 server administrator[warning] 1306  Redundancy lost Redundancy unit: System Power Unit Chassis location: Main System Chassis Previous redundancy state was: FULL Number of devices required for full redundancy: 2
+regex=1306  Redundancy lost Redundancy unit: (.+?) Chassis location: (.+?) Previous redundancy state was: (.+?) Number of devices required for full redundancy: (\d+); \
+ classification.text=Redundancy failure; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=om_id; \
+ classification.reference(0).name=1306; \
+ classification.reference(0).url=http://support.dell.com/support/edocs/software/svradmin/1.9/en/messages/msgch20.htm; \
+ id=3800; \
+ revision=2; \
+ analyzer(0).name=OpenManage; \
+ analyzer(0).manufacturer=Dell; \
+ analyzer(0).class=State Monitoring; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Dell OpenManage has detected a loss of device redundancy in $1; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Source device; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Chassis location; \
+ additional_data(1).data=$2; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Previous state; \
+ additional_data(2).data=$3; \
+ additional_data(3).type=integer; \
+ additional_data(3).meaning=Required devices; \
+ additional_data(3).data=$4; \
+ last
+
+#LOG:Jun 24 08:56:25 neo server administrator[info] 1352  Power supply returned to normal Sensor location: Power supply 2 Chassis location: Main System Chassis Previous state was: Critical (Failed)
+regex=1352  Power supply returned to normal Sensor location: (.+?) Chassis location: (.+?) Previous state was: (.+); \
+ classification.text=Power supply normal; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=om_id; \
+ classification.reference(0).name=1352; \
+ classification.reference(0).url=http://support.dell.com/support/edocs/software/svradmin/1.9/en/messages/msgch20.htm; \
+ id=3801; \
+ revision=2; \
+ analyzer(0).name=OpenManage; \
+ analyzer(0).manufacturer=Dell; \
+ analyzer(0).class=State Monitoring; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=$1 status returned to normal; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Source device; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Chassis location; \
+ additional_data(1).data=$2; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Previous state; \
+ additional_data(2).data=$3; \
+ last
+
+#LOG:Jun  8 18:12:44 12.34.56.78 server administrator[warning] 1353  Power supply detected a warning Sensor location: Power supply 1 Chassis location: Main System Chassis Previous state was: OK (Normal) Power supply fan has failed
+regex=1353  Power supply detected a warning Sensor location: (.+?) Chassis location: (.+?) Previous state was: (\w+ \(\w+\)|Unknown) (.+); \
+ classification.text=Power supply warning; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=om_id; \
+ classification.reference(0).name=1353; \
+ classification.reference(0).url=http://support.dell.com/support/edocs/software/svradmin/1.9/en/messages/msgch20.htm; \
+ id=3802; \
+ revision=2; \
+ analyzer(0).name=OpenManage; \
+ analyzer(0).manufacturer=Dell; \
+ analyzer(0).class=State Monitoring; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=$1 is in warning state, $4; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Source device; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Chassis location; \
+ additional_data(1).data=$2; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Previous state; \
+ additional_data(2).data=$3; \
+ additional_data(3).type=string; \
+ additional_data(3).meaning=Event description; \
+ additional_data(3).data=$4; \
+ last
+
+#LOG:Jun 24 08:46:30 neo server administrator[error] 1354  Power supply detected a failure Sensor location: Power supply 2 Chassis location: Main System Chassis Previous state was: OK (Normal) Power supply input AC is off Power supply POK signal is not normal Power supply is turned off
+regex=1354  Power supply detected a failure Sensor location: (.+?) Chassis location: (.+?) Previous state was: (\w+ \(\w+\)|Unknown) (.+); \
+ classification.text=Power supply failure; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=om_id; \
+ classification.reference(0).name=1354; \
+ classification.reference(0).url=http://support.dell.com/support/edocs/software/svradmin/1.9/en/messages/msgch20.htm; \
+ id=3803; \
+ revision=2; \
+ analyzer(0).name=OpenManage; \
+ analyzer(0).manufacturer=Dell; \
+ analyzer(0).class=State Monitoring; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=$1 is in failure state, $4; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Source device; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Chassis location; \
+ additional_data(1).data=$2; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Previous state; \
+ additional_data(2).data=$3; \
+ additional_data(3).type=string; \
+ additional_data(3).meaning=Event description; \
+ additional_data(3).data=$4; \
+ last
+
+# Still needed:
+# Lots of other events according to the documentation, but the format of the
+# events here differs from those in the document (certain words capitalized,
+# etc).

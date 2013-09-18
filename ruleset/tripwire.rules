@@ -1,0 +1,102 @@
+#####
+#
+# Copyright (C) 2004 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+# Based on rules originally submitted by David Maciejak on behalf of
+# Exaprotect Technology 
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by 
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#LOG:Jan 22 11:32:26 host tripwire[5265]: Integrity Check Complete: /usr/local/tripwire/tfs/report/host-.twr TWReport host 20040122113203 V:91 S:100 A:51 R:0 C:40 L:0 M:8 H:83
+regex=(\S+) TWReport \S+ \d+ V:0; \
+ classification.text=Integrity Check OK; \
+ id=3400; \
+ revision=2; \
+ analyzer(0).name=Tripwire; \
+ analyzer(0).manufacturer=Tripwire, Inc.; \
+ analyzer(0).class=Integrity Checker; \
+ assessment.impact.severity=low; \
+ assessment.impact.type=file; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=Integrity check ran successfully without warnings; \
+ target(0).decoy=no; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Report file; \
+ additional_data(0).data=$1; \
+ last
+
+# No log sample; please submit
+regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:(?!0)(\d+); \
+ classification.text=Integrity Check Warning: file(s) added; \
+ id=3401; \
+ revision=2; \
+ analyzer(0).name=Tripwire; \
+ analyzer(0).manufacturer=Tripwire, Inc.; \
+ analyzer(0).class=Integrity Checker; \
+ assessment.impact.severity=low; \
+ assessment.impact.type=file; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=Integrity check ran successfully, warning: $2 file(s) added; \
+ target(0).decoy=no; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Report file; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Files added; \
+ additional_data(1).data=$2; 
+
+# No log sample; please submit
+regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:\d+ R:(?!0)(\d+); \
+ classification.text=Integrity Check Warning: file(s) removed; \
+ id=3402; \
+ revision=2; \
+ analyzer(0).name=Tripwire; \
+ analyzer(0).manufacturer=Tripwire, Inc.; \
+ analyzer(0).class=Integrity Checker; \
+ assessment.impact.severity=high; \
+ assessment.impact.type=file; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=Integrity check ran successfully, warning: $2 files removed; \
+ target(0).decoy=no; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Report file; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Files deleted; \
+ additional_data(1).data=$2; 
+
+# No log sample; please submit
+regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:\d+ R:\d+ C:(?!0)(\d+); \
+ classification.text=Integrity Check Warning: file(s) modified; \
+ id=3403; \
+ revision=2; \
+ analyzer(0).name=Tripwire; \
+ analyzer(0).manufacturer=Tripwire, Inc.; \
+ analyzer(0).class=Integrity Checker; \
+ assessment.impact.severity=medium; \
+ assessment.impact.type=file; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=Integrity check ran, warning: $2 files modified; \
+ target(0).decoy=no; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Report file; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Files modified; \
+ additional_data(1).data=$2; 

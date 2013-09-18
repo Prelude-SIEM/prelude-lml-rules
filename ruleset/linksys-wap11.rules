@@ -1,0 +1,56 @@
+#####
+#
+# Copyright (C) 2003 Yoann Vandoorselaere <yoann@prelude-ids.org>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by 
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+
+#LOG:Jan 21 17:22:34 192.168.0.17 Wireless PC connected   00-30-65-05-17-AD
+#LOG:Jul 17 19:46:15 smf-syslog-02.smf.ragingwire.net smf-wap-02/smf-wap-02 Wireless PC connected   00-12-F0-0D-2C-66
+regex=Wireless PC connected[\s]+([A-Fa-f\d-]+); \
+ classification.text=Wireless PC connected; \
+ id=2200; \
+ revision=3; \
+ analyzer(0).manufacturer=Linksys; \
+ analyzer(0).name=WAP11; \
+ analyzer(0).class=Router; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=Successful wireless PC connection from $1; \
+ source(0).node.address(0).category=mac; \
+ source(0).node.address(0).address=$1; \
+ last
+
+#LOG:Jan 21 17:27:46 192.168.0.17 Unauthorized wireless PC try to connected   00-30-65-05-17-AD
+#LOG:Jul 18 16:18:09 smf-syslog-02.smf.ragingwire.net smf-wap-02/smf-wap-02 Unauthorized wireless PC try to connected   00-90-4B-AD-2A-AC
+regex=Unauthorized wireless PC try to connected[\s]+([A-Fa-f\d\-]+); \
+ classification.text=Unauthorized wireless PC connection attempt; \
+ id=2201; \
+ revision=3; \
+ analyzer(0).manufacturer=Linksys; \
+ analyzer(0).name=WAP11; \
+ analyzer(0).class=Router; \
+ assessment.impact.completion=failed; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Unauthorized wireless PC connection attempt from $1; \
+ source(0).node.address(0).category=mac; \
+ source(0).node.address(0).address=$1; \
+ last
+

@@ -1,0 +1,298 @@
+#####
+#
+# Copyright (C) 2008 Daniel Kopecek <dkopecek at redhat dot com>, Peter Vrabec <pvrabec at redhat dot com>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+# The rules developed using mod_security-2.5.6 (tested with 2.1.7 and 2.5.6)
+#####
+
+# Here are some example log entries that should match against rules defined below:
+#
+# LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 400 (phase 1). Pattern match "," at REQUEST_HEADERS:Transfer-Encoding. [id "950012"] [msg "HTTP Request Smuggling Attack."] [severity "ALERT"] [uri "/"] [unique_id "CqsKfwoiIjEAAGO7d7cAAAAE"]
+# LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 400 (phase 1). Match of "rx ^(?:(?:[a-z]{3,10}\\\\s+(?:\\\\w{3,7}?://[\\\\w\\\\-\\\\./]*(?::\\\\d+))??/[^?#]*(?:\\\\?[^#\\\\s]*)?(?:#[\\\\S]*)?|connect (?:\\\\d{1,3}\\\\.){3}\\\\d{1,3}\\\\.?(?::\\\\d+)?|options \\\\*)\\\\s+[\\\\w\\\\./]+|get /[^?#]*(?:\\\\?[^#\\\\s]*)?(?:#[\\\\S]*)?)$" against "REQUEST_LINE" required. [id "960911"] [msg "Invalid HTTP Request Line"] [severity "CRITICAL"] [uri "Jul"] [unique_id "A30u2woiIjEAAGO7d7YAAAAE"]
+# LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with connection close (phase 2). Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/\\xc4\\x9b+\\xc5\\xa1\\xc4\\x8d\\xc5\\xa1\\xc5\\x99\\xc5\\x99\\xc4\\x8d\\xc3\\xbd\\xc3\\xbd\\xc3\\xa1"] [unique_id "4B63aQoiIjEAAGO5dL8AAAAC"]
+# LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied using proxy to (phase 2) http://foo.bar/. Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/2\\xc5\\xa1\\xc4\\x9b\\xc4\\x8d\\xc4\\x9b\\xc5\\xa1\\xc5\\x99\\xc5\\xa1\\xc4\\x8d\\xc5\\x99\\xc5\\xa1\\xc4\\x8d\\xc5\\xbe"] [unique_id "YVFqFwoiIjEAAAiuLsMAAAAA"]
+# LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with redirection to http://foo.bar/ using status 302 (phase 2). Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/\\xc5\\xa1\\xc4\\x9b\\xc4\\x9b\\xc5\\xa1\\xc5\\x99\\xc5\\xbe\\xc4\\x8d\\xc5\\x99\\xc5\\xbe"] [unique_id "aTOstwoiIjEAAAlUMRsAAAAA"]
+# LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Warning. Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/\\xc4\\x9b+\\xc5\\xa1\\xc4\\x8d\\xc5\\xa1\\xc5\\x99\\xc5\\x99\\xc4\\x8d\\xc3\\xbd\\xc3\\xbd\\xc3\\xa1"] [unique_id "pNLe4woiIjEAAF4fLq0AAAAH"]
+# LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Warning. Match of "rx ^OPTIONS$" against "REQUEST_METHOD" required. [id "960015"] [msg "Request Missing an Accept Header"] [severity "CRITICAL"] [uri "/\\xc4\\x9b+\\xc5\\xa1\\xc4\\x8d\\xc5\\xa1\\xc5\\x99\\xc5\\x99\\xc4\\x8d\\xc3\\xbd\\xc3\\xbd\\xc3\\xa1"] [unique_id "S2NY@woiIjEAAF4eLX8AAAAG"]
+
+########################
+
+# Protocol violation
+regex=\[id "(960911|950012|960912|960016|960011|960012|960013|950107|950801|950116|960014|960018|960901)"\]; \
+ id=3167; \
+ classification.text=HTTP Protocol violation; \
+ assessment.impact.severity=medium; \
+ additional_data(>>).type=integer; \
+ additional_data(-1).meaning=ModSec Rule ID; \
+ additional_data(-1).data=$1; \
+ classification.reference(0).name=$1; \
+ chained; silent;
+
+# Protocol anomaly
+regex=\[id "(960019|960008|960015|960009|960904|960913)"\]; \
+ id=3168; \
+ classification.text=HTTP Protocol anomaly; \
+ assessment.impact.severity=low; \
+ additional_data(>>).type=integer; \
+ additional_data(-1).meaning=ModSec Rule ID; \
+ additional_data(-1).data=$1; \
+ classification.reference(0).name=$1; \
+ chained; silent;
+
+# Request limits
+regex=\[id "(960335)"\]; \
+ id=3169; \
+ classification.text=HTTP Request limit exceeded; \
+ assessment.impact.severity=high; \
+ additional_data(>>).type=integer; \
+ additional_data(-1).meaning=ModSec Rule ID; \
+ additional_data(-1).data=$1; \
+ classification.reference(0).name=$1; \
+ chained; silent;
+
+# HTTP policy
+regex=\[id "(960032|960010|960034|960035|960038|960902|960903)"\]; \
+ id=3170; \
+ classification.text=HTTP policy violation; \
+ assessment.impact.severity=high; \
+ additional_data(>>).type=integer; \
+ additional_data(-1).meaning=ModSec Rule ID; \
+ additional_data(-1).data=$1; \
+ classification.reference(0).name=$1; \
+ chained; silent;
+
+# Bad robots
+regex=\[id "(990002|990901|990902|990012|990011)"\]; \
+ id=3171; \
+ classification.text=Bad HTTP robot; \
+ assessment.impact.severity=info; \
+ additional_data(>>).type=integer; \
+ additional_data(-1).meaning=ModSec Rule ID; \
+ additional_data(-1).data=$1; \
+ classification.reference(0).name=$1; \
+ chained; silent;
+
+# Generic attacks
+regex=\[id "(959009|950007|959007|950904|959904|950001|959001|950901|959901|950906|959906|950908|959908|950004|959004|959005|950002|950006|959006|950907|959907|950008|959008|950010|959010|950011|959011|950013|959013|950018|959018|950019|959019|950910|950911)"\]; \
+ id=3172; \
+ classification.text=Generic HTTP attack; \
+ assessment.impact.severity=high; \
+ additional_data(>>).type=integer; \
+ additional_data(-1).meaning=ModSec Rule ID; \
+ additional_data(-1).data=$1; \
+ classification.reference(0).name=$1; \
+ chained; silent;
+
+regex=\[id "(950921|950922)"\]; \
+ id=3173; \
+ classification.text=HTTP trojan; \
+ assessment.impact.severity=high; \
+ additional_data(>>).type=integer; \
+ additional_data(-1).meaning=ModSec Rule ID; \
+ additional_data(-1).data=$1; \
+ classification.reference(0).name=$1; \
+ chained; silent;
+
+# Outbound
+regex=\[id "(970003|970004|970904|970007|970008|970009|970010|970012|970013|970014|970903|970015|970902|970016|970018|970901|970118|970021|970011)"\]; \
+ id=3174; \
+ classification.text=HTTP outbound policy violation; \
+ assessment.impact.severity=high; \
+ additional_data(>>).type=integer; \
+ additional_data(-1).meaning=ModSec Rule ID; \
+ additional_data(-1).data=$1; \
+ classification.reference(0).name=$1; \
+ chained; silent;
+
+regex=Pattern match ".+" at \S+:(.*?/?([^/]+?))\.; \
+ id=3177; \
+ assessment.impact.type=file; \
+ target(0).file(0).name=$2; \
+ target(0).file(0).path=$1; \
+ chained; silent;
+
+regex=\[id "950005"\]; optgoto=3177; min-optgoto-match=1; \
+ id=3175; \
+ classification.text=Generic HTTP attack; \
+ assessment.impact.severity=high; \
+ additional_data(>>).type=integer; \
+ additional_data(-1).meaning=ModSec Rule ID; \
+ additional_data(-1).data=950005; \
+ classification.reference(0).name=950005; \
+ chained; silent;
+
+regex=\[id "960017"\]; \
+ id=3176; \
+ classification.text=HTTP Protocol anomaly; \
+ assessment.impact.severity=low; \
+ additional_data(>>).type=integer; \
+ additional_data(-1).meaning=ModSec Rule ID; \
+ additional_data(-1).data=960017; \
+ classification.reference(0).name=960017; \
+ assessment.impact.type=recon; \
+ chained; silent;
+
+#########################
+
+# 3160-3166
+regex=\[file "([^"]+)"\]; \
+ id=3160; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=ModSec Ruleset File; \
+ additional_data(-1).data=$1; \
+ chained; silent;
+
+regex=\[line "(\d+)"\]; \
+ id=3161; \
+ additional_data(>>).type=integer; \
+ additional_data(-1).meaning=ModSec Ruleset Line; \
+ additional_data(-1).data=$1; \
+ chained; silent;
+
+regex=\[tag "(\S+)"\]; \
+ id=3162; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=ModSec Rule Tag; \
+ additional_data(-1).data=$1; \
+ chained; silent;
+
+regex=\[severity "(\S+)"\]; \
+ id=3163; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=ModSec Severity; \
+ additional_data(-1).data=$1; \
+ chained; silent;
+
+regex=\[msg "([^"]+)"\]; optgoto=3167-3176; min-optgoto-match=1; \
+ id=3164; \
+ classification.reference(0).meaning=$1; \
+ classification.reference(0).origin=vendor-specific; \
+ chained; silent;
+
+regex=\[hostname "(\S+)"\]; \
+ id=3165; \
+ target(0).node.address(0).address=$1; \
+ chained; silent;
+
+regex=\[unique_id "(\S+)"\]; \
+ id=3166; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=Unique ID; \
+ additional_data(-1).data=$1; \
+ chained; silent;
+
+# 3120-3125
+regex=Match of "(.+)" against "(\S+)" required\.; optgoto=3160-3166; \
+ id=3120; \
+ assessment.impact.description=ModSecurity found pattern match "$1" in HTTP object $2.; \
+ chained; silent;
+
+regex=Operator ([A-Z]{2}) match: (\d+)\.; optgoto=3160-3166; \
+ id=3121; \
+ assessment.impact.description=ModSecurity found operator "$1" match "$2".; \
+ chained; silent;
+
+regex=Pattern match "(.+)" at (.+?)\.; optgoto=3160-3166; \
+ id=3122; \
+ assessment.impact.description=ModSecurity found pattern match "$1" in HTTP object $2.; \
+ chained; silent;
+
+regex=Operator ([A-Z]{2}) matched (\d+) at (\S+)\.; optgoto=3160-3166; \
+ id=3123; \
+ assessment.impact.description=ModSecurity found operator "$1" match "$2".; \
+ chained; silent;
+
+regex=Found (\d+) byte\(s\) in (\S+) outside range: (\S+)\.; optgoto=3160-3166; \
+ id=3124; \
+ assessment.impact.description=ModSecurity found $1 byte(s) in "$2" outside range $3.; \
+ chained; silent;
+
+regex=Found (\d+) byte\(s\) outside range: (\S+)\.; optgoto=3160-3166; \
+ id=3125; \
+ assessment.impact.description=ModSecurity found $1 byte(s) outside range $3.; \
+ chained; silent;
+
+# 3130-3133; Access denied + ...
+regex=with code (\d+) \(phase \d\)\.; optgoto=3120-3125; \
+ id=3130; \
+ assessment.action(0).category = block-installed; \
+ assessment.action(0).description = Access was blocked with HTTP response code $1.; \
+ chained; silent;
+
+regex=using proxy to \(phase (\d+)\) (\S+)\.; optgoto=3120-3125; \
+ id=3131; \
+ assessment.action(0).category = block-installed; \
+ assessment.action(0).description = Access was denied using proxy to $2.; \
+ chained; silent;
+
+regex=with redirection to (\S+) using status (\d+) \(phase (\d+)\)\.; optgoto=3120-3125; \
+ id=3132; \
+ assessment.action(0).category = block-installed; \
+ assessment.action(0).description = Access was redirected to $1.; \
+ chained; silent;
+
+regex=with connection close \(phase (\d+)\).; optgoto=3120-3125; \
+ id=3133; \
+ assessment.action(0).category = block-installed; \
+ assessment.action(0).description = Connection was closed.; \
+ chained; silent;
+
+# Output filter
+regex=Response body too large \(over limit of (\d+)(.+?)\)\.; optgoto=3160-3166; \
+ id=3150; \
+ assessment.impact.description=Response body too large (over limit of $1$2); \
+ chained; silent;
+
+# 3100-3102
+regex=Warning\.; optgoto=3120-3125; \
+ id=3101; \
+ classification.text=HTTP Warning.; \
+ assessment.impact.completion=succeeded; \
+ chained; silent;
+
+regex=Access denied; optgoto=3130-3133; \
+ id=3102; \
+ classification.text=HTTP Access denied.; \
+ assessment.impact.completion=failed; \
+ chained; silent;
+
+regex=Output filter:; optgoto=3150; \
+ id=3103; \
+ classification.text=HTTP Output filer error; \
+ assessment.impact.completion=failed; \
+ assessment.impact.severity=high; \
+ chained; silent;
+
+regex=\[client ([\d\.]+)\] ModSecurity:.*\[uri "([^"]+)"\]; optgoto=3101-3103; \
+ id=3100; \
+ analyzer(0).name=ModSecurity; \
+ analyzer(0).manufacturer=www.modsecurity.org; \
+ analyzer(0).class=HIDS; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$1; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ target(0).service.name=http; \
+ target(0).service.web_service.url = $2; \
+ classification.reference(0).url=http://www.modsecurity.org/projects/rules/index.html; \
+ last

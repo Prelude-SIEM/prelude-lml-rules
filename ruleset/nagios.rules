@@ -1,0 +1,67 @@
+#####
+#
+# Copyright (C) 2003 G Ramon Gomez <gene at gomezbrothers dot com>
+# Tyco Fire and Security GTS (www.tycofireandsecurity.com)
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#####
+#
+# The rules included here were developed using Nagios 1.0.  Please report
+# any inconsistencies on other versions to G Ramon Gomez at the address provided
+# above
+#
+#####
+
+#LOG:Oct 27 23:22:53 shadowcat nagios: SERVICE ALERT: adtcadb;SQL Server;CRITICAL;HARD;3;Socket timeout after 10 seconds
+#LOG:Aug 25 15:00:47 hosho nagios: SERVICE ALERT: mickjagger;NETBIOS;CRITICAL;HARD;1;Socket timeout after 10 seconds
+#LOG: Oct 27 23:22:53 host nagios: SERVICE ALERT: app2.test.domain.com;TCPPORT_8009_ajp13;CRITICAL;HARD;5;Connection refused
+#LOG: Oct 27 23:22:53 host nagios: SERVICE ALERT: app4.test.domain.com;SNMP_sun_mem;OK;HARD;5;61.05% free RAM, 62.29% free SWAP
+
+regex=SERVICE ALERT: ([^\;]+)\;([^\;]+)\;(CRITICAL|WARNING|OK)\;HARD\;\d\;(.+); \
+ classification.text=Service $3; \
+ id=1100; \
+ revision=3; \
+ analyzer(0).name=Nagios; \
+ analyzer(0).manufacturer=www.nagios.org; \
+ analyzer(0).class=State Monitoring; \
+ assessment.impact.severity=medium; \
+ assessment.impact.type=dos; \
+ assessment.impact.description=Service $2 on $1 reported status $3 with $4; \
+ target(0).node.name=$1; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Service name; \
+ additional_data(0).data=$2; \
+ last
+
+#LOG:Oct 28 11:42:33 shadowcat nagios: HOST ALERT: rcts2;UP;HARD;2;PING OK - Packet loss = 0%, RTA = 0.26 ms
+#LOG:Aug 25 06:31:57 hosho nagios: HOST ALERT: starazolta;DOWN;HARD;3;CRITICAL - Plugin timed out after 10 seconds
+regex=HOST ALERT: ([^\;]+)\;(DOWN|UP)\;HARD\;\d\;(.+); \
+ classification.text=Host $2; \
+ id=1101; \
+ revision=2; \
+ analyzer(0).name=Nagios; \
+ analyzer(0).manufacturer=www.nagios.org; \
+ analyzer(0).class=State Monitoring; \
+ assessment.impact.severity=medium; \
+ assessment.impact.type=dos; \
+ assessment.impact.description=Host $1 reported status $2 with $3; \
+ target(0).node.name=$1; \
+ last

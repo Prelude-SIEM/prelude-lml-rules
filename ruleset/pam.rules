@@ -1,0 +1,110 @@
+#####
+#
+# Copyright (C) 2004 Yoann Vandoorselaere <yoann@prelude-ids.org>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+# The two first rules ignore cron jobs (allowing admin to log them, but without receiving
+# alerts), without having to reconfigure or change the syslog engine.
+#
+# other lines will still be logged by pam.rules:
+# Dec 14 09:31:58 piche sshd[8778]: pam_unix(ssh:session): session opened for user pollux by (uid=0)
+
+# old pam format (< 0.99):
+
+# ignore opened or closed sessions
+#Apr 20 11:55:01 piche CRON[23295]: (pam_unix) session opened for user root by (uid=0)
+#Apr 20 11:55:01 piche CRON[23293]: (pam_unix) session closed for user root
+#LOG:Dec 14 09:31:58 piche sshd[8778]: pam_unix(ssh:session): session opened for user pollux by (uid=0)
+regex=CRON\[\d+\]: \(pam_unix\) session (opened|closed) for user; \
+ silent; \
+ last;
+
+# new pam format:
+# ignore opened or closed sessions (for all pam modules)
+#Dec 14 09:09:01 piche CRON[5898]: pam_unix(cron:session): session opened for user root by (uid=0)
+#Dec 14 09:09:01 piche CRON[5898]: pam_unix(cron:session): session closed for user root
+#LOG:Dec 14 09:31:58 piche sshd[8778]: pam_unix(ssh:session): session opened for user pollux by (uid=0)
+regex=CRON\[\d+\]: \S+\(cron:\S+\): session (opened|closed) for user; \
+ silent; \
+ last;
+
+regex=for user root by; id=4; \
+assessment.impact.type=admin; \
+chained; silent;
+
+
+#LOG:Aug 14 17:32:19 blah su(pam_unix)[17944]: session opened for user root by (uid=123)
+#LOG:Dec  9 18:47:10 devel5 sshd(pam_unix)[13189]: session opened for user yyyy by xxxx(uid=0)
+regex=session opened for user (\S+) by (\S*)\(uid=(\d*)\); optgoto=4; \
+ classification.text=Credentials Change; \
+ id=1; \
+ revision=2; \
+ analyzer(0).name=PAM; \
+ analyzer(0).class=Authentication; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=User $2 authenticated to $1 successfuly; \
+ source(0).user.category=os-device; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$2;  \
+ source(0).user.user_id(0).number=$3; \
+ target(0).user.category=os-device; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$1; \
+ last
+
+# LOG:Dec 21 21:18:46 share2 sshd(pam_unix)[15525]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=a.b.c.d  user=root
+#
+regex=authentication failure\; logname=([^ ]*)[ ]*uid=([^ ]*)[ ]*euid=.* tty=([^ ]*)[ ]*ruser=([^ ]*)[ ]*rhost=([^ ]*)[ ]*user=([^ ]*); \
+ classification.text=Credentials Change; optgoto=4; \
+ id=2; \
+ revision=2; \
+ analyzer(0).name=PAM; \
+ analyzer(0).class=Authentication; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=User $4 tried to authenticate as $6 and failed; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$5; \
+ source(0).user.category=os-device; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$4;           \
+ source(0).user.user_id(0).tty=$3; \
+ source(0).user.user_id(0).number=$2; \
+ target(0).user.category=os-device; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$6; \
+ last
+
+# No log sample; please submit
+regex=no such user; \
+ classification.text=Invalid User; \
+ id=3; \
+ revision=1; \
+ analyzer(0).name=PAM; \
+ analyzer(0).class=Credentials Change; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Someone tried to log in using a non-existant user; \
+ last

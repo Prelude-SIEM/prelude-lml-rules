@@ -1,0 +1,111 @@
+#####
+#
+# Copyright (C) 2004 Exaprotect Technology
+# All Rights Reserved
+# Currently supported by John R Shannon <john at johnrshannon dot com>
+#
+# Author: David Maciejak
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by 
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+
+#############################################################################
+# 
+# This ruleset aims for analyzing postfix log
+#
+# You need to listen for /var/log/maillog
+#
+# Tested with postfix-2.0.11 
+#
+#############################################################################
+
+#LOG:May  3 17:41:05 exademo postfix/smtpd[6161]: 7F70283BF6: reject: RCPT from unknown[212.180.111.248]: 554 <dmaciejak@exaprobe.com>: Relay access denied; from=<DIEU> to=<dmaciejak@exaprobe.com> proto=SMTP helo=<koma>
+
+regex=reject: RCPT from [\w\-\.]+\[([\d\.]+)\]: .* Relay access denied. from=<(\S+)> to=<(\S+)> proto=SMTP; \
+ classification.text=Mail server: Relay access denied; \
+ id=3500; \
+ revision=1; \
+ analyzer(0).name=Postfix; \
+ analyzer(0).manufacturer=www.postfix.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=$2 from $1 attempted to use mail server as relay; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$1; \
+ source(0).node.address(1).category=e-mail; \
+ source(0).node.address(1).address=$2; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ target(0).service.port=25; \
+ target(0).service.name=smtp; \
+ target(0).node.address(0).category=e-mail; \
+ target(0).node.address(0).address=$3; \
+ last;
+
+#LOG:May  3 12:22:14 exademo postfix/postfix-script: starting the Postfix mail system
+regex=starting the Postfix mail system; \
+ classification.text=Mail server startup; \
+ id=3501; \
+ revision=1; \
+ analyzer(0).name=Postfix; \
+ analyzer(0).manufacturer=www.postfix.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=Mail server started; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=info; \
+ last;
+
+#LOG:May  4 11:43:10 exademo postfix/postfix-script: stopping the Postfix mail system
+regex=stopping the Postfix mail system; \
+ classification.text=Mail server shutdown; \
+ id=3502; \
+ revision=1; \
+ analyzer(0).name=Postfix; \
+ analyzer(0).manufacturer=www.postfix.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=Mail server stopped; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ last;
+
+#LOG:May  4 09:26:15 exademo postfix/smtpd[8472]: lost connection after CONNECT from localhost[127.0.0.1]
+regex=lost connection after (\S+) from [\w\-\.]+\[([\d\.]+)\]; \
+ classification.text=Mail server suspicious access; \
+ id=3503; \
+ revision=1; \
+ analyzer(0).name=Postfix; \
+ analyzer(0).manufacturer=www.postfix.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.completion=failed; \
+ assessment.impact.description=Lost connection from $2 after $1 action; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ target(0).service.port=25; \
+ target(0).service.name=smtp; \
+ last;

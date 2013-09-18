@@ -1,0 +1,280 @@
+#####
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#
+# All of these rules are single, standalone rules that don't match up
+# with any particular ruleset.  Comment out as needed.
+#
+
+# Copyright (C) 2004 Yoann Vandoorselaere <yoann@prelude-ids.org>
+# All Rights Reserved
+
+#LOG:Mar 28 12:30:01 gtsdmzuxids1 kernel: device eth1 entered promiscuous mode
+regex=device (\S+) entered promiscuous mode; \
+ classification.text=Promiscuous mode detected; \
+ id=400; \
+ revision=1; \
+ analyzer(0).name=kernel; \
+ analyzer(0).class=Kernel; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=A sniffer is probably running on this machine; \
+ target(0).interface=$1; \
+ last
+
+
+# Copyright (C) 2002 Brad Spengler <spender@grsecurity.net>
+# All Rights Reserved
+
+# LOG:Sep  6 18:21:18 amoeba PAX: terminating task: /usr/X11R6/bin/glxinfo(glxinfo):7661, uid/euid: 9999/9999, PC: 25755afc, SP: 5bc95e2c
+
+# LOG:Apr  9 20:56:41 emma kernel: PAX: From 1.2.3.4: execution attempt in: /usr/lib/paxtest/shlibtest.so, 25891000-25892000 00001000
+# LOG:Oct 13 20:56:41 emma kernel: PAX: terminating task: /usr/bin/localedef(localedef):5208, uid/euid: 0/0, EIP: BFF4C330, ESP: BFF4C21C
+
+regex=From (\S+): execution attempt in:; \
+ add_context=PAX_OVERFLOW_SOURCE; \
+ source(0).node.address(>>).address = $1; \
+ silent; last;
+
+regex=terminating task: ([^(]+)\(([^)]+)\):(\d+), uid/euid: (\d+)/(\d+); \
+ optional_context=PAX_OVERFLOW_SOURCE; \
+ destroy_context=PAX_OVERFLOW_SOURCE; \
+ classification.text=Possible buffer overflow; \
+ id=402; \
+ revision=2; \
+ analyzer(0).name=PAX; \
+ analyzer(0).manufacturer=www.grsecurity.net; \
+ analyzer(0).class=Memory Violation; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=file; \
+ assessment.impact.severity=high; \
+ source(0).process.path = $1; \
+ source(0).process.name=$2; \
+ source(0).process.pid=$3; \
+ source(0).user.category=application; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).number=$4; \
+ source(0).user.user_id(1).type=original-user; \
+ source(0).user.user_id(1).number=$5; \
+ assessment.impact.description=A possible buffer overflow occured in $1.  You should consider this an attack against your system.; \
+ last
+
+# Copyright (C) 2004-2005 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+
+#LOG:Apr 13 11:31:55 12.34.56.78 oracle.pr[info] 34  Audit trail: ACTION : 'connect internal' OSPRIV : DBA CLIENT USER: linc CLIENT TERMINAL: DB3  STATUS: SUCCEEDED ( 0 )  .
+regex=Audit trail: ACTION : ('.+') OSPRIV : DBA CLIENT USER: (\S+) CLIENT TERMINAL: (\S+); \
+ classification.text=Command audit; \
+ id=403; \
+ revision=2; \
+ analyzer(0).name=Database; \
+ analyzer(0).manufacturer=Oracle; \
+ analyzer(0).class=Database; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=admin; \
+ assessment.impact.description=The command $1 was executed; \
+ source(0).user.category=application; \
+ source(0).user.user_id(0).type=original-user; \
+ source(0).user.user_id(0).name=$2; \
+ source(0).node.name=$3; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Command; \
+ additional_data(0).data=$1; \
+ last
+
+#LOG:Apr 28 08:56:46 somehost xinetd[17300]: START: tftp pid=10590 from=12.34.56.78
+regex=START: tftp pid=(\d+) from=([\d\.]+); \
+ classification.text=TFTP Session; \
+ id=404; \
+ revision=1; \
+ analyzer(0).name=xinetd; \
+ analyzer(0).class=Service; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.description=A TFTP session was initiated; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ source(0).service.iana_protocol_name=udp; \
+ source(0).service.iana_protocol_number=17; \
+ target(0).service.port=69; \
+ target(0).service.name=tftp; \
+ target(0).service.iana_protocol_name=udp; \
+ target(0).service.iana_protocol_number=17; \
+ target(0).process.pid=$1; \
+ last
+
+#LOG:Jun 14 05:38:52 oahu p3scan[5973]: '/var/spool/p3scan/children/5973/p3scan.Pu3u8g' contains a virus (Infection: W32/Zafi.B@mm)!
+#LOG:Jul 13 19:44:44 localhost p3scan[529]: '/var/spool/p3scan/children/529/p3scan.ASA1Cl' contains a virus (Worm.Mytob.GH)!
+regex='(\S+)' contains a virus \((Infection: )?(\S+)\); \
+ classification.text=Virus found: $2; \
+ id=405; \
+ revision=2; \
+ analyzer(0).name=P3Scan; \
+ analyzer(0).manufacturer=p3scan.sourceforge.net; \
+ analyzer(0).class=Antivirus; \
+ assessment.impact.severity=high; \
+ assessment.impact.type=file; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=A virus has been identified by P3Scan; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=File; \
+ additional_data(0).data=$1; \
+ last
+
+#LOG:Jun 22 12:58:25 mail syslog: syslogd shutdown succeeded
+#LOG:Jun 22 12:58:55 mail syslog: syslogd startup succeeded
+regex=syslogd (startup|shutdown) succeeded; \
+ classification.text=Syslog $1; \
+ id=406; \
+ revision=1; \
+ analyzer(0).name=syslog; \
+ analyzer(0).class=Logging; \
+ assessment.impact.severity=low; \
+ assessment.impact.type=dos; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=The syslogd service reported a $1; \
+ last
+
+#LOG:Apr 11 19:59:02 penguin dlink-syslog[28178]: Apr/11/2005 14:26:01 Drop TCP packet from WAN 80.231.184.68:3685  12.34.56.78:17300 Rule: Default deny
+#LOG:Apr 11 19:59:02 penguin dlink-syslog[28178]: Apr/11/2005 15:08:57 Drop UDP packet from WAN 218.83.153.58:54234  12.34.56.78:1026 Rule: Default deny
+regex=Drop (TCP|UDP) packet from ([LW]AN) ([\d\.]+):(\d+)  ([\d\.]+):(\d+) Rule: (.+); \
+ classification.text=Packet denied; \
+ id=407; \
+ revision=2; \
+ analyzer(0).name=Wireless Router; \
+ analyzer(0).manufacturer=D-Link; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=A packet was dropped by D-Link rule "$7".; \
+ source(0).interface=$2; \
+ source(0).service.iana_protocol_name=$1; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ target(0).service.iana_protocol_name=$1; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$7; \
+ last
+
+#LOG:Apr 17 17:44:59 mail identd[27274]: reply to 82.96.64.2: 3937, 6667 : USERID : OTHER :[75PrAJ2FwE4EG1wv3UoKG55njQibNgOU]
+regex=reply to ([\d\.]+): (\d+), (\d+) : USERID : \S+ :(.+); \
+ classification.text=Ident response issued; \
+ id=408; \
+ revision=2; \
+ analyzer(0).name=identd; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=identd issued a response to $1.; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$4; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$1; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=Ident session source port; \
+ additional_data(0).data=$2; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Ident session destination port; \
+ additional_data(1).data=$3; \
+ last;
+
+#LOG:Apr 17 05:43:08 src@sphere systrace: deny user: neonman, prog: /usr/bin/groups, pid: 27090(7)[6914], policy: /usr/bin/groups, filters: 0, syscall: native-sigaction(46), args: 12
+#LOG:Apr 17 05:43:08 src@sphere systrace: deny user: neonman, prog: /usr/bin/groups, pid: 27090(7)[6914], policy: /usr/bin/groups, filters: 0, syscall: native-kill(37), pidname: <unknown>, signame: SIGABRT
+regex=deny user: (\S+), prog: (\D+), pid: \d+\(\d+\)\[(\d+)\], policy: (\S+) filters: (\d+), syscall: (\S+),; \
+ classification.text=$4 attempt denied; \
+ id=409; \
+ revision=2; \
+ analyzer(0).name=systrace; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.description=systrace blocked a $6 attempt against $2.; \
+ source(0).user.user_id(0).type=current-user; \
+ source(0).user.user_id(0).name=$1; \
+ target(0).process.pid=$3; \
+ target(0).process.name=$2; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$4; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Filters; \
+ additional_data(1).data=$5; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=System call; \
+ additional_data(2).data=$6; \
+ last;
+
+# Copyright (C) 2005 M LeBlanc <mleblanc at cpan dot org>
+# All Rights Reserved
+
+#LOG:May 10 15:24:21 mighty pure-ftpd: (?@127.0.0.1) [WARNING] Authentication failed for user [asdfasdf]
+regex=([\d\.]+)\) \[WARNING\] Authentication failed for user \[(.+)\]; \
+ classification.text=FTP login; \
+ id=410; \
+ revision=2; \
+ analyzer(0).name=PureFTPD; \
+ analyzer(0).manufacturer=www.pureftpd.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Someone tried to login to your FTP server as a non-existant user '$2' but failed; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).service.port=21; \
+ target(0).service.name=ftp; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$2; \
+ last;
+
+# Copyright (C) 2006 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+
+#LOG:Oct 19 16:44:12 localhost yum: Installed: mysql-server.i386 4.1.20-1.RHEL4.1
+#LOG:Oct 20 09:03:55 localhost yum: Updated: tzdata.noarch 2006m-2.el4
+regex=(Installed|Updated): (\S+) (\S+); \
+ classification.text=Package $1; \
+ id=411; \
+ revision=1; \
+ analyzer(0).name=yum; \
+ analyzer(0).manufacturer=http://linux.duke.edu/projects/yum/; \
+ analyzer(0).class=Patch Management; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=file; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=The package $2 was $1 to version $3.; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Package; \
+ additional_data(0).data=$2; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Package version; \
+ additional_data(1).data=$3; \
+ last;

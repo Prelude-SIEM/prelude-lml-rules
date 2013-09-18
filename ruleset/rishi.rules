@@ -1,0 +1,100 @@
+#####
+#
+# Copyright (C) 2007 Bjoern Weiland <bjoern-dot-weiland-at-web-dot-de>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+## Ruleset for the Rishi Project, Identifying Bot Contaminated Hosts
+## by IRC Nickname Evaluation
+
+#IRC Connections with fairly high value (>= 5 and <= 10)
+#LOG:2007-05-20 12:49:57,644 INFO srcIP: 129.13.x.y      srcPort: 1312   dstIP: 80.64.x.y    dstPort: 6666     Nick: myFunnyNick        Value: 5
+ regex=INFO srcIP: (\S+)\s+srcPort: (\d+)\s+dstIP: (\S+)\s+dstPort: (\d+)\s+Nick: (\S+)\s+Value: (?!0|1|2|3|4)(\d)$; \
+ classification.text=Possible IRC bot connection; \
+ id=30000; \
+ revision=1; \
+ analyzer(0).name=Rishi; \
+ analyzer(0).manufacturer=http://zero.ram.rwth-aachen.de/rishi/; \
+ analyzer(0).class=NIDS; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.port=$2; \
+ target(0).node.address(0).address=$3; \
+ target(0).service.port=$4; \
+ target(0).user.category=application; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$5; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=A yet unknown bot might have initiated a connection to a C&C Server, investigation required; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=Calculated Value; \
+ additional_data(0).data=$6; \
+ last;
+
+#Connections to a non-standard port with a low value (< 5)
+#LOG:2007-05-20 12:49:57,644 INFO srcIP: 129.13.x.y      srcPort: 1312   dstIP: 80.64.x.y    dstPort: 1501   Nick: myFunnyNick        Value: 3
+ regex=INFO srcIP: (\S+)\s+srcPort: (\d+)\s+dstIP: (\S+)\s+dstPort: (?!6665|6666|6667|6668)(\d+)\s+Nick: (\S+)\s+Value: (0|1|2|3|4)$; \
+ classification.text=IRC Connection to non-standard port; \
+ id=30001; \
+ revision=1; \
+ analyzer(0).name=Rishi; \
+ analyzer(0).manufacturer=http://zero.ram.rwth-aachen.de/rishi/; \
+ analyzer(0).class=NIDS; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.port=$2; \
+ target(0).node.address(0).address=$3; \
+ target(0).service.port=$4; \
+ target(0).user.category=application; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$5; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=To be investigated, probably false positive that needs to be whitelisted; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=Calculated Value; \
+ additional_data(0).data=$6; \
+ last;
+
+#Connection with a very high value (>= 10)
+#LOG:2007-05-20 12:49:57,644 INFO srcIP: 129.13.x.y      srcPort: 1312   dstIP: 80.64.x.y    dstPort: 4545    Nick: [LsasS]213242344    Value: 11
+ regex=INFO srcIP: (\S+)\s+srcPort: (\d+)\s+dstIP: (\S+)\s+dstPort: (\d+)\s+Nick: (\S+)\s+Value: (?!0$|1$|2$|3$|4$|5$|6$|7$|8$|9$)(\d+); \
+ classification.text=Possible IRC Bot identified; \
+ id=30002; \
+ revision=1; \
+ analyzer(0).name=Rishi; \
+ analyzer(0).manufacturer=http://zero.ram.rwth-aachen.de/rishi/; \
+ analyzer(0).class=NIDS; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.port=$2; \
+ target(0).node.address(0).address=$3; \
+ target(0).service.port=$4; \
+ target(0).user.category=application; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$5; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=Possible bot contaminated host identified; \
+ additional_data(0).type=integer; \
+ additional_data(0).meaning=Calculated Value; \
+ additional_data(0).data=$6; \
+ last;

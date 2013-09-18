@@ -1,0 +1,63 @@
+#####
+#
+# Copyright (C) 2004 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#####
+#
+# The rules included here were developed using pcAnywhere 10.5.1 and 
+# NTSyslog 1.13.  Please report any inconsistencies on other versions to 
+# G Ramon Gomez at the address provided above
+#
+#####
+
+#LOG:Apr 13 10:31:03 12.34.56.78 pcanywhere[info] 127 NT AUTHORITY\SYSTEM  Host In Session  Host Name: DB3  Host Licensee: MAXIMUS  Remote Name: JM15575  Remote User: NUT&BOLT  Device Type: TCP/IP
+regex=Host In Session  Host Name: (\S+)  Host Licensee: \S+  Remote Name: (\S+)  Remote User: (\S+); \ 
+classification.text=Remote control user connected; \
+ id=3000; \
+ revision=1; \
+ analyzer(0).name=pcAnywhere; \
+ analyzer(0).manufacturer=Symantec; \
+ analyzer(0).class=Remote Control; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=admin; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=User $3 successfully connected to $1 from $2; \
+ source(0).node.name=$2; \
+ target(0).node.name=$3; \
+ source(0).user.category=application; \
+ source(0).user.user_id(0).type=original-user; \
+ source(0).user.user_id(0).name=$3; \
+ last
+
+#LOG:Apr 14 06:29:55 db3 pcanywhere[info] 123 NT AUTHORITY\SYSTEM  Host End Session  Device Type: TCP/IP  Description: Remote logged off
+regex=Host End Session  Device Type: \S+  Description: (.+); \
+ classification.text=Remote control user disconnected; \
+ id=3001; \
+ revision=1; \
+ analyzer(0).name=pcAnywhere; \
+ analyzer(0).manufacturer=Symantec; \
+ analyzer(0).class=Remote Control; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=admin; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=Session ended with status: $1;\
+ last

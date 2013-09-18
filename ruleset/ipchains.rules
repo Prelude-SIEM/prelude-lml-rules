@@ -1,0 +1,166 @@
+# Customized prelude-lml rules file to support Ipchains events - v0.1.1
+# Simon Castro <scastro [at] entreelibre.com>
+#
+# Deny rules : Match all IPv4 packet deny references for tcp, udp and icmp protocols.
+#
+
+# TCP
+# LOG:May 14 11:03:57 gateway kernel: Packet log: input DENY eth0 PROTO=6 1.2.3.4:3894 5.6.7.8:10008 L=60 S=0x00 I=50210 F=0x4000 T=48 
+regex=Packet log: ([\w-]+) DENY (\w+) PROTO=6 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
+ classification.text=TCP packet denied; \
+ id=700; \
+ revision=1; \
+ analyzer(0).name=ipchains; \
+ analyzer(0).manufacturer=www.netfilter.org; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Ipchains denied a TCP packet : $3:$4 -> $5:$6 on $2 (Rulename is '$1'); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ source(0).interface=$2; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ last
+
+# UDP
+# LOG:May 14 11:03:57 gateway kernel: Packet log: input DENY eth0 PROTO=17 1.2.3.4:67 5.6.7.8:68 L=328 S=0x01 I=35569 F=0x4000 T=64 (#3)
+regex=Packet log: ([\w-]+) DENY (\w+) PROTO=17 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
+ classification.text=UDP packet denied; \
+ id=701; \
+ revision=1; \
+ analyzer(0).name=ipchains; \
+ analyzer(0).manufacturer=www.netfilter.org; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Ipchains denied an UDP packet : $3:$4 -> $5:$6 on $2 (Rulename is '$1'); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ source(0).service.iana_protocol_name=udp; \
+ source(0).service.iana_protocol_number=17; \
+ source(0).interface=$2; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ target(0).service.iana_protocol_name=udp; \
+ target(0).service.iana_protocol_number=17; \
+ last
+
+# ICMP
+# LOG:Dec 15 12:30:15 firewall kernel: Packet log: bad-if DENY lo PROTO=1 1.2.3.4:3 5.6.7.8:1 L=92 S=0xC0 I=4595 F=0x0000 T=255 (#1) 
+regex=Packet log: ([\w-]+) DENY (\w+) PROTO=1 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
+ classification.text=ICMP Packet denied; \
+ id=702; \
+ revision=1; \
+ analyzer(0).name=ipchains; \
+ analyzer(0).manufacturer=www.netfilter.org; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Ipchains denied an ICMP packet : $3:$4 -> $5:$6 on $2 (Rulename is '$1'); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ source(0).service.iana_protocol_name=icmp; \
+ source(0).service.iana_protocol_number=1; \
+ source(0).interface=$2; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ target(0).service.iana_protocol_name=icmp; \
+ target(0).service.iana_protocol_number=1; \
+ last
+
+#
+# Accept rules : Match all IPv4 packet accept references for tcp, udp and icmp protocols.
+#
+
+# TCP
+# LOG:May 19 16:00:12 redhat kernel: Packet log: input ACCEPT eth1 PROTO=6 1.2.3.4:1318 5.6.7.8:80 L=48 S=0x00 I=40225 F=0x4000 T=126 SYN (#1)
+
+regex=Packet log: ([\w-]+) ACCEPT (\w+) PROTO=6 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
+ classification.text=TCP packet accepted; \
+ id=703; \
+ revision=1; \
+ analyzer(0).name=ipchains; \
+ analyzer(0).manufacturer=www.netfilter.org; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Ipchains accepted a TCP packet : $3:$4 -> $5:$6 on $2 (Rulename is '$1'); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ source(0).interface=$2; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ last
+
+# UDP
+# LOG:Aug 20 11:39:08 ipseca kernel: Packet log: input ACCEPT eth0 PROTO=17 1.2.3.4:1563 5.6.7.8:53 L=77 S=0x00 I=5608 F=0x0000 T=128 (#11)
+regex=Packet log: ([\w-]+) ACCEPT (\w+) PROTO=17 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
+ classification.text=UDP packet accepted; \
+ id=704; \
+ revision=1; \
+ analyzer(0).name=ipchains; \
+ analyzer(0).manufacturer=www.netfilter.org; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Ipchains accepted an UDP packet : $3:$4 -> $5:$6 on $2 (Rulename is '$1'); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ source(0).service.iana_protocol_name=udp; \
+ source(0).service.iana_protocol_number=17; \
+ source(0).interface=$2; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ target(0).service.iana_protocol_name=udp; \
+ target(0).service.iana_protocol_number=17; \
+ last
+
+# ICMP
+# LOG:Aug 20 11:39:08 ipseca kernel: Packet log: input ACCEPT eth0 PROTO=1 1.2.3.4:8 5.6.7.8:0 L=60 S=0x00 I=5612 F=0x0000 T=128 (#11)
+regex=Packet log: ([\w-]+) ACCEPT (\w+) PROTO=1 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
+ classification.text=ICMP Packet accepted; \
+ id=705; \
+ revision=1; \
+ analyzer(0).name=ipchains; \
+ analyzer(0).manufacturer=www.netfilter.org; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Ipchains accepted an ICMP packet : $3:$4 -> $5:$6 on $2 (Rulename is '$1'); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ source(0).service.iana_protocol_name=icmp; \
+ source(0).service.iana_protocol_number=1; \
+ source(0).interface=$2; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ target(0).service.iana_protocol_name=icmp; \
+ target(0).service.iana_protocol_number=1; \
+ last

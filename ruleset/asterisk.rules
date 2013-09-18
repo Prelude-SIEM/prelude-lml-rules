@@ -1,0 +1,59 @@
+#####
+#
+# Copyright (C) 2007 Sebastien Tricaud <stricaud at inl dot fr>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+# LOG: Nov 29 09:44:15 NOTICE[23701] chan_sip.c: Registration from '<sip:dmc@asterisk-server>' failed for '192.168.33.180' - Wrong password
+regex=Registration from '<sip:(\S*)>' failed for '(\S+)' - (.*)$; \
+ classification.text=$3; \
+ id=6000; \
+ revision=1; \
+ analyzer(0).name=Asterisk; \
+ analyzer(0).manufacturer=Digium; \
+ analyzer(0).class=Private Branch Exchange; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.description=SIP user could not be registered by the SIP server; \
+ source(0).node.address(0).address=$2; \
+ target(0).service.name=sip; \
+ target(0).user.user_id(0).type=original-user; \
+ target(0).user.user_id(0).name=$1; \
+ last;
+
+# LOG: Dec  3 10:32:10 NOTICE[23701] chan_sip.c: Invalid to address: '' from 192.168.33.180 (missing sip:) trying to use anyway...
+regex=: ([[:print:]]+): '(\S*)' from (\S+) \(([[:print:]]+)\) trying to use anyway...; \
+ classification.text=$1; \
+ id=6001; \
+ revision=1; \
+ analyzer(0).name=Asterisk; \
+ analyzer(0).manufacturer=Digium; \
+ analyzer(0).class=Private Branch Exchange; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=recon; \
+ assessment.impact.description=The SIP message is invalid: '$4'. This is probably due to a crafted SIP message; \
+ source(0).node.address(0).address=$3; \
+ target(0).service.name=sip; \
+ target(0).user.user_id(0).type=original-user; \
+ target(0).user.user_id(0).name=$2; \
+ last;
+

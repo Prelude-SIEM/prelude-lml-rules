@@ -1,0 +1,262 @@
+#####
+#
+# Copyright (C) 2006 Igor Manassypov <imanassypov at rogers dot com>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+# SonicWall syslog message 
+#----------------------
+#field	explanation
+#----------------------
+#m	Message ID		Provides the message id number
+#c	Message category	Indicates the legacy category number
+#pri	Message priority	Displays the event priority level (0=emergency 7=debug)
+#n	Message count		Indicates the number of times event occurs
+
+#LOG:Mar 10 13:44:49 192.168.30.10 id=firewall sn=0006B11302A2 time="2006-03-10 13:44:50" fw=216.123.166.2 pri=6 c=16 m=29 msg="Administrator login allowed" n=40 usr=netadm src=192.168.30.57:0:X0 dst=192.168.30.10:443:X0
+regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) usr=(\S+) src=([\d\.]+):(\d+):(\S+) dst=([\d\.]+):(\d+):(\S+)$; \
+ classification.text=Admin login; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=message-id; \
+ classification.reference(0).name=$4; \
+ classification.reference(0).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
+ classification.reference(1).origin=vendor-specific; \
+ classification.reference(1).meaning=priority-id; \
+ classification.reference(1).name=$2; \
+ classification.reference(1).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
+ id=4600; \
+ revision=1; \
+ analyzer(0).name=SonicWall; \
+ analyzer(0).manufacturer=SonicGuard; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=User $7 logged in. Message Priority = $2, Category = $3, ID = $4, Count = $6; \
+ source(0).interface=$10; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$8; \
+ source(0).service.port=$9; \
+ target(0).interface=$13; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$11; \
+ target(0).service.port=$12; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$7; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Reporting firewall ip address; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Number of events; \
+ additional_data(1).data=$6; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Legacy category; \
+ additional_data(2).data=$3; \
+ last
+
+#LOG:Mar 10 16:14:21 192.168.30.10 id=firewall sn=0006B11302A2 time="2006-03-10 16:14:22" fw=216.123.166.2 pri=1 c=32 m=23 msg="IP spoof dropped" n=64224 src=192.168.85.94:123:X0 dst=192.5.41.209:123:X1 mac=00:d0:ff:8b:8f:fc
+regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) src=([\d\.]+):(\d+):(\S+) dst=([\d\.]+):(\d+):(\S+) mac=(\S+)$; \
+ classification.text=Possible spoof attack; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=message-id; \
+ classification.reference(0).name=$4; \
+ classification.reference(0).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
+ classification.reference(1).origin=vendor-specific; \
+ classification.reference(1).meaning=priority-id; \
+ classification.reference(1).name=$2; \            
+ classification.reference(1).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
+ id=4601; \
+ revision=1; \
+ analyzer(0).name=SonicWall; \
+ analyzer(0).manufacturer=SonicGuard; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=$5. MAC: $13. Message Priority = $2, Category = $3, ID = $4, Count = $6; \
+ source(0).interface=$9; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$7; \
+ source(0).node.address(1).category=mac; \
+ source(0).node.address(1).address=$13; \
+ source(0).service.port=$8; \
+ target(0).interface=$12; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$10; \
+ target(0).service.port=$11; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Reporting firewall ip address; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Number of events; \
+ additional_data(1).data=$6; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Legacy category; \
+ additional_data(2).data=$3; \
+ last
+
+#LOG:Mar 13 02:58:36 192.168.30.10 id=firewall sn=0006B11302A2 time="2006-03-13 02:58:19" fw=216.123.166.2 pri=1 c=32 m=522 msg="Malformed IP packet dropped." n=5090 src=207.0.188.16:0:X1 dst=216.123.166.2:1026 dstname="IP Protocol 17"
+regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) src=([\d\.]+):(\d+):(\S+) dst=([\d\.]+):(\d+) dstname="(.+)"$; \
+ classification.text=Malformed packets; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=message-id; \
+ classification.reference(0).name=$4; \
+ classification.reference(0).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
+ classification.reference(1).origin=vendor-specific; \
+ classification.reference(1).meaning=priority-id; \
+ classification.reference(1).name=$2; \            
+ classification.reference(1).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
+ id=4602; \
+ revision=1; \
+ analyzer(0).name=SonicWall; \
+ analyzer(0).manufacturer=SonicGuard; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.description=$5 for $12. Message Priority = $2, Category = $3, ID = $4, Count = $6; \
+ source(0).interface=$9; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$7; \
+ source(0).service.port=$8; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$10; \
+ target(0).service.port=$11; \
+ target(0).service.iana_protocol_name=$12; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Reporting firewall ip address; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Number of events; \
+ additional_data(1).data=$6; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Legacy category; \
+ additional_data(2).data=$3; \
+ last
+
+#LOG:Mar 13 11:00:21 192.168.30.10 id=firewall sn=0006B11302A2 time="2006-03-13 11:00:31" fw=216.123.166.2 pri=5 c=2048 m=173 msg="TCP connection from LAN denied" n=150 src=192.168.30.222:1:X0 dst=192.168.30.10:8:X0 proto=tcp/8
+regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) src=([\d\.]+):(\d+):(\S+) dst=([\d\.]+):(\d+):(\S+) proto=(\S+)$; \
+ classification.text=Connection from LAN denied; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=message-id; \
+ classification.reference(0).name=$4; \
+ classification.reference(0).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
+ classification.reference(1).origin=vendor-specific; \
+ classification.reference(1).meaning=priority-id; \
+ classification.reference(1).name=$2; \            
+ classification.reference(1).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
+ id=4603 \
+ revision=1; \
+ analyzer(0).name=SonicWall; \
+ analyzer(0).manufacturer=SonicGuard; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.description=$5 for $13. Message Priority = $2, Category = $3, ID = $4, Count = $6; \
+ source(0).interface=$9; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$7; \
+ source(0).service.port=$8; \
+ target(0).interface=$12; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$10; \
+ target(0).service.port=$11; \
+ target(0).service.iana_protocol_name=$13; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Reporting firewall ip address; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Number of events; \
+ additional_data(1).data=$6; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Legacy category; \
+ additional_data(2).data=$3; \
+ last
+
+#LOG:Mar 13 11:00:22 192.168.30.10 id=firewall sn=0006B11302A2 time="2006-03-13 11:00:32" fw=216.123.166.2 pri=1 c=0 m=860 msg="Possible SYN Flood on IF X0 - src: 192.168.30.222:1 dst: 192.168.30.10:481" n=1
+regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg="Possible SYN Flood on IF (\S+) - src: ([\d\.]+):(\d+) dst: ([\d\.]+):(\d+)" n=(\d+)$; \
+ classification.text=Possible SYN flood; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=message-id; \
+ classification.reference(0).name=$4; \
+ classification.reference(0).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
+ classification.reference(1).origin=vendor-specific; \
+ classification.reference(1).meaning=priority-id; \
+ classification.reference(1).name=$2; \            
+ classification.reference(1).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
+ id=4604; \
+ revision=1; \
+ analyzer(0).name=SonicWall; \
+ analyzer(0).manufacturer=SonicGuard; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=Possible SYN Flood attack. Message Priority = $2, Category = $3, ID = $4, Count = $10; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$6; \
+ source(0).service.port=$7; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$8; \
+ target(0).service.port=$9; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Reporting firewall ip address; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Number of events; \
+ additional_data(1).data=$10; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Legacy category; \
+ additional_data(2).data=$3; \
+ last
+
+#LOG:Mar 13 14:50:06 192.168.30.10 id=firewall sn=0006B11302A2 time="2006-03-13 14:50:12" fw=216.123.166.2 pri=1 c=32 m=82 msg="Possible port scan dropped" n=268 src=70.29.251.124:20912:X1 dst=216.123.166.2:26917:X1
+regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg="Possible port scan dropped" n=(\d+) src=([\d\.]+):(\d+):(\S+) dst=([\d\.]+):(\d+):(\S+)$; \
+ classification.text=Possible port scan; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=sonicwall-sn; \
+ classification.reference(0).name=$4; \
+ classification.reference(0).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
+ classification.reference(1).origin=vendor-specific; \
+ classification.reference(1).meaning=priority-id; \
+ classification.reference(1).name=$2; \            
+ classification.reference(1).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
+ id=4605 \
+ revision=1; \
+ analyzer(0).name=SonicWall; \
+ analyzer(0).manufacturer=SonicGuard; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=Possible port scan attack. Message Priority = $2, Category = $3, ID = $4, Count = $10; \
+ source(0).interface=$8; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$6; \
+ source(0).service.port=$7; \
+ target(0).interface=$11; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$9; \
+ target(0).service.port=$10; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Reporting firewall ip address; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Number of events; \
+ additional_data(1).data=$10; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Legacy category; \
+ additional_data(2).data=$3; \
+ last

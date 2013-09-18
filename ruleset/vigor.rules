@@ -1,0 +1,110 @@
+#####
+#
+# Copyright (C) 2003 John Green <john@giggled.org>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+# 1) TCP :
+
+#LOG:Apr 27 02:55:31 81.2.127.129 r00t3r: 295:34:52.730 lan @Group:Rule=0:10 b 200.187.15.1,18775 -> 81.2.127.129,www    PR tcp len 20 48 -S 895123185 0 16384 IN
+regex=([wl]an) @Group:Rule=(\d+:\d+) b ([\d\.]+),(\w+) -> ([\d\.]+),(\w+)    PR (\S+) len (\d+) (\d+) (\S+) (\d+) (\d+) (\d+) (IN|OUT); \
+ classification.text=$7 Packet dropped; \
+ id=2000; \
+ revision=2; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Vigor dropped a $7 packet $3:$4 -> $5:$6; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ source(0).service.iana_protocol_name=$7; \
+ source(0).interface=$1; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ target(0).service.iana_protocol_name=$7; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$2; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Header length (b); \
+ additional_data(1).data=$8; \
+ additional_data(2).type=integer; \
+ additional_data(2).meaning=Payload size (Kb); \
+ additional_data(2).data=$9; \
+ additional_data(3).type=string; \
+ additional_data(3).meaning=Flags; \
+ additional_data(3).data=$10; \
+ additional_data(4).type=integer; \
+ additional_data(4).meaning=ACK number; \
+ additional_data(4).data=$11; \
+ additional_data(5).type=integer; \
+ additional_data(5).meaning=Sequence number; \
+ additional_data(5).data=$12; \
+ additional_data(6).type=integer; \
+ additional_data(6).meaning=Window size; \
+ additional_data(6).data=$13; \
+ additional_data(7).type=string; \
+ additional_data(7).meaning=Direction; \
+ additional_data(7).data=$14; \
+ last;
+
+# 2) ICMP :
+
+#LOG:Apr 27 00:38:25 81.2.127.129 r00t3r: 293:17:47.390 lan @Group:Rule=0:10 b 66.112.44.26 -> 81.2.127.142    PR icmp len 20 28 icmp 8/0 IN
+regex=([wl]an) @Group:Rule=(\d+:\d+) b ([\d\.]+) -> ([\d\.]+)    PR icmp len (\d+) (\d+) icmp (\d+)/(\d+) (IN|OUT); \
+ classification.text=ICMP Packet dropped; \
+ id=2001; \
+ revision=2; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Vigor dropped an ICMP packet $3 -> $4 ($7/$8); \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.iana_protocol_name=ICMP; \
+ source(0).service.iana_protocol_number=1; \
+ source(0).interface=$1; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$4; \
+ target(0).service.iana_protocol_name=ICMP; \
+ target(0).service.iana_protocol_number=1; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=ACL; \
+ additional_data(0).data=$2; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Header length (b); \
+ additional_data(1).data=$5; \
+ additional_data(2).type=integer; \
+ additional_data(2).meaning=Payload size (Kb); \
+ additional_data(2).data=$6; \
+ additional_data(3).type=integer; \
+ additional_data(3).meaning=ICMP type; \
+ additional_data(3).data=$7; \
+ additional_data(4).type=integer; \
+ additional_data(4).meaning=ICMP code; \
+ additional_data(4).data=$8; \
+ additional_data(5).type=string; \
+ additional_data(5).meaning=Direction; \
+ additional_data(5).data=$9; \
+ last;

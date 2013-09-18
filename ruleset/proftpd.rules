@@ -1,0 +1,99 @@
+#####
+#
+# Copyright (C) 2003 Stephane Loeuillet (stephane.loeuillet@tiscali.fr)
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#LOG:Jan 13 22:19:52 (none) proftpd[7804]: leroutier.net (193.249.231.232[193.249.231.232]) - PAM(leroutier): Authentication failure.
+
+regex=[\w\-\.]+ \(([\d\.]+)\[[\d\.]+\]\) - PAM\(([\w\-\.]+)\): Authentication failure; \
+ classification.text=FTP login; \
+ id=1600; \
+ revision=2; \
+ analyzer(0).name=ProFTPD; \
+ analyzer(0).manufacturer=www.proftpd.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description= Someone tried to login to your FTP server as user '$2' but failed; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).service.port=21; \
+ target(0).service.name=ftp; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$2; \
+ last;
+
+#LOG:Jan 13 22:19:58 (none) proftpd[7805]: leroutier.net (193.249.231.232[193.249.231.232]) - no such user 'uh'
+
+regex=[\w\-\.]+ \(([\d\.]+)\[[\d\.]+\]\) - no such user '(\S+)'; \
+ classification.text=FTP login; \
+ id=1601; \
+ revision=2; \
+ analyzer(0).name=ProFTPD; \
+ analyzer(0).manufacturer=www.proftpd.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description= Someone tried to login to your FTP server as a non-existant user '$2' but failed; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).service.port=21; \
+ target(0).service.name=ftp; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$2; \
+ last;
+
+#LOG:Jan 13 22:39:03 (none) proftpd[8023]: leroutier.net (193.249.231.232[193.249.231.232]) - USER rr: no such user found from 193.249.231.232 [193.249.231.232] to 81.91.66.90:21
+
+regex=[\w\-\.]+ \(([\d\.]+)\[[\d\.]+\]\) - USER (\S+): no such user found from [\w\-\.]+ \[[\w\-\.]+\] to ([\w\-\.]+):(\d+); \
+ classification.text=FTP login; \
+ id=1602; \
+ revision=2; \
+ analyzer(0).name=ProFTPD; \
+ analyzer(0).manufacturer=www.proftpd.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description= Someone tried to login to your FTP server as a non-existant user '$2' but failed; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$3; \
+ target(0).service.port=$4; \
+ target(0).service.name=ftp; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$2; \
+ last;

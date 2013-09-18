@@ -1,0 +1,186 @@
+#####
+#
+# Copyright (C) 2005-2012 CS-SI. All Rights Reserved.
+# Author: Yoann Vandoorselaere <yoann.v@prelude-ids.com>
+#
+# Based on original implementation from Laurent Oudot, John Green <j.green@ukerna.ac.uk>
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+
+# Linux Netfilter support for Prelude-LML.
+
+## Packet Matching with improved pattern research
+#
+#  Owing to a specific way of writing iptables rules, you can improve
+#  the pattern matching of prelude-lml in your logs by specifying few things
+#  like : was the packet dropped or accepted ?
+#
+#  In order to benefit from this improvement, you have to pay attention
+#  for netfilter rules that you will create.
+#  If you want to log packet using the LOG target with iptables,
+#  just respect this proposition
+#  (that you can change if you master all of that) :
+#
+#  If you use a LOG target for a packet that you Accept
+#  then add a prefix containing the word "Accept" to your rules:
+#     -j LOG --log-prefix "Accept "
+#
+#  If you use a LOG target for a packet that you Drop
+#  then add a prefix containing the word "Drop" to your rules:
+#     -j LOG --log-prefix "Drop "
+#
+
+
+regex=[Dd][Rr][Oo][Pp].*PROTO=(UDP|TCP|ICMP|AH|ESP); id=1310; \
+        classification.text = $1 packet dropped;   \
+        assessment.impact.completion = failed; \
+        assessment.impact.type = other; \
+        assessment.impact.severity = medium; chained; silent;
+
+regex=[Aa][Cc][Cc][Ee][Pp][Tt].*PROTO=(UDP|TCP|ICMP|AH|ESP); id=1311; \
+        classification.text = $1 packet accepted; \
+        assessment.impact.completion = succeeded; \
+        assessment.impact.type = other; \
+        assessment.impact.severity = low; chained; silent;
+
+
+#LOG: Oct 16 11:16:51 blah kernel: Drop IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=48 TOS=0x00 PREC=0x00 TTL=113 ID=12776 DF PROTO=TCP SPT=3979 DPT=139 WINDOW=65535 RES=0x00 SYN URGP=0
+#LOG: Oct 16 11:16:51 blah kernel: Drop IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=48 TOS=0x00 PREC=0x00 TTL=113 ID=12776 DF PROTO=TCP SPT=3979 DPT=139 WINDOW=65535 SYN URGP=0
+
+#LOG: Oct 16 11:16:51 blah kernel: IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=48 TOS=0x00 PREC=0x00 TTL=113 ID=12776 DF PROTO=TCP SPT=3979 DPT=139 WINDOW=65535 RES=0x00 SYN URGP=0
+
+optgoto=1310-1311; regex=IN=(\w*) OUT=(\w*)( MAC=)?([\w:]+)?\s+SRC=([\d\.]+) DST=([\d\.]+) LEN=(\d+) TOS=(\w+) PREC=(\w+) TTL=(\d+) ID=(\d+) (CE )?(DF )?(MF )?(FRAG:\d+ )?(OPT \(\w+\) )?PROTO=TCP (INCOMPLETE \[\d+ bytes\] )?SPT=(\d+) DPT=(\d+) (SEQ=\d+ ACK=\d+ )?WINDOW=(\d+) (RES=(\w+) )?(CWR )?(ECE )?(URG )?(ACK )?(PSH )?(RST )?(SYN )?(FIN )?URGP=(\d+); \
+ classification.text=TCP packet matched; \
+ id=1300; \
+ revision=1; \
+ analyzer(0).name=netfilter; \
+ analyzer(0).manufacturer=www.netfilter.org; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Netfilter matched a TCP packet $5:$18 -> $6:$19 [$26 $27 $28 $29 $30 $31] on interface $1$2 [ TTL=$10 ]; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$5; \
+ source(0).service.port=$18; \
+ source(0).service.iana_protocol_name=TCP; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).interface=$1; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.port=$19; \
+ target(0).service.iana_protocol_name=TCP; \
+ target(0).service.iana_protocol_number=6; \
+ last
+
+
+#LOG: Oct 16 07:53:44 blah kernel: Drop IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=78 TOS=0x00 PREC=0x00 TTL=128 ID=59110 PROTO=UDP SPT=137 DPT=137 LEN=58
+
+#LOG: Oct 16 07:53:44 blah kernel: IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=78 TOS=0x00 PREC=0x00 TTL=128 ID=59110 PROTO=UDP SPT=137 DPT=137 LEN=58
+
+optgoto=1310-1311; regex=IN=(\w*) OUT=(\w*)( MAC=)?([\w:]+)?\s+SRC=([\d\.]+) DST=([\d\.]+) LEN=(\d+) TOS=(\w+) PREC=(\w+) TTL=(\d+) ID=(\d+) (CE )?(DF )?(MF )?(FRAG:\d+ )?(OPT \(\w+\) )?PROTO=UDP (INCOMPLETE \[\d+ bytes\] )?SPT=(\d+) DPT=(\d+) LEN=(\d+); \
+ classification.text=UDP packet matched; \
+ id=1301; \
+ revision=1; \
+ analyzer(0).name=netfilter; \
+ analyzer(0).manufacturer=www.netfilter.org; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Netfilter matched an UDP packet $5:$18 -> $6:$19 on interface $1$2 [TTL=$10]; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$5; \
+ source(0).service.port=$18; \
+ source(0).service.iana_protocol_name=UDP; \
+ source(0).service.iana_protocol_number=17; \
+ target(0).interface=$1; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.port=$19; \
+ target(0).service.iana_protocol_name=UDP; \
+ target(0).service.iana_protocol_number=17; \
+ last
+
+#LOG: Oct 20 23:59:41 blah kernel: Drop IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=84 TOS=0x00 PREC=0x00 TTL=58 ID=9 DF PROTO=ICMP TYPE=8 CODE=0 ID=51318 SEQ=10
+
+#LOG: Oct 20 23:59:41 blah kernel: IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=84 TOS=0x00 PREC=0x00 TTL=58 ID=9 DF PROTO=ICMP TYPE=8 CODE=0 ID=51318 SEQ=10
+
+optgoto=1310-1311; regex=IN=(\w*) OUT=(\w*)( MAC=)?([\w:]+)?\s+SRC=([\d\.]+) DST=([\d\.]+) LEN=(\d+) TOS=(\w+) PREC=(\w+) TTL=(\d+) ID=(\d+) (CE )?(DF )?(MF )?(FRAG:\d+ )?(OPT \(\w+\) )?PROTO=ICMP (INCOMPLETE \[\d+ bytes\] )?TYPE=(\d+) CODE=(\d+) (INCOMPLETE \[\d+ bytes\] )?(ID=\d+ SEQ=\d+ )?(PARAMETER=\d+ )?(GATEWAY=[\d\.]+ )?(\[\w+\])?(MTU=\d+ )?; \
+ classification.text=ICMP packet matched; \
+ id=1302; \
+ revision=1; \
+ analyzer(0).name=netfilter; \
+ analyzer(0).manufacturer=www.netfilter.org; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Netfilter matched an ICMP packet $5 -> $6 type=$18 code=$19 on interface $1$2 [TTL=$10]; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$5; \
+ source(0).service.iana_protocol_name=ICMP; \
+ source(0).service.iana_protocol_number=1; \
+ target(0).interface=$1; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.iana_protocol_name=ICMP; \
+ target(0).service.iana_protocol_number=1; \
+ last
+
+
+#LOG: Oct 20 17:13:25 blah kernel: Drop IN=ppp0 OUT= MAC= SRC=1.1.1.1 DST=2.2.2.2 LEN=128 TOS=0x00 PREC=0x00 TTL=234 ID=15586 PROTO=ESP SPI=0xa7d839
+
+#LOG: Oct 20 17:13:25 blah kernel: IN=ppp0 OUT= MAC= SRC=1.1.1.1 DST=2.2.2.2 LEN=128 TOS=0x00 PREC=0x00 TTL=234 ID=15586 PROTO=ESP SPI=0xa7d839
+
+optgoto=1310-1311; regex=IN=(\w*) OUT=(\w*)( MAC=)?([\w:]+)?\s+SRC=([\d\.]+) DST=([\d\.]+) LEN=(\d+) TOS=(\w+) PREC=(\w+) TTL=(\d+) ID=(\d+) (CE )?(DF )?(MF )?(FRAG:\d+ )?(OPT \(\w+\) )?PROTO=(AH|ESP) (INCOMPLETE \[\d+ bytes\] )?SPI=(\w+); \
+classification.text=$17 packet matched; \
+id=1303; \
+ revision=1; \
+ analyzer(0).name=netfilter; \
+ analyzer(0).manufacturer=www.netfilter.org; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Netfilter matched $17 packet $5 -> $6 SPI=$19 on interface $1$2 [TTL=$10]; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$5; \
+ source(0).service.iana_protocol_name=$17; \
+ target(0).interface=$1; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.iana_protocol_name=$17; \
+ last
+
+
+optgoto=1310-1311; regex=IN=(\w*) OUT=(\w*)( MAC=)?([\w:]+)?\s+SRC=([\d\.]+) DST=([\d\.]+) LEN=(\d+) TOS=(\w+) PREC=(\w+) TTL=(\d+) ID=(\d+) (CE )?(DF )?(MF )?(FRAG:\d+ )?(OPT \(\w+\) )?PROTO=(\d+); \
+ classification.text=$17 packet matched; \
+ id=1304; \
+ revision=1; \
+ analyzer(0).name=netfilter; \
+ analyzer(0).manufacturer=www.netfilter.org; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Netfilter matched packet with protocol $17 : $5 -> $6 on interface $1$2 [TTL=$10]; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$5; \
+ source(0).service.iana_protocol_name=$17; \
+ target(0).interface=$1; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.iana_protocol_name=$17; \
+ last
+

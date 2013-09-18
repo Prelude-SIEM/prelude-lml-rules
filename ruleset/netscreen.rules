@@ -1,0 +1,67 @@
+#####
+#
+# Copyright (C) 2005 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+# Based on rules by Jean-Françs SURET <tilaris at wanadoo dot fr>
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#LOG:Apr 28 08:45:38 2.0.0.2 ns5gt: NetScreen device_id=ns5gt  [Root]system-emergency-00005: SYN flood! From 2.0.0.3:38254 to 20.0.0.3:74, proto TCP (zone Untrust, int untrust). Occurred 1 times. (2002-01-31 00:01:51)
+regex=system-emergency-\d+: (.+)! From ([\d\.]+)?:?(\d+) to ([\d\.]+)?:?(\d+), proto (\S+) \(zone (\S+), int (\S.+)\). Occurred (\d+) times; \
+ classification.text=$1; \
+ id=4400; \
+ revision=1; \
+ analyzer(0).name=Netscreen; \
+ analyzer(0).manufacturer=Juniper Networks; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=failed; \
+ assessment.impact.description=A $1 was seen $9 times coming from the $7 zone.; \
+ source(0).interface=$8; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ source(0).service.port=$3; \
+ source(0).service.iana_protocol_name=$6; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$4; \
+ target(0).service.port=$5; \
+ target(0).service.iana_protocol_name=$6; \
+ last
+
+#LOG:Apr 28 08:45:38 2.0.0.2 ns5gt: NetScreen device_id=ns5gt  [Root]system-alert-00016: Port scan! From 1.2.3.4:5 to 6.7.8.9:10, proto TCP (zone Untrust, int untrust). Occurred 11 times.
+regex=system-alert-\d+: (.+)! From ([\d\.]+)?:?(\d+) to ([\d\.]+)?:?(\d+), proto (\S+) \(zone (\S+), int (\S.+)\). Occurred (\d+) times; \
+ classification.text=$1; \
+ id=4401; \
+ revision=1; \
+ analyzer(0).name=Netscreen; \
+ analyzer(0).manufacturer=Juniper Networks; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.description=A $1 was seen $9 times coming from the $7 zone.; \
+ source(0).interface=$8; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ source(0).service.port=$3; \
+ source(0).service.iana_protocol_name=$6; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$4; \
+ target(0).service.port=$5; \
+ target(0).service.iana_protocol_name=$6; \
+ last

@@ -1,0 +1,144 @@
+#####
+#
+# Copyright (C) 2005 Ruben Alonso <1rualons@rigel.deusto.es>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#LOG:[Sat Mar 12 22:56:12 2005] [error] [client 127.0.0.1] File does not exist: /var/www/favicon.ico
+#LOG:[Sat Mar 12 22:56:13 2005] [error] [client 127.0.0.1] Premature end of script headers: /var/www/sample/index.pl
+#LOG:[Sat Mar 12 22:48:24 2005] [error] [client 127.0.0.1] Directory index forbidden by rule: /var/www/sample/
+#LOG:[Sat Mar 12 22:38:41 2005] [error] [client 127.0.0.1] client denied by server configuration: /var/www/sample/
+#LOG:[Sun Jan  2 22:42:47 2005] [error] [client 127.0.0.1] request failed: error reading the headers
+#LOG:[Sun Jan  2 23:48:19 2005] [error] [client 127.0.0.1] request failed: URI too long
+regex=\[error\] \[client ([\d\.]+)\] ((File|Premature|Directory|client|request)[\S+\s]+): (.+); \
+ classification.text=Web server error; \
+ id=4100; \
+ revision=1; \
+ analyzer(0).name=httpd; \
+ analyzer(0).manufacturer=www.apache.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Apache httpd '$2' error: '$4'; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ target(0).service.name=http; \
+ last;
+
+#LOG:[Sat Apr 16 14:30:12 2005] [error] [client ::1] File does not exist: /var/www/favicon.ico
+regex=\[error\] \[client ([A-Fa-f\d:]+)\] ((File|Premature|Directory|client|request)[\S+\s]+): (.+); \
+ classification.text=Web server error; \
+ id=4101; \
+ revision=1; \
+ analyzer(0).name=httpd; \
+ analyzer(0).manufacturer=www.apache.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Apache httpd '$2' error: '$4'; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$1; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ target(0).service.name=http; \
+ last;
+
+# Copyright (C) 2005 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+
+#LOG:Apr 17 12:58:51 mail httpd: OK: Pass Phrase Dialog successful.
+regex=OK: Pass Phrase Dialog successful; \
+ classification.text=Web server SSL passphrase correct; \
+ id=4102; \
+ revision=1; \
+ analyzer(0).name=httpd; \
+ analyzer(0).manufacturer=www.apache.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Apache was started and an SSL passphrase was required.  This passphrase was entered correctly.; \
+ last;
+
+#LOG:Apr 17 12:58:48 mail httpd: Apache:mod_ssl:Error: Pass phrase incorrect (5 more retries permitted).
+regex=Error: Pass phrase incorrect \(; \
+ classification.text=Web server SSL passphrase incorrect; \
+ id=4103; \
+ revision=1; \
+ analyzer(0).name=httpd; \
+ analyzer(0).manufacturer=www.apache.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Apache was started and an SSL passphrase was required.  This passphrase was not entered correctly, but additional passphrase attempts will be allowed.; \
+ last;
+
+#LOG:Apr 17 14:00:48 mail httpd: Apache:mod_ssl:Error: Pass phrase incorrect.
+regex=Error: Pass phrase incorrect\.; \
+ classification.text=Web server SSL passphrase incorrect; \
+ id=4104; \
+ revision=1; \
+ analyzer(0).name=httpd; \
+ analyzer(0).manufacturer=www.apache.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Apache was started and an SSL passphrase was required.  This passphrase was not entered correctly.  No additional passphrase attempts will be allowed.; \
+ last;
+
+#LOG:Apr 17 14:00:13 mail httpd: httpd shutdown succeeded
+regex=httpd shutdown succeeded; \
+ classification.text=Web server shutdown; \
+ id=4105; \
+ revision=1; \
+ analyzer(0).name=httpd; \
+ analyzer(0).manufacturer=www.apache.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Apache httpd shutdown seen.; \
+ target(0).service.name=http; \
+ last;
+
+#LOG:Apr 17 14:02:41 mail httpd: httpd startup succeeded
+regex=httpd startup succeeded; \
+ classification.text=Web server startup; \
+ id=4106; \
+ revision=1; \
+ analyzer(0).name=httpd; \
+ analyzer(0).manufacturer=www.apache.org; \
+ analyzer(0).class=Service; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Apache httpd startup seen.; \
+ target(0).service.name=http; \
+ last;

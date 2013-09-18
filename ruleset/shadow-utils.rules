@@ -1,0 +1,313 @@
+#####
+#
+# Copyright (C) 2004 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+#####
+#
+# The rules included here were developed using shadow-utils 4.0.3-12.
+# Please report any inconsistencies on other versions to G Ramon Gomez 
+# at the address provided above
+#
+#####
+
+#LOG:May 10 16:37:57 somehost groupadd[618]: new group: name=clamav, gid=46
+regex=new group: name=(\S+), gid=(?!0)(\d+); \
+ classification.text=Group Created; \
+ id=3300; \
+ revision=1; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.description=The group $1 was created with gid $2; \
+ target(0).user.user_id(0).type=current-group; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(0).number=$2; \
+ last
+
+#LOG:May 10 16:37:57 somehost groupadd[618]: new group: name=wheel, gid=0
+regex=new group: name=(\S+), gid=0; \
+ classification.text=Group Created with GID 0; \
+ id=3301; \
+ revision=1; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=admin; \
+ assessment.impact.description=The group $1 was created with gid 0; \
+ target(0).user.user_id(0).type=current-group; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(0).number=0; \
+ last
+
+#LOG:May 10 16:37:57 somehost useradd[621]: new user: name=clamav, uid=46, gid=46, home=/tmp, shell=/sbin/nologin
+regex=new user: name=(\S+), uid=(?!0)(\d+), gid=(?!0)(\d+), home=(\S+), shell=(\S+); \
+ classification.text=User Created; \
+ id=3302; \
+ revision=2; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.description=The user $1 was created with uid $2 and gid $3; \
+ target(0).user.user_id(0).type=current-user; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(0).number=$2; \
+ target(0).user.user_id(1).type=current-group; \
+ target(0).user.user_id(1).number=$3; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Home directory; \
+ additional_data(0).data=$4; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Shell; \
+ additional_data(1).data=$5; \
+ last
+
+#LOG:May 10 16:37:57 somehost useradd[621]: new user: name=someuser, uid=0, gid=46, home=/tmp, shell=/sbin/nologin
+regex=new user: name=(\S+), uid=0, gid=(?!0)(\d+), home=(\S+), shell=(\S+); \
+ classification.text=User Created with UID 0; \
+ id=3303; \
+ revision=2; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=admin; \
+ assessment.impact.description=The user $1 was created with uid 0 and gid $2; \
+ target(0).user.user_id(0).type=current-user; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(0).number=0; \
+ target(0).user.user_id(1).type=current-group; \
+ target(0).user.user_id(1).number=$2; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Home directory; \
+ additional_data(0).data=$3; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Shell; \
+ additional_data(1).data=$4; \
+ last
+
+#LOG:May 10 16:37:57 somehost useradd[621]: new user: name=someuser, uid=46, gid=0, home=/tmp, shell=/sbin/nologin
+regex=new user: name=(\S+), uid=(?!0)(\d+), gid=0, home=(\S+), shell=(\S+); \
+ classification.text=User Created with GID 0; \
+ id=3304; \
+ revision=2; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=admin; \
+ assessment.impact.description=The user $1 was created with uid $2 and gid 0; \
+ target(0).user.user_id(0).type=current-user; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(0).number=$2; \
+ target(0).user.user_id(1).type=current-group; \
+ target(0).user.user_id(1).number=0; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Home directory; \
+ additional_data(0).data=$3; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Shell; \
+ additional_data(1).data=$4; \
+ last
+
+#LOG:May 10 16:37:57 somehost useradd[621]: new user: name=someuser, uid=0, gid=0, home=/tmp, shell=/sbin/nologin
+regex=new user: name=(\S+), uid=0, gid=0, home=(\S+), shell=(\S+); \
+ classification.text=User Created with UID/GID 0; \
+ id=3305; \
+ revision=2; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=admin; \
+ assessment.impact.description=The user $1 was created with uid and gid 0; \
+ target(0).user.user_id(0).type=current-user; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(0).number=0; \
+ target(0).user.user_id(1).type=current-group; \
+ target(0).user.user_id(1).number=0; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Home directory; \
+ additional_data(0).data=$2; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Shell; \
+ additional_data(1).data=$3; \
+ last
+
+#LOG:May 12 16:16:34 metatron usermod[14432]: change user name `bogususer' to `nonbogususer'
+regex=change user name `(\S+)' to `(\S+)'; \
+ classification.text=User Name Changed; \
+ id=3306; \
+ revision=1; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.description=The user $1 was renamed $2;  \
+ target(0).user.user_id(0).type=original-user; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(1).type=current-user; \
+ target(0).user.user_id(1).name=$2; \
+ last
+
+#LOG:May 12 16:16:34 metatron usermod[14432]: change user `nonbogususer' UID from `555' to `503'
+regex=change user `(\S+)' UID from `(\d+)' to `(?!0)(\d+)'; \
+ classification.text=User UID Changed; \
+ id=3307; \
+ revision=1; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.description=The user $1 had its UID changed from $2 to $3;  \
+ target(0).user.user_id(0).type=original-user; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(0).number=$2; \
+ target(0).user.user_id(1).type=current-user; \
+ target(0).user.user_id(1).name=$1; \
+ target(0).user.user_id(1).number=$3; \
+ last
+
+#LOG:May 12 16:16:34 metatron usermod[14432]: change user `nonbogususer' UID from `555' to `0'
+regex=change user `(\S+)' UID from `(\d+)' to `0'; \
+ classification.text=User UID Changed to 0; \
+ id=3308; \
+ revision=1; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=admin; \
+ assessment.impact.description=The user $1 had its UID changed from $2 to 0;  \
+ target(0).user.user_id(0).type=original-user; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(0).number=$2; \
+ target(0).user.user_id(1).type=current-user; \
+ target(0).user.user_id(1).name=$1; \
+ target(0).user.user_id(1).number=0; \
+ last
+
+#LOG:May 12 16:16:34 metatron usermod[14432]: change user `nonbogususer' GID from `503' to `503'
+regex=change user `(\S+)' GID from `(\d+)' to `(?!0)(\d+)'; \
+ classification.text=User Primary GID Changed; \
+ id=3309; \
+ revision=1; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.description=The user $1 had its GID changed from $2 to $3;  \
+ target(0).user.user_id(0).type=current-user; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(1).type=current-group; \
+ target(0).user.user_id(1).number=$3; \
+ last
+
+#LOG:May 12 16:16:34 metatron usermod[14432]: change user `nonbogususer' GID from `503' to `0'
+regex=change user `(\S+)' GID from `(\d+)' to `0'; \
+ classification.text=User Primary GID Changed to 0; \
+ id=3310; \
+ revision=1; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=admin; \
+ assessment.impact.description=The user $1 had its GID changed from $2 to 0;  \
+ target(0).user.user_id(0).type=current-user; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(1).type=current-group; \
+ target(0).user.user_id(1).number=0; \
+ last
+
+#LOG:May 12 16:11:01 metatron groupmod[9873]: change gid for `nonbogusgroup' to 504
+regex=change gid for `(\S+)' to (?!0)(\d+); \
+ classification.text=Group GID Changed; \
+ id=3311; \
+ revision=1; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.description=The group $1 had its GID changed to $2;  \
+ target(0).user.user_id(0).type=current-group; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(0).number=$2; \
+ last
+
+#LOG:May 12 16:11:01 metatron groupmod[9873]: change gid for `nonbogusgroup' to 0
+regex=change gid for `(\S+)' to 0; \
+ classification.text=Group GID Changed to 0; \
+ id=3312; \
+ revision=1; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=admin; \
+ assessment.impact.description=The group $1 had its GID changed to 0;  \
+ target(0).user.user_id(0).type=current-group; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(0).number=0; \
+ last
+
+#LOG:May 13 15:55:12 metatron usermod[20587]: add `bogususer' to group `slocate'
+regex=add `(\S+)' to group `(?!wheel|root)(\S+)'; \
+ classification.text=User Added to Group; \
+ id=3313; \
+ revision=1; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.description=The user $1 was added to group $2;  \
+ target(0).user.user_id(0).type=current-user; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(1).type=current-group; \
+ target(0).user.user_id(1).name=$2; \
+ last
+
+#LOG:May 13 15:55:12 metatron usermod[20587]: add `bogususer' to group `wheel'
+regex=add `(\S+)' to group `(wheel|root)'; \
+ classification.text=User Added to Group $2; \
+ id=3314; \
+ revision=1; \
+ analyzer(0).name=shadow-utils; \
+ analyzer(0).class=Administration; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=admin; \
+ assessment.impact.description=The user $1 was added to group $2;  \
+ target(0).user.user_id(0).type=current-user; \
+ target(0).user.user_id(0).name=$1; \
+ target(0).user.user_id(1).type=current-group; \
+ target(0).user.user_id(1).name=$2; \
+ last

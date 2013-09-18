@@ -1,0 +1,72 @@
+#####
+#
+# Copyright (C) 2003 Stephane Loeuillet (stephane.loeuillet@tiscali.fr)
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by 
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+#####
+
+# LOG:Jan 13 21:05:09 myhostname popper[6950]: [AUTH] Failed attempted login to vegeta from host (Mix-Dijon-114-2-232.abo.wanadoo.fr) 193.249.231.232
+
+regex=\[AUTH\] Failed attempted login to (\S+) from host \(?([\w\-\.]+)\)? ([\d\.]+); \
+ classification.text=Mail server - invalid password for this user; \
+ id=1700; \
+ revision=1; \
+ analyzer(0).name=Qpopper; \
+ analyzer(0).manufacturer=Eudora; \
+ analyzer(0).class=Service; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description= Someone tried to login to your POP3 server as user '$1' but failed; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).service.port=110; \
+ target(0).service.name=pop3; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$1; \
+ last
+
+# LOG:Jan 13 20:42:31 myhostname popper[6752]: azerty at www.leroutier.net (81.91.66.90): -ERR [AUTH] Password supplied for "tamere" is incorrect.
+
+regex=(\S+) at [\w\-\.]+ \(([\d\.]+)\): -ERR \[AUTH\] Password supplied for "\S+" is incorrect; \
+ classification.text=Mail server - invalid password for user; \
+ id=1701; \
+ revision=1; \
+ analyzer(0).name=Qpopper; \
+ analyzer(0).manufacturer=Eudora; \
+ analyzer(0).class=Service; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description= Someone tried to login to your POP3 server as user '$1' but failed; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$2; \
+ source(0).service.iana_protocol_name=tcp; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).service.port=110; \
+ target(0).service.name=pop3; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ target(0).user.user_id(0).type=target-user; \
+ target(0).user.user_id(0).name=$1; \
+ last
