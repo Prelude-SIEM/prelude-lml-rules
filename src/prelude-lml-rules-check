@@ -1,0 +1,54 @@
+#!/usr/bin/env perl
+#####
+#
+# Copyright (C) 2013 CS-SI
+# All Rights Reserved
+#
+# This file is part of the Prelude-LML program.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING.  If not, write to
+# the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#####
+
+if ($#ARGV < 0) {
+    print "Displays rules id and check for duplicates\n";
+    print "Usage : $0 <rules files>\n";
+    print "Example : $0 /etc/prelude-lml/ruleset/*.rules\n";
+}
+
+%ID = ();
+$rules = 0;
+$files = 0;
+
+foreach $f (@ARGV) {
+    @ids = ();
+    open(IN, $f) || die ("Cannot open $f\n");
+    while(<IN>) {
+	if (/^\s*id\s*=\s*(\d+)/) {
+	    if (defined $ID{$1}) {
+		print STDERR "WARNING $f line $. : Id $1 allready defined in " . $ID{$1}[0] . ' line ' . $ID{$1}[1] . "\n";
+	    } else {
+		$ID{$1} = [$f, $.];
+		push(@ids, $1);
+	    }
+	    $rules++;
+	}
+    }
+    close(IN);
+    $files++;
+    print "$f: " . join(', ', @ids) . "\n";
+}
+
+print "$rules rules in $files files\n";
