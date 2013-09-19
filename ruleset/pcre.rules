@@ -61,14 +61,22 @@ regex=arpwatch;                         include = arpwatch.rules;
 regex=chan_sip.c;                       include = asterisk.rules;
 regex=CactiTholdLog;                    include = cacti-thold.rules;
 regex=product:;                         include = checkpoint.rules;
-regex=%\S+-\d+-\S+;                     include = cisco-asa.rules; \
-                                        include = cisco-common.rules; \
+#regex=%\S+-\d+-\S+;                     include = cisco-asa.rules; \
+regex=%ACE-\d+-\S+:;                    include = cisco-ace.rules;
+regex=-\S+:;                            include = cisco-asa.rules;
+regex=%\S+-\d+-\S+;                     include = cisco-common.rules; \
                                         include = cisco-router.rules;
 regex=(IPV4|SSHD|NETMAN)-\d+;           include = cisco-css.rules;
+regex=(snmptrapd);                      include = cisco-ips-2.rules;
 regex=snmptrapd;                        include = cisco-ips.rules;
 regex=SEV=;                             include = cisco-vpn.rules;
 # Using this regex rather than simpler clamd to handle events from clamav
 # logging format
+regex=radiusd\[(\d+)\];			include = radiusd.rules;
+regex=(Logsurfer);                      include = logsurfer.rules;
+regex=(Juniper);                        include = juniper.rules;
+regex=(SymantecServer);                 include = symantec.rules;
+regex=snmptrapd;		        include = symantec-scsp.rules;
 regex=(FOUND|virus);                    include = clamav.rules;
 regex=server administrator;             include = dell-om.rules
 regex=(kernel|grsec);                   include = grsecurity.rules;
@@ -97,7 +105,7 @@ regex=[Pp][Aa][Mm]_;                    include = pam.rules;
 regex=[Ss][Uu]:;                        include = su.rules;
 regex=pcanywhere;                       include = pcanywhere.rules;
 regex=portsentry;                       include = portsentry.rules;
-regex=postfix;                          include = postfix.rules;
+regex=postfix/;                         include = postfix.rules;
 regex=proftpd;                          include = proftpd.rules;
 regex=popper;                           include = qpopper.rules;
 regex=(ppp|pptpd);                      include = ppp.rules;

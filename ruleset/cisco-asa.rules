@@ -2,6 +2,10 @@
 #
 # Copyright (C) 2003 G Ramon Gomez <gene at gomezbrothers dot com>
 # Ragingwire Enterprise Solutions (www.ragingwire.com)
+# All Rights Reserved 
+#
+# The new ASA rules where added by:
+# Copyright (C) 2012 email: <operador@seguridadx.com> twitter: www.twitter.com/seguridad_x
 # All Rights Reserved
 #
 # This file is part of the Prelude-LML program.
@@ -16,19 +20,36 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License along
-# with this program; if not, write to the Free Software Foundation, Inc.,
-# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING.  If not, write to
+# the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #####
 
+
 #####
 #
-# The rules included here were developed using a Cisco PIX 525.  Please report
-# any inconsistencies on other models to G Ramon Gomez at the address provided
-# above
+# The rules included here were developed using a Cisco PIX and a Cisco ASA 8.2.x.  Please report
+# any inconsistencies on other models to operador@seguridadx.com 
 #
 #####
+
+#Error Message %ASA-4-410001: Dropped UDP DNS packet_type from source_interface:source_address/source_port to dest_interface:dest_address/dest_port; error_length_type length length bytes exceeds max_length_type limit of maximum_length bytes
+regex=ASA-4-410001; \
+ classification.text=Dropped UDP DNS; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=asa_id; \
+ classification.reference(0).name=ASA-4-410001; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp2266063; \
+ id=195; \
+ revision=0; \
+ analyzer(0).name=ASA; \
+ analyzer(0).manufacturer=Cisco; \
+ assessment.impact.severity=high; \
+ assessment.impact.type=admin; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.description=Explanation The domain-name length exceeds 255 bytes in a UDP DNS packet. (See RFC 1035 section 3.1.); \
+ last
 
 #LOG:Nov  2 18:03:14 pix %PIX-4-400024: IDS:2151 Large ICMP packet from 200.36.129.18 to 12.34.56.78 on interface outside
 regex=-(4000\d\d): IDS:(\d+) (.+) from ([\d\.]+) to ([\d\.]+) on interface (\S+); \
@@ -41,7 +62,7 @@ regex=-(4000\d\d): IDS:(\d+) (.+) from ([\d\.]+) to ([\d\.]+) on interface (\S+)
  classification.reference(1).meaning=csids_id; \
  classification.reference(1).name=$1; \
  classification.reference(1).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp2266063; \
- id=200; \
+ id=196; \
  revision=5; \
  analyzer(0).name=ASA; \
  analyzer(0).manufacturer=Cisco; \
@@ -57,13 +78,13 @@ regex=-(4000\d\d): IDS:(\d+) (.+) from ([\d\.]+) to ([\d\.]+) on interface (\S+)
  last
 
 #LOG:Nov  2 11:03:52 pix %PIX-6-605005: Login permitted from 12.34.56.78/43610 to inside:90.12.34.56/ssh for user "pix"
-regex=-605005: Login permitted from ([\d\.]+)\/(\d+) to (\S+):([\d\.]+)\/(\S+) for user "(\S+)"; \
+regex=-605005: Login permitted from ([\d\.]+)\/(\d+) to (\S+):([\d\.]+)\/(\d+) for user "(\S+)"; \
  classification.text=Remote Login; \
  classification.reference(0).origin=vendor-specific; \
  classification.reference(0).meaning=asa_id; \
  classification.reference(0).name=605005; \
  classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp1284894; \
- id=201; \
+ id=197; \
  revision=6; \
  analyzer(0).name=ASA; \
  analyzer(0).manufacturer=Cisco; \
@@ -92,7 +113,7 @@ regex=-111008: User '(\S+)' executed the 'enable' command; \
  classification.reference(0).meaning=asa_id; \
  classification.reference(0).name=111008; \
  classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp1280203; \
- id=202; \
+ id=198; \
  revision=6; \
  analyzer(0).name=ASA; \
  analyzer(0).manufacturer=Cisco; \
@@ -109,14 +130,14 @@ regex=-111008: User '(\S+)' executed the 'enable' command; \
  target(0).user.user_id(0).name=enable_15; \
  last
 
-#LOG:Apr  3 15:00:08 192.168.161.72 Homero %ASA-7-111009: User 'user' executed cmd: show access-list
+#LOG:Apr  3 15:00:08 x.x.x.x ASA_NAME %ASA-7-111009: User 'user' executed cmd: show access-list
 regex=-111009: User '(\S+)' executed cmd: (\S+) (\S+); \
  classification.text=User executed a command; \
  classification.reference(0).origin=vendor-specific; \
  classification.reference(0).meaning=asa_id; \
  classification.reference(0).name=111009; \
  classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp1280203; \
- id=516; \
+ id=199; \
  revision=6; \
  analyzer(0).name=ASA; \
  analyzer(0).manufacturer=Cisco; \
@@ -133,14 +154,14 @@ regex=-111009: User '(\S+)' executed cmd: (\S+) (\S+); \
  target(0).user.user_id(0).name=enable_15; \
  last
 
-#LOG: Apr  3 15:14:44 192.168.161.72 Homero %ASA-6-113016: AAA credentials rejected : reason = Unspecified : server = 1.1.1.3 : user = user
+#LOG: Apr  3 15:14:44 x.x.x.x ASA_NAME %ASA-6-113016: AAA credentials rejected : reason = Unspecified : server = 1.1.1.3 : user = user
 regex=-113016: AAA credentials rejected : reason = (\S+) : server = ([\d\.]+) : user = (\S+); \
  classification.text=AAA credentials rejected; \
  classification.reference(0).origin=vendor-specific; \
  classification.reference(0).meaning=asa_id; \
  classification.reference(0).name=113016; \
  classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp1280203; \
- id=517; \
+ id=200; \
  revision=6; \
  analyzer(0).name=ASA; \
  analyzer(0).manufacturer=Cisco; \
@@ -158,6 +179,47 @@ regex=-113016: AAA credentials rejected : reason = (\S+) : server = ([\d\.]+) : 
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=enable_15; \
  last
+
+#Jun 21 13:13:06 x.x.x.x ASA_NAME %ASA-2-113022: AAA Marking RADIUS server 192.168.160.30 in aaa-server group RADIUS as FAILED
+regex=-113022: AAA Marking RADIUS server ([\d\.]+) in aaa-server group RADIUS as FAILED; \
+ classification.text=AAA Marking RADIUS server as FAILED; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=asa_id; \
+ classification.reference(0).name=113022; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp1280203; \
+ id=201; \
+ revision=6; \
+ analyzer(0).name=ASA; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=high; \
+ assessment.impact.type=admin; \
+ assessment.impact.completion=succeeded; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=RADIUS Server; \
+ additional_data(0).data=$1; \
+ last
+
+#Jun 21 13:09:27 x.x.x.x ASA_NAME %ASA-4-409023: Attempting AAA Fallback method LOCAL for Authentication request for user e4045102 : Auth-server group RADIUS unreachable 
+regex=-409023: Attempting AAA Fallback method LOCAL for Authentication request for user (\S+); \
+ classification.text=AAA Fallback method LOCAL; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=asa_id; \
+ classification.reference(0).name=409023; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp1280203; \
+ id=202; \
+ revision=6; \
+ analyzer(0).name=ASA; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=high; \
+ assessment.impact.type=admin; \
+ assessment.impact.completion=succeeded; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Attempting AAA Fallback method LOCAL for Authentication request for user; \
+ additional_data(0).data=$1; \
+ last
+
 
 #LOG:Nov  2 11:17:21 pix %PIX-5-111001: Begin configuration: console writing to memory
 regex=-111001: Begin configuration: (\S+) writing to (\S+); \
@@ -553,9 +615,6 @@ regex=-313003: Invalid destination for ICMP error message: ICMP source ([\d\.]+)
  additional_data(1).data=$4; \
  last
 
-#
-#Uncomment the next rule if this useful for you:
-#
 #LOG:Dec 30 03:10:48 12.34.56.78 Dec 30 2003 02:13:28: %PIX-4-106023: Deny icmp src outside:64.89.17.26 dst inside:90.12.34.56 (type 3, code 3) by access-group "outside"
 #LOG:Jun  2 17:46:30 bombadil253 %PIX-4-106023: Deny udp src inside:12.34.56.78/18378 dst outside:90.12.34.56/12685 by access-group "acl_in"
 #regex=-106023: Deny (\w+) src (\S+):([\d\.]+)(/(\d+))? dst (\S+):([\d\.]+)(/(\d+))?.*by access-group "(\S+)"; \
@@ -586,9 +645,6 @@ regex=-313003: Invalid destination for ICMP error message: ICMP source ([\d\.]+)
 # additional_data(0).data=$8; \
 # last
 
-#
-#Uncomment the next rule if this useful for you:
-#
 #LOG:Nov  2 18:03:14 pix %PIX-2-106006: Deny inbound UDP from 9.0.1.2/10001 to 3.4.5.6/1026 on interface outside
 #regex=-106006: Deny inbound UDP from ([\d\.]+)/(\d+) to ([\d\.]+)/(\d+) on interface (\S+); \
 # classification.text=Packet denied; \
@@ -642,9 +698,6 @@ regex=-106007: Deny inbound UDP from ([\d\.]+)/(\d+) to ([\d\.]+)/(\d+) due to D
  target(0).node.address(0).address=$3; \
  target(0).service.port=$4; \
  last
-
-#
-#Uncomment the next rule if this useful for you:
 #
 #LOG:Nov  2 18:03:14 pix %PIX-2-106001: Inbound TCP connection denied from 1.2.3.4/1007 to 5.6.7.8/139 flags SYN  on interface outside
 #regex=-106001: Inbound TCP connection denied from ([\d\.]+)/(\d+) to ([\d\.]+)/(\d+) flags (.+)  on interface (\S+); \
@@ -795,7 +848,26 @@ regex=-710005: (TCP|UDP) request discarded from ([\d\.]+)/(\d+) to (\S+):([\d\.]
  last
 
 
-#Dec  7 14:08:17 Name %ASA-4-733100: [ Scanning] drop rate-1 exceeded. Current burst rate is 160 per second, max configured rate is 350; Current average rate is 313 per second, max configured rate is 262; Cumulative total count is 188250
+# Events taken from the Cisco System Log Messages List that will need rules
+# (include 'attack' || 'intrusion' || 'probe' || 'covert' in description; no log samples):
+# %PIX-1-106021: Deny protocol reverse path check from source_address to dest_address on interface interface_name
+# %PIX-1-106022: Deny protocol connection spoof from source_address to dest_address on interface interface_name
+# %PIX-1-106101 The number of ACL log deny-flows has reached limit (number).
+# %PIX-1-107001: RIP auth failed from IP_address: version=number, type=string, mode=string, sequence=number on interface interface_name
+# %PIX-1-107002: RIP pkt failed from IP_address: version=number on interface interface_name
+# %PIX-4-109017: User at IP_address exceeded auth proxy connection limit (max)
+# %PIX-3-320001: The subject name of the peer cert is not allowed for connection
+
+# %PIX-4-402101: decaps: rec'd IPSEC packet has invalid spi for destaddr=dest_address, prot=protocol, spi=number
+# %PIX-4-402102: decapsulate: packet missing {AH|ESP}, destadr=dest_address, actual prot=protocol
+# %PIX-4-405002: Received mac mismatch collision from IP_address/mac_address for authenticated host
+# %PIX-7-710006: protocol request discarded from source_address to interface_name:dest_address
+# %PIX-2-106020: Deny IP teardrop fragment (size = number, offset = number) from IP_address to IP_address
+# %PIX-4-209004: Invalid IP fragment, size = bytes exceeds maximum size = bytes: src = IP_address, dest = IP_address, proto = protocol, id = number
+# %PIX-4-209005: Discard IP fragment set with more than number elements: src = IP_address, dest = IP_address, proto = protocol, id = number
+# %PIX-2-201003: Embryonic limit exceeded nconns/elimit for outside_address/outside_port (global_address) inside_address/inside_port on interface interface_name
+
+#Dec  7 14:08:17 ASA_NAME %ASA-4-733100: [ Scanning] drop rate-1 exceeded. Current burst rate is 160 per second, max configured rate is 350; Current average rate is 313 per second, max configured rate is 262; Cumulative total count is 188250
 regex=-733100: \[+.+\] drop rate-[1|2] exceeded\.; \
  classification.text=Drop rate $1 exceeded.; \
  classification.reference(0).origin=vendor-specific; \
@@ -813,9 +885,7 @@ regex=-733100: \[+.+\] drop rate-[1|2] exceeded\.; \
  assessment.impact.description=The specified object in the syslog message has exceeded the specified burst threshold rate or average threshold rate. The object can be drop activity of a host, TCP/UDP port, IP protocol, or various drops caused by potential attacks. The message indicates that the system is under potential attack.; \
  last
 
-#
-#Uncomment the next rule if this useful for you:
-#
+
 #ASA-1-106021: Deny TCP reverse path check from 10.10.10.101 to 65.58.240.105 on interface inside
 #regex=-106021: Deny TCP reverse path check from ([\d\.]+) to ([\d\.]+) on interface (\S+); \
 # classification.text=Deny $1 reverse path check; \
@@ -884,7 +954,7 @@ regex=-106101: The number of ACL log deny-flows has reached limit (\d+); \
  additional_data(0).data=$1; \
  last
 
-#Homero %ASA-5-111008: User 'f47177' executed the 'configure terminal' command.
+#Homero %ASA-5-111008: User 'USER' executed the 'configure terminal' command.
 regex=-111008: User '(\S+)' executed the 'configure terminal' command; \
  classification.text=The user $1 entered executed the 'configure terminal' command; \
  classification.reference(0).origin=vendor-specific; \
@@ -1056,7 +1126,7 @@ regex=-419001: Dropping TCP packet from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\.]+)
  last
 
 
-#Apr 10 15:40:15 192.168.161.72 xxx %ASA-4-419002: Duplicate TCP SYN from outside:xx.xx.xx.xx/xxx to inside:xx.xx.xx.xx/xxxx with different initial sequence number
+#Apr 10 15:40:15 x.x.x.x xxx %ASA-4-419002: Duplicate TCP SYN from outside:xx.xx.xx.xx/xxx to inside:xx.xx.xx.xx/xxxx with different initial sequence number
 regex=-419002: Duplicate TCP SYN from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\.]+)/(\d+); \
  classification.text=Duplicate TCP SYN; \
  classification.reference(0).origin=vendor-specific; \
@@ -1800,9 +1870,6 @@ regex=-735022:; \
  assessment.impact.description=CPU# is running beyond the max thermal operating temperature and the device will be shutting down immediately to prevent permanent damage to the CPU.; \
  last
 
-#
-#Uncomment the next rule if this useful for you:
-#
 #Apr 27 14:50:30 xx.xx.xx.xx Name %ASA-4-507003: tcp flow from outside:xx.xx.xx.xx/xxxxx to inside:xx.xx.xx.xx/xxx terminated by inspection engine, reason - proxy inspector drop reset
 regex=-507003: tcp flow from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\.]+)/(\d+) (\S+ ); \
  classification.text=TCP flow terminated by inspection engine; \
@@ -1846,7 +1913,7 @@ regex=-305005: No translation group found for (\S+) src (\S+):([\d\.]+) dst (\S+
  analyzer(0).name=ASA; \
  analyzer(0).manufacturer=Cisco; \
  analyzer(0).class=Firewall; \
- assessment.impact.severity=low; \
+ assessment.impact.severity=medium; \
  assessment.impact.description=TCP flow terminated by inspection engine, reason - proxy inspector drop reset.; \
  source(0).interface=$2; \
  source(0).node.address(0).category=ipv4-addr; \
@@ -1857,4 +1924,114 @@ regex=-305005: No translation group found for (\S+) src (\S+):([\d\.]+) dst (\S+
  additional_data(0).type=string; \
  additional_data(0).meaning=Proto; \
  additional_data(0).data=$1; \
+ last
+
+#May 31 18:53:59 192.168.161.4 Antonio %ASA-3-305006: regular translation creation failed for protocol 50 src inside:172.19.102.61 dst outside:200.40.236.15 
+regex=-305006: regular translation creation failed for protocol (\d+) src (\S+):([\d\.]+) dst (\S+):([\d\.]+); \
+ classification.text=Regular translation creation failed; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=asa_id; \
+ classification.reference(0).name=305006; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp1279735; \
+ id=551; \
+ revision=5; \
+ analyzer(0).name=ASA; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=regular translation creation failed for protocol $1.; \
+ source(0).interface=$2; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$3; \
+ target(0).interface=$4; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$5; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Proto; \
+ additional_data(0).data=$1; \
+ last
+
+#Jun  2 16:12:09 x.x.x.x ASA_NAME %ASA-5-305013: Asymmetric NAT rules matched for forward and reverse flows; Connection for icmp src outside:x.x.x.x dst inside:x.x.x.x (type 8, code 0) denied due to NAT reverse path failure
+regex=-305013: Asymmetric NAT rules matched for forward and reverse flows; \
+ classification.text=Asymmetric NAT rules failed; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=asa_id; \
+ classification.reference(0).name=305013; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp1279735; \
+ id=552; \
+ revision=5; \
+ analyzer(0).name=ASA; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=Asymmetric NAT rules matched for forward and reverse flows.; \
+# source(0).interface=$2; \
+# source(0).node.address(0).category=ipv4-addr; \
+# source(0).node.address(0).address=$3; \
+# target(0).interface=$4; \
+# target(0).node.address(0).category=ipv4-addr; \
+# target(0).node.address(0).address=$5; \
+# additional_data(0).type=string; \
+# additional_data(0).meaning=Proto; \
+# additional_data(0).data=$1; \
+ last
+
+#Jun 4 12:32:47 x.x.x.x ASA_NAME %ASA-3-210005: LU allocate connection failed
+regex=-210005: LU allocate connection failed; \
+ classification.text=LU allocate connection failed; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=asa_id; \
+ classification.reference(0).name=210005; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp1279735; \
+ id=553; \
+ revision=5; \
+ analyzer(0).name=ASA; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=LU allocate connection failed.; \
+ last
+
+#Dec 11 18:41:14 x.x.x.x abc %ASA-3-201011: Connection limit exceeded 10000/10000 for inbound packet from x.x.x.x/xx to x.x.x.x/xx on interface outside
+regex=-201011: Connection limit exceeded (\d+)/(\d+) for (\S+) packet from ([\d\.]+)/(\d+) to ([\d\.]+)/(\d+) on interface (\S+); \
+ classification.text=Connection limit exceeded; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=asa_id; \
+ classification.reference(0).name=201011; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp1279735; \
+ id=554; \
+ revision=5; \
+ analyzer(0).name=ASA; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=Connection limit exceeded $1/$2 for $3 packet from $4.; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.port=$5; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.port=$7; \
+ last
+
+#Dec 11 18:41:14 x.x.x.x abc %ASA-3-201013: Per-client connection limit exceeded 10000/10000 for inbound packet from x.x.x.x/xx to x.x.x.x/xx on interface outside
+regex=-201013: Per-client connection limit exceeded (\d+)/(\d+) for (\S+) packet from ([\d\.]+)/(\d+) to ([\d\.]+)/(\d+) on interface (\S+); \
+ classification.text=Per-client connection limit exceeded; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=asa_id; \
+ classification.reference(0).name=201011; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp1279735; \
+ id=555; \
+ revision=5; \
+ analyzer(0).name=ASA; \
+ analyzer(0).manufacturer=Cisco; \
+ analyzer(0).class=Firewall; \
+ assessment.impact.severity=high; \
+ assessment.impact.description=Per-client connection limit exceeded $1/$2 for $3 packet from $4.; \
+ source(0).node.address(0).category=ipv4-addr; \
+ source(0).node.address(0).address=$4; \
+ source(0).service.port=$5; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$6; \
+ target(0).service.port=$7; \
  last

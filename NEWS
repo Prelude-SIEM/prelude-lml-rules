@@ -1,3 +1,15 @@
-* Unreleased, prelude-lml-rules 1.0.0
+* 2013-09-18, prelude-lml-rules 1.0.0
 
 - Initial release from prelude-lml ruleset
+
+- Updated rules for
+  - Juniper MAG SSLVPN (operador@seguridadx.com)
+  - Symantec Endpoint Protection Manager 12.1.2x (operador@seguridadx.com)
+  - Cisco ASA 8.2.x (operador@seguridadx.com)
+
+- New rules for
+  - Cisco ACE (operador@seguridadx.com)
+  - Cisco IPS module (operador@seguridadx.com)
+  - FreeRadius 1.1.7 (operador@seguridadx.com)
+  - Symantec Critical System Protection 5.2 (operador@seguridadx.com)
+  - IBM Data Power XG45 (operador@seguridadx.com)
