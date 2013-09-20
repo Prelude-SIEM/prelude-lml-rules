@@ -21,7 +21,7 @@
 #
 regex=([a-z0-9]+):\s\(rate:\s(\d+)\/(\d+)\ssec\)\s([a-f\d\:]+)\s\>\s([a-f\d\:]+)\,\sbssid\s([a-f\d\:]+)\:\s([^\,]+); \
  classification.text=IEEE 802.11 $7 flooding; \
- id=4500; \
+ id=2500; \
  revision=1; \
  analyzer(0).name=openhostapd; \
  analyzer(0).manufacturer=http://www.openbsd.org; \
@@ -43,7 +43,7 @@ regex=([a-z0-9]+):\s\(rate:\s(\d+)\/(\d+)\ssec\)\s([a-f\d\:]+)\s\>\s([a-f\d\:]+)
 #
 regex=([a-z0-9]+):\s\(rate:\s(\d+)\/(\d+)\ssec\); \
  classification.text=IEEE 802.11 flooding; \
- id=4501; \
+ id=2501; \
  revision=1; \
  analyzer(0).name=openhostapd; \
  analyzer(0).manufacturer=http://www.openbsd.org; \
@@ -61,7 +61,7 @@ regex=([a-z0-9]+):\s\(rate:\s(\d+)\/(\d+)\ssec\); \
 #
 regex=([a-z0-9]+):\sremoved\snode\s([a-f\d\:]+); \
  classification.text=Removed IEEE 802.11 node; \
- id=4502; \
+ id=2502; \
  revision=1; \
  analyzer(0).name=openhostapd; \
  analyzer(0).manufacturer=http://www.openbsd.org; \
@@ -79,7 +79,7 @@ regex=([a-z0-9]+):\sremoved\snode\s([a-f\d\:]+); \
 #
 regex=([a-z0-9]+)\/([a-z0-9]+):\ssent\sADD\snotification\sfor\s([a-f\d\:]+); \
  classification.text=Added IEEE 802.11 node; \
- id=4503; \
+ id=2503; \
  revision=1; \
  analyzer(0).name=openhostapd; \
  analyzer(0).manufacturer=http://www.openbsd.org; \
@@ -98,7 +98,7 @@ regex=([a-z0-9]+)\/([a-z0-9]+):\ssent\sADD\snotification\sfor\s([a-f\d\:]+); \
 #
 regex=([a-z0-9]+)\/([a-z0-9]+):\sattached\sHost\sAP\sinterface\swith\sBSSID\s([a-f\d\:]+); \
  classification.text=Attached IEEE 802.11 Host AP; \
- id=4504; \
+ id=2504; \
  revision=1; \
  analyzer(0).name=openhostapd; \
  analyzer(0).manufacturer=http://www.openbsd.org; \

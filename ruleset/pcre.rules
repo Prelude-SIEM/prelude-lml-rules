@@ -68,12 +68,11 @@ regex=%\S+-\d+-\S+;                     include = cisco-common.rules; \
                                         include = cisco-router.rules;
 regex=(IPV4|SSHD|NETMAN)-\d+;           include = cisco-css.rules;
 regex=(snmptrapd);                      include = cisco-ips-2.rules;
-regex=snmptrapd;                        include = cisco-ips.rules;
+#regex=snmptrapd;                        include = cisco-ips.rules;
 regex=SEV=;                             include = cisco-vpn.rules;
 # Using this regex rather than simpler clamd to handle events from clamav
 # logging format
 regex=radiusd\[(\d+)\];			include = radiusd.rules;
-regex=(Logsurfer);                      include = logsurfer.rules;
 regex=(Juniper);                        include = juniper.rules;
 regex=(SymantecServer);                 include = symantec.rules;
 regex=snmptrapd;		        include = symantec-scsp.rules;

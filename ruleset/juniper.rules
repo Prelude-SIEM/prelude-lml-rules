@@ -189,7 +189,7 @@ regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] (\S+)\(\)\[\] - Node '(\S+)' activated
 #Mar 30 15:11:50 xx.xx.xx.xx Juniper: 2012-03-30 15:11:50 - Namexxx - [200.49.92.226] Root::System(xx)[] - Login failed.  Reason: Failed
 regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\((\S+) (\S+)\)\[\] - Login failed.  Reason: Failed; \
  classification.text=SSLVPN - Login failed.; \
- id=50001; \
+ id=50101; \
  revision=1; \
  analyzer(0).name=Juniper SA/MAG; \
  analyzer(0).manufacturer=www.juniper.net; \
@@ -210,7 +210,7 @@ regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\((\S+) (\S+)\)\[\] - Login
 #Mar 30 14:36:29 xx.xx.xx.xx Juniper: 2012-03-30 14:36:29 - Namexxx - [190.132.169.34] Root::user(xx)[] - Login failed.  Reason: NoRoles
 regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\((\S+) (\S+)\)\[\] - Login failed.  Reason: NoRoles; \
  classification.text=SSLVPN - Login failed.; \
- id=50002; \
+ id=50102; \
  revision=1; \
  analyzer(0).name=Juniper SA/MAG; \
  analyzer(0).manufacturer=www.juniper.net; \
@@ -231,7 +231,7 @@ regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\((\S+) (\S+)\)\[\] - Login
 #Apr 10 12:23:33 xx.xx.xx.xx Juniper: 2012-04-10 12:23:33 - Namexxx - [127.0.0.1] Root::System()[] - The current virus signature list imported successfully
 regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\(\)\[\] - The current virus signature list imported successfully; \
  classification.text=SSLVPN - Virus Signature Update; \
- id=50003; \
+ id=50103; \
  revision=1; \
  analyzer(0).name=Juniper SA/MAG; \
  analyzer(0).manufacturer=www.juniper.net; \
@@ -251,7 +251,7 @@ regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\(\)\[\] - The current viru
 
 regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\(\)\[\] - The current patch management data imported successfully; \
  classification.text=SSLVPN - Patch Management Update; \
- id=50004; \
+ id=50104; \
  revision=1; \
  analyzer(0).name=Juniper SA/MAG; \
  analyzer(0).manufacturer=www.juniper.net; \
@@ -271,7 +271,7 @@ regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\(\)\[\] - The current patc
 
 regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\(\)\[\] - Unable to download current patch management; \
  classification.text=SSLVPN - Patch Management Update Failed; \
- id=50005; \
+ id=50105; \
  revision=1; \
  analyzer(0).name=Juniper SA/MAG; \
  analyzer(0).manufacturer=www.juniper.net; \
@@ -291,7 +291,7 @@ regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\(\)\[\] - Unable to downlo
 
 regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\(\)\[\] - Unable to download current virus signature; \
  classification.text=SSLVPN - Virus Signature Update Failed; \
- id=50006; \
+ id=50106; \
  revision=1; \
  analyzer(0).name=Juniper SA/MAG; \
  analyzer(0).manufacturer=www.juniper.net; \
@@ -311,7 +311,7 @@ regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\(\)\[\] - Unable to downlo
 
 regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\(\)\[\] - Node '(\S+)' deactivated in cluster; \
  classification.text=Failover: deactivated in cluster; \
- id=50007; \
+ id=50107; \
  revision=1; \
  analyzer(0).name=Juniper SA/MAG; \
  analyzer(0).manufacturer=www.juniper.net; \
@@ -328,7 +328,7 @@ regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\(\)\[\] - Node '(\S+)' dea
 
 regex=Juniper:+.+ - (\S+) - \[([\d\.]+)\] Root::(\S+)\(\)\[\] - Node '(\S+)' activated in cluster; \
  classification.text=Failover: activated in cluster; \
- id=50008; \
+ id=50108; \
  revision=1; \
  analyzer(0).name=Juniper SA/MAG; \
  analyzer(0).manufacturer=www.juniper.net; \

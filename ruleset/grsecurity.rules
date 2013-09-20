@@ -104,7 +104,7 @@ regex=successful; id=695; assessment.impact.completion = succeeded; chained; sil
 #
 regex=denied ptrace of ([^(]+)([^:]+:(\d+)) by ; goto=692; optgoto=693-695; \
  classification.text=Denied ptrace; \
- id=603; \
+ id=611; \
  revision=1; \
  analyzer(0).name=grsecurity; \
  analyzer(0).manufacturer=www.grsecurity.net; \
@@ -124,7 +124,7 @@ regex=denied ptrace of ([^(]+)([^:]+:(\d+)) by ; goto=692; optgoto=693-695; \
 #LOG: FIXME
 regex=denied use of (ioperm|iopl)\(\) by ; goto=692; optgoto=693-695; \
  classification.text=Denied user of $1; \
- id=603; \
+ id=604; \
  revision=1; \
  analyzer(0).name=grsecurity; \
  analyzer(0).manufacturer=www.grsecurity.net; \
@@ -150,7 +150,7 @@ regex=denied use of (ioperm|iopl)\(\) by ; goto=692; optgoto=693-695; \
 
 regex=denied attach of shared memory outside of chroot by; goto=692; \
  classification.text=Denied attach of shared memory segment; \
- id=604; \
+ id=605; \
  revision=1; \
  analyzer(0).name=grsecurity; \
  analyzer(0).manufacturer=www.grsecurity.net; \
@@ -171,7 +171,7 @@ regex=denied attach of shared memory outside of chroot by; goto=692; \
 #
 regex=denied ((mmap )?write|open) of (/dev/[^ ]+) by; optgoto=693-694; \
  classification.text=Denied $1 of $2; \
- id=602; \
+ id=606; \
  revision=1; \
  analyzer(0).name=grsecurity; \
  analyzer(0).manufacturer=www.grsecurity.net; \
@@ -936,7 +936,7 @@ goto=692; optgoto=693-695; \
 regex=(denied|successful) (mknod|mkdir|rmdir|unlink|untrusted exec|execution|truncate|access time change|fchmod|chmod|chown|executable mmap|executable mprotect) of ([^ ]+) by ; \
 goto=692; optgoto=693-695; \
  classification.text=Attempted $2; \
- id=610; \
+ id=612; \
  revision=1; \
  analyzer(0).name=grsecurity; \
  analyzer(0).manufacturer=www.grsecurity.net; \
