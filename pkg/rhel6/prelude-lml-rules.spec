@@ -22,7 +22,9 @@ Rules for Prelude LML contributed by the community.
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_sysconfdir}/prelude-lml/ruleset
+mkdir -p %{buildroot}/%{_bindir}
 cp -R $RPM_BUILD_DIR/%{name}-%{version}/ruleset/* %{buildroot}/%{_sysconfdir}/prelude-lml/ruleset/
+cp $RPM_BUILD_DIR/%{name}-%{version}/src/%{name}* %{buildroot}/%{_bindir}
 
 %clean
 rm -rf %{buildroot}
@@ -30,8 +32,9 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc COPYING NEWS README
+%doc COPYING NEWS README AUTHORS
 %{_sysconfdir}/prelude-lml/ruleset
+%attr(775,root,root) %{_bindir}/*
 
 
 %changelog

@@ -48,7 +48,7 @@ foreach $f (@ARGV) {
     }
     close(IN);
     $files++;
-    print "$f: " . join(', ', @ids) . "\n";
+    print "$f: " . join(', ', sort { $a <=> $b } @ids) . "\n";
 }
 
 print "$rules rules in $files files\n";

@@ -4,8 +4,8 @@ VERSION = 1.0.0
 clean:
 	rm -rf dist build
 
-dist:
+dist: clean
 	mkdir -p dist
 	mkdir -p build/$(NAME)-$(VERSION)
-	cp -R ruleset/ COPYING README NEWS build/$(NAME)-$(VERSION)/
+	cp -R src/ ruleset/ COPYING README NEWS AUTHORS build/$(NAME)-$(VERSION)/
 	(cd build; tar czf ../dist/$(NAME)-$(VERSION).tar.gz $(NAME)-$(VERSION)/) 
