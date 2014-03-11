@@ -73,7 +73,7 @@ regex=SEV=;                             include = cisco-vpn.rules;
 # Using this regex rather than simpler clamd to handle events from clamav
 # logging format
 regex=radiusd\[(\d+)\];			include = radiusd.rules;
-regex=(Juniper);                        include = juniper.rules;
+regex=Juniper:;                         include = juniper-vpn.rules;
 regex=SymantecServer \S+:;              include = symantec-epm.rules;
 regex=snmptrapd;		        include = symantec-scsp.rules;
 regex=(FOUND|virus);                    include = clamav.rules;
