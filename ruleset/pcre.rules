@@ -74,7 +74,7 @@ regex=SEV=;                             include = cisco-vpn.rules;
 # logging format
 regex=radiusd\[(\d+)\];			include = radiusd.rules;
 regex=(Juniper);                        include = juniper.rules;
-regex=(SymantecServer);                 include = symantec.rules;
+regex=SymantecServer \S+:;              include = symantec-epm.rules;
 regex=snmptrapd;		        include = symantec-scsp.rules;
 regex=(FOUND|virus);                    include = clamav.rules;
 regex=server administrator;             include = dell-om.rules
@@ -125,6 +125,7 @@ regex=vpopmail;                         include = vpopmail.rules;
 regex=webmin;                           include = webmin.rules;
 regex=ftpd;                             include = wu-ftp.rules;
 regex=MSWinEventLog;			include = snare_windows.rules;
+
 
 # Openhostapd.rules doesn't have specific stuff we can match:
 regex=(removed node|\(rate:\s(\d+)\/(\d+)\ssec\)|sent ADD notification|attached Host AP interface);    include = openhostapd.rules;
