@@ -159,7 +159,7 @@ regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) src=([\d\.]+):(
  classification.reference(1).meaning=priority-id; \
  classification.reference(1).name=$2; \            
  classification.reference(1).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
- id=4603 \
+ id=4603; \
  revision=1; \
  analyzer(0).name=SonicWall; \
  analyzer(0).manufacturer=SonicGuard; \
@@ -234,7 +234,7 @@ regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg="Possible port scan dropped" n=(
  classification.reference(1).meaning=priority-id; \
  classification.reference(1).name=$2; \            
  classification.reference(1).url=http://www.sonicwall.com/support/pdfs/SonicOS_Log_Event_Reference_Guide.pdf; \
- id=4605 \
+ id=4605; \
  revision=1; \
  analyzer(0).name=SonicWall; \
  analyzer(0).manufacturer=SonicGuard; \
