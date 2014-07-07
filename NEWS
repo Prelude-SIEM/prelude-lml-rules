@@ -1,4 +1,17 @@
-* 2013-09-18, prelude-lml-rules 1.0.0
+* 2014-07-07, prelude-lml-rules-1.2.5:
+
+- Updated/fixed rules for
+  - Juniper SA
+  - Symantec Antivirus
+
+- Removed duplicated freeradius ruleset
+
+- Added prelude-lml-rules-check
+  prelude-lml-rules-check : sort rules ids
+
+
+
+* 2013-09-18, prelude-lml-rules-1.0.0:
 
 - Initial release from prelude-lml ruleset
 
