@@ -72,17 +72,17 @@ regex=(snmptrapd);                      include = cisco-ips-2.rules;
 regex=SEV=;                             include = cisco-vpn.rules;
 # Using this regex rather than simpler clamd to handle events from clamav
 # logging format
-regex=radiusd\[(\d+)\];			include = radiusd.rules;
+regex=radiusd\[(\d+)\];                 include = radiusd.rules;
 regex=Juniper:;                         include = juniper-vpn.rules;
 regex=SymantecServer \S+:;              include = symantec-epm.rules;
-regex=snmptrapd;		        include = symantec-scsp.rules;
+regex=snmptrapd;                        include = symantec-scsp.rules;
 regex=(FOUND|virus);                    include = clamav.rules;
-regex=server administrator;             include = dell-om.rules
+regex=server administrator;             include = dell-om.rules;
 regex=(kernel|grsec);                   include = grsecurity.rules;
 regex=(bigconf|kernel);                 include = f5-bigip.rules;
 regex=(honeyd|icmp|tcp|udp);            include = honeyd.rules;
-regex=\[([0-9-]+) ([0-9:]+)\];          include = honeytrap.rules
-regex=\[(SSHChannel|SSHService);        include = kojoney.rules
+regex=\[([0-9-]+) ([0-9:]+)\];          include = honeytrap.rules;
+regex=\[(SSHChannel|SSHService);        include = kojoney.rules;
 # Using this somewhat complex regex instead of the simpler httpd due to the
 # fact that we might be directly monitoring httpd logs instead of httpd syslog
 # entries (in which case we won't have the process name to match against)
@@ -124,7 +124,7 @@ regex=[wl]an @Group:;                   include = vigor.rules;
 regex=vpopmail;                         include = vpopmail.rules;
 regex=webmin;                           include = webmin.rules;
 regex=ftpd;                             include = wu-ftp.rules;
-regex=MSWinEventLog;			include = snare_windows.rules;
+regex=MSWinEventLog;                    include = snare_windows.rules;
 
 
 # Openhostapd.rules doesn't have specific stuff we can match:

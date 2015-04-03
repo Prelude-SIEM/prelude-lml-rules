@@ -114,7 +114,7 @@ regex=denied ptrace of ([^(]+)([^:]+:(\d+)) by ; goto=692; optgoto=693-695; \
  target(0).process.pid = $3; \
  assessment.impact.type=file; \
  assessment.impact.severity=high; \
- assessment.impact.description=An attempt was made to ptrace $1. Access was denied. \
+ assessment.impact.description=An attempt was made to ptrace $1. Access was denied.; \
  last
 
 ##

@@ -281,9 +281,9 @@ regex=listening on (\S+):; \
  additional_data(2).type=integer; \
  additional_data(2).meaning=Packet size; \
  additional_data(2).data=$5; \
- additional_data(2).type=string; \
- additional_data(2).meaning=Target OS; \
- additional_data(2).data=$6; \
+ additional_data(3).type=string; \
+ additional_data(3).meaning=Target OS; \
+ additional_data(3).data=$6; \
  last
 
 #LOG:2006-08-18-12:21:12.1239 tcp(6) - 11.11.11.11 53952 22.22.22.22 10078: 44 S [Linux 2.6 ]

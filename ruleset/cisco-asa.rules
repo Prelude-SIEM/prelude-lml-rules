@@ -1004,15 +1004,15 @@ regex=-107001: RIP auth failed from ([\d\.]+): version=(\d+), type=(\S+), mode=(
  additional_data(0).type=string; \
  additional_data(0).meaning=version; \
  additional_data(0).data=$2; \
- additional_data(0).type=string; \
- additional_data(0).meaning=type; \
- additional_data(0).data=$3; \
- additional_data(0).type=string; \
- additional_data(0).meaning=mode; \
- additional_data(0).data=$4; \
- additional_data(0).type=string; \
- additional_data(0).meaning=sequence; \
- additional_data(0).data=$5; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=type; \
+ additional_data(1).data=$3; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=mode; \
+ additional_data(2).data=$4; \
+ additional_data(3).type=string; \
+ additional_data(3).meaning=sequence; \
+ additional_data(3).data=$5; \
  last
 
 
@@ -1022,9 +1022,9 @@ regex=-107002: RIP pkt failed from ([\d\.]+): version=(\d+) on interface (\S+); 
  classification.text=IP pkt failed from IP_address: version=number on interface interface_name; \
  classification.reference(0).origin=vendor-specific; \
  classification.reference(0).meaning=asa_id; \
- classification.reference(0).name=107002 \
+ classification.reference(0).name=107002; \
  classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa72/system/message/logmsgs.html#wp1280203; \
- id=506 \
+ id=506; \
  revision=5; \
  analyzer(0).name=ASA; \
  analyzer(0).manufacturer=Cisco; \
@@ -1049,7 +1049,7 @@ regex=-109017: User at ([\d\.]+) exceeded auth proxy connection limit; \
  classification.reference(0).meaning=asa_id; \
  classification.reference(0).name=109017; \
  classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa72/system/message/logmsgs.html#wp1280203; \
- id=507 \
+ id=507; \
  revision=5; \
  analyzer(0).name=ASA; \
  analyzer(0).manufacturer=Cisco; \
@@ -1070,7 +1070,7 @@ regex=-320001: The subject name of the peer cert is not allowed for connection; 
  classification.reference(0).meaning=asa_id; \
  classification.reference(0).name=320001; \
  classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa72/system/message/logmsgs.html#wp1280203; \
- id=508 \
+ id=508; \
  revision=5; \
  analyzer(0).name=ASA; \
  analyzer(0).manufacturer=Cisco; \
@@ -1088,7 +1088,7 @@ regex=-402101: decaps: rec'd IPSEC packet has invalid spi for destaddr=([\d\.]+)
  classification.reference(0).meaning=asa_id; \
  classification.reference(0).name=402101; \
  classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa72/system/message/logmsgs.html#wp1280203; \
- id=509 \
+ id=509; \
  revision=1; \
  analyzer(0).name=ASA; \
  analyzer(0).manufacturer=Cisco; \
