@@ -14,7 +14,7 @@
 
 #
 # Prelude Hybrid IDS LML sensor PCRE rules for the OpenBSD hostapd(8) 
-# http://www.prelude-ids.org/
+# https://www.prelude-siem.org/
 #
 
 # LOG: ath0: (rate: 100/3 sec) 00:02:dc:ed:3d:3f > 00:05:4e:45:d3:b8, bssid 00:05:4e:45:d3:b8: authentication request, <radiotap v0, chan 1, 11g, txpower 30dBm> 
