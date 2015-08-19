@@ -28,9 +28,9 @@
 # at the address provided above
 #
 #####
-
+#LOG:Oct 30 10:18:37 localhost groupadd[3491]: new group: name=test, GID=1003
 #LOG:May 10 16:37:57 somehost groupadd[618]: new group: name=clamav, gid=46
-regex=new group: name=(\S+), gid=(?!0)(\d+); \
+regex=new group: name=(\S+), [gG][iI][dD]=(?!0)(\d+); \
  classification.text=Group Created; \
  id=3300; \
  revision=1; \
@@ -45,8 +45,9 @@ regex=new group: name=(\S+), gid=(?!0)(\d+); \
  target(0).user.user_id(0).number=$2; \
  last
 
+#LOG:Oct 30 10:19:22 localhost groupadd[3491]: new group: name=wheel, GID=0
 #LOG:May 10 16:37:57 somehost groupadd[618]: new group: name=wheel, gid=0
-regex=new group: name=(\S+), gid=0; \
+regex=new group: name=(\S+), [gG][iI][dD]=0; \
  classification.text=Group Created with GID 0; \
  id=3301; \
  revision=1; \
@@ -61,8 +62,9 @@ regex=new group: name=(\S+), gid=0; \
  target(0).user.user_id(0).number=0; \
  last
 
+#LOG:Oct 30 10:18:37 localhost useradd[3495]: new user: name=test, UID=1005, GID=1003, home=/home/test, shell=/bin/bash
 #LOG:May 10 16:37:57 somehost useradd[621]: new user: name=clamav, uid=46, gid=46, home=/tmp, shell=/sbin/nologin
-regex=new user: name=(\S+), uid=(?!0)(\d+), gid=(?!0)(\d+), home=(\S+), shell=(\S+); \
+regex=new user: name=(\S+), [uU][iI][dD]=(?!0)(\d+), [gG][iI][dD]=(?!0)(\d+), home=(\S+), shell=(\S+); \
  classification.text=User Created; \
  id=3302; \
  revision=2; \
@@ -85,8 +87,9 @@ regex=new user: name=(\S+), uid=(?!0)(\d+), gid=(?!0)(\d+), home=(\S+), shell=(\
  additional_data(1).data=$5; \
  last
 
+#LOG:Oct 30 10:18:37 localhost useradd[3495]: new user: name=test, UID=0, GID=45, home=/home/test, shell=/bin/bash
 #LOG:May 10 16:37:57 somehost useradd[621]: new user: name=someuser, uid=0, gid=46, home=/tmp, shell=/sbin/nologin
-regex=new user: name=(\S+), uid=0, gid=(?!0)(\d+), home=(\S+), shell=(\S+); \
+regex=new user: name=(\S+), [uU][iI][dD]=0, [gG][iI][dD]=(?!0)(\d+), home=(\S+), shell=(\S+); \
  classification.text=User Created with UID 0; \
  id=3303; \
  revision=2; \
@@ -109,8 +112,9 @@ regex=new user: name=(\S+), uid=0, gid=(?!0)(\d+), home=(\S+), shell=(\S+); \
  additional_data(1).data=$4; \
  last
 
+#LOG:Oct 30 10:18:37 localhost useradd[3495]: new user: name=test, UID=55, GID=0, home=/home/test, shell=/bin/bash
 #LOG:May 10 16:37:57 somehost useradd[621]: new user: name=someuser, uid=46, gid=0, home=/tmp, shell=/sbin/nologin
-regex=new user: name=(\S+), uid=(?!0)(\d+), gid=0, home=(\S+), shell=(\S+); \
+regex=new user: name=(\S+), [uU][iI][dD]=(?!0)(\d+), [gG][iI][dD]=0, home=(\S+), shell=(\S+); \
  classification.text=User Created with GID 0; \
  id=3304; \
  revision=2; \
@@ -133,8 +137,9 @@ regex=new user: name=(\S+), uid=(?!0)(\d+), gid=0, home=(\S+), shell=(\S+); \
  additional_data(1).data=$4; \
  last
 
+#LOG:Oct 30 10:18:37 localhost useradd[3495]: new user: name=test, UID=0, GID=0, home=/home/test, shell=/bin/bash
 #LOG:May 10 16:37:57 somehost useradd[621]: new user: name=someuser, uid=0, gid=0, home=/tmp, shell=/sbin/nologin
-regex=new user: name=(\S+), uid=0, gid=0, home=(\S+), shell=(\S+); \
+regex=new user: name=(\S+), [uU][iI][dD]=0, [gG][iI][dD]=0, home=(\S+), shell=(\S+); \
  classification.text=User Created with UID/GID 0; \
  id=3305; \
  revision=2; \
