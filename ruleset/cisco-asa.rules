@@ -34,7 +34,7 @@
 #
 #####
 
-#Error Message %ASA-4-410001: Dropped UDP DNS packet_type from source_interface:source_address/source_port to dest_interface:dest_address/dest_port; error_length_type length length bytes exceeds max_length_type limit of maximum_length bytes
+#LOG:Sep 20 18:25:50 ASA_NAME %ASA-4-410001: Dropped UDP DNS packet_type from source_interface:source_address/source_port to dest_interface:dest_address/dest_port; error_length_type length length bytes exceeds max_length_type limit of maximum_length bytes
 regex=ASA-4-410001; \
  classification.text=Dropped UDP DNS; \
  classification.reference(0).origin=vendor-specific; \
@@ -130,7 +130,7 @@ regex=-111008: User '(\S+)' executed the 'enable' command; \
  target(0).user.user_id(0).name=enable_15; \
  last
 
-#LOG:Apr  3 15:00:08 x.x.x.x ASA_NAME %ASA-7-111009: User 'user' executed cmd: show access-list
+#LOG:Apr  3 15:00:08 ASA_NAME %ASA-7-111009: User 'user' executed cmd: show access-list
 regex=-111009: User '(\S+)' executed cmd: (\S+) (\S+); \
  classification.text=User executed a command; \
  classification.reference(0).origin=vendor-specific; \
@@ -154,7 +154,7 @@ regex=-111009: User '(\S+)' executed cmd: (\S+) (\S+); \
  target(0).user.user_id(0).name=enable_15; \
  last
 
-#LOG: Apr  3 15:14:44 x.x.x.x ASA_NAME %ASA-6-113016: AAA credentials rejected : reason = Unspecified : server = 1.1.1.3 : user = user
+#LOG:Apr  3 15:14:44 ASA_NAME %ASA-6-113016: AAA credentials rejected : reason = Unspecified : server = 1.1.1.3 : user = user
 regex=-113016: AAA credentials rejected : reason = (\S+) : server = ([\d\.]+) : user = (\S+); \
  classification.text=AAA credentials rejected; \
  classification.reference(0).origin=vendor-specific; \
@@ -180,7 +180,7 @@ regex=-113016: AAA credentials rejected : reason = (\S+) : server = ([\d\.]+) : 
  target(0).user.user_id(0).name=enable_15; \
  last
 
-#Jun 21 13:13:06 x.x.x.x ASA_NAME %ASA-2-113022: AAA Marking RADIUS server 192.168.160.30 in aaa-server group RADIUS as FAILED
+#LOG:Jun 21 13:13:06 ASA_NAME %ASA-2-113022: AAA Marking RADIUS server 192.168.160.30 in aaa-server group RADIUS as FAILED
 regex=-113022: AAA Marking RADIUS server ([\d\.]+) in aaa-server group RADIUS as FAILED; \
  classification.text=AAA Marking RADIUS server as FAILED; \
  classification.reference(0).origin=vendor-specific; \
@@ -200,7 +200,7 @@ regex=-113022: AAA Marking RADIUS server ([\d\.]+) in aaa-server group RADIUS as
  additional_data(0).data=$1; \
  last
 
-#Jun 21 13:09:27 x.x.x.x ASA_NAME %ASA-4-409023: Attempting AAA Fallback method LOCAL for Authentication request for user e4045102 : Auth-server group RADIUS unreachable 
+#LOG:Jun 21 13:09:27 ASA_NAME %ASA-4-409023: Attempting AAA Fallback method LOCAL for Authentication request for user e4045102 : Auth-server group RADIUS unreachable
 regex=-409023: Attempting AAA Fallback method LOCAL for Authentication request for user (\S+); \
  classification.text=AAA Fallback method LOCAL; \
  classification.reference(0).origin=vendor-specific; \
@@ -820,7 +820,7 @@ regex=-313003: Invalid destination for ICMP error message: icmp src (\S+):([\d\.
  additional_data(1).data=$6; \
  last
 
-#LOG: 06-30-2009 17:25:09 Local0.Debug 172.19.1.1 Jun 30 2009 07:08:20: %ASA-7-710005: TCP request discarded from 172.19.1.6/1303 to inside:172.19.1.1/2601
+#LOG:Jun 30 2009 07:08:20: %ASA-7-710005: TCP request discarded from 172.19.1.6/1303 to inside:172.19.1.1/2601
 regex=-710005: (TCP|UDP) request discarded from ([\d\.]+)/(\d+) to (\S+):([\d\.]+)/(\d+); \
  classification.text=$1 request discarded; \
  classification.reference(0).origin=vendor-specific; \
@@ -850,24 +850,24 @@ regex=-710005: (TCP|UDP) request discarded from ([\d\.]+)/(\d+) to (\S+):([\d\.]
 
 # Events taken from the Cisco System Log Messages List that will need rules
 # (include 'attack' || 'intrusion' || 'probe' || 'covert' in description; no log samples):
-# %PIX-1-106021: Deny protocol reverse path check from source_address to dest_address on interface interface_name
-# %PIX-1-106022: Deny protocol connection spoof from source_address to dest_address on interface interface_name
-# %PIX-1-106101 The number of ACL log deny-flows has reached limit (number).
-# %PIX-1-107001: RIP auth failed from IP_address: version=number, type=string, mode=string, sequence=number on interface interface_name
-# %PIX-1-107002: RIP pkt failed from IP_address: version=number on interface interface_name
-# %PIX-4-109017: User at IP_address exceeded auth proxy connection limit (max)
-# %PIX-3-320001: The subject name of the peer cert is not allowed for connection
+#LOG:Nov  2 18:03:14 pix %PIX-1-106021: Deny protocol reverse path check from source_address to dest_address on interface interface_name
+#LOG:Nov  2 18:03:14 pix %PIX-1-106022: Deny protocol connection spoof from source_address to dest_address on interface interface_name
+#LOG:Nov  2 18:03:14 pix %PIX-1-106101 The number of ACL log deny-flows has reached limit (number).
+#LOG:Nov  2 18:03:14 pix %PIX-1-107001: RIP auth failed from IP_address: version=number, type=string, mode=string, sequence=number on interface interface_name
+#LOG:Nov  2 18:03:14 pix %PIX-1-107002: RIP pkt failed from IP_address: version=number on interface interface_name
+#LOG:Nov  2 18:03:14 pix %PIX-4-109017: User at IP_address exceeded auth proxy connection limit (max)
+#LOG:Nov  2 18:03:14 pix %PIX-3-320001: The subject name of the peer cert is not allowed for connection
 
-# %PIX-4-402101: decaps: rec'd IPSEC packet has invalid spi for destaddr=dest_address, prot=protocol, spi=number
-# %PIX-4-402102: decapsulate: packet missing {AH|ESP}, destadr=dest_address, actual prot=protocol
-# %PIX-4-405002: Received mac mismatch collision from IP_address/mac_address for authenticated host
-# %PIX-7-710006: protocol request discarded from source_address to interface_name:dest_address
-# %PIX-2-106020: Deny IP teardrop fragment (size = number, offset = number) from IP_address to IP_address
-# %PIX-4-209004: Invalid IP fragment, size = bytes exceeds maximum size = bytes: src = IP_address, dest = IP_address, proto = protocol, id = number
-# %PIX-4-209005: Discard IP fragment set with more than number elements: src = IP_address, dest = IP_address, proto = protocol, id = number
-# %PIX-2-201003: Embryonic limit exceeded nconns/elimit for outside_address/outside_port (global_address) inside_address/inside_port on interface interface_name
+#LOG:Nov  2 18:03:14 pix %PIX-4-402101: decaps: rec'd IPSEC packet has invalid spi for destaddr=dest_address, prot=protocol, spi=number
+#LOG:Nov  2 18:03:14 pix %PIX-4-402102: decapsulate: packet missing {AH|ESP}, destadr=dest_address, actual prot=protocol
+#LOG:Nov  2 18:03:14 pix %PIX-4-405002: Received mac mismatch collision from IP_address/mac_address for authenticated host
+#LOG:Nov  2 18:03:14 pix %PIX-7-710006: protocol request discarded from source_address to interface_name:dest_address
+#LOG:Nov  2 18:03:14 pix %PIX-2-106020: Deny IP teardrop fragment (size = number, offset = number) from IP_address to IP_address
+#LOG:Nov  2 18:03:14 pix %PIX-4-209004: Invalid IP fragment, size = bytes exceeds maximum size = bytes: src = IP_address, dest = IP_address, proto = protocol, id = number
+#LOG:Nov  2 18:03:14 pix %PIX-4-209005: Discard IP fragment set with more than number elements: src = IP_address, dest = IP_address, proto = protocol, id = number
+#LOG:Nov  2 18:03:14 pix %PIX-2-201003: Embryonic limit exceeded nconns/elimit for outside_address/outside_port (global_address) inside_address/inside_port on interface interface_name
 
-#Dec  7 14:08:17 ASA_NAME %ASA-4-733100: [ Scanning] drop rate-1 exceeded. Current burst rate is 160 per second, max configured rate is 350; Current average rate is 313 per second, max configured rate is 262; Cumulative total count is 188250
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-4-733100: [ Scanning] drop rate-1 exceeded. Current burst rate is 160 per second, max configured rate is 350; Current average rate is 313 per second, max configured rate is 262; Cumulative total count is 188250
 regex=-733100: \[+.+\] drop rate-[1|2] exceeded\.; \
  classification.text=Drop rate $1 exceeded.; \
  classification.reference(0).origin=vendor-specific; \
@@ -886,7 +886,7 @@ regex=-733100: \[+.+\] drop rate-[1|2] exceeded\.; \
  last
 
 
-#ASA-1-106021: Deny TCP reverse path check from 10.10.10.101 to 65.58.240.105 on interface inside
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-106021: Deny TCP reverse path check from 10.10.10.101 to 65.58.240.105 on interface inside
 #regex=-106021: Deny TCP reverse path check from ([\d\.]+) to ([\d\.]+) on interface (\S+); \
 # classification.text=Deny $1 reverse path check; \
 # classification.reference(0).origin=Cisco; \
@@ -909,7 +909,7 @@ regex=-733100: \[+.+\] drop rate-[1|2] exceeded\.; \
 # last
 
 
-# %PIX-1-106022: Deny protocol connection spoof from source_address to dest_address on interface interface_name
+#LOG:Nov  2 18:03:14 pix %PIX-1-106022: Deny protocol connection spoof from source_address to dest_address on interface interface_name
 regex=-106022: Deny protocol connection spoof from ([\d\.]+) to ([\d\.]+) on interface (S+); \
  classification.text=Deny $1 reverse path check; \
  classification.reference(0).origin=vendor-specific; \
@@ -933,7 +933,7 @@ regex=-106022: Deny protocol connection spoof from ([\d\.]+) to ([\d\.]+) on int
 
 
 
-# %PIX-1-106101 The number of ACL log deny-flows has reached limit (number).
+#LOG:Nov  2 18:03:14 pix %PIX-1-106101 The number of ACL log deny-flows has reached limit (number).
 regex=-106101: The number of ACL log deny-flows has reached limit (\d+); \
  classification.text=deny-flows has reached limit $1 ; \
  classification.reference(0).origin=vendor-specific; \
@@ -954,7 +954,7 @@ regex=-106101: The number of ACL log deny-flows has reached limit (\d+); \
  additional_data(0).data=$1; \
  last
 
-#Homero %ASA-5-111008: User 'USER' executed the 'configure terminal' command.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-5-111008: User 'USER' executed the 'configure terminal' command.
 regex=-111008: User '(\S+)' executed the 'configure terminal' command; \
  classification.text=The user $1 entered executed the 'configure terminal' command; \
  classification.reference(0).origin=vendor-specific; \
@@ -981,8 +981,7 @@ regex=-111008: User '(\S+)' executed the 'configure terminal' command; \
  target(0).user.user_id(0).name=enable_15; \
  last
 
-
-# %PIX-1-107001: RIP auth failed from IP_address: version=number, type=string, mode=string, sequence=number on interface interface_name
+#LOG:Nov  2 18:03:14 pix %PIX-1-107001: RIP auth failed from IP_address: version=number, type=string, mode=string, sequence=number on interface interface_name
 regex=-107001: RIP auth failed from ([\d\.]+): version=(\d+), type=(\S+), mode=(\S+), sequence=(\d+), on interface (\S+); \
  classification.text=RIP auth failed from IP_address: version=number, type=string, mode=string, sequence=number on interface interface_name; \
  classification.reference(0).origin=vendor-specific; \
@@ -1017,7 +1016,7 @@ regex=-107001: RIP auth failed from ([\d\.]+): version=(\d+), type=(\S+), mode=(
 
 
 
-# %PIX-1-107002: RIP pkt failed from IP_address: version=number on interface interface_name
+#LOG:Nov  2 18:03:14 pix %PIX-1-107002: RIP pkt failed from IP_address: version=number on interface interface_name
 regex=-107002: RIP pkt failed from ([\d\.]+): version=(\d+) on interface (\S+); \  
  classification.text=IP pkt failed from IP_address: version=number on interface interface_name; \
  classification.reference(0).origin=vendor-specific; \
@@ -1063,7 +1062,7 @@ regex=-109017: User at ([\d\.]+) exceeded auth proxy connection limit; \
  last
 
 
-# %PIX-3-320001: The subject name of the peer cert is not allowed for connection
+#LOG:Nov  2 18:03:14 pix %PIX-3-320001: The subject name of the peer cert is not allowed for connection
 regex=-320001: The subject name of the peer cert is not allowed for connection; \
  classification.text=The subject name of the peer cert is not allowed for connection; \
  classification.reference(0).origin=vendor-specific; \
@@ -1081,7 +1080,7 @@ regex=-320001: The subject name of the peer cert is not allowed for connection; 
  assessment.impact.description=The subject name of the peer cert is not allowed for connection; \
  last
 
-# %PIX-4-402101: decaps: rec'd IPSEC packet has invalid spi for destaddr=dest_address, prot=protocol, spi=number
+#LOG:Nov  2 18:03:14 pix %PIX-4-402101: decaps: rec'd IPSEC packet has invalid spi for destaddr=dest_address, prot=protocol, spi=number
 regex=-402101: decaps: rec'd IPSEC packet has invalid spi for destaddr=([\d\.]+); \
  classification.text=decaps: rec'd IPSEC packet has invalid spi for destaddr=dest_address, prot=protocol, spi=number; \
  classification.reference(0).origin=vendor-specific; \
@@ -1101,7 +1100,7 @@ regex=-402101: decaps: rec'd IPSEC packet has invalid spi for destaddr=([\d\.]+)
  target(0).node.address(0).address=$1; \
  last
 
-#%ASA-4-419001: Dropping TCP packet from src_ifc:src_IP/src_port to dest_ifc:dest_IP/dest_port, reason: MSS exceeded, MSS size, data size
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-4-419001: Dropping TCP packet from src_ifc:src_IP/src_port to dest_ifc:dest_IP/dest_port, reason: MSS exceeded, MSS size, data size
 regex=-419001: Dropping TCP packet from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\.]+)/(\d+); \
  classification.text=Dropping TCP packet; \
  classification.reference(0).origin=vendor-specific; \
@@ -1126,7 +1125,7 @@ regex=-419001: Dropping TCP packet from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\.]+)
  last
 
 
-#Apr 10 15:40:15 x.x.x.x xxx %ASA-4-419002: Duplicate TCP SYN from outside:xx.xx.xx.xx/xxx to inside:xx.xx.xx.xx/xxxx with different initial sequence number
+#LOG:Apr 10 15:40:15 x.x.x.x xxx %ASA-4-419002: Duplicate TCP SYN from outside:xx.xx.xx.xx/xxx to inside:xx.xx.xx.xx/xxxx with different initial sequence number
 regex=-419002: Duplicate TCP SYN from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\.]+)/(\d+); \
  classification.text=Duplicate TCP SYN; \
  classification.reference(0).origin=vendor-specific; \
@@ -1150,7 +1149,7 @@ regex=-419002: Duplicate TCP SYN from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\.]+)/(
  target(0).service.port=$6; \
  last
 
-#%ASA-4-419003: Cleared TCP urgent flag from in_ifc:src_ip/src_port to out_ifc:dest_ip/dest_port.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-4-419003: Cleared TCP urgent flag from in_ifc:src_ip/src_port to out_ifc:dest_ip/dest_port.
 regex=-419003: Cleared TCP urgent flag from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\.]+)/(\d+); \
  classification.text=Cleared TCP urgent flag; \
  classification.reference(0).origin=vendor-specific; \
@@ -1179,7 +1178,7 @@ regex=-419003: Cleared TCP urgent flag from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\
 ## Cisco ASA Cluster Alerts##
 #############################
 
-#-101001: (Primary) Failover cable OK.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-101001: (Primary) Failover cable OK.
 regex=-101001: \((\S+)\); \
  classification.text=Failover cable OK.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1200,7 +1199,7 @@ regex=-101001: \((\S+)\); \
  last
 
 
-#-101002: (Primary) Bad failover cable.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-101002: (Primary) Bad failover cable.
 regex=-101002: \((\S+)\); \
  classification.text=Bad failover cable.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1221,7 +1220,7 @@ regex=-101002: \((\S+)\); \
  last
 
 
-#-101003: (Primary) Failover cable not connected (this unit).
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-101003: (Primary) Failover cable not connected (this unit).
 regex=-101003: \((\S+)\) Failover cable not connected \((\S+)\); \
  classification.text=Failover cable not connected.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1243,7 +1242,7 @@ regex=-101003: \((\S+)\) Failover cable not connected \((\S+)\); \
  target(0).node.address(0).address=$2; \
  last
 
-#-101004: (Primary) Failover cable not connected (other unit).
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-101004: (Primary) Failover cable not connected (other unit).
 regex=-101004: \((\S+)\) Failover cable not connected \((\S+)\); \
  classification.text=Failover cable not connected.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1265,7 +1264,7 @@ regex=-101004: \((\S+)\) Failover cable not connected \((\S+)\); \
  target(0).node.address(0).address=$2; \
  last
 
-#-101005: (Primary) Error reading failover cable status.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-101005: (Primary) Error reading failover cable status.
 regex=-101005: \((\S+)\); \
  classification.text=Error reading failover cable status.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1285,7 +1284,7 @@ regex=-101005: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-102001: (Primary) Power failure/System reload other side.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-102001: (Primary) Power failure/System reload other side.
 regex=-102001: \((\S+)\); \
  classification.text=Power failure/System reload other side.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1305,7 +1304,7 @@ regex=-102001: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-103001: (Primary) No response from other firewall (reason code = code).
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-103001: (Primary) No response from other firewall (reason code = code).
 regex=-103001: \((\S+)\); \
  classification.text=No response from other firewall.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1325,7 +1324,7 @@ regex=-103001: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-103002: (Primary) Other firewall network interface interface_number OK.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-103002: (Primary) Other firewall network interface interface_number OK.
 regex=-103002: \((\S+)\); \
  classification.text=Other firewall network interface OK.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1345,7 +1344,7 @@ regex=-103002: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-103003: (Primary) Other firewall network interface interface_number failed.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-103003: (Primary) Other firewall network interface interface_number failed.
 regex=-103003: \((\S+)\); \
  classification.text=Other firewall network interface failed.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1365,7 +1364,7 @@ regex=-103003: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-103004: (Primary) Other firewall reports this firewall failed.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-103004: (Primary) Other firewall reports this firewall failed.
 regex=-103004: \((\S+)\); \
  classification.text=Other firewall reports this firewall failed.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1385,7 +1384,7 @@ regex=-103004: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-103005: (Primary) Other firewall reporting failure.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-103005: (Primary) Other firewall reporting failure.
 regex=-103005: \((\S+)\); \
  classification.text=Other firewall reporting failure; \
  classification.reference(0).origin=vendor-specific; \
@@ -1405,7 +1404,7 @@ regex=-103005: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-105001: (Primary) Disabling failover.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105001: (Primary) Disabling failover.
 regex=-105001: \((\S+)\); \
  classification.text=Disabling failover; \
  classification.reference(0).origin=vendor-specific; \
@@ -1426,7 +1425,7 @@ regex=-105001: \((\S+)\); \
  last
 
 
-#-105002: (Primary) Enabling failover.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105002: (Primary) Enabling failover.
 regex=-105002: \((\S+)\); \
  classification.text=Enabling failover; \
  classification.reference(0).origin=vendor-specific; \
@@ -1446,7 +1445,7 @@ regex=-105002: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-105003: (Primary) Monitoring on interface interface_name waiting
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105003: (Primary) Monitoring on interface interface_name waiting
 regex=-105003: \((\S+)\); \
  classification.text=Monitoring on interface waiting; \
  classification.reference(0).origin=vendor-specific; \
@@ -1466,7 +1465,7 @@ regex=-105003: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-105004: (Primary) Monitoring on interface interface_name normal
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105004: (Primary) Monitoring on interface interface_name normal
 regex=-105004: \((\S+)\); \
  classification.text=Monitoring on interface normal.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1486,7 +1485,7 @@ regex=-105004: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-105005: (Primary) Lost Failover communications with mate on interface interface_name.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105005: (Primary) Lost Failover communications with mate on interface interface_name.
 regex=-105005: \((\S+)\); \
  classification.text=Lost Failover communications with mate on interface.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1506,7 +1505,7 @@ regex=-105005: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-105006: (Primary) Link status `Up' on interface interface_name.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105006: (Primary) Link status `Up' on interface interface_name.
 regex=-105006: \((\S+)\); \
  classification.text=Link status Up on interface.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1526,7 +1525,7 @@ regex=-105006: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-105007: (Primary) Link status `Down' on interface interface_name.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105007: (Primary) Link status `Down' on interface interface_name.
 regex=-105007: \((\S+)\); \
  classification.text=Link status Down on interface.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1546,7 +1545,7 @@ regex=-105007: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-105008: (Primary) Testing interface interface_name.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105008: (Primary) Testing interface interface_name.
 regex=-105008: \((\S+)\); \
  classification.text=Testing interface.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1566,7 +1565,7 @@ regex=-105008: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-105009: (Primary) Testing on interface interface_name {Passed|Failed}.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105009: (Primary) Testing on interface interface_name {Passed|Failed}.
 regex=-105009: \((\S+)\); \
  classification.text=Testing on interface Passed|Failed.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1586,7 +1585,7 @@ regex=-105009: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-105011: (Primary) Failover cable communication failure
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105011: (Primary) Failover cable communication failure
 regex=-105011: \((\S+)\); \
  classification.text=Failover cable communication failure.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1606,7 +1605,7 @@ regex=-105011: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-105020: (Primary) Incomplete/slow config replication
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105020: (Primary) Incomplete/slow config replication
 regex=-105020: \((\S+)\); \
  classification.text=Incomplete/slow config replication.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1626,7 +1625,7 @@ regex=-105020: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-#-105021: (failover_unit) Standby unit failed to sync due to a locked context_name config. Lock held by lock_owner_name 
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105021: (failover_unit) Standby unit failed to sync due to a locked context_name config. Lock held by lock_owner_name
 regex=-105021: \((\S+)\); \
  classification.text=Standby unit failed to sync due to a locked config.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1651,6 +1650,7 @@ regex=-105021: \((\S+)\); \
 ## Cisco ASA Failover##
 #######################
 
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-104004: (Primary) Switching to OK
 regex=-104004:; \
  classification.text=Failover - Switching to OK.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1668,7 +1668,7 @@ regex=-104004:; \
  assessment.impact.description=Posible Failover en Firewall Cisco ASA. Ver Log.; \
  last
 
-#Alertas Cisco:
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-104001: (Primary) Switching to ACTIVE (cause: string)
 regex=-104001:; \
  classification.text=Failover - Switching to ACTIVE.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1686,7 +1686,7 @@ regex=-104001:; \
  assessment.impact.description=Posible Failover en Firewall Cisco ASA (Switching to ACTIVE). Ver Log.; \
  last
 
-#Alertas Cisco:
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-104002: (Primary) Switching to STNDBY (cause: string)
 regex=-104002:; \
  classification.text=Failover - Switching to STNDBY.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1704,7 +1704,7 @@ regex=-104002:; \
  assessment.impact.description=Posible Failover en Firewall Cisco ASA (Switching to STNDBY). Ver Log.; \
  last
 
-#Alertas Cisco:
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-104003: (Primary) Switching to FAILED
 regex=-104003:; \
  classification.text=Failover - Switching to FAILED.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1726,7 +1726,7 @@ regex=-104003:; \
 ##Cisco ASA Check##
 ###################
 
-#-717049: Local CA Server certificate is due to expire in number days and a replacement certificate is available for export.
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-717049: Local CA Server certificate is due to expire in number days and a replacement certificate is available for export.
 regex=-717049:; \
  classification.text=Local CA Server certificate is due to expire; \
  classification.reference(0).origin=vendor-specific; \
@@ -1742,7 +1742,7 @@ regex=-717049:; \
  assessment.impact.description=Local CA Server certificate is due to expire in number days and a replacement certificate is available for export.; \
  last
 
-#-735001 Cooling Fan var1: OK
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-735001 Cooling Fan var1: OK
 regex=-735001:; \
  classification.text=Cooling Fan var1: OK.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1758,7 +1758,7 @@ regex=-735001:; \
  assessment.impact.description=Cooling Fan var1: OK.; \
  last
 
-#-735002 Cooling Fan var1: Failure Detected
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-735002 Cooling Fan var1: Failure Detected
 regex=-735002:; \
  classification.text=Cooling Fan var1: Failure Detected.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1774,7 +1774,7 @@ regex=-735002:; \
  assessment.impact.description=Cooling Fan var1: OK.; \
  last
 
-#-735003 Power Supply var1: OK
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-735003 Power Supply var1: OK
 regex=-735003:; \
  classification.text=Power Supply var1: OK.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1790,7 +1790,7 @@ regex=-735003:; \
  assessment.impact.description=Power Supply var1: OK.; \
  last
 
-#-735004 Power Supply var1: Failure Detected
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-735004 Power Supply var1: Failure Detected
 regex=-735004:; \
  classification.text=Power Supply var1: Failure Detected.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1806,7 +1806,7 @@ regex=-735004:; \
  assessment.impact.description=Power Supply var1: Failure Detected.; \
  last
 
-#-735005 Power Supply Unit Redundancy OK
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-735005 Power Supply Unit Redundancy OK
 regex=-735005:; \
  classification.text=Power Supply Unit Redundancy OK.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1822,7 +1822,7 @@ regex=-735005:; \
  assessment.impact.description=Power Supply Unit Redundancy OK.; \
  last
 
-#-735006 Power Supply Unit Redundancy Lost
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-735006 Power Supply Unit Redundancy Lost
 regex=-735006:; \
  classification.text=Power Supply Unit Redundancy Lost.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1838,7 +1838,7 @@ regex=-735006:; \
  assessment.impact.description=Power Supply Unit Redundancy Lost.; \
  last
 
-#-735007 CPU var1: Temp: var2 var3, Critical
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-735007 CPU var1: Temp: var2 var3, Critical
 regex=-735007:; \
  classification.text=CPU: Temp: Critical.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1854,7 +1854,7 @@ regex=-735007:; \
  assessment.impact.description=CPU var1: Temp: var2 var3, Critical.; \
  last
 
-#-735022: CPU# is running beyond the max thermal operating temperature and the device will be shutting down immediately to prevent permanent damage to the CPU. 
+#LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-735022: CPU# is running beyond the max thermal operating temperature and the device will be shutting down immediately to prevent permanent damage to the CPU.
 regex=-735022:; \
  classification.text=CPU is running beyond the max thermal operating temperature.; \
  classification.reference(0).origin=vendor-specific; \
@@ -1870,7 +1870,7 @@ regex=-735022:; \
  assessment.impact.description=CPU# is running beyond the max thermal operating temperature and the device will be shutting down immediately to prevent permanent damage to the CPU.; \
  last
 
-#Apr 27 14:50:30 xx.xx.xx.xx Name %ASA-4-507003: tcp flow from outside:xx.xx.xx.xx/xxxxx to inside:xx.xx.xx.xx/xxx terminated by inspection engine, reason - proxy inspector drop reset
+#LOG:Apr 27 14:50:30 xx.xx.xx.xx Name %ASA-4-507003: tcp flow from outside:xx.xx.xx.xx/xxxxx to inside:xx.xx.xx.xx/xxx terminated by inspection engine, reason - proxy inspector drop reset
 regex=-507003: tcp flow from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\.]+)/(\d+) (\S+ ); \
  classification.text=TCP flow terminated by inspection engine; \
  classification.reference(0).origin=vendor-specific; \
@@ -1901,7 +1901,7 @@ regex=-507003: tcp flow from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\.]+)/(\d+) (\S+
  additional_data(0).data=$7; \
  last
 
-#May 3 15:30:52 xx.xx.xx.xx Name %ASA-3-305005: No translation group found for icmp src inside:zz.zz.zz.zz dst outside:zz.zz.zz.zz (type 8, code 0)
+#LOG:May 3 15:30:52 xx.xx.xx.xx Name %ASA-3-305005: No translation group found for icmp src inside:zz.zz.zz.zz dst outside:zz.zz.zz.zz (type 8, code 0)
 regex=-305005: No translation group found for (\S+) src (\S+):([\d\.]+) dst (\S+):([\d\.]+); \
  classification.text=No translation group found; \
  classification.reference(0).origin=vendor-specific; \
@@ -1926,7 +1926,7 @@ regex=-305005: No translation group found for (\S+) src (\S+):([\d\.]+) dst (\S+
  additional_data(0).data=$1; \
  last
 
-#May 31 18:53:59 192.168.161.4 Antonio %ASA-3-305006: regular translation creation failed for protocol 50 src inside:172.19.102.61 dst outside:200.40.236.15 
+#LOG:May 31 18:53:59 192.168.161.4 Antonio %ASA-3-305006: regular translation creation failed for protocol 50 src inside:172.19.102.61 dst outside:200.40.236.15
 regex=-305006: regular translation creation failed for protocol (\d+) src (\S+):([\d\.]+) dst (\S+):([\d\.]+); \
  classification.text=Regular translation creation failed; \
  classification.reference(0).origin=vendor-specific; \
@@ -1951,7 +1951,7 @@ regex=-305006: regular translation creation failed for protocol (\d+) src (\S+):
  additional_data(0).data=$1; \
  last
 
-#Jun  2 16:12:09 x.x.x.x ASA_NAME %ASA-5-305013: Asymmetric NAT rules matched for forward and reverse flows; Connection for icmp src outside:x.x.x.x dst inside:x.x.x.x (type 8, code 0) denied due to NAT reverse path failure
+#LOG:Jun  2 16:12:09 ASA_NAME %ASA-5-305013: Asymmetric NAT rules matched for forward and reverse flows; Connection for icmp src outside:x.x.x.x dst inside:x.x.x.x (type 8, code 0) denied due to NAT reverse path failure
 regex=-305013: Asymmetric NAT rules matched for forward and reverse flows; \
  classification.text=Asymmetric NAT rules failed; \
  classification.reference(0).origin=vendor-specific; \
@@ -1965,18 +1965,9 @@ regex=-305013: Asymmetric NAT rules matched for forward and reverse flows; \
  analyzer(0).class=Firewall; \
  assessment.impact.severity=medium; \
  assessment.impact.description=Asymmetric NAT rules matched for forward and reverse flows.; \
-# source(0).interface=$2; \
-# source(0).node.address(0).category=ipv4-addr; \
-# source(0).node.address(0).address=$3; \
-# target(0).interface=$4; \
-# target(0).node.address(0).category=ipv4-addr; \
-# target(0).node.address(0).address=$5; \
-# additional_data(0).type=string; \
-# additional_data(0).meaning=Proto; \
-# additional_data(0).data=$1; \
  last
 
-#Jun 4 12:32:47 x.x.x.x ASA_NAME %ASA-3-210005: LU allocate connection failed
+#LOG:Jun 4 12:32:47 ASA_NAME %ASA-3-210005: LU allocate connection failed
 regex=-210005: LU allocate connection failed; \
  classification.text=LU allocate connection failed; \
  classification.reference(0).origin=vendor-specific; \
@@ -1992,7 +1983,7 @@ regex=-210005: LU allocate connection failed; \
  assessment.impact.description=LU allocate connection failed.; \
  last
 
-#Dec 11 18:41:14 x.x.x.x abc %ASA-3-201011: Connection limit exceeded 10000/10000 for inbound packet from x.x.x.x/xx to x.x.x.x/xx on interface outside
+#LOG:Dec 11 18:41:14 x.x.x.x abc %ASA-3-201011: Connection limit exceeded 10000/10000 for inbound packet from x.x.x.x/xx to x.x.x.x/xx on interface outside
 regex=-201011: Connection limit exceeded (\d+)/(\d+) for (\S+) packet from ([\d\.]+)/(\d+) to ([\d\.]+)/(\d+) on interface (\S+); \
  classification.text=Connection limit exceeded; \
  classification.reference(0).origin=vendor-specific; \
@@ -2014,7 +2005,7 @@ regex=-201011: Connection limit exceeded (\d+)/(\d+) for (\S+) packet from ([\d\
  target(0).service.port=$7; \
  last
 
-#Dec 11 18:41:14 x.x.x.x abc %ASA-3-201013: Per-client connection limit exceeded 10000/10000 for inbound packet from x.x.x.x/xx to x.x.x.x/xx on interface outside
+#LOG:Dec 11 18:41:14 x.x.x.x abc %ASA-3-201013: Per-client connection limit exceeded 10000/10000 for inbound packet from x.x.x.x/xx to x.x.x.x/xx on interface outside
 regex=-201013: Per-client connection limit exceeded (\d+)/(\d+) for (\S+) packet from ([\d\.]+)/(\d+) to ([\d\.]+)/(\d+) on interface (\S+); \
  classification.text=Per-client connection limit exceeded; \
  classification.reference(0).origin=vendor-specific; \

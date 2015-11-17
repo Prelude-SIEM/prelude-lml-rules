@@ -28,7 +28,7 @@
 #
 #####
 
-#May  3 14:43:38 SERVER_NAME radiusd[2081]: Ready to process requests. 
+#LOG:May  3 14:43:38 SERVER_NAME radiusd[2081]: Ready to process requests.
 regex=: Ready to process requests; \
  classification.text=Radius Server has started.; \
  id=35000; \
@@ -42,7 +42,7 @@ regex=: Ready to process requests; \
  assessment.impact.description=Radius Server has started.; \
  last
 
-#May  3 14:43:48 SERVER_NAME radiusd[name3]: Login incorrect: [USER] (from client HOST_NAME port xxx cli x.x.x.x)
+#LOG:May  3 14:43:48 SERVER_NAME radiusd[name3]: Login incorrect: [USER] (from client HOST_NAME port xxx cli x.x.x.x)
 regex=: Login incorrect: \[(\S+)\] \(from client (\S+) port (\d+) cli ([\d\.]+)\); \
  classification.text=Radiusd: Login incorrect.; \
  id=35001; \
@@ -63,7 +63,7 @@ regex=: Login incorrect: \[(\S+)\] \(from client (\S+) port (\d+) cli ([\d\.]+)\
  target(0).node.address(0).address=$2; \
  last
 
-#May  3 14:43:48 SERVER_NAME radiusd[name2]: Login incorrect: [USER] (from client HOST_NAME port xxx cli ip:source-ip=x.x.x.x)
+#LOG:May  3 14:43:48 SERVER_NAME radiusd[name2]: Login incorrect: [USER] (from client HOST_NAME port xxx cli ip:source-ip=x.x.x.x)
 regex=: Login incorrect: \[(\S+)\] \(from client (\S+) port (\d+) cli ip:source-ip\=([\d\.]+)\); \
  classification.text=Radiusd: Login incorrect.; \
  id=35002; \
@@ -84,7 +84,7 @@ regex=: Login incorrect: \[(\S+)\] \(from client (\S+) port (\d+) cli ip:source-
  target(0).node.address(0).address=$2; \
  last
 
-#May  3 14:44:12 SERVER_NAME radiusd[name1]: Login OK: [USER] (from client HOST_NAME port xxx cli x.x.x.x)
+#LOG:May  3 14:44:12 SERVER_NAME radiusd[name1]: Login OK: [USER] (from client HOST_NAME port xxx cli x.x.x.x)
 regex=: Login OK: \[(\S+)\] \(from client (\S+) port (\d+) cli ([\d\.]+)\); \
  classification.text=Radiusd: Login OK.; \
  id=35003; \
@@ -105,7 +105,7 @@ regex=: Login OK: \[(\S+)\] \(from client (\S+) port (\d+) cli ([\d\.]+)\); \
  target(0).node.address(0).address=$2; \
  last
 
-#May  3 15:25:21 SERVER_NAME radiusd[xxx]: Login OK: [USER] (from client HOST_NAME port x)
+#LOG:May  3 15:25:21 SERVER_NAME radiusd[xxx]: Login OK: [USER] (from client HOST_NAME port x)
 regex=: Login OK: \[(\S+)\] \(from client (\S+); \
  classification.text=Radiusd: Login OK.; \
  id=35004; \
@@ -125,4 +125,3 @@ regex=: Login OK: \[(\S+)\] \(from client (\S+); \
  target(0).node.address(0).category=ipv4-addr; \
  target(0).node.address(0).address=$2; \
  last
-

@@ -33,7 +33,7 @@
 ### Cisco ACE ###
 ################# 
 
-#Sep 25 11:53:19 x.x.x.x ACE_NAME %ACE-4-442002: Health probe CHECK_NAME detected SERVER_NAME (interface vlanXX) in serverfarm SF_NAME changed state to DOWN
+#LOG:Sep 25 11:53:19 x.x.x.x ACE_NAME %ACE-4-442002: Health probe CHECK_NAME detected SERVER_NAME (interface vlanXX) in serverfarm SF_NAME changed state to DOWN
 regex=-442002: Health probe (\S+) detected (\S+) \(interface (\S+)\) in serverfarm (\S+) changed state to DOWN; \
  classification.text=Health probe $1; \
  classification.reference(0).origin=vendor-specific; \
@@ -54,7 +54,7 @@ regex=-442002: Health probe (\S+) detected (\S+) \(interface (\S+)\) in serverfa
  target(0).node.address(0).address=$2; \
  last
 
-#Sep 25 11:53:19 x.x.x.x ACE_NAME %ACE-4-442001: Health probe CHECK_NAME detected SERVER_NAME (interface vlanXX) in serverfarm SF_NAME changed state to UP
+#LOG:Sep 25 11:53:19 x.x.x.x ACE_NAME %ACE-4-442001: Health probe CHECK_NAME detected SERVER_NAME (interface vlanXX) in serverfarm SF_NAME changed state to UP
 regex=-442001: Health probe (\S+) detected (\S+) \(interface (\S+)\) in serverfarm (\S+) changed state to UP; \
  classification.text=Health probe $1; \
  classification.reference(0).origin=vendor-specific; \
@@ -76,7 +76,7 @@ regex=-442001: Health probe (\S+) detected (\S+) \(interface (\S+)\) in serverfa
  last
 
 
-#Sep 25 12:02:44 x.x.x.x ACE_NAME %ACE-4-442007: VIP in class: 'VIP_NAME' changed state from OUTOFSERVICE to INSERVICE
+#LOG:Sep 25 12:02:44 x.x.x.x ACE_NAME %ACE-4-442007: VIP in class: 'VIP_NAME' changed state from OUTOFSERVICE to INSERVICE
 regex=-442007: VIP in class: '(\S+)' changed state from (\S+) to (\S+); \
  classification.text=VIP in class $1 changed state; \
  classification.reference(0).origin=vendor-specific; \
@@ -95,7 +95,7 @@ regex=-442007: VIP in class: '(\S+)' changed state from (\S+) to (\S+); \
  last
 
 
-#Sep 25 12:02:44 x.x.x.x ACE_NAME %ACE-5-441002: Serverfarm (SF_NAME) is now back in service in policy_map (PM_NAME) --> class_map (#class_default_slb). Number of failovers = 0, number of times back in service = 0
+#LOG:Sep 25 12:02:44 x.x.x.x ACE_NAME %ACE-5-441002: Serverfarm (SF_NAME) is now back in service in policy_map (PM_NAME) --> class_map (#class_default_slb). Number of failovers = 0, number of times back in service = 0
 regex=-441002: Serverfarm \((\S+)\) is now back in service; \
  classification.text=Serverfarm $1 is now back in service; \
  classification.reference(0).origin=vendor-specific; \
@@ -130,7 +130,7 @@ regex=-441001: Serverfarm \((\S+)\) failed over to backup; \
  assessment.impact.description=Serverfarm $1 failed over to backup.; \
  last
 
-#Sep 20 18:10:44 x.x.x.x ACE_NAME %ACE-2-727017: HA: FT Track Interface XX is UP.
+#LOG:Sep 20 18:10:44 x.x.x.x ACE_NAME %ACE-2-727017: HA: FT Track Interface XX is UP.
 regex=-727017: HA: FT Track Interface (\d+); \
  classification.text=FT Track Interfac is UP; \
  classification.reference(0).origin=vendor-specific; \
@@ -148,7 +148,7 @@ regex=-727017: HA: FT Track Interface (\d+); \
  assessment.impact.description=HA: FT Track Interface $1 is UP.; \
  last
 
-#Sep 20 18:10:57 x.x.x.x ACE_NAME %ACE-2-727018: HA: FT Track Interface XX is DOWN.
+#LOG:Sep 20 18:10:57 x.x.x.x ACE_NAME %ACE-2-727018: HA: FT Track Interface XX is DOWN.
 regex=-727018: HA: FT Track Interface (\d+); \
  classification.text=FT Track Interface is DOWN; \
  classification.reference(0).origin=vendor-specific; \
@@ -166,7 +166,7 @@ regex=-727018: HA: FT Track Interface (\d+); \
  assessment.impact.description=HA: FT Track Interface $1 is DOWN.; \
  last
 
-#Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-2-727012: HA: FT Group 1 changed state to FSM_FT_STATE_STANDBY_HOT. Event: FSM_FT_EV_BULK_SYNC_STATUS
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-2-727012: HA: FT Group 1 changed state to FSM_FT_STATE_STANDBY_HOT. Event: FSM_FT_EV_BULK_SYNC_STATUS
 regex=-727012: HA: FT Group (\d+) changed state to (\S+); \
  classification.text=FT Group changed state $2; \
  classification.reference(0).origin=vendor-specific; \
@@ -184,7 +184,7 @@ regex=-727012: HA: FT Group (\d+) changed state to (\S+); \
  assessment.impact.description= HA: FT Group $1 changed state to $2.; \
  last
 
-#Error Message %ACE-3-211001: Memory allocation Error
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-3-211001: Memory allocation Error
 regex=-211001; \
  classification.text=iMemory allocation Error; \
  classification.reference(0).origin=vendor-specific; \
@@ -202,7 +202,7 @@ regex=-211001; \
  assessment.impact.description=Explanation Failed to allocate RAM system memory.; \
  last
 
-#Error Message %ACE-4-254001: ACL resource usage beyond maximum limit for context context_id. Free up some resources.
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-254001: ACL resource usage beyond maximum limit for context context_id. Free up some resources.
 regex=-254001; \
  classification.text=ACL resource usage beyond maximum limit; \
  classification.reference(0).origin=vendor-specific; \
@@ -220,7 +220,7 @@ regex=-254001; \
  assessment.impact.description=Explanation This message indicates that ACL resources in use for the specified context (context_id) are above the maximum limit allowed by the resource class.; \
  last
 
-#Error Message %ACE-4-411001: Line protocol on interface interface_name changed state to up
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-411001: Line protocol on interface interface_name changed state to up
 regex=-411001; \
  classification.text=Line protocol changed state to up; \
  classification.reference(0).origin=vendor-specific; \
@@ -238,7 +238,7 @@ regex=-411001; \
  assessment.impact.description=Explanation The status of the line protocol has changed from down to up.; \
  last
 
-#Error Message %ACE-4-411002: Line protocol on interface interface_name changed state to down
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-411002: Line protocol on interface interface_name changed state to down
 regex=-411002; \
  classification.text=Line protocol changed state to down; \
  classification.reference(0).origin=vendor-specific; \
@@ -256,7 +256,7 @@ regex=-411002; \
  assessment.impact.description=Explanation The status of the line protocol has changed from up to down; \
  last
 
-#Error Message %ACE-4-411003: Configuration status on interface interface_name changed state to up
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-411003: Configuration status on interface interface_name changed state to up
 regex=-411003; \
  classification.text=Configuration status changed state to up; \
  classification.reference(0).origin=vendor-specific; \
@@ -274,7 +274,7 @@ regex=-411003; \
  assessment.impact.description=Explanation The configuration status of the interface has changed from down to up; \
  last
 
-#Error Message %ACE-4-411004: Configuration status on interface interface_name changed state to down
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-411004: Configuration status on interface interface_name changed state to down
 regex=-411004; \
  classification.text=Configuration status changed state to down; \
  classification.reference(0).origin=vendor-specific; \
@@ -292,7 +292,7 @@ regex=-411004; \
  assessment.impact.description=Explanation The configuration status of the interface has changed from down to up; \
  last
 
-#Error Message %ACE-2-727011: HA: Configuration replication for context ctx name will not happen.
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-2-727011: HA: Configuration replication for context ctx name will not happen.
 regex=-727011; \
  classification.text=HA: Configuration replication will not happen; \
  classification.reference(0).origin=vendor-specific; \
@@ -328,7 +328,7 @@ regex=-727014; \
  assessment.impact.description=Explanation Redundancy heartbeats from a peer have become unidirectional. That is, the peer cannot receive (only send) heartbeats. This problem occurs if one of the network processors has a problem.; \
  last
 
-#Error Message %ACE-2-727018: HA: FT Track track type track name is DOWN.
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-2-727018: HA: FT Track track type track name is DOWN.
 regex=-727018; \
  classification.text=HA: FT Track track type track name is DOWN; \
  classification.reference(0).origin=vendor-specific; \
@@ -346,7 +346,7 @@ regex=-727018; \
  assessment.impact.description=Explanation The FT track is down. The track type variable can be one of the following: Interface, HSRP, Host.; \
  last
 
-#Error Message %ACE-2-727015: HA: Detected mismatch in heartbeat interval from Peer peer id. Modified interval to interval.
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-2-727015: HA: Detected mismatch in heartbeat interval from Peer peer id. Modified interval to interval.
 regex=-727015; \
  classification.text=HA: Detected mismatch in heartbeat interval; \
  classification.reference(0).origin=vendor-specific; \
@@ -364,7 +364,7 @@ regex=-727015; \
  assessment.impact.description=Explanation The redundancy heartbeat received from one peer differs from the value of the second peer. This condition can occur when you choose to dynamically change the heartbeat interval. The modified heartbeat interval that is displayed shows the adjusted interval. This value is the greater of the two values.; \
  last
 
-#Error Message %ACE-3-322001: Deny MAC address MAC_address, possible spoof attempt on interface interface
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-3-322001: Deny MAC address MAC_address, possible spoof attempt on interface interface
 regex=-322001; \
  classification.text=Deny MAC address MAC_address, possible spoof attempt; \
  classification.reference(0).origin=vendor-specific; \
@@ -382,7 +382,7 @@ regex=-322001; \
  assessment.impact.description=Explanation The ACE received a packet from the offending MAC address on the specified interface, but the source MAC address in the packet is statically bound to another interface in your configuration. This situation can be caused by either a MAC-spoofing attack or a misconfiguration.; \
  last
 
-#Error Message %ACE-3-322002: ARP inspection check failed for arp {request|response} received from host MAC_address on interface interface. This host is advertising MAC Address MAC_address_1 for IP Address IP_address, which is {statically|dynamically} bound to MAC Address MAC_address_2.
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-3-322002: ARP inspection check failed for arp {request|response} received from host MAC_address on interface interface. This host is advertising MAC Address MAC_address_1 for IP Address IP_address, which is {statically|dynamically} bound to MAC Address MAC_address_2.
 regex=-322002; \
  classification.text=ARP inspection check failed; \
  classification.reference(0).origin=vendor-specific; \
@@ -400,7 +400,7 @@ regex=-322002; \
  assessment.impact.description=Explanation If ARP inspection is enabled, the ACE checks whether a new ARP entry advertised in the packet conforms to the statically configured or dynamically learned IP-MAC address binding before forwarding ARP packets. If this check fails, the ACE drops the ARP packet and generates this message. This situation can be caused by either ARP spoofing attacks in the network or an invalid configuration (IP-MAC binding).; \
  last
 
-#Error Message %ACE-3-322003: ARP inspection check failed for arp {request|response} received from host MAC_address on interface interface. This host is advertising MAC Address MAC_address_1 for IP Address IP_address, which is not bound to any MAC Address.
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-3-322003: ARP inspection check failed for arp {request|response} received from host MAC_address on interface interface. This host is advertising MAC Address MAC_address_1 for IP Address IP_address, which is not bound to any MAC Address.
 regex=-322003; \
  classification.text=ARP inspection check failed; \
  classification.reference(0).origin=vendor-specific; \
@@ -418,7 +418,7 @@ regex=-322003; \
  assessment.impact.description=.; \
  last
 
-#Error Message %ACE-4-400000: IDS:1000 IP Option Bad Option List from IP_address to IP_address on interface interface_name
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-400000: IDS:1000 IP Option Bad Option List from IP_address to IP_address on interface interface_name
 regex=-4000(\d+): IDS:(\d+); \
  classification.text=IDS:$2 Evento on Cisco ACE; \
  classification.reference(0).origin=vendor-specific; \
@@ -436,7 +436,7 @@ regex=-4000(\d+): IDS:(\d+); \
  assessment.impact.description=Explanation Cisco Intrusion Detection System signature message: See original log.; \
  last
 
-#Error Message %ACE-4-405001: Received ARP {request | response} collision from IP_address/mac_address on interface interface_name
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-405001: Received ARP {request | response} collision from IP_address/mac_address on interface interface_name
 regex=-405001: Received ARP (\S+) collision from ([\d\.]+); \
  classification.text=Received ARP collision; \
  classification.reference(0).origin=vendor-specific; \
@@ -457,7 +457,7 @@ regex=-405001: Received ARP (\S+) collision from ([\d\.]+); \
  source(0).user.category=os-device; \
  last
 
-#Error Message %ACE-4-410001: Dropped UDP DNS packet_type from source_interface:source_address/source_port to dest_interface:dest_address/dest_port; error_length_type length length bytes exceeds max_length_type limit of maximum_length bytes
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-410001: Dropped UDP DNS packet_type from source_interface:source_address/source_port to dest_interface:dest_address/dest_port; error_length_type length length bytes exceeds max_length_type limit of maximum_length bytes
 regex=-410001; \
  classification.text=Dropped UDP DNS; \
  classification.reference(0).origin=vendor-specific; \
@@ -475,7 +475,7 @@ regex=-410001; \
  assessment.impact.description=Explanation The domain-name length exceeds 255 bytes in a UDP DNS packet. (See RFC 1035 section 3.1.); \
  last
 
-#Error Message %ACE-4-412001: MAC MAC_address moved from interface_1 to interface_2
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-412001: MAC MAC_address moved from interface_1 to interface_2
 regex=-412001; \
  classification.text=MAC address moved from interface; \
  classification.reference(0).origin=vendor-specific; \
@@ -493,7 +493,7 @@ regex=-412001; \
  assessment.impact.description=Explanation The ACE detects that a host was moved from one module interface to another. In a transparent ACE, mapping between the host (MAC) and the ACE port is maintained in a Layer 2 forwarding table. The table dynamically binds packet source MAC addresses to an ACE port. When movement of a host from one interface to another interface is detected during this binding process, this error message is generated.; \
  last
 
-#Dec 13 17:58:27 x.x.x.x xxx %ACE-5-111008: User 'xx' executed the 'no set tcp timeout embryonic 30' command.
+#LOG:Dec 13 17:58:27 x.x.x.x xxx %ACE-5-111008: User 'xx' executed the 'no set tcp timeout embryonic 30' command.
 regex=-111008; \
  classification.text=User $1 executed command.; \
  classification.reference(0).origin=vendor-specific; \

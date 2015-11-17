@@ -8,8 +8,8 @@ regex=to root on; \
  target(0).user.user_id(0).number=0; \
  chained; silent;
 
-#LOG: Jul 18 17:12:49 hids su: afonyashin to root on /dev/ttyp0
-#LOG: Jul 18 17:12:49 hids su: afonyashin to alice on /dev/ttyp0
+#LOG:Jul 18 17:12:49 hids su: afonyashin to root on /dev/ttyp0
+#LOG:Jul 18 17:12:49 hids su: afonyashin to alice on /dev/ttyp0
 optgoto=10003; regex=su: (\S+) to (\S+) on (\S+); \
  classification.text=Credentials Change; \
  id=10000; \
@@ -34,8 +34,8 @@ optgoto=10003; regex=su: (\S+) to (\S+) on (\S+); \
 # Login failed #
 ################
 
-#LOG: Jul 18 17:12:44 hids su: BAD SU afonyashin to root on /dev/ttyp0
-#LOG: Jul 18 17:12:44 hids su: BAD SU afonyashin to alice on /dev/ttyp0
+#LOG:Jul 18 17:12:44 hids su: BAD SU afonyashin to root on /dev/ttyp0
+#LOG:Jul 18 17:12:44 hids su: BAD SU afonyashin to alice on /dev/ttyp0
 regex=su: BAD SU (\S+) to (\S+) on (\S+); \
  classification.text=Credentials Change; optgoto=10003; \
  id=10002; \

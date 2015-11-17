@@ -100,7 +100,6 @@ regex=Failed (\S+) for (\S+) from (\S+) port (\d+); optgoto=1907; \
 ##############################################
 
 #LOG:Jan 20 14:10:02 blah sshd[25443]: Invalid user admin from 213.201.222.134
-
 regex=(Illegal|Invalid) user (\S+) from (\S+); \
  classification.text=User login failed with an invalid user; \
  id=1904; \
@@ -128,7 +127,7 @@ regex=(Illegal|Invalid) user (\S+) from (\S+); \
 # User listed in DenyGroups or DenyUsers (sshd_config directives) tried to login #
 ##################################################################################
 
-# LOG:Jan  6 22:50:24 localhost sshd[15489]: User nobody not allowed because none of user's groups are listed in AllowGroups
+#LOG:Jan  6 22:50:24 localhost sshd[15489]: User nobody not allowed because none of user's groups are listed in AllowGroups
 regex=User (\S+) not allowed because (.*)listed in (\w+); \
  classification.text=User login failed with a denied user; \
  id=1905; \
@@ -162,8 +161,7 @@ regex=User (\S+) not allowed because (.*)listed in (\w+); \
 # (maybe a ssh server recognition)                               #
 ##################################################################
 
-# LOG:Jun 10 09:51:57 server sshd[9100]: Did not receive identification string from 1.2.3.4
-#
+#LOG:Jun 10 09:51:57 server sshd[9100]: Did not receive identification string from 1.2.3.4
 regex=Did not receive identification string from (\S+); \
  classification.text=Server recognition; \
  id=1906; \
@@ -193,8 +191,7 @@ regex=Did not receive identification string from (\S+); \
 # of the sshd_config file)                                              #
 #########################################################################
 
-# LOG:Jan  5 01:31:41 www sshd[1643]: ROOT LOGIN REFUSED FROM 1.2.3.4
-#
+#LOG:Jan  5 01:31:41 www sshd[1643]: ROOT LOGIN REFUSED FROM 1.2.3.4
 regex=ROOT LOGIN REFUSED FROM (\S+); \
  classification.text=Admin login; \
  id=1907; \

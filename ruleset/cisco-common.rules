@@ -38,8 +38,8 @@
 # Copyright (C) 2006 Alexandre Racine <alexandreracine@gmail.com>
 # All Rights Reserved - www.alexandreracine.com - Tous droits reserves.
 
-#LOG: %CDP-4-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on GigabitEthernet0/1 (1), with C3524pwr-049-1.somedomain.ca FastEthernet0/19 (49).
-#Cisco says: %CDP-4-NATIVE_VLAN_MISMATCH : Native VLAN mismatch discovered on [chars] ([dec]), with [chars] [chars] ([dec])
+#DESCR:Cisco says: %CDP-4-NATIVE_VLAN_MISMATCH : Native VLAN mismatch discovered on [chars] ([dec]), with [chars] [chars] ([dec])
+#LOG:Dec 11 18:41:14: %CDP-4-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on GigabitEthernet0/1 (1), with C3524pwr-049-1.somedomain.ca FastEthernet0/19 (49).
 regex=%CDP-\d-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on (\S+) \(\d+\), with (\S+) (\S+) \(\d+\); \
  classification.text=Native VLAN mismatch; \
  classification.reference(0).origin=vendor-specific; \
@@ -61,8 +61,8 @@ regex=%CDP-\d-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on (\S+) \(\
  target(0).interface=$3; \
  last
 
-#LOG: 21w2d: %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on GigabitEthernet0/1 (not half duplex), with C3524pwr-049-1.cslaval.qc.ca FastEthernet0/19 (half duplex).
-#Cisco says: %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on [chars] ([chars]), with [chars] [chars] ([chars])
+#DESCR:Cisco says: %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on [chars] ([chars]), with [chars] [chars] ([chars])
+#LOG:Dec 11 18:41:14: %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on GigabitEthernet0/1 (not half duplex), with C3524pwr-049-1.cslaval.qc.ca FastEthernet0/19 (half duplex).
 regex=%CDP-\d-DUPLEX_MISMATCH: duplex mismatch discovered on (\S+) \([\w\s]+\), with (\S+) (\S+) \([\w\s]+\); \
  classification.text=Duplex mismatch; \
  classification.reference(0).origin=vendor-specific; \
@@ -84,8 +84,8 @@ regex=%CDP-\d-DUPLEX_MISMATCH: duplex mismatch discovered on (\S+) \([\w\s]+\), 
  target(0).interface=$3; \
  last
 
-#LOG: 18w5d: %PORT_SECURITY-2-SECURITYREJECT: Security violation occurred on module 0 port 6 caused by MAC address 0021.e6f2.e644
-#Cisco says: %PORT_SECURITY-2-SECURITYREJECT: Security violation occurred on module [dec] port [dec] caused by MAC address [enet]
+#DESCR:Cisco says: %PORT_SECURITY-2-SECURITYREJECT: Security violation occurred on module [dec] port [dec] caused by MAC address [enet]
+#LOG:Dec 11 18:41:14: %PORT_SECURITY-2-SECURITYREJECT: Security violation occurred on module 0 port 6 caused by MAC address 0021.e6f2.e644
 regex=%PORT_SECURITY-\d-SECURITYREJECT: Security violation occurred on module \d+ port \d+ caused by MAC address (\S*); \
  classification.text=Port Security; \
  classification.reference(0).origin=vendor-specific; \
@@ -105,8 +105,8 @@ regex=%PORT_SECURITY-\d-SECURITYREJECT: Security violation occurred on module \d
  source(0).node.address(0).address=$1; \
  last
 
-#LOG: 5d00h: %PORT_SECURITY-2-PSECURE_VIOLATION: Security violation occurred, caused by MAC address 0462.0000.0464 on port FastEthernet0/22.
-#Cisco says: %PORT_SECURITY-2-PSECURE_VIOLATION:  Security violation occurred caused by MAC [enet] on port [chars]
+#DESCR:Cisco says: %PORT_SECURITY-2-PSECURE_VIOLATION:  Security violation occurred caused by MAC [enet] on port [chars]
+#LOG:Dec 11 18:41:14: %PORT_SECURITY-2-PSECURE_VIOLATION: Security violation occurred, caused by MAC address 0462.0000.0464 on port FastEthernet0/22.
 regex=%PORT_SECURITY-\d-PSECURE_VIOLATION: Security violation occurred, caused by MAC address (\S*) on port (\S+); \
  classification.text=Port Security; \
  classification.reference(0).origin=vendor-specific; \
@@ -127,8 +127,8 @@ regex=%PORT_SECURITY-\d-PSECURE_VIOLATION: Security violation occurred, caused b
  source(0).interface=$2; \
  last
 
-#LOG: 5d00h: %RTD-1-ADDR_FLAP: FastEthernet0/23 relearning 7 addrs per min
-#Cisco says: %RTD-1-ADDR_FLAP [chars] relearning [dec] addrs per min
+#DESCR:Cisco says: %RTD-1-ADDR_FLAP [chars] relearning [dec] addrs per min
+#LOG:Dec 11 18:41:14: %RTD-1-ADDR_FLAP: FastEthernet0/23 relearning 7 addrs per min
 regex=%RTD-\d-ADDR_FLAP: (\S+) relearning (\d+) addrs per min; \
  classification.text=Port Security; \
  classification.reference(0).origin=vendor-specific; \

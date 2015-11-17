@@ -30,8 +30,8 @@
 # old pam format (< 0.99):
 
 # ignore opened or closed sessions
-#Apr 20 11:55:01 piche CRON[23295]: (pam_unix) session opened for user root by (uid=0)
-#Apr 20 11:55:01 piche CRON[23293]: (pam_unix) session closed for user root
+#LOG:Apr 20 11:55:01 piche CRON[23295]: (pam_unix) session opened for user root by (uid=0)
+#LOG:Apr 20 11:55:01 piche CRON[23293]: (pam_unix) session closed for user root
 #LOG:Dec 14 09:31:58 piche sshd[8778]: pam_unix(ssh:session): session opened for user pollux by (uid=0)
 regex=CRON\[\d+\]: \(pam_unix\) session (opened|closed) for user; \
  silent; \
@@ -39,8 +39,8 @@ regex=CRON\[\d+\]: \(pam_unix\) session (opened|closed) for user; \
 
 # new pam format:
 # ignore opened or closed sessions (for all pam modules)
-#Dec 14 09:09:01 piche CRON[5898]: pam_unix(cron:session): session opened for user root by (uid=0)
-#Dec 14 09:09:01 piche CRON[5898]: pam_unix(cron:session): session closed for user root
+#LOG:Dec 14 09:09:01 piche CRON[5898]: pam_unix(cron:session): session opened for user root by (uid=0)
+#LOG:Dec 14 09:09:01 piche CRON[5898]: pam_unix(cron:session): session closed for user root
 #LOG:Dec 14 09:31:58 piche sshd[8778]: pam_unix(ssh:session): session opened for user pollux by (uid=0)
 regex=CRON\[\d+\]: \S+\(cron:\S+\): session (opened|closed) for user; \
  silent; \
@@ -72,8 +72,7 @@ regex=session opened for user (\S+) by (\S*)\(uid=(\d*)\); optgoto=4; \
  target(0).user.user_id(0).name=$1; \
  last
 
-# LOG:Dec 21 21:18:46 share2 sshd(pam_unix)[15525]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=a.b.c.d  user=root
-#
+#LOG:Dec 21 21:18:46 share2 sshd(pam_unix)[15525]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=a.b.c.d  user=root
 regex=authentication failure\; logname=([^ ]*)[ ]*uid=([^ ]*)[ ]*euid=.* tty=([^ ]*)[ ]*ruser=([^ ]*)[ ]*rhost=([^ ]*)[ ]*user=([^ ]*); \
  classification.text=Credentials Change; optgoto=4; \
  id=2; \

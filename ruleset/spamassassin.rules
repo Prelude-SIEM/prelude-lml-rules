@@ -53,7 +53,6 @@ regex=(\S+): from=<(\S+)>, size=(\d+); \
 
 
 #LOG:Apr  5 16:59:44 vm-mail spamd[1819]: spamd: result: Y 999 - ALL_TRUSTED,GTUBE,NO_REAL_NAME scantime=0.1,size=769,user=jenny@yyy.com,uid=8,required_score=5.0,rhost=localhost,raddr=127.0.0.1,rport=38643,mid=<443459EF.mail1EK1XC3LT@xxx.com>,autolearn=no
-
 regex=spamd: result: Y (\d+) - (\S+) scantime=([\d\.]+),size=\d+,user=(\S+),uid=(\d+),required_score=([\d\.]+)\S+mid=<(\S+@\S+)>; \
  require_context=SPAMASSASSIN_$7; \
  classification.text=Spam found; \

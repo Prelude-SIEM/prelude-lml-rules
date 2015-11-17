@@ -1,5 +1,5 @@
-#LOG: Aug 24 00:54:18 blah kernel: bonding: bond0: backup interface eth0 is now up
-#LOG: Aug 24 00:54:18 blah kernel: bonding: bond0: backup interface eth0 is now down
+#LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: backup interface eth0 is now up
+#LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: backup interface eth0 is now down
 regex=bonding:\s(\w+):\s(\w+)\sinterface\s(\w+)\sis\snow\s(\w+); \
 id=4800; \
 revision=1; \
@@ -18,7 +18,7 @@ additional_data(1).meaning=new interface state; \
 additional_data(1).data=$4; \
 last;
 
-#LOG: Aug 24 00:54:18 blah kernel: bonding: bond0: link status down for active interface eth0, disabling it
+#LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: link status down for active interface eth0, disabling it
 regex=bonding:\s(\w+):\slink\sstatus\s(\w+)\sfor\s(\w+)\sinterface\s(\w+),\s(\w+)\sit; \
 id=4801; \
 revision=1; \
@@ -35,7 +35,7 @@ additional_data(0).data=$2; \
 last;
 
 
-#LOG: Aug 24 00:54:18 blah kernel: bonding: bond0: making interface eth4 the new active one.
+#LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: making interface eth4 the new active one.
 regex=bonding:\s(\w+):\smaking\sinterface\s(\w+)\sthe\snew\s(\w+)\sone; \
 id=4802; \
 revision=1; \
@@ -48,7 +48,7 @@ source(0).interface=$2; \
 target(0).interface=$1; \
 last;
 
-#LOG: Aug 24 00:54:18 blah kernel: bonding: bond0: eth0 is up and now the active interface
+#LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: eth0 is up and now the active interface
 regex=bonding:\s(\w+):\s(\w+)\sis\s(\w+)\sand\snow\sthe\s(\w+)\sinterface; \
 id=4803; \
 revision=1; \
@@ -62,7 +62,7 @@ target(0).interface=$1; \
 last;
 
 
-#LOG: Aug 24 00:54:18 blah kernel: bonding: ARP monitoring set to 1000 ms with 1 target(s): 192.168.100.1
+#LOG:Aug 24 00:54:18 blah kernel: bonding: ARP monitoring set to 1000 ms with 1 target(s): 192.168.100.1
 regex=bonding:\sARP\smonitoring\sset\sto\s(\d+)\sms\swith\s(\d)\starget\(s\):\s(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}); \
 id=4804; \
 revision=1; \
@@ -78,8 +78,8 @@ additional_data(0).data=$1; \
 last;
 
 
-#LOG: Aug 24 00:54:18 blah kernel: bonding: bond0: enslaving eth0 as an active interface with an up link
-#LOG: Aug 24 00:54:18 blah kernel: bonding: bond0: enslaving eth4 as a backup interface with an up link
+#LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: enslaving eth0 as an active interface with an up link
+#LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: enslaving eth4 as a backup interface with an up link
 regex=bonding:\s(\w+):\senslaving\s(\w+)\sas\san?\s(\w+)\sinterface\swith\san\s(\w+)\slink; \
 id=4805; \
 revision=1; \
@@ -99,7 +99,7 @@ additional_data(1).data=$4; \
 last;
 
 
-#LOG: Aug 24 00:54:18 blah kernel: bonding: bond0: released all slaves
+#LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: released all slaves
 regex=bonding:\s(\w+):\sreleased\sall\sslaves; \
 id=4806; \
 revision=1; \
@@ -111,7 +111,7 @@ assessment.impact.description=binded interface $1 has been disabled and all of t
 target(0).interface=$1; \
 last;
 
-#LOG: Aug 24 00:54:18 blah kernel: bonding: Warning: failed to get speed/duplex from eth4, speed forced to 100Mbps, duplex forced to Full
+#LOG:Aug 24 00:54:18 blah kernel: bonding: Warning: failed to get speed/duplex from eth4, speed forced to 100Mbps, duplex forced to Full
 regex=bonding:\sWarning:\sfailed\sto\sget\sspeed/duplex\sfrom\s(\w+)\,\sspeed\sforced\sto\s(\w+),\sduplex\sforced\sto\s(\w+); \
 id=4807; \
 revision=1; \
@@ -128,4 +128,3 @@ additional_data(1).type=string; \
 additional_data(1).meaning=duplex; \
 additional_data(1).data=$3; \
 last;
-

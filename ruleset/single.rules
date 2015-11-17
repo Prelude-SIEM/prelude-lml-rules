@@ -44,16 +44,14 @@ regex=device (\S+) entered promiscuous mode; \
 # Copyright (C) 2002 Brad Spengler <spender@grsecurity.net>
 # All Rights Reserved
 
-# LOG:Sep  6 18:21:18 amoeba PAX: terminating task: /usr/X11R6/bin/glxinfo(glxinfo):7661, uid/euid: 9999/9999, PC: 25755afc, SP: 5bc95e2c
-
-# LOG:Apr  9 20:56:41 emma kernel: PAX: From 1.2.3.4: execution attempt in: /usr/lib/paxtest/shlibtest.so, 25891000-25892000 00001000
-# LOG:Oct 13 20:56:41 emma kernel: PAX: terminating task: /usr/bin/localedef(localedef):5208, uid/euid: 0/0, EIP: BFF4C330, ESP: BFF4C21C
-
+#LOG:Apr  9 20:56:41 emma kernel: PAX: From 1.2.3.4: execution attempt in: /usr/lib/paxtest/shlibtest.so, 25891000-25892000 00001000
 regex=From (\S+): execution attempt in:; \
  add_context=PAX_OVERFLOW_SOURCE; \
  source(0).node.address(>>).address = $1; \
  silent; last;
 
+#LOG:Sep  6 18:21:18 amoeba PAX: terminating task: /usr/X11R6/bin/glxinfo(glxinfo):7661, uid/euid: 9999/9999, PC: 25755afc, SP: 5bc95e2c
+#LOG:Oct 13 20:56:41 emma kernel: PAX: terminating task: /usr/bin/localedef(localedef):5208, uid/euid: 0/0, EIP: BFF4C330, ESP: BFF4C21C
 regex=terminating task: ([^(]+)\(([^)]+)\):(\d+), uid/euid: (\d+)/(\d+); \
  optional_context=PAX_OVERFLOW_SOURCE; \
  destroy_context=PAX_OVERFLOW_SOURCE; \

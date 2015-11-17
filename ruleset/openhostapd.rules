@@ -17,8 +17,7 @@
 # https://www.prelude-siem.org/
 #
 
-# LOG: ath0: (rate: 100/3 sec) 00:02:dc:ed:3d:3f > 00:05:4e:45:d3:b8, bssid 00:05:4e:45:d3:b8: authentication request, <radiotap v0, chan 1, 11g, txpower 30dBm> 
-#
+#LOG:ath0: (rate: 100/3 sec) 00:02:dc:ed:3d:3f > 00:05:4e:45:d3:b8, bssid 00:05:4e:45:d3:b8: authentication request, <radiotap v0, chan 1, 11g, txpower 30dBm> 
 regex=([a-z0-9]+):\s\(rate:\s(\d+)\/(\d+)\ssec\)\s([a-f\d\:]+)\s\>\s([a-f\d\:]+)\,\sbssid\s([a-f\d\:]+)\:\s([^\,]+); \
  classification.text=IEEE 802.11 $7 flooding; \
  id=2500; \
@@ -39,8 +38,7 @@ regex=([a-z0-9]+):\s\(rate:\s(\d+)\/(\d+)\ssec\)\s([a-f\d\:]+)\s\>\s([a-f\d\:]+)
  additional_data(0).data=$2/$3 sec; \
  last
 
-# LOG:Nov 23 19:05:49 ath0: (rate: 100/3 sec)
-#
+#LOG:Nov 23 19:05:49 ath0: (rate: 100/3 sec)
 regex=([a-z0-9]+):\s\(rate:\s(\d+)\/(\d+)\ssec\); \
  classification.text=IEEE 802.11 flooding; \
  id=2501; \
@@ -57,8 +55,7 @@ regex=([a-z0-9]+):\s\(rate:\s(\d+)\/(\d+)\ssec\); \
  additional_data(0).data=$2/$3 sec; \
  last
 
-# LOG: ath0: removed node 00:05:4e:45:d3:b8
-#
+#LOG:ath0: removed node 00:05:4e:45:d3:b8
 regex=([a-z0-9]+):\sremoved\snode\s([a-f\d\:]+); \
  classification.text=Removed IEEE 802.11 node; \
  id=2502; \
@@ -75,8 +72,7 @@ regex=([a-z0-9]+):\sremoved\snode\s([a-f\d\:]+); \
  target(0).node.address(0).address=$2; \
  last
 
-# LOG: ath0/sis0: sent ADD notification for 00:05:4e:45:d3:b8
-#
+#LOG:ath0/sis0: sent ADD notification for 00:05:4e:45:d3:b8
 regex=([a-z0-9]+)\/([a-z0-9]+):\ssent\sADD\snotification\sfor\s([a-f\d\:]+); \
  classification.text=Added IEEE 802.11 node; \
  id=2503; \
@@ -94,8 +90,7 @@ regex=([a-z0-9]+)\/([a-z0-9]+):\ssent\sADD\snotification\sfor\s([a-f\d\:]+); \
  target(0).node.address(0).address=$3; \
  last
 
-# LOG: ath0/sis0: attached Host AP interface with BSSID 00:05:4e:45:d3:b8
-#
+#LOG:ath0/sis0: attached Host AP interface with BSSID 00:05:4e:45:d3:b8
 regex=([a-z0-9]+)\/([a-z0-9]+):\sattached\sHost\sAP\sinterface\swith\sBSSID\s([a-f\d\:]+); \
  classification.text=Attached IEEE 802.11 Host AP; \
  id=2504; \

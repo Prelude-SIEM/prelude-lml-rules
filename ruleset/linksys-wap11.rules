@@ -53,4 +53,3 @@ regex=Unauthorized wireless PC try to connected[\s]+([A-Fa-f\d\-]+); \
  source(0).node.address(0).category=mac; \
  source(0).node.address(0).address=$1; \
  last
-
