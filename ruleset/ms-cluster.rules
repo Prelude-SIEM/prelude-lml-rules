@@ -1,13 +1,13 @@
 #####
 #
 # Copyright (C) 2006 G Ramon Gomez <gene at gomezbrothers dot com>
-# 
+#
 # All Rights Reserved
 #
 # This file is part of the Prelude-LML program.
 #
 # This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by 
+# it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
 # any later version.
 #
@@ -25,8 +25,8 @@
 #####
 #
 # The rules included here were developed using NTSyslog and Windows 2003
-# Cluster Service.  Please report any inconsistencies on other models to G 
-# Ramon Gomez at the address provided above
+# Cluster Service.  Please report any inconsistencies on other models
+# to G Ramon Gomez at the address provided above
 #
 #####
 

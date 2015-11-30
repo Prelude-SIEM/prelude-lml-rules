@@ -7,7 +7,7 @@
 # This file is part of the Prelude-LML program.
 #
 # This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by 
+# it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
 # any later version.
 #
@@ -24,7 +24,7 @@
 
 # I. Starting / stopping squid, and associated services (informational, do not show a real attack)
 
-# starting 
+# starting
 #LOG:2005/11/28 06:00:42| Starting Squid Cache version 2.5.STABLE1 for i386-redhat-linux-gnu...
 regex=Starting Squid Cache version ([\w\.]+) for (\S+)\.\.\.; \
  classification.text=Proxy started; \
@@ -88,7 +88,7 @@ regex=Accepting ICP messages at ([\d\.]+), port (\d+), FD (\d+)\.; \
  additional_data(0).data=$3; \
  last
 
-# No log sample; please submit
+#LOG:2005/11/28 06:00:44| Accepting HTCP messages on port 4827, FD 15.
 regex=Accepting HTCP messages on port (\d+), FD (\d+)\.; \
  classification.text=Proxy accepts HTCP; \
  id=1804; \
@@ -107,7 +107,7 @@ regex=Accepting HTCP messages on port (\d+), FD (\d+)\.; \
  additional_data(0).data=$2; \
  last
 
-# No log sample; please submit
+#LOG:2005/11/28 06:00:44| Accepting WCCP messages on port 2048, FD 18.
 regex=Accepting WCCP messages on port (\d+), FD (\d+)\.; \
  classification.text=Proxy accepts WCCP; \
  id=1805; \
@@ -126,7 +126,7 @@ regex=Accepting WCCP messages on port (\d+), FD (\d+)\.; \
  additional_data(0).data=$2; \
  last
 
-# No log sample; please submit
+#LOG:2005/11/28 06:00:44| HTCP Disabled.
 regex=HTCP Disabled\.; \
  classification.text=Proxy started without HTCP; \
  id=1806; \
@@ -167,7 +167,7 @@ regex=Squid Parent: child process (\d+) exited due to signal (\d+); \
  last
 
 
-# II. ACL log 
+# II. ACL log
 # 1. From /var/log/squid/access.log
 
 #LOG:1133224765.027     23 12.34.56.78 TCP_DENIED/403 1387 GET http://was.nld.l.google.com:81/hit? - NONE/- text/html

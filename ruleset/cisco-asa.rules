@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2003 G Ramon Gomez <gene at gomezbrothers dot com>
 # Ragingwire Enterprise Solutions (www.ragingwire.com)
-# All Rights Reserved 
+# All Rights Reserved
 #
 # The new ASA rules where added by:
 # Copyright (C) 2012 email: <operador@seguridadx.com> twitter: www.twitter.com/seguridad_x
@@ -30,7 +30,7 @@
 #####
 #
 # The rules included here were developed using a Cisco PIX and a Cisco ASA 8.2.x.  Please report
-# any inconsistencies on other models to operador@seguridadx.com 
+# any inconsistencies on other models to operador@seguridadx.com
 #
 #####
 
@@ -219,7 +219,6 @@ regex=-409023: Attempting AAA Fallback method LOCAL for Authentication request f
  additional_data(0).meaning=Attempting AAA Fallback method LOCAL for Authentication request for user; \
  additional_data(0).data=$1; \
  last
-
 
 #LOG:Nov  2 11:17:21 pix %PIX-5-111001: Begin configuration: console writing to memory
 regex=-111001: Begin configuration: (\S+) writing to (\S+); \
@@ -847,7 +846,6 @@ regex=-710005: (TCP|UDP) request discarded from ([\d\.]+)/(\d+) to (\S+):([\d\.]
  target(0).interface=$4; \
  last
 
-
 # Events taken from the Cisco System Log Messages List that will need rules
 # (include 'attack' || 'intrusion' || 'probe' || 'covert' in description; no log samples):
 #LOG:Nov  2 18:03:14 pix %PIX-1-106021: Deny protocol reverse path check from source_address to dest_address on interface interface_name
@@ -885,7 +883,6 @@ regex=-733100: \[+.+\] drop rate-[1|2] exceeded\.; \
  assessment.impact.description=The specified object in the syslog message has exceeded the specified burst threshold rate or average threshold rate. The object can be drop activity of a host, TCP/UDP port, IP protocol, or various drops caused by potential attacks. The message indicates that the system is under potential attack.; \
  last
 
-
 #LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-106021: Deny TCP reverse path check from 10.10.10.101 to 65.58.240.105 on interface inside
 #regex=-106021: Deny TCP reverse path check from ([\d\.]+) to ([\d\.]+) on interface (\S+); \
 # classification.text=Deny $1 reverse path check; \
@@ -908,7 +905,6 @@ regex=-733100: \[+.+\] drop rate-[1|2] exceeded\.; \
 # target(0).node.address(0).address=$2; \
 # last
 
-
 #LOG:Nov  2 18:03:14 pix %PIX-1-106022: Deny protocol connection spoof from source_address to dest_address on interface interface_name
 regex=-106022: Deny protocol connection spoof from ([\d\.]+) to ([\d\.]+) on interface (S+); \
  classification.text=Deny $1 reverse path check; \
@@ -930,8 +926,6 @@ regex=-106022: Deny protocol connection spoof from ([\d\.]+) to ([\d\.]+) on int
  source(0).node.address(0).address=$1; \
  target(0).node.address(0).address=$2; \
  last
-
-
 
 #LOG:Nov  2 18:03:14 pix %PIX-1-106101 The number of ACL log deny-flows has reached limit (number).
 regex=-106101: The number of ACL log deny-flows has reached limit (\d+); \
@@ -1014,10 +1008,8 @@ regex=-107001: RIP auth failed from ([\d\.]+): version=(\d+), type=(\S+), mode=(
  additional_data(3).data=$5; \
  last
 
-
-
 #LOG:Nov  2 18:03:14 pix %PIX-1-107002: RIP pkt failed from IP_address: version=number on interface interface_name
-regex=-107002: RIP pkt failed from ([\d\.]+): version=(\d+) on interface (\S+); \  
+regex=-107002: RIP pkt failed from ([\d\.]+): version=(\d+) on interface (\S+); \
  classification.text=IP pkt failed from IP_address: version=number on interface interface_name; \
  classification.reference(0).origin=vendor-specific; \
  classification.reference(0).meaning=asa_id; \
@@ -1040,8 +1032,7 @@ regex=-107002: RIP pkt failed from ([\d\.]+): version=(\d+) on interface (\S+); 
  additional_data(0).data=$2; \
  last
 
-
-#%PIX-4-109017: User at IP_address exceeded auth proxy connection limit (max)
+#LOG:Nov  2 18:03:14 pix %PIX-4-109017: User at IP_address exceeded auth proxy connection limit (max)
 regex=-109017: User at ([\d\.]+) exceeded auth proxy connection limit; \
  classification.text=User at IP_address exceeded auth proxy connection limit (max); \
  classification.reference(0).origin=vendor-specific; \
@@ -1060,7 +1051,6 @@ regex=-109017: User at ([\d\.]+) exceeded auth proxy connection limit; \
  source(0).node.address(0).category=ipv4-addr; \
  source(0).node.address(0).address=$1; \
  last
-
 
 #LOG:Nov  2 18:03:14 pix %PIX-3-320001: The subject name of the peer cert is not allowed for connection
 regex=-320001: The subject name of the peer cert is not allowed for connection; \
@@ -1124,7 +1114,6 @@ regex=-419001: Dropping TCP packet from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\.]+)
  target(0).service.port=$6; \
  last
 
-
 #LOG:Apr 10 15:40:15 x.x.x.x xxx %ASA-4-419002: Duplicate TCP SYN from outside:xx.xx.xx.xx/xxx to inside:xx.xx.xx.xx/xxxx with different initial sequence number
 regex=-419002: Duplicate TCP SYN from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\.]+)/(\d+); \
  classification.text=Duplicate TCP SYN; \
@@ -1173,7 +1162,6 @@ regex=-419003: Cleared TCP urgent flag from (\S+):([\d\.]+)/(\d+) to (\S+):([\d\
  target(0).service.port=$6; \
  last
 
-
 #############################
 ## Cisco ASA Cluster Alerts##
 #############################
@@ -1198,7 +1186,6 @@ regex=-101001: \((\S+)\); \
  source(0).node.address(0).address=$1; \
  last
 
-
 #LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-101002: (Primary) Bad failover cable.
 regex=-101002: \((\S+)\); \
  classification.text=Bad failover cable.; \
@@ -1218,7 +1205,6 @@ regex=-101002: \((\S+)\); \
  source(0).node.address(0).category=ipv4-addr; \
  source(0).node.address(0).address=$1; \
  last
-
 
 #LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-101003: (Primary) Failover cable not connected (this unit).
 regex=-101003: \((\S+)\) Failover cable not connected \((\S+)\); \
@@ -1423,7 +1409,6 @@ regex=-105001: \((\S+)\); \
  source(0).node.address(0).category=ipv4-addr; \
  source(0).node.address(0).address=$1; \
  last
-
 
 #LOG:Dec  7 14:08:17 ASA_NAME %ASA-1-105002: (Primary) Enabling failover.
 regex=-105002: \((\S+)\); \
@@ -1644,7 +1629,6 @@ regex=-105021: \((\S+)\); \
  source(0).node.address(0).category=ipv4-addr; \
  source(0).node.address(0).address=$1; \
  last
-
 
 #######################
 ## Cisco ASA Failover##

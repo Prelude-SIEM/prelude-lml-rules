@@ -24,7 +24,7 @@
 #####
 #
 # The rules included here were developed using BIG-IP Kernel 4.5PTF-06 Build25.
-# Please report any inconsistencies on other versions to G Ramon Gomez at the 
+# Please report any inconsistencies on other versions to G Ramon Gomez at the
 # address provided above
 #
 #####
@@ -66,7 +66,7 @@ regex=AUDIT -- (\w+) (\w+) (\w+)\s+User: (\S+); \
  last;
 
 #LOG:Jun 14 07:06:05 12.34.56.78 kernel: security: UDP port denial 90.12.34.56:20031 -> 78.90.12.34:20031
-#regex=security: (\S+) .*port denial ([\d\.]+):(\d+) -> ([\d\.]+):(\d+); \ 
+#regex=security: (\S+) .*port denial ([\d\.]+):(\d+) -> ([\d\.]+):(\d+); \
 # classification.text=Packet denied; \
 # id=3602; \
 # revision=1; \

@@ -325,7 +325,7 @@ regex=product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.
 
 
 # 5. Generic VPN-1 / FW-1 alert
-# No sample log entry; please submit
+#LOG:14Aug2006 16:38:54 accept 12.34.56.78 >eth1c0 product: VPN-1 & FireWall-1; src: 90.12.34.56; s_port: 41307; dst: 78.90.12.34; service: domain-udp; proto: udp; rule: 8;
 regex=product: VPN-1 & FireWall-1; \
  classification.text=Generic alert; \
  id=111; \
@@ -344,7 +344,7 @@ regex=product: VPN-1 & FireWall-1; \
 # II. SmartDefense
 ###
 
-#LOG:14Aug2006 16:39:44        12.34.56.78 >    alert product: SmartDefense; cpmad: CPMAD; attack: Port Scanning; dst: 90.12.34.56; src: 78.90.12.34; 
+#LOG:14Aug2006 16:39:44        12.34.56.78 >    alert product: SmartDefense; cpmad: CPMAD; attack: Port Scanning; dst: 90.12.34.56; src: 78.90.12.34;
 regex=product: SmartDefense\;.+attack: (.+)\; dst: ([\d\.])+\; src: ([\d\.]+); \
  classification.text=$1; \
  id=112; \
@@ -386,7 +386,7 @@ regex=product: SmartDefense. service: ([\w-]+|\d+). attack: Successive Multiple 
 regex=product: SmartDefense\;.+attack: (.+)\; src: ([\d\.]+)\; s_port: (\d+)\; dst: ([\d\.]+)\; service: (\d+)\; proto: ([\w\-]+|\d+); \
  classification.text=$1; \
  id=115; \
- revision=2; \ 
+ revision=2; \
  analyzer(0).name=FW-1; \
  analyzer(0).manufacturer=Checkpoint; \
  analyzer(0).class=Firewall; \
@@ -479,7 +479,7 @@ regex=product: SmartDefense\;.+attack: (.+)\; src: ([\d\.]+)\; dst: ([\d\.]+); \
  target(0).node.address(0).address=$3; \
  last
 
-# No sample log entry; please submit
+#LOG:14Aug2006 16:39:44        12.34.56.78 >    alert product: SmartDefense; cpmad: CPMAD; attack: Port Scanning; dst: 90.12.34.56; src: 78.90.12.34;
 regex=product: SmartDefense\;.+attack: (.+?)\;; \
  classification.text=$1; \
  id=125; \
@@ -493,7 +493,7 @@ regex=product: SmartDefense\;.+attack: (.+?)\;; \
  last
 
 # 9. Generic Smart Defense alert
-# No sample log entry; please submit
+#LOG:14Aug2006 16:39:44        12.34.56.78 >    alert product: SmartDefense; cpmad: CPMAD; attack: Port Scanning; dst: 90.12.34.56; src: 78.90.12.34;
 regex=product: SmartDefense; \
  classification.text=Misc logs; \
  id=126; \

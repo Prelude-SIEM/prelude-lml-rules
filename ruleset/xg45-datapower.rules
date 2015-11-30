@@ -27,15 +27,15 @@
 # Please report any inconsistencies to the address provided above
 # Special configuration is needed for this support:
 # * In your DPW Web interface:
-#   - Go to "Control Panel -> Administration -> Access -> SNMP Settings" and create 
+#   - Go to "Control Panel -> Administration -> Access -> SNMP Settings" and create
 #   a new SNMP destination for send traps in "Trap and Notification Targets".
-#   - Then, go to "Control Pannel -> Objects -> Logging Configuration -> Log Target", 
-#   and create a new log target to send traps. You must select "Target Type: SNMP", 
-#   "Timestamp Format: syslog" in "General Configuration", and select a "Event Category = all, 
-#   and "Minimum Event Priority = notice" in the "Event Subscriptions" tab. 
-#   - In The "Trap Event Subscriptions", select "Enable Default Event Subscriptions = on" and 
+#   - Then, go to "Control Pannel -> Objects -> Logging Configuration -> Log Target",
+#   and create a new log target to send traps. You must select "Target Type: SNMP",
+#   "Timestamp Format: syslog" in "General Configuration", and select a "Event Category = all,
+#   and "Minimum Event Priority = notice" in the "Event Subscriptions" tab.
+#   - In The "Trap Event Subscriptions", select "Enable Default Event Subscriptions = on" and
 #   "Minimum Priority = debug".
-#   Note: You can suppress messages from your DPW by adding the event log ID on 
+#   Note: You can suppress messages from your DPW by adding the event log ID on
 #   "Event Suppression Filter"  in the "Event Filters" tab, on log target configuration form.
 # * On your Prelude system, run snmptrapd using this command:
 #   "snmptrapd -Ls 16 -Osq"

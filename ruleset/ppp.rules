@@ -31,7 +31,7 @@
 
 # Logging succeed
 
-#LOG: Dec  4 23:01:36 beorc ppp[24796]: tun2: Phase: Chap Input: RESPONSE (49 bytes from afonyashin)
+#LOG:Dec  4 23:01:36 beorc ppp[24796]: tun2: Phase: Chap Input: RESPONSE (49 bytes from afonyashin)
 regex=ppp\[(\d+)\]: (\S+): Phase: \S+ Input: RESPONSE \(\d+ bytes from (\S+)\); \
  new_context=PPP_$1,expire:0; \
  classification.text=VPN user authentication; \
@@ -42,7 +42,7 @@ regex=ppp\[(\d+)\]: (\S+): Phase: \S+ Input: RESPONSE \(\d+ bytes from (\S+)\); 
  target(0).user.user_id(0).name=$3; \
  silent;
 
-#LOG: Dec  4 23:01:36 beorc ppp[24796]: tun2: Phase: Chap Output: SUCCESS
+#LOG:Dec  4 23:01:36 beorc ppp[24796]: tun2: Phase: Chap Output: SUCCESS
 regex=ppp\[(\d+)\]: \S+: Phase: \S+ Output: SUCCESS; \
  require_context=PPP_$1; \
  id=10100; \
@@ -52,7 +52,7 @@ regex=ppp\[(\d+)\]: \S+: Phase: \S+ Output: SUCCESS; \
  assessment.impact.type=user; \
  silent;
 
-#LOG: Dec  4 23:01:36 beorc ppp[24796]: tun2: Phase: Chap Output: FAILURE
+#LOG:Dec  4 23:01:36 beorc ppp[24796]: tun2: Phase: Chap Output: FAILURE
 regex=ppp\[(\d+)\]: \S+: Phase: \S+ Output: FAILURE; \
  require_context=PPP_$1; \
  id=10101; \
@@ -62,14 +62,14 @@ regex=ppp\[(\d+)\]: \S+: Phase: \S+ Output: FAILURE; \
  assessment.impact.type=user; \
  silent;
 
-#LOG: Dec  4 23:01:49 beorc pptpd[24795]: CTRL: Reaping child PPP[24796]
+#LOG:Dec  4 23:01:49 beorc pptpd[24795]: CTRL: Reaping child PPP[24796]
 regex=pptpd\[(\d+)\]: CTRL: \S+ \S+ PPP\[(\d+)\]; \
  require_context=PPP_$2; \
  new_context=PPTPD_$1,expire:5; \
  destroy_context=PPP_$2; \
  silent;
 
-#LOG: Dec  4 23:01:49 beorc pptpd[24795]: CTRL: Client 1.2.3.4 control connection finished
+#LOG:Dec  4 23:01:49 beorc pptpd[24795]: CTRL: Client 1.2.3.4 control connection finished
 regex=pptpd\[(\d+)\]: CTRL: Client (\S+) control; \
  require_context=PPTPD_$1; \
  analyzer(0).name=ppp; \
@@ -77,4 +77,3 @@ regex=pptpd\[(\d+)\]: CTRL: Client (\S+) control; \
  source(0).node.address(0).category=ipv4-addr; \
  source(0).node.address(0).address=$2; \
  last;
-

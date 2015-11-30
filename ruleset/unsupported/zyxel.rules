@@ -8,7 +8,7 @@
 # This file is part of the Prelude-LML program.
 #
 # This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by 
+# it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
 # any later version.
 #
@@ -25,23 +25,22 @@
 
 # See this page for references : http://www.zyxel.com/support/supportnote/p650/app/syslog.htm
 
-# ZyXEL router support for Prelude-LML 
+# ZyXEL router support for Prelude-LML
 # (should work with most ZynOS network devices)
 
 # 1) CDR log : (call messages)
 
-# Feb 14 16:57:17 192.168.1.1 ZyXEL Communications Corp.: board 0 line 0 channel 0, call 18, C01 Incoming Call OK
-# Feb 14 17:07:18 192.168.1.1 ZyXEL Communications Corp.: board 0 line 0 channel 0, call 18, C02 Call Terminated
+#LOG:Feb 14 16:57:17 192.168.1.1 ZyXEL Communications Corp.: board 0 line 0 channel 0, call 18, C01 Incoming Call OK
+#LOG:Feb 14 17:07:18 192.168.1.1 ZyXEL Communications Corp.: board 0 line 0 channel 0, call 18, C02 Call Terminated
 
 # 2) Packet triggered log : (just for info)
 
-# Jul 19 11:28:39 192.168.102.2 ZyXEL Communications Corp.: Packet Trigger: Protocol=1, Data=4500003c100100001f010004c0a86614ca849a7b08004a5c020001006162636465666768696a6b6c6d6e6f7071727374
-# Jul 19 11:28:56 192.168.102.2 ZyXEL Communications Corp.: Packet Trigger: Protocol=1, Data=4500002c1b0140001f06b50ec0a86614ca849a7b0427001700195b3e00000000600220008cd40000020405b4
+#LOG:Jul 19 11:28:39 192.168.102.2 ZyXEL Communications Corp.: Packet Trigger: Protocol=1, Data=4500003c100100001f010004c0a86614ca849a7b08004a5c020001006162636465666768696a6b6c6d6e6f7071727374
+#LOG:Jul 19 11:28:56 192.168.102.2 ZyXEL Communications Corp.: Packet Trigger: Protocol=1, Data=4500002c1b0140001f06b50ec0a86614ca849a7b0427001700195b3e00000000600220008cd40000020405b4
 
 # 3) Filter log :
 
-# Jul 19 14:44:09 192.168.1.1 ZyXEL Communications Corp.: IP[Src=202.132.154.1 Dst=192.168.1.33 UDP spo=0035  dpo=05d4]}S03>R01mF
-
+#LOG:Jul 19 14:44:09 192.168.1.1 ZyXEL Communications Corp.: IP[Src=202.132.154.1 Dst=192.168.1.33 UDP spo=0035  dpo=05d4]}S03>R01mF
 regex=ZyXEL Communications Corp.: IP\[Src=([0-9\.]+) Dst=([0-9\.]+) ([A-Z]+) spo=([0-9A-Fa-f]+)  dpo=([0-9A-Fa-f]+).*S(\d{2})>R(\d{2})(.)(.); \
  classification.text=ZyXEL ip access; \
  id=2500; \
@@ -60,14 +59,13 @@ regex=ZyXEL Communications Corp.: IP\[Src=([0-9\.]+) Dst=([0-9\.]+) ([A-Z]+) spo
  target(0).service.protocol = $3; \
  last
 
-# Jul 19 14:44:13 192.168.1.1 ZyXEL Communications Corp.: IP[Src=192.168.1.33 Dst=202.132.154.1 ICMP]}S03>R01mF
-
+#LOG:Jul 19 14:44:13 192.168.1.1 ZyXEL Communications Corp.: IP[Src=192.168.1.33 Dst=202.132.154.1 ICMP]}S03>R01mF
 regex=ZyXEL Communications Corp.: IP\[Src=([0-9\.]+) Dst=([0-9\.]+) ([A-Z]+)\].*S(\d{2})>R(\d{2})(.)(.); \
  classification.text=ZyXEL ip access; \
  id=2501; \
  revision=1; \
  assessment.impact.completion = failed; \
- assessment.impact.type = other;\
+ assessment.impact.type = other; \
  assessment.impact.severity = medium; \
  assessment.impact.description= Someone probably tried to bypass filtering : $1 ($3) -> $2 ($3)  ruleset $4 rule $5; \
  source(0).node.address(0).category=ipv4-addr; \
@@ -80,16 +78,15 @@ regex=ZyXEL Communications Corp.: IP\[Src=([0-9\.]+) Dst=([0-9\.]+) ([A-Z]+)\].*
 
 # 4) PPP Log :
 
-# Jul 19 11:43:25 192.168.1.1 ZyXEL Communications Corp.: ppp:LCP Starting
-# Jul 19 11:43:43 192.168.1.1 ZyXEL Communications Corp.: ppp:IPCP Opening
-# Jul 19 11:43:51 192.168.1.1 ZyXEL Communications Corp.: ppp:CCP Opening
-# Jul 19 11:44:14 192.168.1.1 ZyXEL Communications Corp.: ppp:BACP Closing
-
+#LOG:Jul 19 11:43:25 192.168.1.1 ZyXEL Communications Corp.: ppp:LCP Starting
+#LOG:Jul 19 11:43:43 192.168.1.1 ZyXEL Communications Corp.: ppp:IPCP Opening
+#LOG:Jul 19 11:43:51 192.168.1.1 ZyXEL Communications Corp.: ppp:CCP Opening
+#LOG:Jul 19 11:44:14 192.168.1.1 ZyXEL Communications Corp.: ppp:BACP Closing
 regex=ZyXEL Communications Corp.: ppp:(LCP|IPCP|CCP|BACP) (Starting|Opening|Closing); \
  classification.text=ZyXEL PPP $2; \
  id=2502; \
  revision=1; \
- assessment.impact.type = other;\
+ assessment.impact.type = other; \
  assessment.impact.severity = low; \
  assessment.impact.description=$2 $1 connection; \
  last

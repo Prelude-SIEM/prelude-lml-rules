@@ -115,6 +115,7 @@ regex=Sending ICMP Echo Reply: ([\d\.]+) -> ([\d\.]+); \
 
 # Connection established: %s -> proxy to %s:%s
 # Connection established: <attacker ip> -> proxy to <target(0).ip>:<target(0).port>
+#LOG:Dec 30 20:09:01 hacklab honeyd[5711]: Connection established: 192.168.1.20 -> proxy to 192.168.1.22:42
 regex=Connection established: ([\d\.]+) -> proxy to ([\d\.]+):(\d+); \
  classification.text=Proxy connection establised; \
  id=2604; \
@@ -172,6 +173,7 @@ regex=Connection established: subsystem \"(.*)\" -> ([\d\.]+); \
  last
 
 # switching to polling mode
+#LOG:Dec 30 20:09:01 hacklab honeyd[5711]: Switching to polling mode
 regex=switching to polling mode; \
  classification.text=Subsystem connection establised; \
  id=2607; \

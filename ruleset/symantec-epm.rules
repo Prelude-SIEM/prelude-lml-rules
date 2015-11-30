@@ -30,6 +30,7 @@
 #####
 
 # Allowed Messages
+#LOG:Dec  1 12:23:14 SymantecServer antivirus.example.com: Site: PLESSIS,Server: antivirus.example.com,Successfully downloaded the Virus and Spyware definitions
 regex=SymantecServer \S+:; \
  classification.reference(0).origin=vendor-specific; \
  id=172000000; \
@@ -39,7 +40,7 @@ regex=SymantecServer \S+:; \
  analyzer(0).manufacturer=www.symantec.com; \
  analyzer(0).class=Antivirus;
 
-#LOG:Dec  1 12:23:14 SymantecServer antivirus.si.c-s.fr: Site: PLESSIS,Server: antivirus.si.c-s.fr,Successfully downloaded the Virus and Spyware definitions
+#LOG:Dec  1 12:23:14 SymantecServer antivirus.example.com: Site: PLESSIS,Server: antivirus.example.com,Successfully downloaded the Virus and Spyware definitions
 regex=Site: (\S+),Server: (\S+),Successfully downloaded the Virus and Spyware definitions; \
  classification.text=Virus and Spyware definition update; \
  id=172000100; \
@@ -56,7 +57,7 @@ regex=Site: (\S+),Server: (\S+),Successfully downloaded the Virus and Spyware de
  goto=172000000; \
  last
 
-#LOG:Dec  1 12:23:14 SymantecServer antivirus.si.c-s.fr: Site: PLESSIS,Server: antivirus.si.c-s.fr,Successfully downloaded the SONAR
+#LOG:Dec  1 12:23:14 SymantecServer antivirus.example.com: Site: PLESSIS,Server: antivirus.example.com,Successfully downloaded the SONAR
 regex=Site: (\S+),Server: (\S+),Successfully downloaded the SONAR; \
  classification.text=SONAR definition update; \
  id=172000101; \
@@ -73,7 +74,7 @@ regex=Site: (\S+),Server: (\S+),Successfully downloaded the SONAR; \
  goto=172000000; \
  last
 
-#LOG:Dec  1 12:23:14 SymantecServer antivirus.si.c-s.fr: Site: PLESSIS,Server: antivirus.si.c-s.fr,Successfully downloaded the Intrusion Prevention signatures
+#LOG:Dec  1 12:23:14 SymantecServer antivirus.example.com: Site: PLESSIS,Server: antivirus.example.com,Successfully downloaded the Intrusion Prevention signatures
 regex=Site: (\S+),Server: (\S+),Successfully downloaded the Intrusion Prevention signatures; \
  classification.text=Intrusion Prevention signatures definition update; \
  id=172000102; \
@@ -90,7 +91,7 @@ regex=Site: (\S+),Server: (\S+),Successfully downloaded the Intrusion Prevention
  goto=172000000; \
  last
 
-#LOG:Apr  9 10:47:33 SymantecServer antivirus.si.c-s.fr: Site: PLESSIS,Server: antivirus.si.c-s.fr,Successfully downloaded the Revocation Data security definitions from LiveUpdate
+#LOG:Apr  9 10:47:33 SymantecServer antivirus.example.com: Site: PLESSIS,Server: antivirus.example.com,Successfully downloaded the Revocation Data security definitions from LiveUpdate
 regex=Site: (\S+),Server: (\S+),Successfully downloaded the Revocation Data security definitions from LiveUpdate; \
  classification.text=Revocation Data security definitions; \
  id=172000103; \
@@ -107,7 +108,7 @@ regex=Site: (\S+),Server: (\S+),Successfully downloaded the Revocation Data secu
  goto=172000000; \
  last
 
-#LOG:Dec 12 17:07:08 SymantecServer antivirus.si.c-s.fr: Virus found,Computer name: A01LTFW21052,Source: Real Time Scan,Risk name: W32.Downadup!autorun,Occurrences: 1,E:\autorun.inf,"",Actual action: Cleaned by deletion
+#LOG:Dec 12 17:07:08 SymantecServer antivirus.example.com: Virus found,Computer name: A01LTFW21052,Source: Real Time Scan,Risk name: W32.Downadup!autorun,Occurrences: 1,E:\autorun.inf,"",Actual action: Cleaned by deletion
 regex=Virus found.+Computer name: (\S+),.+,Risk name: ([^,]+),Occurrences: (\d+),.+,Actual action: ([^,]+); \
  classification.text=Virus found; \
  id=172000104; \
@@ -136,7 +137,7 @@ regex=Virus found.+Computer name: (\S+),.+,Risk name: ([^,]+),Occurrences: (\d+)
 regex=SymantecServer (\S+): Forced SONAR threat detected,Computer name: (\S+),Detection type: (\d+),First Seen: Reputation was not used in this detection.,Application name: \((\S+)\),Application type: Trojan Worm,Application version: ,Hash type: SHA-1,Application hash: 0000000000000000000000000000000000000001; \
 last
 
-#LOG:Dec 12 17:07:08 SymantecServer antivirus.si.c-s.fr: ,Forced SONAR threat detected,Computer name: A01LTFW21052,Detection type: Heuristic,First Seen: Reputation was not used in this detection.,Application name: MAGic Screen Magnification,Application type: Trojan Worm,Application version: "11, 0, 4356, 400",Hash type: SHA-1,Application hash: 1ce39d44cc735db5788f07b25c5bb32c6ca48c09,Company name: "Freedom Scientific BLV Group, LLC",File size (bytes): 421144,Sensitivity: 0,Detection score: 0,COH Engine Version: ,Detection Submissions No,Permitted application reason: MDS,Disposition: Reputation was not used in this detection.,Download site: ,Web domain: ,Downloaded by: ,Prevalence: Reputation was not used in this detection.,Confidence: Reputation was not used in this detection.,URL Tracking Status: Off,Risk Level: N/A,Detection Source: N/A,Source: Heuristic Scan,Risk name: ,Occurrences: 1,c:\program files\freedom scientific\magic\11.0\magengnt\mag.exe,"c:\program files\freedom scientific\magic\11.0\magengnt\mag.exe",Actual action: Left alone,Requested action: Left alone,Secondary action: Forced detection using file name,Event time: 2013-01-09 12:57:51,Inserted: 2013-01-09 12:58:47,End: 2013-01-09 12:57:51,Domain: Default,Group: My Company\klient\All Laptops\LaptopsW7,Server: a01mmfw016,User: R117493,Source computer: ,Source IP:
+#LOG:Dec 12 17:07:08 SymantecServer antivirus.example.com: ,Forced SONAR threat detected,Computer name: A01LTFW21052,Detection type: Heuristic,First Seen: Reputation was not used in this detection.,Application name: MAGic Screen Magnification,Application type: Trojan Worm,Application version: "11, 0, 4356, 400",Hash type: SHA-1,Application hash: 1ce39d44cc735db5788f07b25c5bb32c6ca48c09,Company name: "Freedom Scientific BLV Group, LLC",File size (bytes): 421144,Sensitivity: 0,Detection score: 0,COH Engine Version: ,Detection Submissions No,Permitted application reason: MDS,Disposition: Reputation was not used in this detection.,Download site: ,Web domain: ,Downloaded by: ,Prevalence: Reputation was not used in this detection.,Confidence: Reputation was not used in this detection.,URL Tracking Status: Off,Risk Level: N/A,Detection Source: N/A,Source: Heuristic Scan,Risk name: ,Occurrences: 1,c:\program files\freedom scientific\magic\11.0\magengnt\mag.exe,"c:\program files\freedom scientific\magic\11.0\magengnt\mag.exe",Actual action: Left alone,Requested action: Left alone,Secondary action: Forced detection using file name,Event time: 2013-01-09 12:57:51,Inserted: 2013-01-09 12:58:47,End: 2013-01-09 12:57:51,Domain: Default,Group: My Company\klient\All Laptops\LaptopsW7,Server: a01mmfw016,User: R117493,Source computer: ,Source IP:
 regex=Forced SONAR threat detected,Computer name: (\S+),Detection type: (\S+),First Seen: Reputation was not used in this detection\.,Application name: ([^,]+); \
  classification.text=Forced SONAR threat detected; \
  id=172000200; \

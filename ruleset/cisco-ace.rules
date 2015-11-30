@@ -31,7 +31,7 @@
 #ID:5100
 #################
 ### Cisco ACE ###
-################# 
+#################
 
 #LOG:Sep 25 11:53:19 x.x.x.x ACE_NAME %ACE-4-442002: Health probe CHECK_NAME detected SERVER_NAME (interface vlanXX) in serverfarm SF_NAME changed state to DOWN
 regex=-442002: Health probe (\S+) detected (\S+) \(interface (\S+)\) in serverfarm (\S+) changed state to DOWN; \
@@ -310,7 +310,7 @@ regex=-727011; \
  assessment.impact.description=The configuration synchronization does not occur for a context. The error string indicates the reason for the failure.; \
  last
 
-#
+#LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-2-727014: HA: Heartbeats from Peer PEER_ID have become unidirectional.
 regex=-727014; \
  classification.text=HA: Heartbeats from Peer become unidirectional; \
  classification.reference(0).origin=vendor-specific; \

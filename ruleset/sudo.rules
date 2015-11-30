@@ -25,7 +25,7 @@
 #####
 #
 # The rules included here were developed using sudo-1.6.6-3 on Linux.
-# Please report any inconsistencies on other versions to G Ramon Gomez at the 
+# Please report any inconsistencies on other versions to G Ramon Gomez at the
 # address provided above
 #
 #####
@@ -42,7 +42,7 @@ regex=(\S+) : TTY=(\S+) \; PWD=(.+) \; USER=(\S+) \; COMMAND=(.+); \
  assessment.impact.description=User $1 successfully executed the command '$5' as $4.; \
  source(0).user.category=os-device; \
  source(0).user.user_id(0).type=original-user; \
- source(0).user.user_id(0).name=$1;  \
+ source(0).user.user_id(0).name=$1; \
  target(0).user.category = os-device; \
  target(0).user.user_id(0).type=current-user; \
  target(0).user.user_id(0).name=$4; \
@@ -66,10 +66,10 @@ regex=(\S+) : user NOT in sudoers \; TTY=(\S+) \; PWD=(.+) \; USER=(\S+) \; COMM
  assessment.impact.completion=failed; \
  assessment.impact.type=user; \
  assessment.impact.severity=medium; \
- assessment.impact.description=Unauthorized user $1 tried to execute the command '$5' as $4.;\
+ assessment.impact.description=Unauthorized user $1 tried to execute the command '$5' as $4.; \
  source(0).user.category=os-device; \
  source(0).user.user_id(0).type=original-user; \
- source(0).user.user_id(0).name=$1;  \
+ source(0).user.user_id(0).name=$1; \
  target(0).user.category = os-device; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$4; \

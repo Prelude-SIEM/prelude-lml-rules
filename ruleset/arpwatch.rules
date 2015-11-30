@@ -29,7 +29,7 @@
 #
 #####
 
-#LOG:Oct 14 00:47:50 hal arpwatch: new activity 12.34.56.78 0:20:a9:a:c:2a 
+#LOG:Oct 14 00:47:50 hal arpwatch: new activity 12.34.56.78 0:20:a9:a:c:2a
 regex=new (station|activity) ([\d\.]+) ([\da-f:]+); \
  classification.text=New ARP address detected; \
  id=4200; \
@@ -47,7 +47,7 @@ regex=new (station|activity) ([\d\.]+) ([\da-f:]+); \
  source(0).node.address(1).address=$3; \
  last;
 
-#LOG:Apr 21 23:05:00 192.168.1.35 arpwatch: flip flop 192.168.1.33 0:90:6d:f2:24:0 (8:0:20:c8:fe:15) 
+#LOG:Apr 21 23:05:00 192.168.1.35 arpwatch: flip flop 192.168.1.33 0:90:6d:f2:24:0 (8:0:20:c8:fe:15)
 regex=(flip flop|changed ethernet address|reused old ethernet address) ([\d\.]+) ([\da-f:]+) \(([\da-f:]+)\); \
  classification.text=Ethernet address change detected; \
  id=4201; \

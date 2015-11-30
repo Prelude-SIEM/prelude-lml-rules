@@ -8,7 +8,7 @@
 # This file is part of the Prelude-LML program.
 #
 # This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by 
+# it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
 # any later version.
 #
@@ -24,8 +24,8 @@
 #####
 
 #############################################################################
-# 
-# This ruleset aims at analyzing the system logs of a Nokia appliance, as 
+#
+# This ruleset aims at analyzing the system logs of a Nokia appliance, as
 # what can be found in simple.rules doesn't really fit this system.
 #
 #############################################################################
@@ -36,7 +36,7 @@
 ###
 
 # 1. PAM alerts: often an authentification issue; high severity to comply with simple.rules
-# No log sample; please submit
+#LOG:Jan 10 22:24:39 deacon [LOG_ALERT] PAM_unix[3116]: check pass; user unknown
 regex= (\w+) \[LOG_ALERT\] PAM_unix\[(\d+)\]: (.*); \
  classification.text=Firewall: PAM alert; \
  id=900; \
@@ -52,7 +52,7 @@ regex= (\w+) \[LOG_ALERT\] PAM_unix\[(\d+)\]: (.*); \
  last
 
 # 2. Misc ALERT logs
-# No log sample; please submit
+#LOG:Jan 10 22:24:39 deacon [LOG_ALERT] PAM_unix[3116]: check pass; user unknown
 regex=regex= (\w+) \[LOG_ALERT\]; \
  classification.text=Firewall: Misc. ALERT logs; \
  id=901; \
@@ -69,12 +69,11 @@ regex=regex= (\w+) \[LOG_ALERT\]; \
 
 
 ###
-# II. Priority: crit 
+# II. Priority: crit
 ###
 
 # 1. Rebooting or halting the system: severity should depend on the machine ?
 # LOG:Jan 16 14:12:42 spcssl [LOG_CRIT] reboot: rebooted by admin
-#
 regex= (\w+) \[LOG_CRIT\] reboot: rebooted by (\w+); \
  classification.text=Firewall: Reboot; \
  id=902; \
@@ -90,8 +89,7 @@ regex= (\w+) \[LOG_CRIT\] reboot: rebooted by (\w+); \
  source(0).user.user_id(0).name=$2; \
  last
 
-# No log sample; please submit
-#
+#LOG:Nov 19 16:51:14 myfirewall [LOG_CRIT] reboot: Attempt to reboot by root
 regex= (\w+) \[LOG_CRIT\] reboot: Attempt to reboot by (\w+); \
  classification.text=Firewall: Reboot attempt; \
  id=903; \
@@ -107,7 +105,7 @@ regex= (\w+) \[LOG_CRIT\] reboot: Attempt to reboot by (\w+); \
  source(0).user.user_id(0).name=$2; \
  last
 
-# No log sample; please submit
+#LOG:Dec 23 19:20:29 sb6 [LOG_CRIT] halt: halted by admin
 regex= (\w+) \[LOG_CRIT\] halt: halted by (\w+); \
  classification.text=Firewall: Stopping system; \
  id=904; \
@@ -155,7 +153,7 @@ regex= (\w+) \[LOG_CRIT\] PKG_INSTALL: \**INSTALL/UPGRADE PROCESS FAILED\**; \
 
 
 # 3. Misc CRIT logs
-# No log sample; please submit
+#LOG:Dec 23 19:20:29 sb6 [LOG_CRIT] halt: halted by admin
 regex=regex= (\w+) \[LOG_CRIT\]; \
  classification.text=Firewall: Misc. CRIT logs; \
  id=907; \
@@ -231,7 +229,7 @@ regex= (\w+) \[LOG_ERR\] sSMTP mail\[(\d+)\]: unable to connect to "([\d\.]+)" p
 
 
 # 4. Misc ERR logs
-# No log sample; please submit
+#LOG:Jan 31 12:17:19 IP650 [LOG_ERR] snmpd: Cannot find module (CheckPoint-MIB) : At line 1 in (none)
 regex=regex= (\w+) \[LOG_ERR\]; \
  classification.text=Firewall: Misc. ERR logs; \
  id=911; \

@@ -28,6 +28,7 @@
 #########################
 
 # General Messages
+#LOG:Mar 30 15:11:50 127.167.193.109 Juniper: 2012-03-30 15:11:50 - vpn - [142.186.141.93] Root::System(Intranet)[Administrators] - Login failed.  Reason: Failed
 regex=- (\S+) - \[([^\]]+)\] (?:Root::)?(\S+)\([^\)]*\)\[\w*\] ; \
  classification.reference(0).origin=vendor-specific; \
  id=158000000; \

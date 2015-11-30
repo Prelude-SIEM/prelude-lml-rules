@@ -53,7 +53,6 @@ regex=attackalert:.*?(\S+) scan from\s+host: (\S+)/([\d\.]+|[\dA-Fa-f\:]+) to (T
 # source regex : portsentry\[?(\d+)+\]?:.* attackalert: Connect from host: (\S+)/($IP) to (TCP|UDP) port: (\d+)
 #
 #LOG:Mar 28 00:03:25 hoste portsentry[103]: attackalert: Connect from host: 217.33.28.29/217.33.28.29 to TCP port: 111
-#
 regex=attackalert: Connect from host: (\S+)/([\d\.]+|[\dA-Fa-f\:]+) to (TCP|UDP) port: (\d+); \
  classification.text=Connection logged; \
  id=1501; \
@@ -76,7 +75,6 @@ regex=attackalert: Connect from host: (\S+)/([\d\.]+|[\dA-Fa-f\:]+) to (TCP|UDP)
 # 3) Rules :
 #
 #LOG:Oct 15 13:50:07 basile portsentry[28412]: attackalert: Host 195.220.107.15 has been blocked via dropped route using command: "/sbin/ipchains -I input -s 195.220.107.15 -j DENY"
-#
 regex=attackalert: Host ([\d\.]+) has been blocked via dropped route using command: "([^"]+)"; \
  classification.text=Host blocked; \
  id=1502; \

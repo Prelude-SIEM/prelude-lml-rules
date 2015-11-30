@@ -128,7 +128,6 @@ regex=([\d\.]+)  Group \[(\S+)\] User \[(\S+)\] User \(\S+\) authenticated; \
  target(0).user.user_id(1).name=$2; \
  last
 
-
 #LOG:Oct 29 19:53:18 vpn 1843 10/29/2003 19:53:18.680 SEV=5 AUTH/31 RPT=2  User [ admin ] Protocol [ HTTP ] attempted ADMIN logon.. Status: <REFUSED> authentication failure !
 regex=User \[ (\S+) \] Protocol \[ (\S+) \] attempted ADMIN logon.. Status: <REFUSED>; \
  classification.text=VPN administration authentication; \

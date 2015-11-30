@@ -1,14 +1,14 @@
 #####
 #
-# Copyright (C) 2002 Arnaud Guignard 
-# This ruleset is currently maintained by Dennis Hadderingh 
+# Copyright (C) 2002 Arnaud Guignard
+# This ruleset is currently maintained by Dennis Hadderingh
 # <dennis.hadderingh@is-company.nl>
 # All Rights Reserved
 #
 # This file is part of the Prelude-LML program.
 #
 # This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by 
+# it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
 # any later version.
 #
@@ -73,7 +73,7 @@ regex=RCMD-4-RSHPORTATTEMPT:.* from ([\d\.]+); \
  assessment.impact.type=other; \
  assessment.impact.severity=medium; \
  assessment.impact.description=Someone tried to connect to rshell; \
- source(0).node.address(0).category=ipv4-addr; \ 
+ source(0).node.address(0).category=ipv4-addr; \
  source(0).node.address(0).address=$1; \
  target(0).service.name=rsh; \
  last
@@ -88,7 +88,7 @@ regex=%LINEPROTO-5-UPDOWN: Line protocol on Interface (\S+), changed state to (d
  classification.reference(0).meaning=cisco_id; \
  classification.reference(0).name=%LINEPROTO-5-UPDOWN; \
  classification.reference(0).url=http://www.cisco.com/en/US/docs/ios/11_0/system/message/etext.html#wp3717; \
- id=5602; \ 
+ id=5602; \
  revision=2; \
  analyzer(0).name=Router; \
  analyzer(0).manufacturer=Cisco; \
@@ -105,7 +105,6 @@ regex=%LINEPROTO-5-UPDOWN: Line protocol on Interface (\S+), changed state to (d
 
 # Match if a host has requested an unknown key exchange
 #LOG:Jun  1 15:20:39 rtr-dsl-01 3972364: 5w5d: %CRYPTO-6-IKMP_UNK_EXCHANGE: IKE peer at 1.1.1.1      sent a message with unknown exchange 1
-
 regex=%CRYPTO-6-IKMP_UNK_EXCHANGE: IKE peer at (\S+) * sent a message with unknown; \
  classification.text=Router unknown IKE key exchange request; \
  classification.reference(0).origin=vendor-specific; \

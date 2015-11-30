@@ -24,7 +24,7 @@
 #####
 #
 # The rules included here were developed using shadow-utils 4.0.3-12.
-# Please report any inconsistencies on other versions to G Ramon Gomez 
+# Please report any inconsistencies on other versions to G Ramon Gomez
 # at the address provided above
 #
 #####
@@ -172,7 +172,7 @@ regex=change user name `(\S+)' to `(\S+)'; \
  assessment.impact.severity=low; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=user; \
- assessment.impact.description=The user $1 was renamed $2;  \
+ assessment.impact.description=The user $1 was renamed $2; \
  target(0).user.user_id(0).type=original-user; \
  target(0).user.user_id(0).name=$1; \
  target(0).user.user_id(1).type=current-user; \
@@ -189,7 +189,7 @@ regex=change user `(\S+)' UID from `(\d+)' to `(?!0)(\d+)'; \
  assessment.impact.severity=low; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=user; \
- assessment.impact.description=The user $1 had its UID changed from $2 to $3;  \
+ assessment.impact.description=The user $1 had its UID changed from $2 to $3; \
  target(0).user.user_id(0).type=original-user; \
  target(0).user.user_id(0).name=$1; \
  target(0).user.user_id(0).number=$2; \
@@ -208,7 +208,7 @@ regex=change user `(\S+)' UID from `(\d+)' to `0'; \
  assessment.impact.severity=high; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=admin; \
- assessment.impact.description=The user $1 had its UID changed from $2 to 0;  \
+ assessment.impact.description=The user $1 had its UID changed from $2 to 0; \
  target(0).user.user_id(0).type=original-user; \
  target(0).user.user_id(0).name=$1; \
  target(0).user.user_id(0).number=$2; \
@@ -227,7 +227,7 @@ regex=change user `(\S+)' GID from `(\d+)' to `(?!0)(\d+)'; \
  assessment.impact.severity=low; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=user; \
- assessment.impact.description=The user $1 had its GID changed from $2 to $3;  \
+ assessment.impact.description=The user $1 had its GID changed from $2 to $3; \
  target(0).user.user_id(0).type=current-user; \
  target(0).user.user_id(0).name=$1; \
  target(0).user.user_id(1).type=current-group; \
@@ -244,7 +244,7 @@ regex=change user `(\S+)' GID from `(\d+)' to `0'; \
  assessment.impact.severity=high; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=admin; \
- assessment.impact.description=The user $1 had its GID changed from $2 to 0;  \
+ assessment.impact.description=The user $1 had its GID changed from $2 to 0; \
  target(0).user.user_id(0).type=current-user; \
  target(0).user.user_id(0).name=$1; \
  target(0).user.user_id(1).type=current-group; \
@@ -261,7 +261,7 @@ regex=change gid for `(\S+)' to (?!0)(\d+); \
  assessment.impact.severity=low; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=user; \
- assessment.impact.description=The group $1 had its GID changed to $2;  \
+ assessment.impact.description=The group $1 had its GID changed to $2; \
  target(0).user.user_id(0).type=current-group; \
  target(0).user.user_id(0).name=$1; \
  target(0).user.user_id(0).number=$2; \
@@ -277,7 +277,7 @@ regex=change gid for `(\S+)' to 0; \
  assessment.impact.severity=high; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=admin; \
- assessment.impact.description=The group $1 had its GID changed to 0;  \
+ assessment.impact.description=The group $1 had its GID changed to 0; \
  target(0).user.user_id(0).type=current-group; \
  target(0).user.user_id(0).name=$1; \
  target(0).user.user_id(0).number=0; \
@@ -293,7 +293,7 @@ regex=add `(\S+)' to group `(?!wheel|root)(\S+)'; \
  assessment.impact.severity=low; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=user; \
- assessment.impact.description=The user $1 was added to group $2;  \
+ assessment.impact.description=The user $1 was added to group $2; \
  target(0).user.user_id(0).type=current-user; \
  target(0).user.user_id(0).name=$1; \
  target(0).user.user_id(1).type=current-group; \
@@ -310,7 +310,7 @@ regex=add `(\S+)' to group `(wheel|root)'; \
  assessment.impact.severity=high; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=admin; \
- assessment.impact.description=The user $1 was added to group $2;  \
+ assessment.impact.description=The user $1 was added to group $2; \
  target(0).user.user_id(0).type=current-user; \
  target(0).user.user_id(0).name=$1; \
  target(0).user.user_id(1).type=current-group; \

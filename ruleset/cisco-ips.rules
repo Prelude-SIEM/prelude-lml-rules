@@ -25,7 +25,7 @@
 #####
 #
 # The rules included here were developed using a Cisco IPS module running on an
-# ASA.  Please report any inconsistencies on other models to G Ramon Gomez at 
+# ASA.  Please report any inconsistencies on other models to G Ramon Gomez at
 # the address provided above
 # Special configuration is needed for this support:
 # * In your IDM interface, "SNMP" -> "Traps Configuration", "Enable SNMP Traps"

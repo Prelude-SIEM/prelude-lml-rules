@@ -237,4 +237,3 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.5 "(\S+)"#011enterprises.393
  target(0).node.address(0).category=ipv4-addr; \
  target(0).node.address(0).address=$3; \
  last
-

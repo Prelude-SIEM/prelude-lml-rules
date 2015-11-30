@@ -8,7 +8,7 @@
 # This file is part of the Prelude-LML program.
 #
 # This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by 
+# it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
 # any later version.
 #
@@ -28,8 +28,8 @@
 # Thanks to Ernst Lopes Cardozo <e.lopes.cardozo@aranea.nl>
 # for providing me an access to many lines of syslog from a ZyWall
 
-# Enable logging to the syslog server with the menu 24.3.2. 
-# Specify a syslog server IP and log facility level 
+# Enable logging to the syslog server with the menu 24.3.2.
+# Specify a syslog server IP and log facility level
 # Put "Set firewall log" field to "YES"
 
 # No log sample; please submit

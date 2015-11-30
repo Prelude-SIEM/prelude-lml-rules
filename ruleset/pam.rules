@@ -1,6 +1,6 @@
 #####
 #
-# Copyright (C) 2004 Yoann Vandoorselaere <yoann@prelude-ids.org>
+# Copyright (C) 2004 Yoann Vandoorselaere <yoann@prelude-siem.org>
 # All Rights Reserved
 #
 # This file is part of the Prelude-LML program.
@@ -46,14 +46,17 @@ regex=CRON\[\d+\]: \S+\(cron:\S+\): session (opened|closed) for user; \
  silent; \
  last;
 
-regex=for user root by; id=4; \
-assessment.impact.type=admin; \
-chained; silent;
+#LOG:Apr 20 11:55:01 piche CRON[23295]: (pam_unix) session opened for user root by (uid=0)
+regex=for user root by; \
+ id=4; \
+ assessment.impact.type=admin; \
+ chained; silent;
 
 
 #LOG:Aug 14 17:32:19 blah su(pam_unix)[17944]: session opened for user root by (uid=123)
 #LOG:Dec  9 18:47:10 devel5 sshd(pam_unix)[13189]: session opened for user yyyy by xxxx(uid=0)
-regex=session opened for user (\S+) by (\S*)\(uid=(\d*)\); optgoto=4; \
+regex=session opened for user (\S+) by (\S*)\(uid=(\d*)\); \
+ optgoto=4; \
  classification.text=Credentials Change; \
  id=1; \
  revision=2; \
@@ -65,7 +68,7 @@ regex=session opened for user (\S+) by (\S*)\(uid=(\d*)\); optgoto=4; \
  assessment.impact.description=User $2 authenticated to $1 successfuly; \
  source(0).user.category=os-device; \
  source(0).user.user_id(0).type=current-user; \
- source(0).user.user_id(0).name=$2;  \
+ source(0).user.user_id(0).name=$2; \
  source(0).user.user_id(0).number=$3; \
  target(0).user.category=os-device; \
  target(0).user.user_id(0).type=target-user; \
@@ -74,7 +77,8 @@ regex=session opened for user (\S+) by (\S*)\(uid=(\d*)\); optgoto=4; \
 
 #LOG:Dec 21 21:18:46 share2 sshd(pam_unix)[15525]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=a.b.c.d  user=root
 regex=authentication failure\; logname=([^ ]*)[ ]*uid=([^ ]*)[ ]*euid=.* tty=([^ ]*)[ ]*ruser=([^ ]*)[ ]*rhost=([^ ]*)[ ]*user=([^ ]*); \
- classification.text=Credentials Change; optgoto=4; \
+ classification.text=Credentials Change; \
+ optgoto=4; \
  id=2; \
  revision=2; \
  analyzer(0).name=PAM; \
@@ -87,7 +91,7 @@ regex=authentication failure\; logname=([^ ]*)[ ]*uid=([^ ]*)[ ]*euid=.* tty=([^
  source(0).node.address(0).address=$5; \
  source(0).user.category=os-device; \
  source(0).user.user_id(0).type=current-user; \
- source(0).user.user_id(0).name=$4;           \
+ source(0).user.user_id(0).name=$4; \
  source(0).user.user_id(0).tty=$3; \
  source(0).user.user_id(0).number=$2; \
  target(0).user.category=os-device; \
@@ -95,7 +99,7 @@ regex=authentication failure\; logname=([^ ]*)[ ]*uid=([^ ]*)[ ]*euid=.* tty=([^
  target(0).user.user_id(0).name=$6; \
  last
 
-# No log sample; please submit
+#LOG:Dec 21 21:18:46 share2 sshd[15525]: pam_tally(sshd:auth): pam_get_uid; no such user
 regex=no such user; \
  classification.text=Invalid User; \
  id=3; \

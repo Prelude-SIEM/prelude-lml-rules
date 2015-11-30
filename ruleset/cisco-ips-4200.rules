@@ -25,14 +25,14 @@
 #####
 #
 # The rules included here were developed using a Cisco IPS module running on an
-# ASA.  Please report any inconsistencies on other models to G Ramon Gomez at 
+# ASA.  Please report any inconsistencies on other models to G Ramon Gomez at
 # the address provided above
 # Special configuration is needed for this support:
 # * In your IDM interface, "SNMP" -> "Traps Configuration", "Enable SNMP Traps"
 #   box must be on.  "Enable detailed traps for alerts" can be on or off.
 # * In your IDM interface, "Signature Definition" -> "Signature Configuration",
 #   all of the ENABLED rules must be modified using the "Enabled" button, and
-#   select all de enabled signatures followed by the "Actions" button, and 
+#   select all de enabled signatures followed by the "Actions" button, and
 #   click the "Request SNMP Trap" box on.
 # * On your Prelude system, run snmptrapd using this command:
 #   "snmptrapd -Ls 16 -Osq"

@@ -26,140 +26,140 @@
 
 #LOG:Apr 17 06:52:57 arbordos.mynetwork.net pfDoS: anomaly Protocol id 92480 status ongoing severity 5 src 0.0.0.0/0 All dst 2.2.0.0/16 Intellig_ start 2005-04-17 06:45:41 +0200 duration 360 percent 214.27 rate 5e+06 rateUnit bps protocol tcp flags nil url https://doscont/anomaly/?attack_id=92480
 regex=anomaly ([a-zA-Z_-]+) id (\d+) status (\w+) severity (\d+) src ([\d\./]+) \w+ dst ([\d\./]+) \w+ start ([\d- :\+]+) duration (\d+) percent (\d+\.?\d*) rate ([\de\+\-]+) rateUnit (\w+) protocol (\w+) flags (\w+) url (\S+); \
-     classification.text=Arbor Anomaly $1; \
-     classification.reference(0).origin=vendor-specific; \
-     classification.reference(0).meaning=arbor_id; \
-     classification.reference(0).name=$2; \
-     classification.reference(0).url=http://www.arbornetworks.com/; \
-     classification.reference(1).origin=vendor-specific; \
-     classification.reference(1).meaning=arbor_status; \
-     classification.reference(1).name=$3; \
-     classification.reference(1).url=http://www.arbornetworks.com/; \
-     classification.reference(2).origin=vendor-specific; \
-     classification.reference(2).meaning=arbor_severity; \
-     classification.reference(2).name=$4; \
-     classification.reference(2).url=http://www.arbornetworks.com/; \
-     id=4300; \
-     revision= 1; \
-     analyzer(0).name=ArborDos; \
-     analyzer(0).manufacturer=Arbor; \
-     assessment.impact.type=dos; \
-     assessment.impact.severity=medium; \
-     assessment.impact.description=DDoS attack $3 detected; \
-     source(0).node.address(0).category=ipv4-net; \
-     source(0).node.address(0).address=$5; \
-     target(0).node.address(0).category=ipv4-net; \
-     target(0).node.address(0).address=$6; \
-     additional_data(0).type=date-time; \
-     additional_data(0).meaning=Attack start time; \
-     additional_data(0).data=$7; \
-     additional_data(1).type=integer; \
-     additional_data(1).meaning=Attack duration in seconds; \
-     additional_data(1).data=$8; \
-     additional_data(2).type=real; \
-     additional_data(2).meaning=arbor percent; \
-     additional_data(2).data=$9; \
-     additional_data(3).type=real; \
-     additional_data(3).meaning=Traffic rate in $11; \
-     additional_data(3).data=$10; \
-     additional_data(4).type=string; \
-     additional_data(4).meaning=Attack protocol; \
-     additional_data(4).data=$12; \
-     additional_data(5).type=string; \
-     additional_data(5).meaning=Protocol flags; \
-     additional_data(5).data=$13; \
-     additional_data(6).type=string; \
-     additional_data(6).meaning=Detailed information; \
-     additional_data(6).data=$14; \
-     last
+ classification.text=Arbor Anomaly $1; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=arbor_id; \
+ classification.reference(0).name=$2; \
+ classification.reference(0).url=http://www.arbornetworks.com/; \
+ classification.reference(1).origin=vendor-specific; \
+ classification.reference(1).meaning=arbor_status; \
+ classification.reference(1).name=$3; \
+ classification.reference(1).url=http://www.arbornetworks.com/; \
+ classification.reference(2).origin=vendor-specific; \
+ classification.reference(2).meaning=arbor_severity; \
+ classification.reference(2).name=$4; \
+ classification.reference(2).url=http://www.arbornetworks.com/; \
+ id=4300; \
+ revision= 1; \
+ analyzer(0).name=ArborDos; \
+ analyzer(0).manufacturer=Arbor; \
+ assessment.impact.type=dos; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=DDoS attack $3 detected; \
+ source(0).node.address(0).category=ipv4-net; \
+ source(0).node.address(0).address=$5; \
+ target(0).node.address(0).category=ipv4-net; \
+ target(0).node.address(0).address=$6; \
+ additional_data(0).type=date-time; \
+ additional_data(0).meaning=Attack start time; \
+ additional_data(0).data=$7; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Attack duration in seconds; \
+ additional_data(1).data=$8; \
+ additional_data(2).type=real; \
+ additional_data(2).meaning=arbor percent; \
+ additional_data(2).data=$9; \
+ additional_data(3).type=real; \
+ additional_data(3).meaning=Traffic rate in $11; \
+ additional_data(3).data=$10; \
+ additional_data(4).type=string; \
+ additional_data(4).meaning=Attack protocol; \
+ additional_data(4).data=$12; \
+ additional_data(5).type=string; \
+ additional_data(5).meaning=Protocol flags; \
+ additional_data(5).data=$13; \
+ additional_data(6).type=string; \
+ additional_data(6).meaning=Detailed information; \
+ additional_data(6).data=$14; \
+ last
 
 #LOG:Apr 17 06:52:57 arbordos.mynetwork.net pfDoS: anomaly Protocol id 92480 status ongoing severity 5 router 1.2.3.4 interface 14 incoming
 regex=anomaly ([a-zA-Z_-]+) id (\d+) status (\w+) severity (\d+) router ([\d\./]+) interface (\S+) (\S+); \
-     classification.text=Arbor Anomaly Router $1; \
-     classification.reference(0).origin=vendor-specific; \
-     classification.reference(0).meaning=arbor_id; \
-     classification.reference(0).name=$2; \
-     classification.reference(0).url=http://www.arbornetworks.com/; \
-     classification.reference(1).origin=vendor-specific; \
-     classification.reference(1).meaning=arbor_status; \
-     classification.reference(1).name=$3; \
-     classification.reference(1).url=http://www.arbornetworks.com/; \
-     classification.reference(2).origin=vendor-specific; \
-     classification.reference(2).meaning=arbor_severity; \
-     classification.reference(2).name=$4; \
-     classification.reference(2).url=http://www.arbornetworks.com/; \
-     id=4301; \
-     revision= 1; \
-     analyzer(0).name=ArborDos; \
-     analyzer(0).manufacturer=Arbor; \
-     assessment.impact.type=dos; \
-     assessment.impact.severity=medium; \
-     assessment.impact.description=DDoS attack $3 detected at router; \
-     additional_data(0).type=ipv4-net; \
-     additional_data(0).meaning=Router; \
-     additional_data(0).data=$5; \
-     additional_data(1).type=integer; \
-     additional_data(1).meaning=Interface; \
-     additional_data(1).data=$6; \
-     additional_data(2).type=string; \
-     additional_data(2).meaning=Direction; \
-     additional_data(2).data=$7; \
-     last
+ classification.text=Arbor Anomaly Router $1; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.reference(0).meaning=arbor_id; \
+ classification.reference(0).name=$2; \
+ classification.reference(0).url=http://www.arbornetworks.com/; \
+ classification.reference(1).origin=vendor-specific; \
+ classification.reference(1).meaning=arbor_status; \
+ classification.reference(1).name=$3; \
+ classification.reference(1).url=http://www.arbornetworks.com/; \
+ classification.reference(2).origin=vendor-specific; \
+ classification.reference(2).meaning=arbor_severity; \
+ classification.reference(2).name=$4; \
+ classification.reference(2).url=http://www.arbornetworks.com/; \
+ id=4301; \
+ revision= 1; \
+ analyzer(0).name=ArborDos; \
+ analyzer(0).manufacturer=Arbor; \
+ assessment.impact.type=dos; \
+ assessment.impact.severity=medium; \
+ assessment.impact.description=DDoS attack $3 detected at router; \
+ additional_data(0).type=ipv4-net; \
+ additional_data(0).meaning=Router; \
+ additional_data(0).data=$5; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Interface; \
+ additional_data(1).data=$6; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Direction; \
+ additional_data(2).data=$7; \
+ last
 
 
-# collector_body 
+# collector_body
 
 # collector_body = collector IP collector_status_type since DATE duration SECONDS
 # /* collector_body fields */
 # collector_status_type = lost | found
 
 regex=collector (\S+) (\S+) since (.+) duration (\d+); \
-     classification.text=Arbor Collector; \
-     id=4302; \
-     revision=1; \
-     analyzer(0).name=ArborDos; \
-     analyzer(0).manufacturer=Arbor; \
-     assessment.impact.description=DDoS attack measurement; \
-     additional_data(0).type=string; \
-     additional_data(0).meaning=Collector; \
-     additional_data(0).data=$1; \
-     additional_data(1).type=string; \
-     additional_data(1).meaning=Status; \
-     additional_data(1).data=$2; \
-     additional_data(2).type=date-time; \
-     additional_data(2).meaning=Since; \
-     additional_data(2).data=$3; \
-     additional_data(3).type=integer; \
-     additional_data(3).meaning=Duration; \
-     additional_data(3).data=$4; \
-     last
+ classification.text=Arbor Collector; \
+ id=4302; \
+ revision=1; \
+ analyzer(0).name=ArborDos; \
+ analyzer(0).manufacturer=Arbor; \
+ assessment.impact.description=DDoS attack measurement; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Collector; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Status; \
+ additional_data(1).data=$2; \
+ additional_data(2).type=date-time; \
+ additional_data(2).meaning=Since; \
+ additional_data(2).data=$3; \
+ additional_data(3).type=integer; \
+ additional_data(3).meaning=Duration; \
+ additional_data(3).data=$4; \
+ last
 
-# # netflow_body 
+# # netflow_body
 
 # /* netflow_body description */
 # internalError location IP reason netflow_reason_type since DATE duration SECONDS
 # /* netflow_body fields */
 # netflow_reason_type = netflowMissing | netflowMissingDone
 regex=internalError location (\S+) reason (\S+) since (.+) duration (\d+); \
-    classification.text=Arbor Netflow; \
-    id=4303; \
-    revision=1; \
-    analyzer(0).name=ArborDos; \
-    analyzer(0).manufacturer=Arbor; \
-    assessment.impact.description=DDoS attack measurement; \
-    additional_data(0).type=string; \
-    additional_data(0).meaning=Location; \
-    additional_data(0).data=$1; \
-    additional_data(1).type=string; \
-    additional_data(1).meaning=Reason; \
-    additional_data(1).data=$2; \
-    additional_data(2).type=date-time; \
-    additional_data(2).meaning=Since; \
-    additional_data(2).data=$3; \
-    additional_data(3).type=integer; \
-    additional_data(3).meaning=Duration; \
-    additional_data(3).data=$4; \
-    last
+ classification.text=Arbor Netflow; \
+ id=4303; \
+ revision=1; \
+ analyzer(0).name=ArborDos; \
+ analyzer(0).manufacturer=Arbor; \
+ assessment.impact.description=DDoS attack measurement; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Location; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Reason; \
+ additional_data(1).data=$2; \
+ additional_data(2).type=date-time; \
+ additional_data(2).meaning=Since; \
+ additional_data(2).data=$3; \
+ additional_data(3).type=integer; \
+ additional_data(3).meaning=Duration; \
+ additional_data(3).data=$4; \
+ last
 
 
 # # darkip_body
@@ -168,39 +168,39 @@ regex=internalError location (\S+) reason (\S+) since (.+) duration (\d+); \
 
 #LOG:Apr 17 07:31:22 arbordos.mynetwork.net pfDoS: rtr 1.2.3.4 rtrSampleRate 1000 proto 17 src 192.168.0.69 dst 1.2.3.4 dstPort 11328 firstSeen 2005-04-17 06:31:46 +0200 lastSeen 2005-04-17 06:31:46 +0200 bytes 53 pkts 1 flows 1
 regex=rtr ([\d\./]+) rtrSampleRate (\d+) proto (\d+) src ([\d\./]+) dst ([\d\./]+) dstPort (\d+) firstSeen ([\d- :\+]+) lastSeen ([\d- :\+]+) bytes (\d+) pkts (\d+) flows (\d+); \
-    classification.text=Arbor DarkIP; \
-    id=4304; \
-    revision=1; \
-    analyzer(0).name=ArborDos; \
-    analyzer(0).manufacturer=Arbor; \
-    assessment.impact.description=DDoS attack measurement; \
-    source(0).node.address(0).category=ipv4-net; \
-    source(0).node.address(0).address=$4; \
-    target(0).node.address(0).category=ipv4-net; \
-    target(0).node.address(0).address=$5; \
-    target(0).service.port=$6; \
-    additional_data(0).type=string; \
-    additional_data(0).meaning=Router; \
-    additional_data(0).data=$1; \
-    additional_data(1).type=integer; \
-    additional_data(1).meaning=Router sample rate; \
-    additional_data(1).data=$2; \
-    additional_data(2).type=integer; \
-    additional_data(2).meaning=Protocol; \
-    additional_data(2).data=$3; \
-    additional_data(3).type=date-type; \
-    additional_data(3).meaning=first seen; \
-    additional_data(3).data=$7; \
-    additional_data(4).type=date-type; \
-    additional_data(4).meaning=last seen; \
-    additional_data(4).data=$8; \
-    additional_data(5).type=integer; \
-    additional_data(5).meaning=bytes; \
-    additional_data(5).data=$9; \
-    additional_data(6).type=integer; \
-    additional_data(6).meaning=packets; \
-    additional_data(6).data=$10; \
-    additional_data(7).type=integer; \
-    additional_data(7).meaning=flows; \
-    additional_data(7).data=$11; \
-    last
+ classification.text=Arbor DarkIP; \
+ id=4304; \
+ revision=1; \
+ analyzer(0).name=ArborDos; \
+ analyzer(0).manufacturer=Arbor; \
+ assessment.impact.description=DDoS attack measurement; \
+ source(0).node.address(0).category=ipv4-net; \
+ source(0).node.address(0).address=$4; \
+ target(0).node.address(0).category=ipv4-net; \
+ target(0).node.address(0).address=$5; \
+ target(0).service.port=$6; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Router; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Router sample rate; \
+ additional_data(1).data=$2; \
+ additional_data(2).type=integer; \
+ additional_data(2).meaning=Protocol; \
+ additional_data(2).data=$3; \
+ additional_data(3).type=date-type; \
+ additional_data(3).meaning=first seen; \
+ additional_data(3).data=$7; \
+ additional_data(4).type=date-type; \
+ additional_data(4).meaning=last seen; \
+ additional_data(4).data=$8; \
+ additional_data(5).type=integer; \
+ additional_data(5).meaning=bytes; \
+ additional_data(5).data=$9; \
+ additional_data(6).type=integer; \
+ additional_data(6).meaning=packets; \
+ additional_data(6).data=$10; \
+ additional_data(7).type=integer; \
+ additional_data(7).meaning=flows; \
+ additional_data(7).data=$11; \
+ last

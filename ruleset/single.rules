@@ -23,7 +23,7 @@
 # with any particular ruleset.  Comment out as needed.
 #
 
-# Copyright (C) 2004 Yoann Vandoorselaere <yoann@prelude-ids.org>
+# Copyright (C) 2004 Yoann Vandoorselaere <yoann@prelude-siem.org>
 # All Rights Reserved
 
 #LOG:Mar 28 12:30:01 gtsdmzuxids1 kernel: device eth1 entered promiscuous mode

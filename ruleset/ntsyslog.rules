@@ -207,8 +207,8 @@ regex= security\[success\] 577 (.*)  Privileged Service Called:  Server:.+  Serv
  target(0).node.name=$2; \
  last
 
-# 1.h
-# No log sample; please submit
+# 1.h 643
+#LOG:Oct 31 18:02:39 192.168.1.100 security[success] 643 NT AUTHORITY\SYSTEM  Domain Policy Changed: Password Policy modified  Domain:ELMW2  Domain ID:ELMW2  Caller User Name:W2DC$  Caller Domain:ELMW2  Caller Logon ID:(0x0,0x3E7)  Privileges:-
 regex= security\[success\] 643 (.*)  Domain Policy Changed: Password Policy  modified  Domain:(.+)  Domain ID: .+  Caller User Name:(.+); \
  classification.text=Password policy modified; \
  classification.reference(0).origin=vendor-specific; \
@@ -257,7 +257,7 @@ regex= security\[success\].*Account Used for Logon by: (.+)  Account Name: (.+) 
  last
 
 # 1.j 682
-# No log sample; please submit
+#LOG:Oct 31 18:02:39 192.168.1.100 security[success] 682 NT AUTHORITY\SYSTEM  Session reconnected to winstation:  User Name:Jean Dupond  Domain:IBM17M  Logon ID:(0x0,0x1F5A9C)  Session Name:Console  Client Name:Unknown  Client Address:1.1.1.1
 regex= security\[success\] 682 (.*)  Session reconnected to winstation:  User Name:([\w ]+)  Domain:.+  Logon ID:\(.+\)  Session Name:.+  Client Name:(.+)  Client Address:([\d\.]+); \
  classification.text=Remote control user reconnected; \
  classification.reference(0).origin=vendor-specific; \
@@ -285,7 +285,7 @@ regex= security\[success\] 682 (.*)  Session reconnected to winstation:  User Na
  last
 
 # 1.k 683
-# No log sample; please submit
+#LOG:Oct 31 18:02:39 192.168.1.100 security[success] 683 NT AUTHORITY\SYSTEM  Session disconnected from winstation:  User Name:administrator  Domain:ELMW2  Logon ID:(0x0,0x5BAA5)  Session Name:Unknown  Client Name:CPQ  Client Address:10.42.42.90
 regex= security\[success\] 683 (.*)  Session disconnected from winstation:  User Name:([\w ]+)  Domain:.+  Logon ID:\(.+\)  Session Name:.+  Client Name:(.+)  Client Address:([\d\.]+); \
  classification.text=Remote control user disconnected; \
  classification.reference(0).origin=vendor-specific; \
