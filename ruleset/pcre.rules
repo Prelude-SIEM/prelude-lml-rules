@@ -111,7 +111,7 @@ regex=(ppp|pptpd);                      include = ppp.rules;
 regex=INFO\s+srcIP;                     include = rishi.rules;
 regex=avc:;                             include = selinux.rules;
 regex=sendmail;                         include = sendmail.rules;
-regex=(user|group)(mod|add);            include = shadow-utils.rules;
+regex=(user|group)(mod|add|del);            include = shadow-utils.rules;
 regex=id=firewall;                      include = sonicwall.rules;
 regex=spamd;                            include = spamassassin.rules;
 # More complex regex to handle data coming directly from Squid log files
