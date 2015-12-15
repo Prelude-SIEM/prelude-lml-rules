@@ -256,9 +256,15 @@ regex=([\d\.]+)\) \[WARNING\] Authentication failed for user \[(.+)\]; \
 # Copyright (C) 2006 G Ramon Gomez <gene at gomezbrothers dot com>
 # All Rights Reserved
 
+#RHEL4
 #LOG:Oct 19 16:44:12 localhost yum: Installed: mysql-server.i386 4.1.20-1.RHEL4.1
 #LOG:Oct 20 09:03:55 localhost yum: Updated: tzdata.noarch 2006m-2.el4
-regex=(Installed|Updated): (\S+) (\S+); \
+#RHEL6
+#LOG:Feb 17 11:37:36 Installed: python-lxml-3.0.1-1.rhel6.x86_64
+#LOG:Feb 17 13:35:35 Installed: tree-1.5.3-2.el6.x86_64
+#LOG:Feb 17 11:57:14 Updated: glibc-devel-2.12-1.149.el6_6.5.x86_64
+#LOG:Feb 17 12:11:52 Updated: nss-softokn-freebl-3.14.3-22.el6_6.x86_64
+regex=(Installed|Updated): (\S+)[-| ]([^-]*-[^-]*)$; \
  classification.text=Package $1; \
  id=411; \
  revision=1; \
@@ -275,4 +281,22 @@ regex=(Installed|Updated): (\S+) (\S+); \
  additional_data(1).type=string; \
  additional_data(1).meaning=Package version; \
  additional_data(1).data=$3; \
+ last;
+
+#LOG:Oct 05 18:39:58 Erased: libreoffice-presenter-screen
+#LOG:Nov 26 19:01:28 Erased: ossec-hids-server
+regex=Erased: (\S+); \
+ classification.text=Package Erased; \
+ id=412; \
+ revision=1; \
+ analyzer(0).name=yum; \
+ analyzer(0).manufacturer=http://linux.duke.edu/projects/yum/; \
+ analyzer(0).class=Patch Management; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=file; \
+ assessment.impact.severity=low; \
+ assessment.impact.description=The package $1 was Erased.; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Package; \
+ additional_data(0).data=$1; \
  last;
