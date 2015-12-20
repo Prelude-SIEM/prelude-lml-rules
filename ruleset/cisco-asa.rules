@@ -78,7 +78,7 @@ regex=-(4000\d\d): IDS:(\d+) (.+) from ([\d\.]+) to ([\d\.]+) on interface (\S+)
  last
 
 #LOG:Nov  2 11:03:52 pix %PIX-6-605005: Login permitted from 12.34.56.78/43610 to inside:90.12.34.56/ssh for user "pix"
-regex=-605005: Login permitted from ([\d\.]+)\/(\d+) to (\S+):([\d\.]+)\/(\d+) for user "(\S+)"; \
+regex=-605005: Login permitted from ([\d\.]+)\/(\S+) to (\S+):([\d\.]+)\/(\S+) for user "(\S+)"; \
  classification.text=Remote Login; \
  classification.reference(0).origin=vendor-specific; \
  classification.reference(0).meaning=asa_id; \
