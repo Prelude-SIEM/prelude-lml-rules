@@ -1,3 +1,7 @@
+#FULLNAME: SSH
+#VERSION: 1.0
+#DESCRIPTION: SSH, is a cryptographic (encrypted) network protocol to allow remote login and other network services to operate securely over an unsecured network.
+
 #####
 #
 # Copyright (C) 2002,2004 Nicolas Delon <nicolas@prelude-siem.org>

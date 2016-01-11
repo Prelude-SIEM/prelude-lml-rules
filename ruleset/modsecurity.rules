@@ -1,3 +1,7 @@
+#FULLNAME: ModSecurity
+#VERSION: 1.0
+#DESCRIPTION: ModSecurity is a toolkit for real-time web application monitoring, logging, and access control.
+
 #####
 #
 # Copyright (C) 2008 Daniel Kopecek <dkopecek at redhat dot com>, Peter Vrabec <pvrabec at redhat dot com>

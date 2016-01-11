@@ -1,3 +1,7 @@
+#FULLNAME: IP Firewalling Chains
+#VERSION: 1.0
+#DESCRIPTION: Linux IP Firewalling Chains (ipchains) control the packet filter or firewall capabilities in the 2.2 series of Linux kernels.
+
 # Customized prelude-lml rules file to support Ipchains events - v0.1.1
 # Simon Castro <scastro [at] entreelibre.com>
 #

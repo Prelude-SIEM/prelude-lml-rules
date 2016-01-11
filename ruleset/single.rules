@@ -1,3 +1,7 @@
+#FULLNAME: Single rules
+#VERSION: 1.0
+#DESCRIPTION: Single and standalone rules that don't match up with any particular ruleset.
+
 #####
 #
 # This file is part of the Prelude-LML program.

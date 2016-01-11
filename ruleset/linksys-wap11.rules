@@ -1,3 +1,7 @@
+#FULLNAME: Linksys WAP11
+#VERSION: 1.0
+#DESCRIPTION: The linksys WAP11 is an external wireless network access point for wireless networks based on the IEEE 802.11b standard.
+
 #####
 #
 # Copyright (C) 2003 Yoann Vandoorselaere <yoann@prelude-siem.org>

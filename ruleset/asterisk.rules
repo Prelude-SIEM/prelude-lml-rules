@@ -1,3 +1,7 @@
+#FULLNAME: Asterisk
+#VERSION: 1.0
+#DESCRIPTION: Asterisk is a software implementation of a telephone private branch exchange (PBX).
+
 #####
 #
 # Copyright (C) 2007 Sebastien Tricaud <stricaud at inl dot fr>

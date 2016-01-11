@@ -1,3 +1,7 @@
+#FULLNAME: Rishi
+#VERSION: 1.0
+#DESCRIPTION: Rishi identifies bot-contaminated hosts by IRC nickname evaluation.
+
 #####
 #
 # Copyright (C) 2007 Bjoern Weiland <bjoern-dot-weiland-at-web-dot-de>

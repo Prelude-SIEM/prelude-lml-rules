@@ -1,3 +1,7 @@
+#FULLNAME: Suhosin
+#VERSION: 1.0
+#DESCRIPTION: Suhosin is a safety net that protects servers from insecure PHP coding practices.
+
 #####
 #
 # Copyright (C) 2007 Sebastien Tricaud <stricaud at inl dot fr>

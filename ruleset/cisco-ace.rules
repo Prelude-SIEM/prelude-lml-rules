@@ -1,3 +1,7 @@
+#FULLNAME: Cisco ACE
+#VERSION: 1.0
+#DESCRIPTION: The Cisco ACE (Application Control Engine) Module is a load-balancing and application-delivery solution.
+
 #####
 #
 # Copyright (C) 2012 email: <operador@seguridadx.com>, twitter: <www.twitter.com/seguridad_x>

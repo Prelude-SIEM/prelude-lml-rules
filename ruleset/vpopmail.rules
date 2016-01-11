@@ -1,3 +1,7 @@
+#FULLNAME: VPopMail
+#VERSION: 1.0
+#DESCRIPTION: vpopmail is a free GPL software package, to provide a way to manage virtual e-mail domains and non /etc/passwd e-mail accounts on qmail mail servers.
+
 #####
 #
 # Copyright (C) 2003 Stephane Loeuillet (stephane.loeuillet@tiscali.fr)

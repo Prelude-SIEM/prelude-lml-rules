@@ -1,3 +1,7 @@
+#FULLNAME: Cisco ASA
+#VERSION: 1.0
+#DESCRIPTION: Cisco Adaptive Security Appliance (ASA) Software is a core operating system. It delivers enterprise-class firewall capabilities for ASA devices in an array of form factors for any distributed network environment.
+
 #####
 #
 # Copyright (C) 2003 G Ramon Gomez <gene at gomezbrothers dot com>

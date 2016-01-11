@@ -1,3 +1,7 @@
+#FULLNAME: Honeytrap
+#VERSION: 1.0
+#DESCRIPTION: Honeytrap is a network security tool written to observe attacks against TCP or UDP services.
+
 #####
 #
 # Copyright (C) 2007 Bjoern Weiland <bjoern-dot-weiland-at-web-dot-de>

@@ -1,3 +1,7 @@
+#FULLNAME: SonicWALL
+#VERSION: 1.0
+#DESCRIPTION: Range of Internet appliances primarily directed at content control and network security.
+
 #####
 #
 # Copyright (C) 2006 Igor Manassypov <imanassypov at rogers dot com>

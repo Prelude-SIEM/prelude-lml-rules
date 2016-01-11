@@ -1,3 +1,7 @@
+#FULLNAME: Snare Windows
+#VERSION: 1.0
+#DESCRIPTION: Snare is a collection of software tools that collect audit log data from operating systems and applications to facilitate centralised log analysis.
+
 #####
 #
 # Copyright Nicholas Nachefski (nicholas <underscore> nachefski <at> hotmail <dot> com

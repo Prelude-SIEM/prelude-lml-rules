@@ -1,3 +1,7 @@
+#FULLNAME: Honeyd
+#VERSION: 1.0
+#DESCRIPTION: Honeyd is a small daemon that creates virtual hosts on a network. The hosts can be configured to run arbitrary services, and their personality can be adapted so that they appear to be running certain operating systems.
+
 #####
 #
 # Copyright (C) 2003 Michael Boman <mboman at gentoo dot org>

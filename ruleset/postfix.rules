@@ -1,3 +1,7 @@
+#FULLNAME: Postfix
+#VERSION: 1.0
+#DESCRIPTION: Postfix is a mail transfer agent (MTA) that routes and delivers electronic mail.
+
 #####
 #
 # Copyright (C) 2004 Exaprotect Technology

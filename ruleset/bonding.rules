@@ -1,3 +1,7 @@
+#FULLNAME: Linux bonding driver
+#VERSION: 1.0
+#DESCRIPTION: The Linux bonding driver provides a method for aggregating multiple network interfaces into a single logical "bonded" interface.
+
 #LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: backup interface eth0 is now up
 #LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: backup interface eth0 is now down
 regex=bonding:\s(\w+):\s(\w+)\sinterface\s(\w+)\sis\snow\s(\w+); \
