@@ -299,13 +299,13 @@ regex=-605004: Login denied from ([\d\.]+)\/(\d+) to (\S+):([\d\.]+)\/(\S+) for 
  target(0).user.user_id(0).name=$6; \
  last
 
-#LOG:Nov  2 19:14:23 pix %PIX-6-308001: PIX console enable password incorrect for 3 tries (from ssh (remote 12.34.56.78))
-regex=-308001: ASA (\S+) enable password incorrect for (\d+) tries \(from (.+)\); \
+#LOG:Nov  2 19:14:23 pix %PIX-6-308001: console enable password incorrect for 3 tries (from ssh (remote 12.34.56.78))
+regex=-308001: (PIX |ASA )?(\S+) enable password incorrect for (\d+) tries \(from (.+)\); \
  classification.text=Admin login; \
  classification.reference(0).origin=vendor-specific; \
  classification.reference(0).meaning=asa_id; \
  classification.reference(0).name=308001; \
- classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp1280990; \
+ classification.reference(0).url=http://www.cisco.com/en/US/docs/security/asa/asa80/system/message/logmsgs.html#wp5630084; \
  id=206; \
  revision=6; \
  analyzer(0).name=ASA; \
@@ -314,19 +314,19 @@ regex=-308001: ASA (\S+) enable password incorrect for (\d+) tries \(from (.+)\)
  assessment.impact.severity=medium; \
  assessment.impact.type=admin; \
  assessment.impact.completion=failed; \
- assessment.impact.description=ASA enable password attempt on the $1 failed from $3; \
+ assessment.impact.description=ASA enable password attempt on the $2 failed from $4; \
  target(0).user.category=os-device; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=enable_15; \
  additional_data(0).type=string; \
  additional_data(0).meaning=Destination device; \
- additional_data(0).data=$1; \
+ additional_data(0).data=$2; \
  additional_data(1).type=integer; \
  additional_data(1).meaning=Attempts; \
- additional_data(1).data=$2; \
+ additional_data(1).data=$3; \
  additional_data(2).type=string; \
  additional_data(2).meaning=Source device; \
- additional_data(2).data=$3; \
+ additional_data(2).data=$4; \
  last
 
 #LOG:Nov 17 11:29:27 pix %PIX-6-315011: SSH session from 12.34.56.78 on interface dmz for user "" disconnected by SSH server, reason: "Invalid format in version string" (0x05)

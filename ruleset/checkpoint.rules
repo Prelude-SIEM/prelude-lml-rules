@@ -349,7 +349,7 @@ regex=product: VPN-1 & FireWall-1; \
 ###
 
 #LOG:14Aug2006 16:39:44        12.34.56.78 >    alert product: SmartDefense; cpmad: CPMAD; attack: Port Scanning; dst: 90.12.34.56; src: 78.90.12.34;
-regex=product: SmartDefense\;.+attack: (.+)\; dst: ([\d\.])+\; src: ([\d\.]+); \
+regex=product: SmartDefense\;.+attack: (.+)\; dst: ([\d\.]+)\; src: ([\d\.]+); \
  classification.text=$1; \
  id=112; \
  revision=2; \
