@@ -290,7 +290,7 @@ regex=change gid for `(\S+)' to 0; \
 
 #LOG:May 13 15:55:12 metatron usermod[20587]: add `bogususer' to group `slocate'
 #LOG:Dec  4 11:03:18 maximus usermod[5438]: add 'tartuf' to group 'tonton'
-regex=add ['`](\S+)' to group ['`](?!wheel|root)(\S+)'; \
+regex=add ['`](\S+)' to group ['`](?!wheel|root|sudo)(\S+)'; \
  classification.text=User Added to Group; \
  id=3313; \
  revision=1; \
@@ -306,9 +306,10 @@ regex=add ['`](\S+)' to group ['`](?!wheel|root)(\S+)'; \
  target(0).user.user_id(1).name=$2; \
  last
 
+#LOG:May 13 15:55:12 metatron usermod[20587]: add `test' to group `sudo'
 #LOG:May 13 15:55:12 metatron usermod[20587]: add `bogususer' to group `wheel'
 #LOG:Dec  4 11:03:18 maximus usermod[5438]: add 'tartuf' to group 'wheel'
-regex=add ['`](\S+)' to group ['`](wheel|root)'; \
+regex=add ['`](\S+)' to group ['`](wheel|root|sudo)'; \
  classification.text=User Added to Group $2; \
  id=3314; \
  revision=1; \
