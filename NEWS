@@ -1,3 +1,16 @@
+* 2016-03-01, prelude-lml-rules-1.3.0beta1:
+
+Author: Louis-David Gabet
+
+- Regular expression fixes
+- Add information header for each ruleset
+
+Author: Sélim Menouar
+
+- Add group sudo for admin group in shadow-utils
+
+
+
 * 2016-01-11, prelude-lml-rules-1.3.0alpha1:
 
 Author: Thomas Andrejak
