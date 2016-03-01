@@ -80,6 +80,7 @@ regex=(FOUND|virus);                    include = clamav.rules;
 regex=server administrator;             include = dell-om.rules;
 regex=(kernel|grsec);                   include = grsecurity.rules;
 regex=(bigconf|kernel);                 include = f5-bigip.rules;
+regex=devname=;                         include = fortigate.rules;
 regex=(honeyd|icmp|tcp|udp);            include = honeyd.rules;
 regex=\[([0-9-]+) ([0-9:]+)\];          include = honeytrap.rules;
 regex=\[(SSHChannel|SSHService);        include = kojoney.rules;
