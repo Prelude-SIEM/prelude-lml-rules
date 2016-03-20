@@ -178,3 +178,579 @@ regex=4624\s+Microsoft-Windows-Security-Auditing.*Logon Type:\s+2; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=user; \
  last;
+
+#LOG:Oct 15 15:11:38 192.168.206.133 MSWinEventLog 1 Security 364 Thu Oct 15 15:11:36 2015 4625 Microsoft-Windows-Security-Auditing PRELUDE\administrateur N/A Failure Audit WIN-U34BEJH3ME1.prelude.pro Ouvrir la session  Échec d’ouverture de session d’un compte.    Sujet :   ID de sécurité :  S-1-5-18   Nom du compte :  WIN-U34BEJH3ME1$   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x3e7    Type d’ouverture de session :   2    Compte pour lequel l’ouverture de session a échoué :   ID de sécurité :  S-1-0-0   Nom du compte :  administrateur   Domaine du compte :  PRELUDE    Informations sur l’échec :   Raison de l’échec :  Nom d’utilisateur inconnu ou mot de passe incorrect.   État :   0xc000006d   Sous-état :  0xc000006a    Informations sur le processus :   ID du processus de l’appelant : 0x174   Nom du processus de l’appelant : C:\Windows\System32\winlogon.exe    Informations sur le réseau :   Nom de la station de travail : WIN-U34BEJH3ME1   Adresse du réseau source : 127.0.0.1   Port source :  0    Informations ...
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Failure Audit (\S+) Ouvrir la session\s*.chec d.ouverture de session d.un compte.*Type d.ouverture de session.:\s*2\s*Compte pour lequel l.ouverture de session a .chou..:.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Raison de l..chec.:\s*Nom d.utilisateur inconnu ou mot de passe incorrect; \
+ id=100001; \
+ revision=1; \
+ classification.text=User Logon; \
+ target(0).user.user_id(0).name=$2; \
+ target(0).node.name=$1; \
+ analyzer(0).class=Authentication; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=user; \
+ assessment.impact.description=A user has tried to open a Windows session; \
+ last;
+
+
+#LOG:Oct 15 14:09:46 192.168.206.133 MSWinEventLog 1 Security 375 Thu Oct 15 14:09:45 2015 4624 Microsoft-Windows-Security-Auditing PRELUDE\administrateur N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Ouvrir la session  L’ouverture de session d’un compte s’est correctement déroulée.    Sujet :   ID de sécurité :  S-1-5-18   Nom du compte :  WIN-U34BEJH3ME1$   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x3e7    Type d’ouverture de session :   2    Nouvelle ouverture de session :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-500   Nom du compte :  administrateur   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x2bea3   GUID d’ouverture de session :  {D88AC2F8-D5B0-F133-5027-47F8A618DE15}    Informations sur le processus :   ID du processus :  0x174   Nom du processus :  C:\Windows\System32\winlogon.exe    Informations sur le réseau :   Nom de la station de travail : WIN-U34BEJH3ME1   Adresse du réseau source : 127.0.0.1   Port source :  0    Informations ...
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Ouvrir la session.*L.ouverture de session d.un compte s.est correctement d.roul.e.*Type d.ouverture de session.:\s*2\s*Nouvelle ouverture de session.:.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.:; \
+ id=100002; \
+ revision=1; \
+ classification.text=User Logon; \
+ target(0).user.user_id(0).name=$2; \
+ target(0).node.name=$1; \
+ target(0).process.name=Winlogon; \
+ analyzer(0).class=Authentication; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.description=A user has opened a Windows session; \
+ last;
+
+
+#LOG:Oct  7 12:44:13 192.168.206.133 MSWinEventLog 0 Security 2895 Wed Oct 07 12:44:10 2015 4688 Microsoft-Windows-Security-Auditing PRELUDE\WIN-U34BEJH3ME1$ N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Création du processus  Un nouveau processus a été créé.    Sujet :   ID de sécurité :  S-1-5-18   Nom du compte :  WIN-U34BEJH3ME1$   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x3e7    Informations sur le processus :   ID du nouveau processus :  0x5e0   Nom du nouveau processus : C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe   Type d’élévation du jeton : Type d’élévation de jeton complet (2)   ID du processus créateur : 0xb88    ...
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Cr.ation du processus.*Nom du nouveau processus.:..*\\(\S+).*Type.*Type d..l.vation de jeton complet \(2\).*; \
+ id=100003; \
+ revision=1; \
+ classification.text=Privilege escalation; \
+ target(0).node.name=$1; \
+ target(0).process.name=$2; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=admin; \
+ assessment.impact.description=$2 program ran with administrator privilege; \
+ last;
+
+
+#LOG:Oct  7 15:25:12 192.168.206.133 MSWinEventLog 1 Security 1364 Wed Oct 07 15:25:00 2015 4624 Microsoft-Windows-Security-Auditing PRELUDE\avinash N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Ouvrir la session  L’ouverture de session d’un compte s’est correctement déroulée.    Sujet :   ID de sécurité :  S-1-5-18   Nom du compte :  WIN-U34BEJH3ME1$   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x3e7    Type d’ouverture de session :   10    Nouvelle ouverture de session :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x9e64f   GUID d’ouverture de session :  {7FC2F7A5-3CE0-6308-E567-2019A9C2DBB0}    Informations sur le processus :   ID du processus :  0x7c8   Nom du processus :  C:\Windows\System32\winlogon.exe    Informations sur le réseau :   Nom de la station de travail : WIN-U34BEJH3ME1   Adresse du réseau source : fe80::3585:8489:3749:70a6   Port source :  50588    Informations détaillées sur l’authentification ...
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Ouvrir la session\s*L.ouverture de session d.un compte s.est correctement d.roul.e\..*Type d.ouverture de session.:\s*10\s*Nouvelle ouverture de session.:.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom de la station de travail.:\s*\S+\s*Adresse du r.seau source.:\s*(\S+)\s*Port source.:\s*(\d+); \
+ id=100004; \
+ revision=1; \
+ classification.text=Remote Login; \
+ taregt(0).node.name=$1; \
+ target(0).user.user_id(0).name=$2; \
+ target(0).process.name=Winlogon; \
+ source(0).node.address(0).address=$3; \
+ source(0).service.port=$4; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.description=user $2 has opened a remote session; \
+ last;
+
+
+#LOG:Oct 15 08:42:10 192.168.206.133 MSWinEventLog 1 System 116 Thu Oct 15 08:40:24 2015 7036 Service Control Manager N/A N/A Information WIN-U34BEJH3ME1.prelude.pro None  Le service Snare est entré dans l’état : arrêté. 24
+regex=MSWinEventLog.*Service Control Manager.*Information (\S+) .*Le service Snare est entr. dans l..tat.: arr.t.\.; \
+ id=100005; \
+ revision=1; \
+ classification.text=Snare shutdown; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Snare has been shutdown; \
+ last;
+
+
+#LOG:Oct 15 08:42:10 192.168.206.133 MSWinEventLog 1 System 178 Thu Oct 15 08:42:07 2015 7036 Service Control Manager N/A N/A Information WIN-U34BEJH3ME1.prelude.pro None  Le service Snare est entré dans l’état : en cours d’exécution. 86
+regex=MSWinEventLog.*Service Control Manager.*Information (\S+) .*Le service Snare est entr.{1,2} dans l..tat.: en cours d.ex.cution\.; \
+ id=100006; \
+ revision=1; \
+ classification.text=Snare startup; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Snare has been startup; \
+ last;
+
+
+#LOG:Oct 15 17:20:51 192.168.206.133 MSWinEventLog 1 Security 14 Thu Oct 15 17:20:11 2015 4608 Microsoft-Windows-Security-Auditing N/A N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Modification de l’état de la sécurité  Windows démarre.    Cet événement est journalisé lorsque LSASS.EXE démarre et que le sous-système d’audit est initialisé. 13
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Modification de l..tat de la s.curit.\s*Windows d.marre; \
+ id=100008; \
+ revision=1; \
+ classification.text=Windows startup; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Window has been started; \
+ last;
+
+
+#LOG:Oct 15 15:10:52 192.168.206.133 MSWinEventLog 1 System 108 Thu Oct 15 15:09:53 2015 12 Microsoft-Windows-Kernel-General AUTORITE NT\Syst�me N/A Information WIN-U34BEJH3ME1.prelude.pro None  Le système d’exploitation a démarré à l’heure système ‎2015‎-‎10‎-‎15T13:09:53.500000000Z. 40
+regex=MSWinEventLog.*Microsoft-Windows-Kernel-General.*Information (\S+) .*Le syst.me d.exploitation a d.marr. . l.heure syst.me \D*(\d{4})\D*(\d\d)\D*(\d\d).?(\d\d:\d\d:\d\d); \
+ id=100009; \
+ revision=1; \
+ classification.text=Windows OS startup; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Windows OS has been started the $2-$3-$4 at $5; \
+ last;
+
+
+#LOG:Oct 15 18:07:20 192.168.206.133 MSWinEventLog 1 System 1463 Thu Oct 15 18:07:20 2015 1074 USER32 PRELUDE\avinash N/A Information WIN-U34BEJH3ME1.prelude.pro None  Le processus Explorer.EXE a lancé le s’arrêter. de l’ordinateur WIN-U34BEJH3ME1 pour l’utilisateur PRELUDE\avinash pour la raison suivante : Système d’exploitation : Récupération (planifiée)  .  Code : 0x4020002  .  Type d’extinction : s’arrêter.  .  Commentaire : .  128
+regex=MSWinEventLog.*Information (\S+) .*Le processus Explorer.EXE a lanc. le \S+ de l.ordinateur \S+ pour l.utilisateur [^\\]*\\(\S+) pour la raison suivante.: (.*)\.\s*Code.:.*Type d.extinction.:\s*(\S+).*Commentaire.: (.*)\.\s*\d*; \
+ id=100010; \
+ revision=1; \
+ classification.text=Windows extinction; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$2; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Windows OS has been shutdown for several reasons; \
+ additional_data(0).data=$3; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=shutdown reason; \
+ additional_data(1).data=$4; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Extinction type; \
+ additional_data(2).data=Additional comments: $5; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Additional comments; \
+ last; \
+
+
+#LOG:Oct  7 12:52:47 192.168.206.133 MSWinEventLog 1 Security 75 Wed Oct 07 12:52:46 2015 4648 Microsoft-Windows-Security-Auditing PRELUDE.PRO\avinash N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Ouvrir la session  Tentative d’ouverture de session en utilisant des informations d’identification explicites.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0xe8aea   GUID d’ouverture de session :  {00000000-0000-0000-0000-000000000000}    Compte dont les informations d’identification ont été utilisées :   Nom du compte :  avinash   Domaine du compte :  PRELUDE.PRO   GUID d’ouverture de session :  {25EAB0DC-DC7B-7409-52F9-D7D9BB4DA265}    Serveur cible :   Nom du serveur cible : WIN-U34BEJH3ME1.prelude.pro   Informations supplémentaires : ldap/WIN-U34BEJH3ME1.prelude.pro/prelude.pro    Informations sur le processus :   ID du processus :  0xbbc   Nom du processus :  C:\Windows\System32\ldp.exe    Informations sur le réseau :   Adresse du réseau : -   Port :   -    ...
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit \S+ Ouvrir la session.*Tentative d.ouverture de session en utilisant des informations d.identification explicites\..*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du serveur cible.: (\S+)\s*Informations suppl.mentaires.: ldap\/.*Nom du processus.:..*\\(\S+); \
+ id=100011; \
+ revision=1; \
+ classification.text=Active Directory connection; \
+ target(0).node.name=$3; \
+ target(0).user.user_id(0).name=$2; \
+ source(0).user.user_id(0).name=$1; \
+ target(0).process.name=$4; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=user; \
+ assessment.impact.description=Active Directory connection by $2 user; \
+ last;
+
+
+#LOG:Oct  7 12:55:09 192.168.206.133 MSWinEventLog 1 Security 93 Wed Oct 07 12:55:08 2015 4625 Microsoft-Windows-Security-Auditing PRELUDE\ATest N/A Failure Audit WIN-U34BEJH3ME1.prelude.pro Ouvrir la session  Échec d’ouverture de session d’un compte.    Sujet :   ID de sécurité :  S-1-5-18   Nom du compte :  WIN-U34BEJH3ME1$   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x3e7    Type d’ouverture de session :   2    Compte pour lequel l’ouverture de session a échoué :   ID de sécurité :  S-1-0-0   Nom du compte :  ATest   Domaine du compte :  PRELUDE    Informations sur l’échec :   Raison de l’échec :  Le compte d’utilisateur spécifié a expiré.   État :   0xc0000193   Sous-état :  0xc0000193    Informations sur le processus :   ID du processus de l’appelant : 0x10c   Nom du processus de l’appelant : C:\Windows\System32\winlogon.exe    Informations sur le réseau :   Nom de la station de travail : WIN-U34BEJH3ME1   Adresse du réseau source : 127.0.0.1   Port source :  0    Informations détaillées ...
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Failure Audit (\S+) Ouvrir la session\s*.chec d.ouverture de session d.un compte.*Compte pour lequel l.ouverture de session a .chou..:.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Raison de l..chec.:\s*Le compte d.utilisateur sp.cifi. a expir.\.; \
+ id=100012; \
+ revision=1; \
+ classification.text=Expired account login; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$2; \
+ target(0).process.name=Winlogon; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=Failed; \
+ assessment.impact.type=user; \
+ assessment.impact.description=An expired account has tried to logon; \
+ last;
+
+
+#LOG:Oct  7 12:58:25 192.168.206.133 MSWinEventLog 1 Security 174 Wed Oct 07 12:58:23 2015 4673 Microsoft-Windows-Security-Auditing PRELUDE\avinash N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Utilisation de privilèges sensibles  Un service privilégié a été appelé.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0xe8ade    Service :   Serveur : PlugPlayManager   Nom du service : Activer le périphérique    Processus :   ID du processus : 0x258   Nom du processus : C:\Windows\System32\svchost.exe    Informations sur la demande de service :   Privilèges :  SeLoadDriverPrivilege 99
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Utilisation de privil.ges sensibles\s*Un service privil.gi. a .t. appel.\..*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du service.: (.*)\s*Processus.:.*Nom du processus.{1,2}:..*\\(\S+).*Privil.ges.:\s*(\S+); \
+id=100013;\
+ revision=1; \
+ classification.text=Sensitive privilege used; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$2; \
+ target(O).service.name=$3; \
+ target(0).process.name=$4; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=$2 user has used a sensitive privilege; \
+ additional_data(0).data=$5; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Privilege used; \
+ last;
+
+
+#LOG:Oct  5 12:29:03 192.168.206.133 MSWinEventLog 1 Security 178 Mon Oct 05 12:29:01 2015 4625 Microsoft-Windows-Security-Auditing PRELUDE\ATest N/A Failure Audit WIN-U34BEJH3ME1.prelude.pro Ouvrir la session  Échec d’ouverture de session d’un compte.    Sujet :   ID de sécurité :  S-1-5-18   Nom du compte :  WIN-U34BEJH3ME1$   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x3e7    Type d’ouverture de session :   2    Compte pour lequel l’ouverture de session a échoué :   ID de sécurité :  S-1-0-0   Nom du compte :  ATest   Domaine du compte :  PRELUDE    Informations sur l’échec :   Raison de l’échec :  Le compte est actuellement désactivé.   État :   0xc000006e   Sous-état :  0xc0000072    Informations sur le processus :   ID du processus de l’appelant : 0x47c   Nom du processus de l’appelant : C:\Windows\System32\winlogon.exe    Informations sur le réseau :   Nom de la station de travail : WIN-U34BEJH3ME1   Adresse du réseau source : 127.0.0.1   Port source :  0    Informations détaillées ...
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Failure Audit (\S+) Ouvrir la session\s*.chec d.ouverture de session d.un compte\..*Compte pour lequel l.ouverture de session a .chou..:.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Raison de l..chec.:\s*Le compte est actuellement d.sactiv.\.; \
+ id=100014; \
+ revision=1; \
+ classification.text=Disabled account login; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$2; \
+ target(0).process.name=Winlogon; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=Failed; \
+ assessment.impact.type=user; \
+ assessment.impact.description=A user has tried to open a Windows session with a disabled account; \
+ last;
+
+
+#LOG:Oct 15 16:12:58 192.168.206.133 MSWinEventLog 1 System 96 Thu Oct 15 16:11:05 2015 7036 Service Control Manager N/A N/A Information WIN-U34BEJH3ME1.prelude.pro None  Le service Services de domaine Active Directory est entré dans l’état : arrêté. 32
+regex=MSWinEventLog.*Service Control Manager.*Information (\S+) .*Le service Services de domaine Active Directory est entr. dans l..tat.: arr.t.\.; \
+ id=100015; \
+ revision=1; \
+ classification.text=Active Directory shutdown; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Active Directory has been shutdown; \
+ last;
+
+
+#LOG:Oct 15 16:12:59 192.168.206.133 MSWinEventLog 1 System 112 Thu Oct 15 16:12:24 2015 7036 Service Control Manager N/A N/A Information WIN-U34BEJH3ME1.prelude.pro None  Le service Services de domaine Active Directory est entré dans l’état : en cours d’exécution. 48
+regex=MSWinEventLog.*Service Control Manager.*Information (\S+) .*Le service Services de domaine Active Directory est entr. dans l..tat.: en cours d.ex.cution\.; \
+ id=100016; \
+ revision=1; \
+ classification.text=Active Directory startup; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Active Directory service has been started; \
+ last;
+
+
+#LOG:Aug 28 17:01:04 192.168.206.133 MSWinEventLog 1 System 41 ven. août 28 17:01:03 201 7036 Service Control Manager N/A N/A Information WIN-U34BEJH3ME1.prelude.pro None  Le service ILEX Sign&go v5.1 Workstation Security Service est entré dans l'état : arrêté. 2
+regex=MSWinEventLog.*Service Control Manager.*Information (\S+) .*Le service ILEX Sign&go (\S*) Workstation Security Service est entr. dans l..tat.: arr.t.\.; \
+ id=100017; \
+ revision=1; \
+ classification.text=ILEX Sign&go shutdown; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=ILEX Sign&go $2 Workstation Security Service has been shutdown; \
+ last;
+
+
+#LOG:Aug 28 17:01:04 192.168.206.133 MSWinEventLog 1 System 43 ven. août 28 17:01:04 201 7036 Service Control Manager N/A N/A Information WIN-U34BEJH3ME1.prelude.pro None  Le service ILEX Sign&go v5.1 Workstation Security Service est entré dans l'état : en cours d'exécution. 4
+regex=MSWinEventLog.*Service Control Manager.*Information (\S+) .*Le service ILEX Sign&go (\S*) Workstation Security Service est entr.{1,2} dans l..tat.: en cours d.ex.cution\.; \
+ id=100018; \
+ revision=1; \
+ classification.text=ILEX Sign&go startup; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=ILEX Sign&go $2 Workstation Security Service has been started; \
+ last;
+
+
+#LOG:Oct  5 12:27:43 192.168.206.133 MSWinEventLog 2 Security 92 Mon Oct 05 12:27:42 2015 4738 Microsoft-Windows-Security-Auditing PRELUDE\Atest N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Gestion des comptes d’utilisateur  Un compte d’utilisateur a été modifié.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x387a1    Compte cible :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1109   Nom du compte :  Atest   Domaine du compte :  PRELUDE    Attributs modifiés :   Nom du compte SAM : -   Nom complet :  -   Nom principal de l’utilisateur : -   Répertoire de base :  -   Lecteur de base :  -   Chemin d’accès au script :  -   Chemin d’accès au profil :  -   Stations de travail utilisateurs : -   Dernière modification du mot de passe le : -   Le compte expire le :  02/10/2015 00:00:00   ID de groupe principal : -   Délégué autorisé : -   Ancienne valeur UAC :  -   Nouvelle valeur UAC :  -   Contrôle du compte d’utilisateur : -   Paramètres utilisateur : -   Historique SID :  -   Horaire d’accès :  -    Informations supplémentaires :   Privilèges:  - 56
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Gestion des comptes d.utilisateur.*Un compte d.utilisateur a .t. modifi.\..*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte; \
+ id=100019; \
+ revision=1; \
+ classification.text=Account changed; \
+ source(0).user.user_id(0).name=$2; \
+ target(0).user.user_id(0).name=$3; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=$3 user account has been modified; \
+ last;
+
+
+#LOG:Oct  5 12:38:27 192.168.206.133 MSWinEventLog 1 Application 419 Mon Oct 05 12:38:27 2015 1704 SceCli N/A N/A Information WIN-U34BEJH3ME1.prelude.pro None  La stratégie de sécurité dans les objets Stratégie de groupe a été appliquée correctement. 8
+regex=MSWinEventLog.*Information (\S+) .*La strat.gie de s.curit. dans les objets Strat.gie de groupe a .t. appliqu.e correctement; \
+ id=100020; \
+ revision=1; \
+ classification.text=Audit policy applied; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Audit policy has been applied correctly; \
+ last;
+
+
+#LOG:Oct 11 14:28:22 192.168.206.133 MSWinEventLog 2 Security 717 Sun Oct 11 14:28:21 2015 4723 Microsoft-Windows-Security-Auditing PRELUDE\avinash N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Gestion des comptes d’utilisateur  Une tentative de modification de mot de passe d’un compte a été effectuée.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x49fcf    Compte cible :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE    Informations supplémentaires :   Privilèges  - 401
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Gestion des comptes d.utilisateur\s*Une tentative de modification de mot de passe d.un compte a .t. effectu.e\..*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte; \
+ id=100021; \
+ revision=1; \
+ classification.text=Password changed; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$2; \
+ source(0).user.user_id(0).name=$3; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=An user account password has been changed; \
+ last;
+
+
+#LOG:Oct  5 15:53:20 192.168.206.133 MSWinEventLog 2 Security 2432 Mon Oct 05 15:53:18 2015 4728 Microsoft-Windows-Security-Auditing PRELUDE\Admins du domaine N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Gestion des groupes de sécurité  Un membre a été ajouté à un groupe global dont la sécurité est activée.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x3e5fd    Membre :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1109   Nom du compte :  CN=avi test,CN=Users,DC=prelude,DC=pro    Groupe :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-512   Nom du groupe :  Admins du domaine   Domaine du groupe :  PRELUDE    Informations supplémentaires :   Privilèges :  - 1260
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Gestion des groupes de s.curit.\s*Un membre a .t. ajout. . un groupe (\S+) dont la s.curit. est activ.e\..*Nom du compte.:\s*(\S+[^ ])\s*Domaine du compte.*Nom du compte.:\s*(CN=.*)\s*Groupe.:.*Nom du (?:compte|groupe).:\s*(.*[^ ])\s*Domaine du (?:compte|groupe); \
+ id=100023; \
+ revision=1; \
+ classification.text=User added to a group; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$4; \
+ source(0).user.user_id(0).name=$3; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=User $4 has been added to a group; \
+ additional_data(0).data=$5; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Group name; \
+ additional_data(1).data=$2; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Group type; \
+ last;
+
+
+#LOG:Oct  2 16:30:14 192.168.206.133 MSWinEventLog 1 Security 394 Fri Oct 02 16:30:06 2015 4647 Microsoft-Windows-Security-Auditing PRELUDE\Atest N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Fermer la session  Fermeture de session initiée par l’utilisateur :    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1109   Nom du compte :  Atest   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x277151    Cet événement est généré lorsqu’une fermeture de session est initiée. Aucune autre activité initiée par l’utilisateur ne peut se produire. Cet événement peut être interprété comme un événement de fermeture de session. 213
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Fermer la session\s*Fermeture de session initi.e par l.utilisateur.:.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte; \
+ id=100024; \
+ revision=1; \
+ classification.text=User logout; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$2; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=User $2 logout; \
+ last;
+
+
+#LOG:Oct  5 16:04:46 192.168.206.133 MSWinEventLog 2 Security 2645 Mon Oct 05 16:04:46 2015 4720 Microsoft-Windows-Security-Auditing PRELUDE\ADupont N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Gestion des comptes d’utilisateur  Un compte d’utilisateur a été créé.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x3e5fd    Nouveau compte :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1110   Nom du compte :  ADupont   Domaine du compte :  PRELUDE    Attributs :   Nom du compte SAM : ADupont   Nom complet :  alain dupont   Nom principal de l’utilisateur : ADupont@prelude.pro   Répertoire de base :  -   Lecteur de base :  -   Chemin d’accès au script :  -   Chemin d’accès au profil :  -   Stations de travail des utilisateurs : -   Dernière modification du mot de passe le : <jamais>   Le compte expire le :  <jamais>   ID de groupe principal : 513   Délégué autorisé : -   Ancienne valeur UAC :  0x0   Nouvelle valeur UAC :  0x15   Contrôle du compte d’utilisateur (UAC) :     Compte désactivé    'Mot de passe non nécessaire' - Activé    'Compte normal’ - Activé   Paramètres d’utilisateur : -   Historique SID :  -   Horaire d’accès :  <valeur non définie>    Informations supplémentaires :   Privilèges  - 1376
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Gestion des comptes d.utilisateur.*Un compte d.utilisateur a .t. cr..\..*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du compte SAM.:\s*(.*)\s*Nom complet.:\s*(.*)\s*Nom principal de l.utilisateur.: (\S*); \
+ id=100025; \
+ revision=1; \
+ classification.text=User account created; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$2; \
+ source(0).user.user_id(0).name=$3; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=A user account has been created; \
+ additional_data(0).data=$4; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=SAM account name; \
+ additional_data(1).data=$5; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=User full name; \
+ additional_data(1).data=$6; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=User principal name; \
+ last;
+
+
+#LOG:Oct  5 12:28:47 192.168.206.133 MSWinEventLog 2 Security 160 Mon Oct 05 12:28:45 2015 4722 Microsoft-Windows-Security-Auditing PRELUDE\Atest N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Gestion des comptes d’utilisateur  Un compte d’utilisateur a été activé.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x387a1    Compte cible :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1109   Nom du compte :  Atest   Domaine du compte :  PRELUDE 90
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Gestion des comptes d.utilisateur.*Un compte d.utilisateur a .t. activ.\..*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte; \
+ id=100026; \
+ revision=1; \
+ classification.text=User account enabled; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$3; \
+ source(0).user.user_id(0).name=$2; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=A user account has been enabled; \
+ last;
+
+
+#LOG:Oct  5 15:11:20 192.168.206.133 MSWinEventLog 2 Security 1146 Mon Oct 05 15:11:19 2015 4724 Microsoft-Windows-Security-Auditing PRELUDE\Atest N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Gestion des comptes d’utilisateur  Une tentative de réinitialisation de mot de passe d’un compte a été effectuée.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x3e5fd    Compte cible :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1109   Nom du compte :  Atest   Domaine du compte :  PRELUDE 596
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Gestion des comptes d.utilisateur.*Une tentative de r.initialisation de mot de passe d.un compte a .t. effectu.e\..*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte; \
+ id=100027; \
+ revision=1; \
+ classification.text=Password reinitialized; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$3; \
+ source(0).user.user_id(0).name=$2; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=A password has been reinitialized; \
+ last;
+
+
+#LOG:Oct  5 15:20:44 192.168.206.133 MSWinEventLog 2 Security 1523 Mon Oct 05 15:20:43 2015 4723 Microsoft-Windows-Security-Auditing PRELUDE\Atest N/A Failure Audit WIN-U34BEJH3ME1.prelude.pro Gestion des comptes d’utilisateur  Une tentative de modification de mot de passe d’un compte a été effectuée.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1109   Nom du compte :  Atest   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x193d78    Compte cible :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1109   Nom du compte :  Atest   Domaine du compte :  PRELUDE    Informations supplémentaires :   Privilèges  - 766
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Failure Audit (\S+) Gestion des comptes d.utilisateur.*Une tentative de modification de mot de passe d.un compte a .t. effectu.e\..*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Compte cible.:.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte; \
+ id=100028; \
+ revision=1; \
+ classification.text=Password changed; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$3; \
+ source(0).user.user_id(0).name=$2; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=Failed; \
+ assessment.impact.type=other; \
+ assessment.impact.description=A user has tried to change a password; \
+ last; \
+
+
+#LOG:Oct  5 12:28:49 192.168.206.133 MSWinEventLog 2 Security 166 Mon Oct 05 12:28:49 2015 4725 Microsoft-Windows-Security-Auditing PRELUDE\Atest N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Gestion des comptes d’utilisateur  Un compte d’utilisateur a été désactivé.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x387a1    Compte cible :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1109   Nom du compte :  Atest   Domaine du compte :  PRELUDE 96
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Gestion des comptes d.utilisateur.*Un compte d.utilisateur a .t. d.sactiv.\..*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte; \
+ id=100029; \
+ revision=1; \
+ classification.text=Account disabled; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$3; \
+ source(0).user.user_id(0).name=$2; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=An account has been disabled; \
+ last;
+
+
+#LOG:Oct  5 12:27:43 192.168.206.133 MSWinEventLog 2 Security 93 Mon Oct 05 12:27:42 2015 4767 Microsoft-Windows-Security-Auditing PRELUDE\Atest N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Gestion des comptes d’utilisateur  Un compte d’utilisateur a été déverrouillé.    Sujet :   ID de sécurité:  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x387a1    Compte cible :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1109   Nom du compte :  Atest   Domaine du compte :  PRELUDE 57
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Gestion des comptes d.utilisateur.*Un compte d.utilisateur a .t. d.verrouill.\..*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte; \
+ id=100030; \
+ revision=1; \
+ classification.text=Account unlocked; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$3; \
+ source(0).user.user_id(0).name=$2; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=An account has been unlocked; \
+ last;
+
+
+#LOG:Oct  2 16:22:54 192.168.206.133 MSWinEventLog 2 Security 170 Fri Oct 02 16:22:52 2015 4726 Microsoft-Windows-Security-Auditing PRELUDE\Atest N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Gestion des comptes d’utilisateur  Un compte d’utilisateur a été supprimé.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x2dafa    Compte cible :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1104   Nom du compte :  Atest   Domaine du compte :  PRELUDE    Informations supplémentaires :   Privilèges - 80
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Gestion des comptes d.utilisateur.*Un compte d.utilisateur a .t. supprim.\..*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte; \
+ id=100031; \
+ revision=1; \
+ classification.text=Account deleted; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$3; \
+ source(0).user.user_id(0).name=$2; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=An account has been deleted; \
+ last;
+
+
+#LOG:Oct  5 15:52:44 192.168.206.133 MSWinEventLog 2 Security 2423 Mon Oct 05 15:52:44 2015 4737 Microsoft-Windows-Security-Auditing PRELUDE\Admins du domaine N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Gestion des groupes de sécurité  Un groupe global dont la sécurité est activée a été modifié.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x3e5fd    Groupe :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-512   Nom du groupe :  Admins du domaine   Domaine du groupe :  PRELUDE    Attributs modifiés :   Nom du compte SAM : -   Historique SID :  -    Informations supplémentaires :   Privilèges :  - 1251
+regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Gestion des groupes de s.curit.\s*Un groupe (\S+) dont la s.curit. est activ.e a .t. modifi.\..*Nom du compte.:\s*(.*[^ ])\s*Domaine du compte.*Nom du groupe.:\s*(.*[^ ])\s*Domaine du groupe; \
+ id=100032; \
+ revision=1; \
+ classification.text=Group amended; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$3; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=A group has been modified; \
+ additional_data(0).data=$2; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Group type; \
+ additional_data(1).data=$4; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Group name; \
+ last;
+
+
+#LOG:Oct  5 14:19:41 192.168.206.133 MSWinEventLog 3 Security 272 Mon Oct 05 14:19:41 2015 1102 Microsoft-Windows-Eventlog N/A N/A Information WIN-U34BEJH3ME1.prelude.pro Effacement de journal  Le journal d’audit a été effacé.  Objet :   ID de sécurité : S-1-5-21-2269591700-920990493-2532081251-1000   Nom de compte : avinash   Nom de domaine : PRELUDE   ID de connexion : 0x3e5fd 149
+regex=MSWinEventLog.*Microsoft-Windows-Eventlog.*Information (\S+) Effacement de journal\s*Le journal d.audit a .t. effac.\s*.*Nom de compte.:\s*(.*)\s*Nom de domaine; \
+ id=100033; \
+ revision=1; \
+ classification.text=Audit log cleared; \
+ target(0).node.name=$1; \
+ target(0).user.user_id(0).name=$2; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Windows audit log has been cleared; \
+ last;
+
+
+#LOG:Oct  5 14:26:26 192.168.206.133 MSWinEventLog 1 System 394 Mon Oct 05 14:26:26 2015 104 Microsoft-Windows-Eventlog PRELUDE\avinash N/A Information WIN-U34BEJH3ME1.prelude.pro Effacement de journal  Le fichier journal Application a été effacé. 30
+regex=MSWinEventLog.*Microsoft-Windows-Eventlog [^\\]*\\?(\S+) .*Information (\S+) Effacement de journal\s*Le fichier journal (Application|System) . .t. effac.\.; \
+ id=100034; \
+ revision=1; \
+ classification.text=$4 log cleared; \
+ target(0).node.name=$2; \
+ target(0).user.user_id(0).name=$1; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Windows $4 log has been cleared; \
+ last;
+
+
+#LOG:Oct  5 12:54:15 192.168.206.133 MSWinEventLog 1 System 53 Mon Oct 05 12:53:00 2015 6006 EventLog N/A N/A Information WIN-U34BEJH3ME1.prelude.pro None  Le service d’Enregistrement d’événement a été arrêté. 0
+regex=MSWinEventLog.*EventLog.*Information (\S+) .*Le service d.Enregistrement d..v.nement a .t. arr.t.\.; \
+ id=100035; \
+ revision=1; \
+ classification.text=Event registration stopped; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Windows event registration has been stopped; \
+ last;
+
+
+#LOG:Oct  5 12:54:15 192.168.206.133 MSWinEventLog 1 System 82 Mon Oct 05 12:53:42 2015 6005 EventLog N/A N/A Information WIN-U34BEJH3ME1.prelude.pro None  Le service d’Enregistrement d’événement a démarré. 29
+regex=MSWinEventLog.*EventLog.*Information (\S+) .*Le service d.Enregistrement d..v.nement a d.marr.\.; \
+ id=100036; \
+ revision=1; \
+ classification.text=Event registration started; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Windows event registration has been started; \
+ last;
+
+
+#LOG:Oct  5 12:54:15 192.168.206.133 MSWinEventLog 1 System 65 Mon Oct 05 12:53:00 2015 7036 Service Control Manager N/A N/A Information WIN-U34BEJH3ME1.prelude.pro None  Le service Journal d’événements Windows est entré dans l’état : arrêté. 12
+regex=MSWinEventLog.*Service Control Manager.*Information (\S+) .*Le service Journal d..v.nements Windows est entr. dans l..tat.: arr.t.\.; \
+ id=100037; \
+ revision=1; \
+ classification.text=Event log stopped; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=low; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Windows event log has been stopped; \
+ last;
+
+
+#LOG:Oct  5 12:54:15 192.168.206.133 MSWinEventLog 1 System 101 Mon Oct 05 12:53:42 2015 7036 Service Control Manager N/A N/A Information WIN-U34BEJH3ME1.prelude.pro None  Le service Journal d’événements Windows est entré dans l’état : en cours d’exécution. 48
+regex=MSWinEventLog.*Service Control Manager.*Information (\S+) .*Le service Journal d..v.nements Windows est entr. dans l..tat.: en cours d.ex.cution\.; \
+ id=100038; \
+ revision=1; \
+ classification.text=Event log started; \
+ target(0).node.name=$1; \
+ assessment.impact.severity=info; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=Windows event log has been started; \
+ last;
+
+
+#LOG:Aug 28 14:38:51 <nom_dns> MSWinEventLog 1 Application 59 ven. août 28 14:38:51 201 800 Control Manager Server <domain.name>\... N/A Information <nom_dns> System  Information Message: Control Manager (<nom_dns>) notification: Virus found action result.  The second virus scan action has been applied to the virus detected in \<nom_dns>\Local Folder\New Entity\<...>\<domain.name>\<nom_dns>.  Virus: Eicar_test_file  Action result: File quarantined  Infected file: eicar - Copy (8) - Copy File path: A:\  Scan engine: 9.205.1002  Virus pattern: 0.704.00  Event date/time: 28/08/2015 14:36:11 2
+regex=MSWinEventLog.*Control Manager Server.*notification: Virus found action result.\s*The second virus scan action has been applied to the virus detected in .*Virus: (.+)\s*Action result: File quarantined\s*Infected file: (.+)\s*File path: (.+)\s*Scan engine: (.*)\s*Virus pattern: (.+)\s*Event date\/time: (\S+) (\S+); \
+ id=100039; \
+ revision=1; \
+ classification.text=Virus found; \
+ analyzer(0).class=System; \
+ assessment.impact.severity=high; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.description=A virus has been found; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Virus name; \
+ additional_data(0).data=$1; \
+ additional_data(1).type=string; \
+ additional_data(1).meaning=Virus filename; \
+ additional_data(1).data=$2; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Virus location; \
+ additional_data(2).data=$3; \
+ additional_data(3).type=string; \
+ additional_data(3).meaning=Scan engine
+ additional_data(3).data=$4; \
+ additional_data(4).type=string; \
+ additional_data(4).meaning=Virus pattern; \
+ additional_data(4).data=$5; \
+ additional_data(5).type=string; \
+ additional_data(5).meaning=Virus detect time
+ additional_data(5).data=$6 $7; \
+ last;

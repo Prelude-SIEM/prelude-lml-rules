@@ -304,3 +304,26 @@ regex=Erased: (\S+); \
  additional_data(0).meaning=Package; \
  additional_data(0).data=$1; \
  last;
+
+#LOG:Oct 13 14:27:36 CentOS shutdown[2142]: shutting down for system halt
+regex=shutting down for system (?:halt|reboot); \
+ id=414; \
+ revision=1; \
+ classification.text=Operating system halted; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.severity=info; \
+ assessment.impact.type=other; \
+ assessment.impact.description=An operating system has been halted; \
+ last;
+
+
+#LOG:Nov  4 16:00:34 CentOS kernel: [    0.000000] Command line: BOOT_IMAGE=/vmlinuz-2.6.32.59-custom64.grsec.mediumsec+build-20120614193912 root=/dev/mapper/VG_Debian-LV--Root ro clocksource=acpi_pm quiet
+regex=kernel: .*Command line: BOOT_IMAGE=; \
+ id=415; \
+ revision=1; \
+ classification.text=Operating system started; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.severity=info; \
+ assessment.impact.type=other; \
+ assessment.impact.description=An operating system has been started; \
+ last;
