@@ -128,7 +128,7 @@ regex=START: tftp pid=(\d+) from=([\d\.]+); \
 #LOG:Jun 14 05:38:52 oahu p3scan[5973]: '/var/spool/p3scan/children/5973/p3scan.Pu3u8g' contains a virus (Infection: W32/Zafi.B@mm)!
 #LOG:Jul 13 19:44:44 localhost p3scan[529]: '/var/spool/p3scan/children/529/p3scan.ASA1Cl' contains a virus (Worm.Mytob.GH)!
 regex='(\S+)' contains a virus \((Infection: )?(\S+)\); \
- classification.text=Virus found: $2; \
+ classification.text=Virus found: $3; \
  id=405; \
  revision=2; \
  analyzer(0).name=P3Scan; \
