@@ -416,7 +416,7 @@ regex=devname=(\S+),devid=(\S+),logid=0105(\d+),+.+level=(emergency|alert|critic
 
 regex=devname=(\S+),devid=(\S+),logid=0106(\d+),+.+level=(notice|information); \
  classification.text=Firewall Authentication Event; \
- id=80014; \
+ id=80026; \
  revision=1; \
  analyzer(0).name=Fortigate; \
  analyzer(0).manufacturer=www.fortinet.com; \

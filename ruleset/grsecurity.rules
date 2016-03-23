@@ -33,7 +33,7 @@
 
 #LOG:Jan 11 01:40:09 gw kernel: grsec: From X: denied attach of shared memory outside of chroot by /chroot/usr/local/apache/bin/httpd[httpd:21579] uid/euid:1000/1000 gid/egid:103/103, parent /chroot/apache/usr/local/apache/bin/httpd[httpd:20755] uid/euid:0/0 gid/egid:0/0
 regex=uid/euid:(\d+)/(\d+) gid/egid:(\d+)/(\d+), parent; \
- id=693; \
+ id=690; \
  source(0).user.category=application; \
  source(0).user.user_id(0).type=current-user; \
  source(0).user.user_id(0).number=$1; \

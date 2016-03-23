@@ -202,7 +202,7 @@ regex=Did not receive identification string from (\S+); \
 #LOG:Jan  5 01:31:41 www sshd[1643]: ROOT LOGIN REFUSED FROM 1.2.3.4
 regex=ROOT LOGIN REFUSED FROM (\S+); \
  classification.text=Admin login; \
- id=1907; \
+ id=1909; \
  revision=2; \
  analyzer(0).name=sshd; \
  analyzer(0).manufacturer=OpenSSH; \
