@@ -30,8 +30,7 @@ regex=(\d+)\s+Security\s+(?:ANONYMOUS LOGON|\S+\$|\S+)?\s+\w+\s+(Success Audit|F
  analyzer(0).name=Snare; \
  analyzer(0).manufacturer=http://www.intersectalliance.com/projects/SnareWindows; \
  analyzer(0).class=Snare; \
- assessment.impact.description=$4; \
- assessment.impact.description=$6; \
+ assessment.impact.description=$4 $6; \
  source(0).node.address(0).address=$17; \
  source(0).user.category=os-device; \
  target(0).node.name=$3; \
@@ -229,7 +228,7 @@ regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Ou
  id=100004; \
  revision=1; \
  classification.text=Remote Login; \
- taregt(0).node.name=$1; \
+ target(0).node.name=$1; \
  target(0).user.user_id(0).name=$2; \
  target(0).process.name=Winlogon; \
  source(0).node.address(0).address=$3; \
@@ -313,7 +312,7 @@ regex=MSWinEventLog.*Information (\S+) .*Le processus Explorer.EXE a lanc. le \S
  additional_data(2).data=Additional comments: $5; \
  additional_data(2).type=string; \
  additional_data(2).meaning=Additional comments; \
- last; \
+ last;
 
 
 #LOG:Oct  7 12:52:47 192.168.206.133 MSWinEventLog 1 Security 75 Wed Oct 07 12:52:46 2015 4648 Microsoft-Windows-Security-Auditing PRELUDE.PRO\avinash N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Ouvrir la session  Tentative d’ouverture de session en utilisant des informations d’identification explicites.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0xe8aea   GUID d’ouverture de session :  {00000000-0000-0000-0000-000000000000}    Compte dont les informations d’identification ont été utilisées :   Nom du compte :  avinash   Domaine du compte :  PRELUDE.PRO   GUID d’ouverture de session :  {25EAB0DC-DC7B-7409-52F9-D7D9BB4DA265}    Serveur cible :   Nom du serveur cible : WIN-U34BEJH3ME1.prelude.pro   Informations supplémentaires : ldap/WIN-U34BEJH3ME1.prelude.pro/prelude.pro    Informations sur le processus :   ID du processus :  0xbbc   Nom du processus :  C:\Windows\System32\ldp.exe    Informations sur le réseau :   Adresse du réseau : -   Port :   -    ...
@@ -354,7 +353,7 @@ id=100013;\
  classification.text=Sensitive privilege used; \
  target(0).node.name=$1; \
  target(0).user.user_id(0).name=$2; \
- target(O).service.name=$3; \
+ target(0).service.name=$3; \
  target(0).process.name=$4; \
  assessment.impact.severity=low; \
  assessment.impact.completion=succeeded; \
@@ -529,9 +528,9 @@ regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Success Audit (\S+) Ge
  additional_data(1).data=$5; \
  additional_data(1).type=string; \
  additional_data(1).meaning=User full name; \
- additional_data(1).data=$6; \
- additional_data(1).type=string; \
- additional_data(1).meaning=User principal name; \
+ additional_data(2).data=$6; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=User principal name; \
  last;
 
 
@@ -577,7 +576,7 @@ regex=MSWinEventLog.*Microsoft-Windows-Security-Auditing.*Failure Audit (\S+) Ge
  assessment.impact.completion=Failed; \
  assessment.impact.type=other; \
  assessment.impact.description=A user has tried to change a password; \
- last; \
+ last;
 
 
 #LOG:Oct  5 12:28:49 192.168.206.133 MSWinEventLog 2 Security 166 Mon Oct 05 12:28:49 2015 4725 Microsoft-Windows-Security-Auditing PRELUDE\Atest N/A Success Audit WIN-U34BEJH3ME1.prelude.pro Gestion des comptes d’utilisateur  Un compte d’utilisateur a été désactivé.    Sujet :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1000   Nom du compte :  avinash   Domaine du compte :  PRELUDE   ID d’ouverture de session :  0x387a1    Compte cible :   ID de sécurité :  S-1-5-21-2269591700-920990493-2532081251-1109   Nom du compte :  Atest   Domaine du compte :  PRELUDE 96

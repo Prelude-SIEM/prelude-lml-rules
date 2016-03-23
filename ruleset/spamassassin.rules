@@ -73,19 +73,19 @@ regex=spamd: result: Y (\d+) - (\S+) scantime=([\d\.]+),size=\d+,user=(\S+),uid=
  target(0).node.address(0).address=$4; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).number=$5; \
- additional_data(>>).type=string; \
- additional_data(-1).meaning=Signatures matched; \
- additional_data(-1).data=$2; \
- additional_data(>>).type=integer; \
- additional_data(-1).meaning=Score; \
- additional_data(-1).data=$1; \
- additional_data(>>).type=string; \
- additional_data(-1).meaning=Required Score; \
- additional_data(-1).data=$6; \
- additional_data(>>).type=string; \
- additional_data(-1).meaning=Scan time; \
- additional_data(-1).data=$3; \
- additional_data(>>).type=integer; \
- additional_data(-1).meaning=Size; \
- additional_data(-1).data=$2; \
- last
+ additional_data(0).type=string; \
+ additional_data(0).meaning=Signatures matched; \
+ additional_data(0).data=$2; \
+ additional_data(1).type=integer; \
+ additional_data(1).meaning=Score; \
+ additional_data(1).data=$1; \
+ additional_data(2).type=string; \
+ additional_data(2).meaning=Required Score; \
+ additional_data(2).data=$6; \
+ additional_data(3).type=string; \
+ additional_data(3).meaning=Scan time; \
+ additional_data(3).data=$3; \
+ additional_data(4).type=integer; \
+ additional_data(4).meaning=Size; \
+ additional_data(4).data=$2; \
+ last;

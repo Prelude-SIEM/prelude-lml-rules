@@ -98,7 +98,6 @@ regex=NETMAN-\d: CLMcmd: (.+)\s*,(\S+)@([\d\.]+); \
  source(0).node.address(0).category=ipv4-addr; \
  source(0).node.address(0).address=$3; \
  source(0).user.category=os-device; \
- source(0).user.category=application; \
  source(0).user.user_id(0).type=current-user; \
  source(0).user.user_id(0).name=$2; \
  additional_data(0).type=string; \
