@@ -55,8 +55,9 @@ regex=ASA-4-410001; \
  assessment.impact.description=Explanation The domain-name length exceeds 255 bytes in a UDP DNS packet. (See RFC 1035 section 3.1.); \
  last
 
+#LOG:May 10 09:25:28 asa %ASA-4-400000: IPS:1000 IP options-Bad Option List from 193.211.21.12 to 78.12.34.1 on interface dmz
 #LOG:Nov  2 18:03:14 pix %PIX-4-400024: IDS:2151 Large ICMP packet from 200.36.129.18 to 12.34.56.78 on interface outside
-regex=-(4000\d\d): IDS:(\d+) (.+) from ([\d\.]+) to ([\d\.]+) on interface (\S+); \
+regex=-(4000\d\d): I[DP]S:(\d+) (.+) from ([\d\.]+) to ([\d\.]+) on interface (\S+); \
  classification.text=$3; \
  classification.reference(0).origin=vendor-specific; \
  classification.reference(0).meaning=asa_id; \
@@ -67,13 +68,13 @@ regex=-(4000\d\d): IDS:(\d+) (.+) from ([\d\.]+) to ([\d\.]+) on interface (\S+)
  classification.reference(1).name=$1; \
  classification.reference(1).url=http://www.cisco.com/en/US/docs/security/asa/asa70/system/message/logmsgs.html#wp2266063; \
  id=196; \
- revision=5; \
+ revision=6; \
  analyzer(0).name=ASA; \
  analyzer(0).manufacturer=Cisco; \
  analyzer(0).class=Firewall; \
  assessment.impact.severity=medium; \
  assessment.impact.completion=failed; \
- assessment.impact.description=Messages 400000 through 400051 - Cisco Intrusion Detection System signature messages; \
+ assessment.impact.description=Messages 400000 through 400051 - Cisco Intrusion Detection/Prevention System signature messages; \
  source(0).interface=$6; \
  source(0).node.address(0).category=ipv4-addr; \
  source(0).node.address(0).address=$4; \
