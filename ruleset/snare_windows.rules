@@ -744,12 +744,12 @@ regex=MSWinEventLog.*Control Manager Server.*notification: Virus found action re
  additional_data(2).meaning=Virus location; \
  additional_data(2).data=$3; \
  additional_data(3).type=string; \
- additional_data(3).meaning=Scan engine
+ additional_data(3).meaning=Scan engine; \
  additional_data(3).data=$4; \
  additional_data(4).type=string; \
  additional_data(4).meaning=Virus pattern; \
  additional_data(4).data=$5; \
  additional_data(5).type=string; \
- additional_data(5).meaning=Virus detect time
+ additional_data(5).meaning=Virus detect time; \
  additional_data(5).data=$6 $7; \
  last;

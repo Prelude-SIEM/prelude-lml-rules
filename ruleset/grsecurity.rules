@@ -74,6 +74,14 @@ regex=(to|on|against) ([^[ ]+)\[([^:]+):(\d+)] uid/euid:(\d+)/(\d+) gid/egid:(\d
 # target(1).user.user_id(3).number = $15; \
  chained; silent;
 
+# generic grsec2 goto rules
+#LOG:Jan 11 01:40:09 gw kernel: grsec: From 123.123.123.123: denied ptrace of /usr/sbin/sw-engine-fpm(sw-engine-fpm:8880) by /usr/sbin/sw-engine-fpm[sw-engine-fpm:8881] uid/euid:1000/1000 gid/egid:1000/1000, parent /usr/sbin/sw-engine-fpm[sw-engine-fpm:8880] uid/euid:1000/1000 gid/egid:1000/1000
+regex=From (\S+):; \
+ id=693; \
+ revision = 1; \
+ source(0).node.address(0).address = $1; \
+ chained; silent;
+
 regex=(by|for) (IP:([^ ]+) )?([^[ ]+)\[([^:]+):(\d+)]( uid/euid:(\d+)/(\d+) gid/egid:(\d+)/(\d+))?, parent ([^[]+)\[([^:]+):(\d+)]( uid/euid:(\d+)/(\d+) gid/egid:(\d+)/(\d+))?; \
  optgoto=693; \
  id=692; \
@@ -82,14 +90,6 @@ regex=(by|for) (IP:([^ ]+) )?([^[ ]+)\[([^:]+):(\d+)]( uid/euid:(\d+)/(\d+) gid/
  source(0).process.path=$4; \
  source(0).process.name=$5; \
  source(0).process.pid=$6; \
- chained; silent;
-
-# generic grsec2 goto rules
-#LOG:Jan 11 01:40:09 gw kernel: grsec: From 123.123.123.123: denied ptrace of /usr/sbin/sw-engine-fpm(sw-engine-fpm:8880) by /usr/sbin/sw-engine-fpm[sw-engine-fpm:8881] uid/euid:1000/1000 gid/egid:1000/1000, parent /usr/sbin/sw-engine-fpm[sw-engine-fpm:8880] uid/euid:1000/1000 gid/egid:1000/1000
-regex=From (\S+):; \
- id=693; \
- revision = 1; \
- source(0).node.address(0).address = $1; \
  chained; silent;
 
 #LOG:Jan 11 01:40:09 gw kernel: grsec: From 123.123.123.123: denied ptrace of /usr/sbin/sw-engine-fpm(sw-engine-fpm:8880) by /usr/sbin/sw-engine-fpm[sw-engine-fpm:8881] uid/euid:1000/1000 gid/egid:1000/1000, parent /usr/sbin/sw-engine-fpm[sw-engine-fpm:8880] uid/euid:1000/1000 gid/egid:1000/1000
