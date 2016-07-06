@@ -4,7 +4,8 @@
 
 #####
 #
-# Copyright (C) 2012 email: <operador@seguridadx.com>, twitter: <www.twitter.com/seguridad_x>
+# Copyright (C) 2012 Seguridadx <operador@seguridadx.com>
+# twitter: <www.twitter.com/seguridad_x>
 # All Rights Reserved
 #
 # This file is part of the Prelude-LML program.
@@ -19,9 +20,9 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; see the file COPYING.  If not, write to
-# the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 #####
 
