@@ -1,6 +1,8 @@
-* 2016-01-11, prelude-lml-rules-3.0.1:
+* 2016-08-05, prelude-lml-rules-3.1.0rc1:
 
 Author: Thomas Andrejak
+
+- Update FSF address and copyrights
 
 - Fix GRSecurity and Snare rules
 
