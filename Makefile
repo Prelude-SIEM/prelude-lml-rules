@@ -1,5 +1,5 @@
 NAME = prelude-lml-rules
-VERSION = 4.0.0beta2
+VERSION = 4.0.0rc1
 
 clean:
 	rm -rf dist build
