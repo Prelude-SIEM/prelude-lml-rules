@@ -125,7 +125,8 @@ regex=[wl]an @Group:;                   include = vigor.rules;
 regex=vpopmail;                         include = vpopmail.rules;
 regex=webmin;                           include = webmin.rules;
 regex=ftpd;                             include = wu-ftp.rules;
-regex=MSWinEventLog;                    include = snare_windows.rules;
+regex=MSWinEventLog;                    include = snare_windows.rules; \
+                                        include = nxlog_windows.rules;
 
 
 # Openhostapd.rules doesn't have specific stuff we can match:
