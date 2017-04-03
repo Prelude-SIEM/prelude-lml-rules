@@ -1,3 +1,6 @@
 Ruleset for pcre LML plugin (https://www.prelude-siem.org)
 These rules are brought to you by CS and the Prelude Community.
 
+Rules ID
+========
+ID from 100000000 to 100010000 are dedicated to local rules
