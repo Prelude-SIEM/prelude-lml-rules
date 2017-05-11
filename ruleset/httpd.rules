@@ -1,33 +1,239 @@
-#FULLNAME: Apache HTTP Server
+#FULLNAME: Apache HTTP Server (httpd)
 #VERSION: 1.0
-#DESCRIPTION: The Apache HTTP Server Project is an effort to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Windows NT.
+#AUTHOR: Prelude Team <support.prelude@c-s.fr>
+#DESCRIPTION: The Apache HTTP Server Project is an effort to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Windows. https://httpd.apache.org/docs/2.4/en/mod/core.html#errorlogformat. Versions supported : 2.2.x to 2.4.x.
+#ID: 4100
 
 #####
 #
 # Copyright (C) 2005 Ruben Alonso <1rualons@rigel.deusto.es>
-# All Rights Reserved
-#
-# RulesID: 4102
 # Copyright (C) 2005 G Ramon Gomez <gene at gomezbrothers dot com>
-# All Rights Reserved
+# Copyright (C) 2015-2017 CS-SI. All Rights Reserved.
 #
 # This file is part of the Prelude-LML program.
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2, or (at your option)
-# any later version.
+#####
+
+#####
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# Rules for Apache HTTP Server
 #
-# You should have received a copy of the GNU General Public License along
-# with this program; if not, write to the Free Software Foundation, Inc.,
-# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+# 4100 to 4149 : generic rules
+# 4150 to 4179 : specific rules
+# 4180 to 4199 : old apache (<2.4)
 #
 #####
+
+#####
+#
+# Configuration for ruleset/pcre.conf:
+#
+# regex=[((\S+):|:|)(warn|error|crit|alert|emerg)\];               include = httpd.rules;
+#
+# For old apache (<2.4)
+# regex=(\[error\]|Pass|httpd);                                    include = httpd.rules;
+#
+#####
+
+regex=\[pid (\d+)\]; \
+ id=4101; \
+ target(0).process.pid=$1; \
+ chained; silent;
+
+regex=\[client (\S+?(?=:)|\S+)(:(\d+)|)\]; \
+ id=4102; \
+ source(0).node.address(0).address=$1; \
+ chained; silent;
+
+regex=\[host (\S+)\]; \
+ id=4103; \
+ target(0).node.address(0).address=$1; \
+ chained; silent;
+
+regex=referer: ([^,].+(?=,)|[^,]\S+); \
+ id=4104; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=referrer; \
+ additional_data(-1).data=$1; \
+ chained; silent;
+
+regex=(AH\d{5}): ([^,].+(?=,)|[^,].*); \
+ id=4105; \
+ classification.reference(0).name=$1; \
+ classification.reference(0).url=https://wiki.apache.org/httpd/ListOfErrors; \
+ classification.reference(0).meaning=$2; \
+ classification.reference(0).origin=vendor-specific; \
+ classification.text=$2; \
+ chained; silent;
+
+regex=\[(\S+):(warn|error|crit|alert|emerg)\]; \
+ id=4106; \
+ additional_data(0).type=string; \
+ additional_data(0).meaning=apache module; \
+ additional_data(0).data=$1; \
+ chained; silent;
+
+#LOG:[Sun Jan 31 18:26:01 2016] [error] [client 1.2.3.4] [host foo.cluster42.ovh.net] request failed: error reading the headers
+regex=request failed: ([^,]*); \
+ id=4150; \
+ classification.text=request failed; \
+ assessment.impact.completion=failed; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=error; \
+ additional_data(-1).data=$1; \
+ chained; silent;
+
+#LOG:[Sun Jan 31 16:35:18 2016] [warn] [client 1.2.3.4] [host foo.ovh] [ovhconfig] syntax error in /homez.1337/foo/.ovhconfig:5
+regex=syntax error in ([^,].+(?=,)|[^,]\S+); \
+ id=4151; \
+ classification.text=syntax error; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=file; \
+ additional_data(-1).data=$1; \
+ chained; silent;
+
+#LOG:[Wed Oct 21 19:28:42 2015] [:error] [pid 1337] [client 1.2.3.4:1234] script '/var/www/wordpress/wp-login.php' not found or unable to stat
+regex=script '(\S+)' not found; \
+ id=4152; \
+ classification.text=script not found; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=script; \
+ additional_data(-1).data=$1; \
+ chained; silent;
+
+#LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] PHP Warning:  pg_connect():  in /var/wordpress/foo.php on line 666
+#LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] PHP Notice:  Constant WP_DEBUG already defined in /var/www/wordpress/wp-config.php on line 42
+#LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] PHP Fatal error:  Call to undefined method dbrc_wpdb::get_charset_collate() in /var/www/wordpress/wp-admin/includes/schema.php on line 512
+regex=(PHP [^:].+(?=:)): (.*); \
+ id=4153; \
+ classification.text=$1; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=PHP error; \
+ additional_data(-1).data=$2; \
+ chained; silent;
+
+#LOG:[Wed Oct 21 19:28:42 2015] [warn] Init: Name-based SSL virtual hosts only work for clients with TLS server name indication support (RFC 4366)
+regex=(RFC(\s|)(\d+)); \
+ id=4154; \
+ classification.reference(>>).name=$1; \
+ classification.reference(-1).url=https://tools.ietf.org/html/rfc$3; \
+ classification.reference(-1).origin=vendor-specific; \
+ chained; silent;
+
+#LOG:[Wed Oct 21 19:28:42 2015] [error] (9)Bad file descriptor: apr_socket_accept: (client socket)
+regex=Bad file descriptor; \
+ id=4155; \
+ classification.text=Bad file descriptor; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ chained; silent;
+
+#LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] File does not exist: /var/www/wordpress/robots.txt
+regex=File does not exist: ([^,].+(?=,)|[^,].*); \
+ id=4156; \
+ classification.text=File does not exist; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=file; \
+ additional_data(-1).data=$1; \
+ chained; silent;
+
+#LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] client denied by server configuration: /var/www/wordpress/wp-login.php
+regex=client denied by server configuration: ([^,].+(?=,)|[^,].*); \
+ id=4157; \
+ classification.text=client denied by server configuration; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=url; \
+ additional_data(-1).data=$1; \
+ chained; silent;
+
+#LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] client sent HTTP/1.1 request without hostname (see RFC2616 section 14.23): /foobar.cgi
+regex=client sent (\S+) request without hostname; \
+ id=4158; \
+ classification.text=client sent request without hostname; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=http protocol; \
+ additional_data(-1).data=$1; \
+ chained; silent;
+
+#LOG:[Wed Oct 21 19:28:42 2015] [error] Invalid URI in request GET HTTP/1.1 HTTP/1.1
+regex=Invalid URI in request; \
+ id=4159; \
+ classification.text=Invalid URI in request; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ chained; silent;
+
+#LOG:[Wed Oct 21 19:28:42 2015] [error] Directory index forbidden by Options directive: /var/www/wordpress/wp-includes/css/
+regex=Directory index forbidden by (.*): ([^,].+(?=,)|[^,].*); \
+ id=4160; \
+ classification.text=Directory index forbidden by $1; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=path; \
+ additional_data(-1).data=$2; \
+ chained; silent;
+
+#LOG:[Wed Oct 21 19:28:42 2015] [error] Hostname 10.11.12.13 provided via SNI and hostname *.foobar.com provided via HTTP are different
+regex=Hostname (\S+) provided via (\S+) and hostname (\S+) provided via (\S+) are different; \
+ id=4161; \
+ classification.text=Hostnames are different; \
+ assessment.impact.completion=succeeded; \
+ assessment.impact.type=other; \
+ assessment.impact.severity=low; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=hostname provided by $2; \
+ additional_data(-1).data=$2; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=hostname provided by $4; \
+ additional_data(-1).data=$3; \
+ chained; silent;
+
+#LOG:[Sun Feb 01 06:25:03 2015] [warn] Init: Name-based SSL virtual hosts only work for clients with TLS server name indication support (RFC 4366)
+regex=Init:\s(.*); \
+ id=4162; \
+ classification.text=$1; \
+ chained; silent;
+
+#DESCRIPTION:Format : [<date>] (1) (2) (3) (4) <message> (5) where (1) = "[<module>:<level>]" or "[:<level>]" or "[<level>]", (2) = "[pid <pid>]" if PID exists, (3) = "[client <ip>]" if client exists, (4) = "<key> <value>]" or "[<value>]" n times with n >= 0, (5) = optional values like "<key>: <value>"
+regex=\[((\S+):|:|)(warn|error|crit|alert|emerg)\](\s\[(\S+\s\S+|\S+)\]|){1,}(.*); \
+ id=4100; \
+ analyzer(0).name=Apache HTTP Server; \
+ analyzer(0).manufacturer=https://httpd.apache.org; \
+ analyzer(0).class=Service; \
+ source(0).service.portlist=80,443; \
+ source(0).service.iana_protocol_number=6; \
+ target(0).service.iana_protocol_name=tcp; \
+ target(0).service.iana_protocol_number=6; \
+ target(0).service.name=http; \
+ target(0).process.name=httpd; \
+ assessment.impact.description=$6; \
+ optgoto=4101-4106; \
+ optgoto=4150-4162; \
+ last
 
 #DESCRIPTION:Web server - Error
 #CATEGORY:Web Service
@@ -39,7 +245,7 @@
 #LOG:[Sun Jan  2 23:48:19 2005] [error] [client 127.0.0.1] request failed: URI too long
 regex=\[error\] \[client ([\d\.]+)\] ((File|Premature|Directory|client|request)[\S+\s]+): (.+); \
  classification.text=Web server error; \
- id=4100; \
+ id=4180; \
  revision=1; \
  analyzer(0).name=httpd; \
  analyzer(0).manufacturer=www.apache.org; \
@@ -62,7 +268,7 @@ regex=\[error\] \[client ([\d\.]+)\] ((File|Premature|Directory|client|request)[
 #LOG:[Sat Apr 16 14:30:12 2005] [error] [client ::1] File does not exist: /var/www/favicon.ico
 regex=\[error\] \[client ([A-Fa-f\d:]+)\] ((File|Premature|Directory|client|request)[\S+\s]+): (.+); \
  classification.text=Web server error; \
- id=4101; \
+ id=4181; \
  revision=1; \
  analyzer(0).name=httpd; \
  analyzer(0).manufacturer=www.apache.org; \
@@ -85,7 +291,7 @@ regex=\[error\] \[client ([A-Fa-f\d:]+)\] ((File|Premature|Directory|client|requ
 #LOG:Apr 17 12:58:51 mail httpd: OK: Pass Phrase Dialog successful.
 regex=OK: Pass Phrase Dialog successful; \
  classification.text=Web server SSL passphrase correct; \
- id=4102; \
+ id=4182; \
  revision=1; \
  analyzer(0).name=httpd; \
  analyzer(0).manufacturer=www.apache.org; \
@@ -101,7 +307,7 @@ regex=OK: Pass Phrase Dialog successful; \
 #LOG:Apr 17 12:58:48 mail httpd: Apache:mod_ssl:Error: Pass phrase incorrect (5 more retries permitted).
 regex=Error: Pass phrase incorrect \(; \
  classification.text=Web server SSL passphrase incorrect; \
- id=4103; \
+ id=4183; \
  revision=1; \
  analyzer(0).name=httpd; \
  analyzer(0).manufacturer=www.apache.org; \
@@ -117,7 +323,7 @@ regex=Error: Pass phrase incorrect \(; \
 #LOG:Apr 17 14:00:48 mail httpd: Apache:mod_ssl:Error: Pass phrase incorrect.
 regex=Error: Pass phrase incorrect\.; \
  classification.text=Web server SSL passphrase incorrect; \
- id=4104; \
+ id=4184; \
  revision=1; \
  analyzer(0).name=httpd; \
  analyzer(0).manufacturer=www.apache.org; \
@@ -133,7 +339,7 @@ regex=Error: Pass phrase incorrect\.; \
 #LOG:Apr 17 14:00:13 mail httpd: httpd shutdown succeeded
 regex=httpd shutdown succeeded; \
  classification.text=Web server shutdown; \
- id=4105; \
+ id=4185; \
  revision=1; \
  analyzer(0).name=httpd; \
  analyzer(0).manufacturer=www.apache.org; \
@@ -150,7 +356,7 @@ regex=httpd shutdown succeeded; \
 #LOG:Apr 17 14:02:41 mail httpd: httpd startup succeeded
 regex=httpd startup succeeded; \
  classification.text=Web server startup; \
- id=4106; \
+ id=4186; \
  revision=1; \
  analyzer(0).name=httpd; \
  analyzer(0).manufacturer=www.apache.org; \
