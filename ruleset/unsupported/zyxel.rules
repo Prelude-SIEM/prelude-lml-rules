@@ -43,7 +43,7 @@
 #LOG:Jul 19 14:44:09 192.168.1.1 ZyXEL Communications Corp.: IP[Src=202.132.154.1 Dst=192.168.1.33 UDP spo=0035  dpo=05d4]}S03>R01mF
 regex=ZyXEL Communications Corp.: IP\[Src=([0-9\.]+) Dst=([0-9\.]+) ([A-Z]+) spo=([0-9A-Fa-f]+)  dpo=([0-9A-Fa-f]+).*S(\d{2})>R(\d{2})(.)(.); \
  classification.text=ZyXEL ip access; \
- id=2500; \
+ id=37000; \
  revision=1; \
  assessment.impact.completion = failed; \
  assessment.impact.type = other; \
@@ -62,7 +62,7 @@ regex=ZyXEL Communications Corp.: IP\[Src=([0-9\.]+) Dst=([0-9\.]+) ([A-Z]+) spo
 #LOG:Jul 19 14:44:13 192.168.1.1 ZyXEL Communications Corp.: IP[Src=192.168.1.33 Dst=202.132.154.1 ICMP]}S03>R01mF
 regex=ZyXEL Communications Corp.: IP\[Src=([0-9\.]+) Dst=([0-9\.]+) ([A-Z]+)\].*S(\d{2})>R(\d{2})(.)(.); \
  classification.text=ZyXEL ip access; \
- id=2501; \
+ id=37001; \
  revision=1; \
  assessment.impact.completion = failed; \
  assessment.impact.type = other; \
@@ -84,7 +84,7 @@ regex=ZyXEL Communications Corp.: IP\[Src=([0-9\.]+) Dst=([0-9\.]+) ([A-Z]+)\].*
 #LOG:Jul 19 11:44:14 192.168.1.1 ZyXEL Communications Corp.: ppp:BACP Closing
 regex=ZyXEL Communications Corp.: ppp:(LCP|IPCP|CCP|BACP) (Starting|Opening|Closing); \
  classification.text=ZyXEL PPP $2; \
- id=2502; \
+ id=37002; \
  revision=1; \
  assessment.impact.type = other; \
  assessment.impact.severity = low; \

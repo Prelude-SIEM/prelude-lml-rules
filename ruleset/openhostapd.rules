@@ -1,6 +1,9 @@
 #FULLNAME: hostapd
 #VERSION: 1.0
+#DATE: 2017-05-17 12:00:00
+#AUTHOR: Prelude Team <support.prelude@c-s.fr>
 #DESCRIPTION: hostapd is a user space daemon for wireless access point and authentication servers.
+#ID: 2500
 
 #####
 #
