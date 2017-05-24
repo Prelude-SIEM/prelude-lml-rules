@@ -1,6 +1,6 @@
 #FULLNAME: Cacti Thold
 #VERSION: 1.0
-#DESCRIPTION: Cacti is a web-based network monitoring and graphing tool designed as a front-end application for the data logging tool RRDtool. The Thold plugin is for the alerting of data found within any graph within Cacti.
+#DESCRIPTION: Cacti is a web-based network monitoring and graphing tool designed as a front-end application for the data logging tool RRDtool. The Thold plugin is for the alerting of data found within any graph within Cacti. The rules included here were developed using thold 0.3.0. The rules assume you haven't modified the default format for graph names significantly...some modification is acceptable, but the default location for hostname has been used to gather that info.
 
 #####
 #
@@ -25,17 +25,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using thold 0.3.0.  Please report
-# any inconsistencies on other versions to G Ramon Gomez at the address provided
-# above
-# The rules assume you haven't modified the default format for graph names
-# significantly...some modification is acceptable, but the default location for
-# hostname has been used to gather that info.
-#
-#####
-
+#DESCRIPTION:Service threshold CRITICAL
 #LOG:Oct  2 05:26:15 smf-syslog-02 172/172 CactiTholdLog[19647]: smf-core-02 - 5 Minute CPU went above threshold of 85 with 90.8067 at trigger 1 out of 1
 regex=(\S+) - (.+) went above threshold of ([\d\.]+) with ([\d\.]+) at trigger; \
  classification.text=Service CRITICAL; \
@@ -59,6 +49,7 @@ regex=(\S+) - (.+) went above threshold of ([\d\.]+) with ([\d\.]+) at trigger; 
  additional_data(2).data=$4; \
  last
 
+#DESCRIPTION:Service OK
 #LOG:Oct  2 05:30:46 smf-syslog-02 172/172 CactiTholdLog[25849]: smf-core-02 - 5 Minute CPU restored to normal with 68.1533 at trigger 1 out of 1
 regex=(\S+) - (.+) restored to normal with ([\d\.]+) at trigger; \
  classification.text=Service OK; \

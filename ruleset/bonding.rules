@@ -25,12 +25,13 @@
 #
 #####
 
+#DESCRIPTION:Bonded interface - Status change
 #LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: backup interface eth0 is now up
 #LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: backup interface eth0 is now down
 regex=bonding:\s(\w+):\s(\w+)\sinterface\s(\w+)\sis\snow\s(\w+); \
  id=4800; \
  revision=1; \
- classification.text=bonded interface link status change to $4; \
+ classification.text=bonded interface status change to $4; \
  assessment.impact.severity=high; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=other; \
@@ -43,13 +44,14 @@ regex=bonding:\s(\w+):\s(\w+)\sinterface\s(\w+)\sis\snow\s(\w+); \
  additional_data(1).type=string; \
  additional_data(1).meaning=new interface state; \
  additional_data(1).data=$4; \
- last;
+ last
 
+#DESCRIPTION:Bonded interface - Link status change
 #LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: link status down for active interface eth0, disabling it
 regex=bonding:\s(\w+):\slink\sstatus\s(\w+)\sfor\s(\w+)\sinterface\s(\w+),\s(\w+)\sit; \
  id=4801; \
  revision=1; \
- classification.text=$5 bonded $3 interface; \
+ classification.text=$5 bonded link $3 interface; \
  assessment.impact.severity=high; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=other; \
@@ -59,9 +61,9 @@ regex=bonding:\s(\w+):\slink\sstatus\s(\w+)\sfor\s(\w+)\sinterface\s(\w+),\s(\w+
  additional_data(0).type=string; \
  additional_data(0).meaning=new interface state; \
  additional_data(0).data=$2; \
- last;
+ last
 
-
+#DESCRIPTION:Bonded interface - New interface on bond
 #LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: making interface eth4 the new active one.
 regex=bonding:\s(\w+):\smaking\sinterface\s(\w+)\sthe\snew\s(\w+)\sone; \
  id=4802; \
@@ -73,8 +75,9 @@ regex=bonding:\s(\w+):\smaking\sinterface\s(\w+)\sthe\snew\s(\w+)\sone; \
  assessment.impact.description=setting bonded interface $2 to $3 on $1; \
  source(0).interface=$2; \
  target(0).interface=$1; \
- last;
+ last
 
+#DESCRIPTION:Bonded interface - Interface status change
 #LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: eth0 is up and now the active interface
 regex=bonding:\s(\w+):\s(\w+)\sis\s(\w+)\sand\snow\sthe\s(\w+)\sinterface; \
  id=4803; \
@@ -86,9 +89,9 @@ regex=bonding:\s(\w+):\s(\w+)\sis\s(\w+)\sand\snow\sthe\s(\w+)\sinterface; \
  assessment.impact.description=interface $2 is has changed to up as $4 interface on bonded interface $1; \
  source(0).interface=$2; \
  target(0).interface=$1; \
- last;
+ last
 
-
+#DESCRIPTION:ARP monitoring status
 #LOG:Aug 24 00:54:18 blah kernel: bonding: ARP monitoring set to 1000 ms with 1 target(s): 192.168.100.1
 regex=bonding:\sARP\smonitoring\sset\sto\s(\d+)\sms\swith\s(\d)\starget\(s\):\s(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}); \
  id=4804; \
@@ -102,9 +105,9 @@ regex=bonding:\sARP\smonitoring\sset\sto\s(\d+)\sms\swith\s(\d)\starget\(s\):\s(
  additional_data(0).type=integer; \
  additional_data(0).meaning=ARP interval in ms; \
  additional_data(0).data=$1; \
- last;
+ last
 
-
+#DESCRIPTION:Bonded interface - New interface to bond
 #LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: enslaving eth0 as an active interface with an up link
 #LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: enslaving eth4 as a backup interface with an up link
 regex=bonding:\s(\w+):\senslaving\s(\w+)\sas\san?\s(\w+)\sinterface\swith\san\s(\w+)\slink; \
@@ -123,9 +126,9 @@ regex=bonding:\s(\w+):\senslaving\s(\w+)\sas\san?\s(\w+)\sinterface\swith\san\s(
  additional_data(1).type=string; \
  additional_data(1).meaning=link state; \
  additional_data(1).data=$4; \
- last;
+ last
 
-
+#DESCRIPTION:Bonded interface - Disabling
 #LOG:Aug 24 00:54:18 blah kernel: bonding: bond0: released all slaves
 regex=bonding:\s(\w+):\sreleased\sall\sslaves; \
  id=4806; \
@@ -136,8 +139,9 @@ regex=bonding:\s(\w+):\sreleased\sall\sslaves; \
  assessment.impact.type=other; \
  assessment.impact.description=binded interface $1 has been disabled and all of the member interfaces have been released; \
  target(0).interface=$1; \
- last;
+ last
 
+#DESCRIPTION:Possibly miss configured bond member
 #LOG:Aug 24 00:54:18 blah kernel: bonding: Warning: failed to get speed/duplex from eth4, speed forced to 100Mbps, duplex forced to Full
 regex=bonding:\sWarning:\sfailed\sto\sget\sspeed/duplex\sfrom\s(\w+)\,\sspeed\sforced\sto\s(\w+),\sduplex\sforced\sto\s(\w+); \
  id=4807; \
@@ -154,4 +158,4 @@ regex=bonding:\sWarning:\sfailed\sto\sget\sspeed/duplex\sfrom\s(\w+)\,\sspeed\sf
  additional_data(1).type=string; \
  additional_data(1).meaning=duplex; \
  additional_data(1).data=$3; \
- last;
+ last

@@ -25,15 +25,7 @@
 #
 #####
 
-# SonicWall syslog message
-#----------------------
-#field	explanation
-#----------------------
-#m	Message ID		Provides the message id number
-#c	Message category	Indicates the legacy category number
-#pri	Message priority	Displays the event priority level (0=emergency 7=debug)
-#n	Message count		Indicates the number of times event occurs
-
+#DESCRIPTION:Admin login
 #LOG:Mar 10 13:44:49 192.168.30.10 id=firewall sn=0006B11302A2 time="2006-03-10 13:44:50" fw=216.123.166.2 pri=6 c=16 m=29 msg="Administrator login allowed" n=40 usr=netadm src=192.168.30.57:0:X0 dst=192.168.30.10:443:X0
 regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) usr=(\S+) src=([\d\.]+):(\d+):(\S+) dst=([\d\.]+):(\d+):(\S+)$; \
  classification.text=Admin login; \
@@ -74,6 +66,7 @@ regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) usr=(\S+) src=(
  additional_data(2).data=$3; \
  last
 
+#DESCRIPTION:Possible spoof attack
 #LOG:Mar 10 16:14:21 192.168.30.10 id=firewall sn=0006B11302A2 time="2006-03-10 16:14:22" fw=216.123.166.2 pri=1 c=32 m=23 msg="IP spoof dropped" n=64224 src=192.168.85.94:123:X0 dst=192.5.41.209:123:X1 mac=00:d0:ff:8b:8f:fc
 regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) src=([\d\.]+):(\d+):(\S+) dst=([\d\.]+):(\d+):(\S+) mac=(\S+)$; \
  classification.text=Possible spoof attack; \
@@ -114,6 +107,7 @@ regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) src=([\d\.]+):(
  additional_data(2).data=$3; \
  last
 
+#DESCRIPTION:Malformed packets
 #LOG:Mar 13 02:58:36 192.168.30.10 id=firewall sn=0006B11302A2 time="2006-03-13 02:58:19" fw=216.123.166.2 pri=1 c=32 m=522 msg="Malformed IP packet dropped." n=5090 src=207.0.188.16:0:X1 dst=216.123.166.2:1026 dstname="IP Protocol 17"
 regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) src=([\d\.]+):(\d+):(\S+) dst=([\d\.]+):(\d+) dstname="(.+)"$; \
  classification.text=Malformed packets; \
@@ -152,6 +146,7 @@ regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) src=([\d\.]+):(
  additional_data(2).data=$3; \
  last
 
+#DESCRIPTION:Connection from LAN denied
 #LOG:Mar 13 11:00:21 192.168.30.10 id=firewall sn=0006B11302A2 time="2006-03-13 11:00:31" fw=216.123.166.2 pri=5 c=2048 m=173 msg="TCP connection from LAN denied" n=150 src=192.168.30.222:1:X0 dst=192.168.30.10:8:X0 proto=tcp/8
 regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) src=([\d\.]+):(\d+):(\S+) dst=([\d\.]+):(\d+):(\S+) proto=(\S+)$; \
  classification.text=Connection from LAN denied; \
@@ -191,6 +186,7 @@ regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg=\"(.+)\" n=(\d+) src=([\d\.]+):(
  additional_data(2).data=$3; \
  last
 
+#DESCRIPTION:Possible SYN Flood attack
 #LOG:Mar 13 11:00:22 192.168.30.10 id=firewall sn=0006B11302A2 time="2006-03-13 11:00:32" fw=216.123.166.2 pri=1 c=0 m=860 msg="Possible SYN Flood on IF X0 - src: 192.168.30.222:1 dst: 192.168.30.10:481" n=1
 regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg="Possible SYN Flood on IF (\S+) - src: ([\d\.]+):(\d+) dst: ([\d\.]+):(\d+)" n=(\d+)$; \
  classification.text=Possible SYN flood; \
@@ -227,6 +223,7 @@ regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg="Possible SYN Flood on IF (\S+) 
  additional_data(2).data=$3; \
  last
 
+#DESCRIPTION:Possible port scan attack
 #LOG:Mar 13 14:50:06 192.168.30.10 id=firewall sn=0006B11302A2 time="2006-03-13 14:50:12" fw=216.123.166.2 pri=1 c=32 m=82 msg="Possible port scan dropped" n=268 src=70.29.251.124:20912:X1 dst=216.123.166.2:26917:X1
 regex=fw=([\d\.]+) pri=(\d) c=(\d+) m=(\d+) msg="Possible port scan dropped" n=(\d+) src=([\d\.]+):(\d+):(\S+) dst=([\d\.]+):(\d+):(\S+)$; \
  classification.text=Possible port scan; \

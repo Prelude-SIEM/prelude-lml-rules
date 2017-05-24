@@ -29,13 +29,7 @@
 #
 #####
 
-#####
-#
-# Symantec Endpoint Protection Manager 12.1.2x
-#
-#####
-
-# Allowed Messages
+#DESCRIPTION:Allowed Messages
 #LOG:Dec  1 12:23:14 SymantecServer antivirus.example.com: Site: PLESSIS,Server: antivirus.example.com,Successfully downloaded the Virus and Spyware definitions
 regex=SymantecServer \S+:; \
  classification.reference(0).origin=vendor-specific; \
@@ -44,8 +38,9 @@ regex=SymantecServer \S+:; \
  revision=1; \
  analyzer(0).name=Symantec Antivirus; \
  analyzer(0).manufacturer=www.symantec.com; \
- analyzer(0).class=Antivirus;
+ analyzer(0).class=Antivirus
 
+#DESCRIPTION:Symantec Virus and Spyware definitions have been updated
 #LOG:Dec  1 12:23:14 SymantecServer antivirus.example.com: Site: PLESSIS,Server: antivirus.example.com,Successfully downloaded the Virus and Spyware definitions
 regex=Site: (\S+),Server: (\S+),Successfully downloaded the Virus and Spyware definitions; \
  classification.text=Virus and Spyware definition update; \
@@ -55,14 +50,15 @@ regex=Site: (\S+),Server: (\S+),Successfully downloaded the Virus and Spyware de
  assessment.impact.type=other; \
  assessment.impact.completion=succeeded; \
  assessment.impact.description=Symantec Virus and Spyware definitions have been updated; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$2; \
  additional_data(0).type=string; \
  additional_data(0).meaning=Site Name; \
  additional_data(0).data=$1; \
- target(0).node.address(0).category=ipv4-addr; \
- target(0).node.address(0).address=$2; \
  goto=172000000; \
  last
 
+#DESCRIPTION:SONAR definitions have been updated
 #LOG:Dec  1 12:23:14 SymantecServer antivirus.example.com: Site: PLESSIS,Server: antivirus.example.com,Successfully downloaded the SONAR
 regex=Site: (\S+),Server: (\S+),Successfully downloaded the SONAR; \
  classification.text=SONAR definition update; \
@@ -72,14 +68,15 @@ regex=Site: (\S+),Server: (\S+),Successfully downloaded the SONAR; \
  assessment.impact.type=other; \
  assessment.impact.completion=succeeded; \
  assessment.impact.description=SONAR definitions have been updated; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$2; \
  additional_data(0).type=string; \
  additional_data(0).meaning=Site Name; \
  additional_data(0).data=$1; \
- target(0).node.address(0).category=ipv4-addr; \
- target(0).node.address(0).address=$2; \
  goto=172000000; \
  last
 
+#DESCRIPTION:Intrusion Prevention signatures definitions have been updated
 #LOG:Dec  1 12:23:14 SymantecServer antivirus.example.com: Site: PLESSIS,Server: antivirus.example.com,Successfully downloaded the Intrusion Prevention signatures
 regex=Site: (\S+),Server: (\S+),Successfully downloaded the Intrusion Prevention signatures; \
  classification.text=Intrusion Prevention signatures definition update; \
@@ -89,14 +86,15 @@ regex=Site: (\S+),Server: (\S+),Successfully downloaded the Intrusion Prevention
  assessment.impact.type=other; \
  assessment.impact.completion=succeeded; \
  assessment.impact.description=Intrusion Prevention signatures definitions have been updated; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$2; \
  additional_data(0).type=string; \
  additional_data(0).meaning=Site Name; \
  additional_data(0).data=$1; \
- target(0).node.address(0).category=ipv4-addr; \
- target(0).node.address(0).address=$2; \
  goto=172000000; \
  last
 
+#DESCRIPTION:Successfully downloaded the Revocation Data security definitions
 #LOG:Apr  9 10:47:33 SymantecServer antivirus.example.com: Site: PLESSIS,Server: antivirus.example.com,Successfully downloaded the Revocation Data security definitions from LiveUpdate
 regex=Site: (\S+),Server: (\S+),Successfully downloaded the Revocation Data security definitions from LiveUpdate; \
  classification.text=Revocation Data security definitions; \
@@ -106,14 +104,15 @@ regex=Site: (\S+),Server: (\S+),Successfully downloaded the Revocation Data secu
  assessment.impact.type=other; \
  assessment.impact.completion=succeeded; \
  assessment.impact.description=Successfully downloaded the Revocation Data security definitions; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$2; \
  additional_data(0).type=string; \
  additional_data(0).meaning=Site Name; \
  additional_data(0).data=$1; \
- target(0).node.address(0).category=ipv4-addr; \
- target(0).node.address(0).address=$2; \
  goto=172000000; \
  last
 
+#DESCRIPTION:Virus found
 #LOG:Dec 12 17:07:08 SymantecServer antivirus.example.com: Virus found,Computer name: A01LTFW21052,Source: Real Time Scan,Risk name: W32.Downadup!autorun,Occurrences: 1,E:\autorun.inf,"",Actual action: Cleaned by deletion
 regex=Virus found.+Computer name: (\S+),.+,Risk name: ([^,]+),Occurrences: (\d+),.+,Actual action: ([^,]+); \
  classification.text=Virus found; \
@@ -137,12 +136,7 @@ regex=Virus found.+Computer name: (\S+),.+,Risk name: ([^,]+),Occurrences: (\d+)
  goto=172000000; \
  last
 
-##################
-#False positives:#
-##################
-regex=SymantecServer (\S+): Forced SONAR threat detected,Computer name: (\S+),Detection type: (\d+),First Seen: Reputation was not used in this detection.,Application name: \((\S+)\),Application type: Trojan Worm,Application version: ,Hash type: SHA-1,Application hash: 0000000000000000000000000000000000000001; \
-last
-
+#DESCRIPTION:SONAR threat detected
 #LOG:Dec 12 17:07:08 SymantecServer antivirus.example.com: ,Forced SONAR threat detected,Computer name: A01LTFW21052,Detection type: Heuristic,First Seen: Reputation was not used in this detection.,Application name: MAGic Screen Magnification,Application type: Trojan Worm,Application version: "11, 0, 4356, 400",Hash type: SHA-1,Application hash: 1ce39d44cc735db5788f07b25c5bb32c6ca48c09,Company name: "Freedom Scientific BLV Group, LLC",File size (bytes): 421144,Sensitivity: 0,Detection score: 0,COH Engine Version: ,Detection Submissions No,Permitted application reason: MDS,Disposition: Reputation was not used in this detection.,Download site: ,Web domain: ,Downloaded by: ,Prevalence: Reputation was not used in this detection.,Confidence: Reputation was not used in this detection.,URL Tracking Status: Off,Risk Level: N/A,Detection Source: N/A,Source: Heuristic Scan,Risk name: ,Occurrences: 1,c:\program files\freedom scientific\magic\11.0\magengnt\mag.exe,"c:\program files\freedom scientific\magic\11.0\magengnt\mag.exe",Actual action: Left alone,Requested action: Left alone,Secondary action: Forced detection using file name,Event time: 2013-01-09 12:57:51,Inserted: 2013-01-09 12:58:47,End: 2013-01-09 12:57:51,Domain: Default,Group: My Company\klient\All Laptops\LaptopsW7,Server: a01mmfw016,User: R117493,Source computer: ,Source IP:
 regex=Forced SONAR threat detected,Computer name: (\S+),Detection type: (\S+),First Seen: Reputation was not used in this detection\.,Application name: ([^,]+); \
  classification.text=Forced SONAR threat detected; \
@@ -152,13 +146,13 @@ regex=Forced SONAR threat detected,Computer name: (\S+),Detection type: (\S+),Fi
  assessment.impact.type=file; \
  assessment.impact.completion=succeeded; \
  assessment.impact.description=SONAR threat detected, Computer name: $1; \
+ target(0).node.address(0).category=ipv4-addr; \
+ target(0).node.address(0).address=$1; \
  additional_data(0).type=string; \
  additional_data(0).meaning=Detection type; \
  additional_data(0).data=$2; \
  additional_data(1).type=string; \
  additional_data(1).meaning=Application name; \
  additional_data(1).data=$3; \
- target(0).node.address(0).category=ipv4-addr; \
- target(0).node.address(0).address=$1; \
  goto=172000000; \
  last

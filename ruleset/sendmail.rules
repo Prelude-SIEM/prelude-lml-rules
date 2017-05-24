@@ -1,6 +1,6 @@
 #FULLNAME: Sendmail
 #VERSION: 1.0
-#DESCRIPTION: Sendmail is an email routing facility that supports many kinds of mail-transfer and delivery methods, including the Simple Mail Transfer Protocol (SMTP) used for email transport over the Internet.
+#DESCRIPTION: Sendmail is an email routing facility that supports many kinds of mail-transfer and delivery methods, including the Simple Mail Transfer Protocol (SMTP) used for email transport over the Internet. The rules included here were developed using Sendmail 8.12.8-9.90.
 
 #####
 #
@@ -25,14 +25,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using Sendmail 8.12.8-9.90.  Please
-# report any inconsistencies on other versions to G Ramon Gomez at the
-# address provided above
-#
-#####
-
+#DESCRIPTION:Mail server relay access denied
 #LOG:Jun 20 04:21:33 mail sendmail[28792]: ruleset=check_relay, arg1=c-67-181-100-174.client.comcast.net, arg2=67.181.100.174, relay=c-67-181-100-174.client.comcast.net [67.181.100.174], reject=550 5.7.1 Mail from 67.181.100.174 refused - see http://dsbl.org/
 #LOG:Jun 22 09:01:52 mail sendmail[5475]: ruleset=check_relay, arg1=[61.102.237.129], arg2=61.102.237.129, relay=[61.102.237.129], reject=550 5.7.1 Mail from 61.102.237.129 refused - see http://dsbl.org/
 regex=ruleset=check_relay, arg1=([\[\]\w\-\.]+), arg2=([\d\.]+), relay=.*\[[\d\.]+\], reject=550 5\.7\.1 (.+); \
@@ -69,8 +62,9 @@ regex=ruleset=check_relay, arg1=([\[\]\w\-\.]+), arg2=([\d\.]+), relay=.*\[[\d\.
  additional_data(1).type=string; \
  additional_data(1).meaning=Failure reason; \
  additional_data(1).data=$3; \
- last;
+ last
 
+#DESCRIPTION:Mail server relay access denied
 #LOG:Jun 19 23:20:27 mail sendmail[28096]: i5K6KJmk028096: ruleset=check_rcpt, arg1=<support@microsoft.com>, relay=[211.243.40.167], reject=550 5.7.1 <support@microsoft.com>... Relaying denied. IP name lookup failed [211.243.40.167]
 regex=(\S+): ruleset=check_rcpt, arg1=<(\S+@\S+)>, relay=.*\[([\d\.]+)\], reject=550 5\.7\.1 (.+); \
  classification.text=Mail server relay access denied; \
@@ -110,8 +104,9 @@ regex=(\S+): ruleset=check_rcpt, arg1=<(\S+@\S+)>, relay=.*\[([\d\.]+)\], reject
  additional_data(2).type=string; \
  additional_data(2).meaning=Failure reason; \
  additional_data(2).data=$4; \
- last;
+ last
 
+#DESCRIPTION:Mail server relay access denied
 #LOG:Jun 25 17:30:55 mail sendmail[29822]: i5Q0Ukjt029822: ruleset=check_mail, arg1=<vrrfvbvwzihdz@cninfo.net>, relay=[211.210.172.167], reject=553 5.1.8 <vrrfvbvwzihdz@cninfo.net>... Domain of sender address vrrfvbvwzihdz@cninfo.net does not exist
 regex=(\S+): ruleset=check_mail, arg1=<(\S+@\S+)>, relay=.*\[([\d\.]+)\], reject=553 5\.1\.8 (.+); \
  classification.text=Mail server relay access denied; \
@@ -151,8 +146,9 @@ regex=(\S+): ruleset=check_mail, arg1=<(\S+@\S+)>, relay=.*\[([\d\.]+)\], reject
  additional_data(2).type=string; \
  additional_data(2).meaning=Failure reason; \
  additional_data(2).data=$4; \
- last;
+ last
 
+#DESCRIPTION:Mail server shutdown
 #LOG:Jun 22 09:23:54 mail sendmail: sendmail shutdown succeeded
 regex=sendmail shutdown succeeded; \
  classification.text=Mail server shutdown; \
@@ -165,8 +161,9 @@ regex=sendmail shutdown succeeded; \
  assessment.impact.description=Sendmail reported a shutdown; \
  assessment.impact.type=other; \
  assessment.impact.severity=medium; \
- last;
+ last
 
+#DESCRIPTION:Mail server startup
 #LOG:Jun 22 09:23:54 mail sendmail: sendmail startup succeeded
 regex=sendmail startup succeeded; \
  classification.text=Mail server startup; \
@@ -179,8 +176,9 @@ regex=sendmail startup succeeded; \
  assessment.impact.description=Sendmail reported a startup; \
  assessment.impact.type=other; \
  assessment.impact.severity=info; \
- last;
+ last
 
+#DESCRIPTION:Mail server suspicious access
 #LOG:Jun 22 06:43:01 mail sendmail[5195]: i5MDgomk005195: AClermont-Ferrand-108-1-6-103.w81-49.abo.wanadoo.fr [81.49.192.103] did not issue MAIL/EXPN/VRFY/ETRN during connection to MTA
 regex=(\S+): ([\w\-\.]+) \[([\d\.]+)\] did not issue MAIL/EXPN/VRFY/ETRN during connection to MTA; \
  classification.text=Mail server suspicious access; \
@@ -205,8 +203,9 @@ regex=(\S+): ([\w\-\.]+) \[([\d\.]+)\] did not issue MAIL/EXPN/VRFY/ETRN during 
  additional_data(0).type=string; \
  additional_data(0).meaning=Session ID; \
  additional_data(0).data=$1; \
- last;
+ last
 
+#DESCRIPTION:Mail server unknown user
 #LOG:Jun 25 18:59:39 mail sendmail[29873]: i5Q1xRjt029873: <boagcxwl@gomezbrothers.com>... User unknown
 regex=(\S+): <(\S+@\S+)>... User unknown; \
  classification.text=Mail server unknown user; \
@@ -230,8 +229,9 @@ regex=(\S+): <(\S+@\S+)>... User unknown; \
  additional_data(0).type=string; \
  additional_data(0).meaning=Session ID; \
  additional_data(0).data=$1; \
- last;
+ last
 
+#DESCRIPTION:Mail server user obfuscation
 #LOG:Jun  4 12:25:26 mail sendmail[21691]: i54JPQCi021691: Authentication-Warning: mail.somehost.com: apache set sender to someguy@somehost.com using -f
 regex=(\S+): Authentication-Warning: ([\w\-\.]+): (\S+) set sender to (\S+@\S+) using; \
  classification.text=Mail server user obfuscation; \
@@ -258,8 +258,9 @@ regex=(\S+): Authentication-Warning: ([\w\-\.]+): (\S+) set sender to (\S+@\S+) 
  additional_data(0).type=string; \
  additional_data(0).meaning=Session ID; \
  additional_data(0).data=$1; \
- last;
+ last
 
+#DESCRIPTION:Mail server user discovery
 #LOG:Jul  3 06:10:43 mail sendmail[17436]: i63DAajt017436: PPPa1736.tokyo-ip.dti.ne.jp [210.170.207.236]: VRFY somebody [rejected]
 regex=(\S+): ([\w\-\.]+) \[([\d\.]+)\]: VRFY (\S+) \[rejected\]; \
  classification.text=Mail server user discovery; \
@@ -286,8 +287,9 @@ regex=(\S+): ([\w\-\.]+) \[([\d\.]+)\]: VRFY (\S+) \[rejected\]; \
  additional_data(0).type=string; \
  additional_data(0).meaning=Session ID; \
  additional_data(0).data=$1; \
- last;
+ last
 
+#DESCRIPTION:Mail server group member discovery
 #LOG:Jul  3 06:10:43 mail sendmail[17436]: i63DAajt017436: PPPa1736.tokyo-ip.dti.ne.jp [210.170.207.236]: EXPN somegroup [rejected]
 regex=(\S+): ([\w\-\.]+) \[([\d\.]+)\]: EXPN (\S+) \[rejected\]; \
  classification.text=Mail server group member discovery; \
@@ -314,9 +316,9 @@ regex=(\S+): ([\w\-\.]+) \[([\d\.]+)\]: EXPN (\S+) \[rejected\]; \
  additional_data(0).type=string; \
  additional_data(0).meaning=Session ID; \
  additional_data(0).data=$1; \
- last;
+ last
 
-
+#DESCRIPTION:Generic message
 #LOG:Apr  5 16:59:43 vm-mail sendmail[1821]: k35NxhZA001821: from=ccook@xxx.com, size=357, class=0, nrcpts=1, msgid=<443459EF.mail1EK1XC3LT@xxx.com>, relay=root@localhost
 regex=from=(\S+), size=(\d+), class=\d+, nrcpts=\d+, msgid=<(\S+@\S+)>; \
  new_context=SPAMASSASSIN_$3,expire:10; \
@@ -325,4 +327,4 @@ regex=from=(\S+), size=(\d+), class=\d+, nrcpts=\d+, msgid=<(\S+@\S+)>; \
  additional_data(0).type=integer; \
  additional_data(0).meaning=Size; \
  additional_data(0).data=$2; \
- silent;
+ silent

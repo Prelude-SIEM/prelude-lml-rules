@@ -1,6 +1,6 @@
 #FULLNAME: SpamAssassin
 #VERSION: 1.0
-#DESCRIPTION: Open Source mail filter, written in Perl, to identify spam using a wide range of heuristic tests on mail headers and body text.
+#DESCRIPTION: Open Source mail filter, written in Perl, to identify spam using a wide range of heuristic tests on mail headers and body text. Each supported MTA should have a rule that creates a context to be used by the spamd rule to match up originator information.
 
 #####
 #
@@ -25,28 +25,16 @@
 #
 #####
 
-#####
-#
-# Each supported MTA should have a rule that creates a context to
-# be used by the spamd rule to match up originator information.
-#
-#####
-
-
-#####
-#
-# Once the MTAs set up their contexts, the SpamAssassin-specific rule can
-# be called
-#
-#####
+#DESCRIPTION:Once the MTAs set up their contexts, the SpamAssassin-specific rule can be called
 #LOG:Apr 28 11:09:56 awale postfix/smtpd[30879]: 8144DC232CF: client=benji1.traduc.org[213.246.37.27]
 regex=(\S+): client=(\S+)[\S+]; \
  id=5200; \
  new_context=SPAMASSASSIN_$1,expire:10; \
  source(0).node.name = $2; \
  source(0).node.address(>>).address = $3; \
- silent;
+ silent
 
+#DESCRIPTION:Once the MTAs set up their contexts, the SpamAssassin-specific rule can be called
 #LOG:Apr 28 11:09:56 awale postfix/qmgr[5304]: 8144DC232CF: from=<mailman-bounces@traduc.org>, size=15179, nrcpt=1 (queue active)
 regex=(\S+): from=<(\S+)>, size=(\d+); \
  id=5201; \
@@ -55,8 +43,9 @@ regex=(\S+): from=<(\S+)>, size=(\d+); \
  additional_data(0).type=integer; \
  additional_data(0).meaning=Size; \
  additional_data(0).data=$3; \
- silent;
+ silent
 
+#DESCRIPTION:SpamAssassin detected a spam
 #LOG:Apr  5 16:59:44 vm-mail spamd[1819]: spamd: result: Y 999 - ALL_TRUSTED,GTUBE,NO_REAL_NAME scantime=0.1,size=769,user=jenny@yyy.com,uid=8,required_score=5.0,rhost=localhost,raddr=127.0.0.1,rport=38643,mid=<443459EF.mail1EK1XC3LT@xxx.com>,autolearn=no
 regex=spamd: result: Y (\d+) - (\S+) scantime=([\d\.]+),size=\d+,user=(\S+),uid=(\d+),required_score=([\d\.]+)\S+mid=<(\S+@\S+)>; \
  id=5202; \
@@ -88,4 +77,4 @@ regex=spamd: result: Y (\d+) - (\S+) scantime=([\d\.]+),size=\d+,user=(\S+),uid=
  additional_data(4).type=integer; \
  additional_data(4).meaning=Size; \
  additional_data(4).data=$2; \
- last;
+ last

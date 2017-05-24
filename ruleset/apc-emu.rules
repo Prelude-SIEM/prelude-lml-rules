@@ -1,6 +1,6 @@
 #FULLNAME: APC EMU
 #VERSION: 1.0
-#DESCRIPTION: The APC Environmental Monitoring Unit is a rack-mountable product that monitors and controls the essential functions needed to ensure the availability of the racks in a room.
+#DESCRIPTION: The APC Environmental Monitoring Unit is a rack-mountable product that monitors and controls the essential functions needed to ensure the availability of the racks in a room. The rules included here were developed using an unknown version of the APC EMU.
 
 #####
 #
@@ -26,14 +26,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using an unknown version of the
-# APC EMU.  Please report any inconsistencies on other versions
-# to G Ramon Gomez at the address provided above
-#
-#####
-
+#DESCRIPTION:Environmental Monitoring - high  humidity violation
 #LOG:Mar 28 04:22:18 enviro1 12.34.56.78 EMU: Probe 2 'Loc Env Probe 2' high  humidity violation, '40%RH'. 0x101C
 regex=EMU: Probe (\d+) (\'.+\') high  humidity violation, \'(\d+%); \
  classification.text=High Environmental Humidity; \
@@ -57,6 +50,7 @@ regex=EMU: Probe (\d+) (\'.+\') high  humidity violation, \'(\d+%); \
  additional_data(2).data=$3; \
  last
 
+#DESCRIPTION:Environmental Monitoring - high  humidity violation cleared
 #LOG:Mar 28 04:06:27 enviro1 12.34.56.78 EMU: Probe 2 'Loc Env Probe 2' high  humidity violation cleared, '39%RH'. 0x101D
 regex=EMU: Probe (\d+) (\'.+\') high  humidity violation cleared, \'(\d+%); \
  classification.text=Environmental Humidity Normal; \
@@ -80,6 +74,7 @@ regex=EMU: Probe (\d+) (\'.+\') high  humidity violation cleared, \'(\d+%); \
  additional_data(2).data=$3; \
  last
 
+#DESCRIPTION:Environmental Monitoring - Device Contact Opened
 #LOG:Mar 22 16:27:50 enviro1 12.34.56.78 EMU: Input Contact 4 'Rack 4 Front Door' opened, abnormal condition. 0x1013
 regex=EMU: Input Contact (\d+) (\'.+\') opened, abnormal condition; \
  classification.text=Device Contact Opened; \
@@ -100,6 +95,7 @@ regex=EMU: Input Contact (\d+) (\'.+\') opened, abnormal condition; \
  additional_data(1).data=$2; \
  last
 
+#DESCRIPTION:Environmental Monitoring - Device Contact Closed
 #LOG:Mar 22 16:28:51 enviro1 10.100.17.252 EMU: Input Contact 4 'Rack 4 Front Door' closed, abnormal condition cleared. 0x1014
 regex=EMU: Input Contact (\d+) (\'.+\') closed, abnormal condition cleared; \
  classification.text=Device Contact Closed; \

@@ -25,6 +25,7 @@
 #
 #####
 
+#DESCRIPTION:Authentication failure
 #LOG:Jan 13 22:19:52 (none) proftpd[7804]: leroutier.net (193.249.231.232[193.249.231.232]) - PAM(leroutier): Authentication failure.
 regex=[\w\-\.]+ \(([\d\.]+)\[[\d\.]+\]\) - PAM\(([\w\-\.]+)\): Authentication failure; \
  classification.text=FTP login; \
@@ -47,8 +48,9 @@ regex=[\w\-\.]+ \(([\d\.]+)\[[\d\.]+\]\) - PAM\(([\w\-\.]+)\): Authentication fa
  target(0).service.iana_protocol_number=6; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$2; \
- last;
+ last
 
+#DESCRIPTION:No such user
 #LOG:Jan 13 22:19:58 (none) proftpd[7805]: leroutier.net (193.249.231.232[193.249.231.232]) - no such user 'uh'
 regex=[\w\-\.]+ \(([\d\.]+)\[[\d\.]+\]\) - no such user '(\S+)'; \
  classification.text=FTP login; \
@@ -71,8 +73,9 @@ regex=[\w\-\.]+ \(([\d\.]+)\[[\d\.]+\]\) - no such user '(\S+)'; \
  target(0).service.iana_protocol_number=6; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$2; \
- last;
+ last
 
+#DESCRIPTION:No such user found from @IP
 #LOG:Jan 13 22:39:03 (none) proftpd[8023]: leroutier.net (193.249.231.232[193.249.231.232]) - USER rr: no such user found from 193.249.231.232 [193.249.231.232] to 81.91.66.90:21
 regex=[\w\-\.]+ \(([\d\.]+)\[[\d\.]+\]\) - USER (\S+): no such user found from [\w\-\.]+ \[[\w\-\.]+\] to ([\w\-\.]+):(\d+); \
  classification.text=FTP login; \
@@ -97,4 +100,4 @@ regex=[\w\-\.]+ \(([\d\.]+)\[[\d\.]+\]\) - USER (\S+): no such user found from [
  target(0).service.iana_protocol_number=6; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$2; \
- last;
+ last

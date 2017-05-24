@@ -1,6 +1,6 @@
 #FULLNAME: ClamAV
 #VERSION: 1.0
-#DESCRIPTION: Clam AntiVirus (ClamAV) is an antivirus software tool-kit able to detect many types of malicious software, including viruses.
+#DESCRIPTION: Clam AntiVirus (ClamAV) is an antivirus software tool-kit able to detect many types of malicious software, including viruses. The rules included here were developed using Clam AV 0.70-1.
 
 #####
 #
@@ -25,14 +25,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using Clam AV 0.70-1.  Please
-# report any inconsistencies on other versions to G Ramon Gomez at the
-# address provided above
-#
-#####
-
+#DESCRIPTION:Virus found
 #LOG:May 10 15:19:28 mail clamd[14292]: /usr/share/doc/clamav-0.70/test/test2.badext: ClamAV-Test-Signature FOUND
 regex=(\S+): (\S+) FOUND; \
  classification.text=Virus found: $2; \
@@ -53,6 +46,7 @@ regex=(\S+): (\S+) FOUND; \
  additional_data(1).data=$1; \
  last
 
+#DESCRIPTION:Virus definition update
 #LOG:May 10 15:18:56 mail clamd[14292]: Database correctly reloaded (21517 viruses)
 regex=Database correctly reloaded \(\d+ viruses\); \
  classification.text=Virus definition update; \

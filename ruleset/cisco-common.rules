@@ -1,6 +1,15 @@
 #FULLNAME: Cisco Common
 #VERSION: 1.0
 #DESCRIPTION: Cisco designs, manufactures, and sells networking equipment. This ruleset can work with any Cisco device.
+#DESCRIPTION: These rules where created from logs of Cisco switchs.
+#DESCRIPTION: Some models but not limited to are :
+#DESCRIPTION: - C3750
+#DESCRIPTION: - C35xx series (C3500, C3500 in.power, C3550, C3560G, etc)
+#DESCRIPTION: - C29xx series (C2900, C2900M, C2950 TSI, C2960, etc)
+#DESCRIPTION: At first, this file was cisco-switch.rules, but then I realize that there are a load of Cisco messages that are the same for all IOS.
+#DESCRIPTION: So it is now cisco-commons.rules. Logic would require to put some other rules in this cisco-commons.rules.
+#DESCRIPTION: Logic would require to put some other rules in this file. For example the "LINEPROTO-5-UPDOWN" rule in cisco-router.rules.
+#DESCRIPTION: But that is only my opinion ;)
 
 #####
 #
@@ -25,24 +34,8 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 #####
-#
-# These rules where created from logs of Cisco switchs.
-# Some models but not limited to are :
-# - C3750
-# - C35xx series (C3500, C3500 in.power, C3550, C3560G, etc)
-# - C29xx series (C2900, C2900M, C2950 TSI, C2960, etc)
-#
-# At first, this file was cisco-switch.rules, but then I realize that there
-# are a load of Cisco messages that are the same for all IOS. So it is now
-# cisco-commons.rules. Logic would require to put some other rules in this
-# file. For example the "LINEPROTO-5-UPDOWN" rule in cisco-router.rules. But
-# that is only my opinion ;)
-#
 
-# Copyright (C) 2006 Alexandre Racine <alexandreracine@gmail.com>
-# All Rights Reserved - www.alexandreracine.com - Tous droits reserves.
-
-#DESCR:Cisco says: %CDP-4-NATIVE_VLAN_MISMATCH : Native VLAN mismatch discovered on [chars] ([dec]), with [chars] [chars] ([dec])
+#DESCRIPTION:Cisco says: %CDP-4-NATIVE_VLAN_MISMATCH : Native VLAN mismatch discovered on [chars] ([dec]), with [chars] [chars] ([dec])
 #LOG:Dec 11 18:41:14: %CDP-4-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on GigabitEthernet0/1 (1), with C3524pwr-049-1.somedomain.ca FastEthernet0/19 (49).
 regex=%CDP-\d-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on (\S+) \(\d+\), with (\S+) (\S+) \(\d+\); \
  classification.text=Native VLAN mismatch; \
@@ -65,7 +58,7 @@ regex=%CDP-\d-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on (\S+) \(\
  target(0).interface=$3; \
  last
 
-#DESCR:Cisco says: %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on [chars] ([chars]), with [chars] [chars] ([chars])
+#DESCRIPTION:Cisco says: %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on [chars] ([chars]), with [chars] [chars] ([chars])
 #LOG:Dec 11 18:41:14: %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on GigabitEthernet0/1 (not half duplex), with C3524pwr-049-1.cslaval.qc.ca FastEthernet0/19 (half duplex).
 regex=%CDP-\d-DUPLEX_MISMATCH: duplex mismatch discovered on (\S+) \([\w\s]+\), with (\S+) (\S+) \([\w\s]+\); \
  classification.text=Duplex mismatch; \
@@ -88,7 +81,7 @@ regex=%CDP-\d-DUPLEX_MISMATCH: duplex mismatch discovered on (\S+) \([\w\s]+\), 
  target(0).interface=$3; \
  last
 
-#DESCR:Cisco says: %PORT_SECURITY-2-SECURITYREJECT: Security violation occurred on module [dec] port [dec] caused by MAC address [enet]
+#DESCRIPTION:Cisco says: %PORT_SECURITY-2-SECURITYREJECT: Security violation occurred on module [dec] port [dec] caused by MAC address [enet]
 #LOG:Dec 11 18:41:14: %PORT_SECURITY-2-SECURITYREJECT: Security violation occurred on module 0 port 6 caused by MAC address 0021.e6f2.e644
 regex=%PORT_SECURITY-\d-SECURITYREJECT: Security violation occurred on module \d+ port \d+ caused by MAC address (\S*); \
  classification.text=Port Security; \
@@ -109,7 +102,7 @@ regex=%PORT_SECURITY-\d-SECURITYREJECT: Security violation occurred on module \d
  source(0).node.address(0).address=$1; \
  last
 
-#DESCR:Cisco says: %PORT_SECURITY-2-PSECURE_VIOLATION:  Security violation occurred caused by MAC [enet] on port [chars]
+#DESCRIPTION:Cisco says: %PORT_SECURITY-2-PSECURE_VIOLATION:  Security violation occurred caused by MAC [enet] on port [chars]
 #LOG:Dec 11 18:41:14: %PORT_SECURITY-2-PSECURE_VIOLATION: Security violation occurred, caused by MAC address 0462.0000.0464 on port FastEthernet0/22.
 regex=%PORT_SECURITY-\d-PSECURE_VIOLATION: Security violation occurred, caused by MAC address (\S*) on port (\S+); \
  classification.text=Port Security; \
@@ -131,7 +124,7 @@ regex=%PORT_SECURITY-\d-PSECURE_VIOLATION: Security violation occurred, caused b
  source(0).interface=$2; \
  last
 
-#DESCR:Cisco says: %RTD-1-ADDR_FLAP [chars] relearning [dec] addrs per min
+#DESCRIPTION:Cisco says: %RTD-1-ADDR_FLAP [chars] relearning [dec] addrs per min
 #LOG:Dec 11 18:41:14: %RTD-1-ADDR_FLAP: FastEthernet0/23 relearning 7 addrs per min
 regex=%RTD-\d-ADDR_FLAP: (\S+) relearning (\d+) addrs per min; \
  classification.text=Port Security; \

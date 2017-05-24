@@ -25,6 +25,7 @@
 #
 #####
 
+#DESCRIPTION:Mail server unknown user
 #LOG:Jan 14 17:23:02 spotk vpopmail[28353]: vchkpw: vpopmail user not found toto@:127.0.0.1
 #LOG:Feb 24 13:19:49 c vpopmail[9505]: vchkpw: vpopmail user not found temp@alexus.org:66.181.160.250
 #LOG:Jan 14 17:30:13 spotk vpopmail[28425]: vchkpw: vpopmail user not found toto@:192.168.100.50
@@ -51,6 +52,7 @@ regex=vchkpw: vpopmail user not found (\S+):([\d\.]+); \
  target(0).user.user_id(0).name=$1; \
  last
 
+#DESCRIPTION:Mail server user login
 #LOG:Jan 14 17:24:54 spotk vpopmail[28359]: vchkpw: password fail xxx@spotk.net:127.0.0.1
 regex=vchkpw: password fail (\S+):([\d\.]+); \
  classification.text=Mail server user login; \
@@ -62,7 +64,7 @@ regex=vchkpw: password fail (\S+):([\d\.]+); \
  assessment.impact.completion=failed; \
  assessment.impact.type=user; \
  assessment.impact.severity=medium; \
- assessment.impact.description= Someone tried to log in to your POP3 server as user '$1' but failed; \
+ assessment.impact.description=Someone tried to log in to your POP3 server as user '$1' but failed; \
  source(0).node.address(0).category=ipv4-addr; \
  source(0).node.address(0).address=$2; \
  source(0).service.iana_protocol_name=tcp; \
@@ -73,4 +75,4 @@ regex=vchkpw: password fail (\S+):([\d\.]+); \
  target(0).service.iana_protocol_number=6; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$1; \
- last;
+ last

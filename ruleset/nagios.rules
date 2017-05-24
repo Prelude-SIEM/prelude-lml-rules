@@ -1,6 +1,6 @@
 #FULLNAME: Nagios
 #VERSION: 1.0
-#DESCRIPTION: Nagios monitors systems, networks and infrastructure.
+#DESCRIPTION: Nagios monitors systems, networks and infrastructure. The rules included here were developed using Nagios 1.0.
 
 #####
 #
@@ -26,14 +26,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using Nagios 1.0.  Please report
-# any inconsistencies on other versions to G Ramon Gomez at the address provided
-# above
-#
-#####
-
+#DESCRIPTION:Service status change
 #LOG:Oct 27 23:22:53 shadowcat nagios: SERVICE ALERT: adtcadb;SQL Server;CRITICAL;HARD;3;Socket timeout after 10 seconds
 #LOG:Aug 25 15:00:47 hosho nagios: SERVICE ALERT: mickjagger;NETBIOS;CRITICAL;HARD;1;Socket timeout after 10 seconds
 #LOG:Oct 27 23:22:53 host nagios: SERVICE ALERT: app2.test.domain.com;TCPPORT_8009_ajp13;CRITICAL;HARD;5;Connection refused
@@ -54,6 +47,7 @@ regex=SERVICE ALERT: ([^\;]+)\;([^\;]+)\;(CRITICAL|WARNING|OK)\;HARD\;\d\;(.+); 
  additional_data(0).data=$2; \
  last
 
+#DESCRIPTION:Host status change
 #LOG:Oct 28 11:42:33 shadowcat nagios: HOST ALERT: rcts2;UP;HARD;2;PING OK - Packet loss = 0%, RTA = 0.26 ms
 #LOG:Aug 25 06:31:57 hosho nagios: HOST ALERT: starazolta;DOWN;HARD;3;CRITICAL - Plugin timed out after 10 seconds
 regex=HOST ALERT: ([^\;]+)\;(DOWN|UP)\;HARD\;\d\;(.+); \

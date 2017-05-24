@@ -1,6 +1,6 @@
 #FULLNAME: SELinux
 #VERSION: 1.0
-#DESCRIPTION: Security-Enhanced Linux is a Linux kernel security module that provides a mechanism for supporting access control security policies, including mandatory access controls (MAC).
+#DESCRIPTION: Security-Enhanced Linux is a Linux kernel security module that provides a mechanism for supporting access control security policies, including mandatory access controls (MAC). The rules included here are EXPERIMENTAL.
 
 #####
 #
@@ -25,13 +25,7 @@
 #
 #####
 
-#####
-#
-# The rules included here are EXPERIMENTAL.
-#
-#####
-
-
+#DESCRIPTION:RBAC authentication file failure
 #LOG:Nov 18 10:12:08 new-selinux2 kernel: avc:  denied  { relabelto } for  pid=12296 exe=/usr/bin/chcon name=shadow dev=03:02 ino=230036 scontext=takeuchi:user_r:user_t tcontext=system_u:object_r:shadow_t tclass=file
 regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) name=(shadow|passwd|group) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
  classification.text=RBAC authentication file $1 failure; \
@@ -53,8 +47,9 @@ regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) name=(shadow|passwd|group
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$7; \
  target(0).decoy=no; \
- last;
+ last
 
+#DESCRIPTION:RBAC shell failure
 #LOG:Aug  3 17:53:22 192 kernel: avc:  denied  { execute } for  pid=1007 exe=/usr/sbin/httpd path=/bin/bash dev=08:02 ino=162980 scontext=system_u:system_r:httpd_t tcontext=system_u:object_r:shell_exec_t tclass=file
 regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) path=(\S*bin\S*sh) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
  classification.text=RBAC shell $1 failure; \
@@ -75,9 +70,9 @@ regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) path=(\S*bin\S*sh) dev=\S
  source(0).process.pid=$2; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$7; \
- last;
+ last
 
-#NOTE: This rule might have a high false-positive rate.
+#DESCRIPTION:RBAC shell failure (This rule might have a high false-positive rate)
 #LOG:Nov 18 11:43:18 new-selinux2 kernel: avc:  denied  { execute } for  pid=14500 exe=/usr/bin/perl name=bash dev=03:02 ino=7995406 scontext=system_u:system_r:httpd_sys_script_process_t tcontext=system_u:object_r:shell_exec_t tclass=file
 regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) name=(\S*sh) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
  classification.text=RBAC shell $1 failure; \
@@ -98,8 +93,9 @@ regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) name=(\S*sh) dev=\S+ ino=
  source(0).process.pid=$2; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$7; \
- last;
+ last
 
+#DESCRIPTION:RBAC log failure
 #LOG:Nov 18 11:43:18 new-selinux2 kernel: avc:  denied  { read append } for  pid=14499 exe=/usr/bin/perl path=/var/log/httpd/error_log dev=03:02 ino=5177929 scontext=system_u:system_r:httpd_sys_script_process_t tcontext=root:object_r:unlabeled_t tclass=file
 regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) path=(\/var\/log\/\S+) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
  classification.text=RBAC log $1 failure; \
@@ -120,8 +116,9 @@ regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) path=(\/var\/log\/\S+) de
  source(0).process.pid=$2; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$7; \
- last;
+ last
 
+#DESCRIPTION:RBAC failure
 #LOG:Aug  2 01:15:10 192 kernel: avc:  denied  { execute } for  pid=32440 exe=/usr/sbin/smbd path=/bin/bash dev=08:02 ino=162980 scontext=system_u:system_r:smbd_t tcontext=system_u:object_r:shell_exec_t tclass=file
 regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) path=(\S+) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
  classification.text=RBAC $1 failure; \
@@ -142,8 +139,9 @@ regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) path=(\S+) dev=\S+ ino=\S
  source(0).process.pid=$2; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$7; \
- last;
+ last
 
+#DESCRIPTION:RBAC failure
 #LOG:Nov 18 11:43:18 new-selinux2 kernel: avc:  denied  { execute } for  pid=14500 path=/lib/libnss_files-2.3.2.so dev=03:02 ino=8503320 scontext=system_u:system_r:httpd_sys_script_process_t tcontext=system_u:object_r:var_spool_t tclass=file
 regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) path=(\S+) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
  classification.text=RBAC $1 failure; \
@@ -163,8 +161,9 @@ regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) path=(\S+) dev=\S+ ino=\S+ scontext
  source(0).process.pid=$2; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$6; \
- last;
+ last
 
+#DESCRIPTION:RBAC failure
 #LOG:Aug  6 15:08:02 localhost kernel: avc:  denied  { dac_override } for  pid=535 exe=/usr/bin/suidperl capability=1  scontext=system_u:user_r:user_t  tcontext=system_u:user_r:user_t  tclass=capability
 regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) capability=\S+\s+scontext=(\S+):(\S+):\S+\s+tcontext=(\S+):\S+:; \
  classification.text=RBAC $1 failure; \
@@ -184,8 +183,9 @@ regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) capability=\S+\s+scontext
  source(0).process.pid=$2; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$6; \
- last;
+ last
 
+#DESCRIPTION:RBAC failure
 #LOG:Nov 18 11:09:24 new-selinux2 kernel: avc:  denied  { unlink } for  pid=10667 exe=/usr/local/java/j2sdk1.4.2_02/bin/java name=.index.log dev=03:02 ino=98986 scontext=user_u:user_r:user_t tcontext=user_u:object_r:unlabeled_t tclass=file
 regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) name=(\S+) dev=\S+ ino=\S+ scontext=(\S+):(\S+):\S+ tcontext=(\S+):\S+:; \
  classification.text=RBAC $1 failure; \
@@ -206,8 +206,9 @@ regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(\S+) name=(\S+) dev=\S+ ino=\S
  source(0).process.pid=$2; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$7; \
- last;
+ last
 
+#DESCRIPTION:RBAC failure
 #LOG:Nov 18 11:09:24 new-selinux2 kernel: avc:  denied  { unlink } for  pid=10667 exe=/usr/local/java/j2sdk1.4.2_02/bin/java name=.index.log dev=03:02 ino=98986 scontext=user_u:user_r:user_t tcontext=user_u:object_r:unlabeled_t tclass=file
 #LOG:Nov 18 11:09:24 new-selinux2 kernel: avc:  denied  { unlink } for  pid=10667 exe=/home/dev/My Documents/j2sdk1.4.2_02/bin/java name=.index.log dev=03:02 ino=98986 scontext=user_u:user_r:user_t tcontext=user_u:object_r:unlabeled_t tclass=file
 regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(.*) name=.* dev=.* ino=.* scontext=(\S+):(\S+):\S+ tcontext=(\S+):(\S+):; \
@@ -229,4 +230,4 @@ regex=denied  \{ ([\w\ ]+) \} for  pid=(\d+) exe=(.*) name=.* dev=.* ino=.* scon
  source(0).process.pid=$2; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$6; \
- last;
+ last

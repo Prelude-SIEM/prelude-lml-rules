@@ -1,6 +1,6 @@
 #FULLNAME: pcAnywhere
 #VERSION: 1.0
-#DESCRIPTION: pcAnywhere is a suite of computer programs which allows a user of the pcAnywhere remote program on a computer to connect to a personal computer host if both are connected and the password is known.
+#DESCRIPTION: pcAnywhere is a suite of computer programs which allows a user of the pcAnywhere remote program on a computer to connect to a personal computer host if both are connected and the password is known. The rules included here were developed using pcAnywhere 10.5.1 and NTSyslog 1.13.
 
 #####
 #
@@ -25,14 +25,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using pcAnywhere 10.5.1 and
-# NTSyslog 1.13.  Please report any inconsistencies on other versions to
-# G Ramon Gomez at the address provided above
-#
-#####
-
+#DESCRIPTION:Remote control user connection
 #LOG:Apr 13 10:31:03 12.34.56.78 pcanywhere[info] 127 NT AUTHORITY\SYSTEM  Host In Session  Host Name: DB3  Host Licensee: MAXIMUS  Remote Name: JM15575  Remote User: NUT&BOLT  Device Type: TCP/IP
 regex=Host In Session  Host Name: (\S+)  Host Licensee: \S+  Remote Name: (\S+)  Remote User: (\S+); \
 classification.text=Remote control user connected; \
@@ -52,6 +45,7 @@ classification.text=Remote control user connected; \
  source(0).user.user_id(0).name=$3; \
  last
 
+#DESCRIPTION:Remote control user disconnection
 #LOG:Apr 14 06:29:55 db3 pcanywhere[info] 123 NT AUTHORITY\SYSTEM  Host End Session  Device Type: TCP/IP  Description: Remote logged off
 regex=Host End Session  Device Type: \S+  Description: (.+); \
  classification.text=Remote control user disconnected; \

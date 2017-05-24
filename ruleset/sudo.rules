@@ -1,6 +1,6 @@
 #FULLNAME: sudo
 #VERSION: 1.0
-#DESCRIPTION: sudo is a program for Unix-like computer operating systems that allows users to run programs with the security privileges of another user, by default the superuser.
+#DESCRIPTION: Sudo is a program for Unix-like computer operating systems that allows users to run programs with the security privileges of another user, by default the superuser. The rules included here were developed using sudo-1.6.6-3 on Linux.
 
 #####
 #
@@ -26,20 +26,15 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using sudo-1.6.6-3 on Linux.
-# Please report any inconsistencies on other versions to G Ramon Gomez at the
-# address provided above
-#
-#####
-
+#DESCRIPTION:Sudo command
 #LOG:Feb 11 06:52:09 12.34.56.78 sudo:   cpatel : TTY=pts/0 ; PWD=/etc/rc.d/init.d ; USER=root ; COMMAND=./resin start
 regex=(\S+) : TTY=(\S+) \; PWD=(.+) \; USER=(\S+) \; COMMAND=(.+); \
  classification.text=SUDO Command Executed; \
  id=2700; \
  revision=2; \
  analyzer(0).name=sudo; \
+ analyzer(0).manufacturer=OpenBSD; \
+ analyzer(0).class=Credentials change; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=user; \
  assessment.impact.severity=low; \
@@ -61,12 +56,15 @@ regex=(\S+) : TTY=(\S+) \; PWD=(.+) \; USER=(\S+) \; COMMAND=(.+); \
  additional_data(2).data=$5; \
  last
 
+#DESCRIPTION:User NOT in sudoers
 #LOG:Jan 15 09:53:11 12.34.56.78 sudo:   ekwong : user NOT in sudoers ; TTY=pts/2 ; PWD=/ ; USER=root ; COMMAND=/bin/ls
 regex=(\S+) : user NOT in sudoers \; TTY=(\S+) \; PWD=(.+) \; USER=(\S+) \; COMMAND=(.+); \
  classification.text=SUDO from Unauthorized User; \
  id=2701; \
  revision=2; \
  analyzer(0).name=sudo; \
+ analyzer(0).manufacturer=OpenBSD; \
+ analyzer(0).class=Credentials change; \
  assessment.impact.completion=failed; \
  assessment.impact.type=user; \
  assessment.impact.severity=medium; \

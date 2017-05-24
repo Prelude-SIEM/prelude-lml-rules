@@ -25,10 +25,7 @@
 #
 #####
 
-## Ruleset for the Rishi Project, Identifying Bot Contaminated Hosts
-## by IRC Nickname Evaluation
-
-#IRC Connections with fairly high value (>= 5 and <= 10)
+#DESCRIPTION:IRC Connections with fairly high value (>= 5 and <= 10)
 #LOG:2007-05-20 12:49:57,644 INFO srcIP: 129.13.x.y      srcPort: 1312   dstIP: 80.64.x.y    dstPort: 6666     Nick: myFunnyNick        Value: 5
  regex=INFO srcIP: (\S+)\s+srcPort: (\d+)\s+dstIP: (\S+)\s+dstPort: (\d+)\s+Nick: (\S+)\s+Value: (?!0|1|2|3|4)(\d)$; \
  classification.text=Possible IRC bot connection; \
@@ -51,9 +48,9 @@
  additional_data(0).type=integer; \
  additional_data(0).meaning=Calculated Value; \
  additional_data(0).data=$6; \
- last;
+ last
 
-#Connections to a non-standard port with a low value (< 5)
+#DESCRIPTION:Connections to a non-standard port with a low value (< 5)
 #LOG:2007-05-20 12:49:57,644 INFO srcIP: 129.13.x.y      srcPort: 1312   dstIP: 80.64.x.y    dstPort: 1501   Nick: myFunnyNick        Value: 3
  regex=INFO srcIP: (\S+)\s+srcPort: (\d+)\s+dstIP: (\S+)\s+dstPort: (?!6665|6666|6667|6668)(\d+)\s+Nick: (\S+)\s+Value: (0|1|2|3|4)$; \
  classification.text=IRC Connection to non-standard port; \
@@ -76,9 +73,9 @@
  additional_data(0).type=integer; \
  additional_data(0).meaning=Calculated Value; \
  additional_data(0).data=$6; \
- last;
+ last
 
-#Connection with a very high value (>= 10)
+#DESCRIPTION:Connection with a very high value (>= 10)
 #LOG:2007-05-20 12:49:57,644 INFO srcIP: 129.13.x.y      srcPort: 1312   dstIP: 80.64.x.y    dstPort: 4545    Nick: [LsasS]213242344    Value: 11
  regex=INFO srcIP: (\S+)\s+srcPort: (\d+)\s+dstIP: (\S+)\s+dstPort: (\d+)\s+Nick: (\S+)\s+Value: (?!0$|1$|2$|3$|4$|5$|6$|7$|8$|9$)(\d+); \
  classification.text=Possible IRC Bot identified; \
@@ -101,4 +98,4 @@
  additional_data(0).type=integer; \
  additional_data(0).meaning=Calculated Value; \
  additional_data(0).data=$6; \
- last;
+ last

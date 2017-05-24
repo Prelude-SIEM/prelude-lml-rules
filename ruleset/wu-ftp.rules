@@ -1,6 +1,6 @@
 #FULLNAME: WU-FTP
 #VERSION: 1.0
-#DESCRIPTION: wu-ftp is a free FTP server software (daemon) for Unix-like operating systems.
+#DESCRIPTION: wu-ftp is a free FTP server software (daemon) for Unix-like operating systems. The rules included here were developed using WU-ftpd 2.6.2.
 
 #####
 #
@@ -26,14 +26,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using WU-ftpd 2.6.2.  Please report
-# any inconsistencies on other versions to G Ramon Gomez at the address provided
-# above
-#
-#####
-
+#DESCRIPTION:Anonymous FTP login
 #LOG:Oct 28 20:38:47 www.tyco-training.stag ftpd[12781]: ANONYMOUS FTP LOGIN FROM p508ee95a.dip.t-dialin.net [80.142.233.90], Igpuser@home.com
 regex=ANONYMOUS FTP LOGIN FROM ([\w\-\.]+) \[([\d\.)]+)\], (\S+); \
  classification.text=Anonymous FTP login; \
@@ -61,6 +54,7 @@ regex=ANONYMOUS FTP LOGIN FROM ([\w\-\.]+) \[([\d\.)]+)\], (\S+); \
  source(0).user.user_id(0).name=$3; \
  last
 
+#DESCRIPTION:FTP login failed
 #LOG:Oct 28 20:38:48 itguxweb2 ftpd[19188]: FTP LOGIN FAILED (cannot set guest privileges) for p508ee95a.dip.t-dialin.net [80.142.233.90], ftp
 regex=FTP LOGIN FAILED \(([\w\s]+)\) for ([\w\-\.]+) \[([\d\.)]+)\], (\S+); \
  classification.text=FTP login; \

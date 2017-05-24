@@ -1,6 +1,16 @@
 #FULLNAME: Cisco IPS 2
 #VERSION: 1.0
-#DESCRIPTION: Cisco Intrusion Prevention System (IPS) is an inline, deep-packet inspection feature that effectively mitigates a wide range of network attacks.
+#DESCRIPTION: Cisco Intrusion Prevention System (IPS) is an inline, deep-packet inspection feature that effectively mitigates a wide range of network attacks. These rules monitors Cisco IPS ver. 7.1.x
+#DESCRIPTION: The rules included here were developed using a Cisco IPS module running on an ASA.
+#DESCRIPTION: Special configuration is needed for this support:
+#DESCRIPTION: * In your IDM interface, "SNMP" -> "Traps Configuration", "Enable SNMP Traps"
+#DESCRIPTION:   box must be on.  "Enable detailed traps for alerts" can be on or off.
+#DESCRIPTION: * In your IDM interface, "Signature Definition" -> "Signature Configuration",
+#DESCRIPTION:   all of the ENABLED rules must be modified using the "Enabled" button, and
+#DESCRIPTION:   select all de enabled signatures followed by the "Actions" button, and
+#DESCRIPTION:   click the "Request SNMP Trap" box on.
+#DESCRIPTION: * On your Prelude system, run snmptrapd using this command:
+#DESCRIPTION:   "snmptrapd -Ls 20 -Osq"
 
 #####
 #
@@ -26,29 +36,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using a Cisco IPS module running on an
-# ASA.  Please report any inconsistencies on other models to G Ramon Gomez at
-# the address provided above
-# Special configuration is needed for this support:
-# * In your IDM interface, "SNMP" -> "Traps Configuration", "Enable SNMP Traps"
-#   box must be on.  "Enable detailed traps for alerts" can be on or off.
-# * In your IDM interface, "Signature Definition" -> "Signature Configuration",
-#   all of the ENABLED rules must be modified using the "Enabled" button, and
-#   select all de enabled signatures followed by the "Actions" button, and
-#   click the "Request SNMP Trap" box on.
-# * On your Prelude system, run snmptrapd using this command:
-#   "snmptrapd -Ls 20 -Osq"
-#
-#####
-
-#####
-#
-# Rules to monitor Cisco IPS ver. 7.1.x
-#
-#####
-
+#DESCRIPTION:Cisco IPS event
 #LOG:Apr 17 13:42:01 localhost snmptrapd[1209]: 2012-04-17 13:42:01 ids.xx.xx [UDP: [xx.xx.xx.xx]:xx->[xx.xx.xx.xx]]:#012iso.3.6.1.2.1.1.3.0 0:0:00:02.30#011iso.3.6.1.6.3.1.1.4.1.0 iso.3.6.1.4.1.9.9.383.0.2#011iso.3.6.1.4.1.9.9.383.1.1.1 1334191109271607011#011iso.3.6.1.4.1.9.9.383.1.1.2 "07 DC 04 11 0D 2A 01 00 "#011iso.3.6.1.4.1.9.9.383.1.1.3 "07 DC 04 11 10 2A 01 00 "#011iso.3.6.1.4.1.9.9.383.1.1.4.0 "xxx"#011iso.3.6.1.4.1.9.9.383.1.3.1.0 "xxx"#011iso.3.6.1.4.1.9.9.383.1.3.2.0 14#011iso.3.6.1.4.1.9.9.383.1.3.3 "Unknown control transaction name#012Messages, like this one, in the category - ct to sensorApp timed out - were logged 1 times in the last 0 seconds."
 regex=snmptrapd\[(\d+)]:+.+9.9.383.1.1.4.0 "(\S+)"+.+9.9.383.1.3.1.0 "(\S+)"+.+.9.9.383.1.3.2.0 "(\d+)"; \
  classification.text=$3; \
@@ -67,11 +55,7 @@ regex=snmptrapd\[(\d+)]:+.+9.9.383.1.1.4.0 "(\S+)"+.+9.9.383.1.3.1.0 "(\S+)"+.+.
  additional_data(0).data=$4; \
  last
 
-
-####################################
-##Enable detailed traps for alerts##
-####################################
-
+#DESCRIPTION:Cisco IPS event - Enable detailed traps for alerts
 #LOG:Apr 16 17:26:02 localhost snmptrapd[1209]: 2012-04-16 17:26:02 ids.xxx.xxx.com [UDP: [xx.xx.xx.xx]:xxxx->[xx.xx.xx.xx]:#012iso.3.6.1.2.1.1.3.0 4:23:47:30.17#011iso.3.6.1.6.3.1.1.4.1.0 iso.3.6.1.4.1.9.9.383.0.1#011iso.3.6.1.4.1.9.9.383.1.1.1 1334176696938219122#011iso.3.6.1.4.1.9.9.383.1.1.2 "07 DC 04 10 11 1A 02 00 "#011iso.3.6.1.4.1.9.9.383.1.1.3 "07 DC 04 10 14 1A 02 00 "#011iso.3.6.1.4.1.9.9.383.1.1.4.0 "ids-xxx"#011iso.3.6.1.4.1.9.9.383.1.2.1 "informational"#011iso.3.6.1.4.1.9.9.383.1.2.2 2147483648#011iso.3.6.1.4.1.9.9.383.1.2.3 "This Signature Is A Metacomponent"#011iso.3.6.1.4.1.9.9.383.1.2.4 "Windows Image Color Management System RCE"#011iso.3.6.1.4.1.9.9.383.1.2.5 6984#011iso.3.6.1.4.1.9.9.383.1.2.6 2#011iso.3.6.1.4.1.9.9.383.1.2.7 "S351"#011iso.3.6.1.4.1.9.9.383.1.2.12 0#011iso.3.6.1.4.1.9.9.383.1.2.13 80#011iso.3.6.1.4.1.9.9.383.1.2.14 "d3cucmFkaW9zaW50ZXJuZXQuY29tDQpWaWE6IDEuMSBzMTk2Y2I2NC5iYW5j#012by5icm91LmNvbS51eTo4MDgwIChJV1NTKSwgMS4xIHByb3h5LmRuc2ludC5i#012cm91LmNvbS51eSAoc3F1aWQpLCAxLjAgczE5NmNhNjE6ODAwOCAoSVdTUykN#012ClN1cnJvZ2F0ZS1DYXBhYmlsaXR5OiB1bnNldC1pZD0iU3Vycm9nYXRlLzEu#012MCBFU0kvMS4wIg0KWC1Gb3J3YXJkZWQtRm9yOiAxNzIuMjAuNDAuMjMNCkNh#012Y2hlLUNvbnRyb2w6IG1heC1hZ2U9MjU5MjAwDQoNCg=="#011iso.3.6.1.4.1.9.9.383.1.2.15 "EAASAAAAAAAAAGUAAAAAAACQRwAAQBIAAAAAAACI//8AAAAAAFD7/wBw/v8A#012AAAAALQAAAAAAAAAYOv/ADD7/wC4AAAAAAEA/y0AAAAAAQAAAAAAAAAAAAAM#012AAAAAAAAgAMAAAAHAAD6WV4AI5T+/yHj+/8AAAEAfZIAAKXkAADFxwEAAAAB#012AL6XAQCgrQEAAAABAOCbAQApAAAA/wAAAH0AAAD/AAAA/wAAAP8AAAD/AAAA#012/wAAAP8AAAD/AAAAkQAAABoAAAAZAAAAtQAAAN0AAACpAAAAEgAAACkAAAD/#012AAAAPQAAAAIAAAAQAAAAEgAAAAAAAAAAAGUAAAAAAA=="#011iso.3.6.1.4.1.9.9.383.1.2.16 "xx.xx.xx.xx:xx"#011iso.3.6.1.4.1.9.9.383.1.2.17 "osIdSource=\"unknown\" osRelevance=\"unknown\" osType=\"unknown\" xx.xx.xx.xx:xxx"#011iso.3.6.1.4.1.9.9.383.1.2.25 0#011iso.3.6.1.4.1.9.9.383.1.2.26 0#011iso.3.6.1.4.1.9.9.383.1.2.27 6#011iso.3.6.1.4.1.9.9.383.1.2.42 0
 regex=snmptrapd\[(\d+)]:+.+9.9.383.1.1.4.0 "(\S+)"+.+.9.9.383.1.2.4.0 "([\S ]+)"+.+.9.9.383.1.2.5.0 (\d+)+.+9.9.383.1.2.6.0 (\d+)+.+9.9.383.1.2.16.0 "([\d\.]+):(\d+)"+.+9.9.383.1.2.17.0 "osIdSource=\\"([\S ]+)\\" osRelevance=\\"([\S ]+)\\" osType=\\"([\S ]+)\\" ([\d\.]+)"+.+9.9.383.1.3.1.0 "informational"; \
  classification.text=$3; \
@@ -107,6 +91,7 @@ regex=snmptrapd\[(\d+)]:+.+9.9.383.1.1.4.0 "(\S+)"+.+.9.9.383.1.2.4.0 "([\S ]+)"
  additional_data(3).data=http://tools.cisco.com/security/center/viewIpsSignature.x?signatureId=$4&signatureSubId=$5; \
  last
 
+#DESCRIPTION:Cisco IPS event
 regex=snmptrapd\[(\d+)]:+.+9.9.383.1.1.4.0 "(\S+)"+.+.9.9.383.1.2.4.0 "([\S ]+)"+.+.9.9.383.1.2.5.0 (\d+)+.+9.9.383.1.2.6.0 (\d+)+.+9.9.383.1.2.16.0 "([\d\.]+):(\d+)"+.+9.9.383.1.2.17.0 "osIdSource=\\"([\S ]+)\\" osRelevance=\\"([\S ]+)\\" osType=\\"([\S ]+)\\" ([\d\.]+):(\d+)"+.+9.9.383.1.3.1.0 "informational"; \
  classification.text=$3; \
  classification.reference(0).origin=vendor-specific; \
@@ -141,11 +126,7 @@ regex=snmptrapd\[(\d+)]:+.+9.9.383.1.1.4.0 "(\S+)"+.+.9.9.383.1.2.4.0 "([\S ]+)"
  additional_data(3).data=http://tools.cisco.com/security/center/viewIpsSignature.x?signatureId=$4&signatureSubId=$5; \
  last
 
-
-###############
-##No Detailed##
-###############
-
+#DESCRIPTION:Cisco IPS event
 #LOG:Jan 25 12:41:14 localhost snmptrapd[15882]: 2012-01-25 12:41:14 ids.xxx.xxx.xxx [UDP: [xx.xx.xx.xx]:xxx->[xx.xx.xx.xx]]:#012iso.3.6.1.2.1.1.3.0 13:3:16:47.87#011iso.3.6.1.6.3.1.1.4.1.0 iso.3.6.1.4.1.9.9.383.0.1#011iso.3.6.1.4.1.9.9.383.1.1.1 1269399301253822810#011iso.3.6.1.4.1.9.9.383.1.1.2 "07 DC 01 19 0C 2A 27 00 "#011iso.3.6.1.4.1.9.9.383.1.1.3 "07 DC 01 19 0E 2A 27 00 "#011iso.3.6.1.4.1.9.9.383.1.1.4.0 "ids-xx"#011iso.3.6.1.4.1.9.9.383.1.2.1 "low"#011iso.3.6.1.4.1.9.9.383.1.2.2 2147483648#011iso.3.6.1.4.1.9.9.383.1.2.4 "TCP Option Other"#011iso.3.6.1.4.1.9.9.383.1.2.5 1306#011iso.3.6.1.4.1.9.9.383.1.2.6 0#011iso.3.6.1.4.1.9.9.383.1.2.16 "xx.xx.xx.xx:xxx"#011iso.3.6.1.4.1.9.9.383.1.2.17 "xx.xx.xx.xx:xx"
 regex=snmptrapd\[(\d+)]:+.+9.9.383.1.1.4.0 "(\S+)"+.+.9.9.383.1.2.4.0 "([\S ]+)"+.+.9.9.383.1.2.5.0 (\d+)+.+9.9.383.1.2.6.0 (\d+)+.+9.9.383.1.2.16.0 "([\d\.]+):(\d+)"+.+9.9.383.1.2.17.0 "+.+([\d\.]+)"+.+9.9.383.1.3.1.0 "informational"; \
  classification.text=$3; \
@@ -172,6 +153,7 @@ regex=snmptrapd\[(\d+)]:+.+9.9.383.1.1.4.0 "(\S+)"+.+.9.9.383.1.2.4.0 "([\S ]+)"
  additional_data(0).data=http://tools.cisco.com/security/center/viewIpsSignature.x?signatureId=$4&signatureSubId=$5; \
  last
 
+#DESCRIPTION:Cisco IPS event
 regex=snmptrapd\[(\d+)]:+.+9.9.383.1.1.4.0 "(\S+)"+.+.9.9.383.1.2.4.0 "([\S ]+)"+.+.9.9.383.1.2.5.0 (\d+)+.+9.9.383.1.2.6.0 (\d+)+.+9.9.383.1.2.16.0 "([\d\.]+):(\d+)"+.+9.9.383.1.2.17.0 "+.+([\d\.]+):(\d+)"+.+9.9.383.1.3.1.0 "informational"; \
  classification.text=$3; \
  classification.reference(0).origin=vendor-specific; \
@@ -197,6 +179,7 @@ regex=snmptrapd\[(\d+)]:+.+9.9.383.1.1.4.0 "(\S+)"+.+.9.9.383.1.2.4.0 "([\S ]+)"
  additional_data(0).data=http://tools.cisco.com/security/center/viewIpsSignature.x?signatureId=$4&signatureSubId=$5; \
  last
 
+#DESCRIPTION:Cisco IPS event
 #LOG:Sep  7 18:41:43 prelude-siem snmptrapd[1595]: 2012-09-07 18:41:43 ids-Bunker [UDP: [192.168.161.57]:45187->[192.168.160.37]]:#012sysUpTimeInstance 0:1:03:53.53#011snmpTrapOID.0 enterprises.9.9.383.0.1#011enterprises.9.9.383.1.1.1.0 6823118324776#011enterprises.9.9.383.1.1.2.0 "07 DC 09 07 13 25 3A 00 "#011enterprises.9.9.383.1.1.3.0 "07 DC 09 07 15 25 3A 00 "#011enterprises.9.9.383.1.1.4.0 "ids-Bunker"#011enterprises.9.9.383.1.2.2.0 2147483648#011enterprises.9.9.383.1.2.3.0 "SELECT...FROM"#011enterprises.9.9.383.1.2.4.0 "SQL Query in HTTP Request"#011enterprises.9.9.383.1.2.5.0 5474#011enterprises.9.9.383.1.2.6.0 0#011enterprises.9.9.383.1.2.7.0 "S585"#011enterprises.9.9.383.1.2.13.0 0#011enterprises.9.9.383.1.2.15.0 "R0VUIGh0dHA6Ly91Y3MucXVlcnkueWFob28uY29tL3YxL2NvbnNvbGUveXFs#012P3E9c2VsZWN0JTIwaW1hZ2VVcmwlMjBmcm9tJTIwc29jaWFsLnByb2ZpbA=="#011enterprises.9.9.383.1.2.16.0 "10.199.43.146:2422"#011enterprises.9.9.383.1.2.17.0 "osIdSource=\"learned\" osRelevance=\"relevant\" osType=\"linux\" 172.20.40.22:8080"#011enterprises.9.9.383.1.2.25.0 47#011enterprises.9.9.383.1.2.26.0 0#011enterprises.9.9.383.1.2.27.0 6#011enterprises.9.9.383.1.2.42.0 47#011enterprises.9.9.383.1.2.49.0 "vs0"#011enterprises.9.9.383.1.3.1.0 "low"
 regex=snmptrapd\[(\d+)]:+.+9.9.383.1.1.4.0 "(\S+)"+.+9.9.383.1.2.4.0 "([\S ]+)"+.+9.9.383.1.2.5.0 (\d+)+.+9.9.383.1.2.6.0 (\d+)+.+9.9.383.1.2.16.0 "([\d\.]+):(\d+)"+.+9.9.383.1.2.17.0 "+.+([\d\.]+):(\d+)"+.+9.9.383.1.3.1.0 "(\S+)"; \
  classification.text=$4; \

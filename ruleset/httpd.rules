@@ -7,6 +7,10 @@
 # Copyright (C) 2005 Ruben Alonso <1rualons@rigel.deusto.es>
 # All Rights Reserved
 #
+# RulesID: 4102
+# Copyright (C) 2005 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+#
 # This file is part of the Prelude-LML program.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,6 +29,7 @@
 #
 #####
 
+#DESCRIPTION:Web server - Error
 #LOG:[Sat Mar 12 22:56:12 2005] [error] [client 127.0.0.1] File does not exist: /var/www/favicon.ico
 #LOG:[Sat Mar 12 22:56:13 2005] [error] [client 127.0.0.1] Premature end of script headers: /var/www/sample/index.pl
 #LOG:[Sat Mar 12 22:48:24 2005] [error] [client 127.0.0.1] Directory index forbidden by rule: /var/www/sample/
@@ -49,8 +54,9 @@ regex=\[error\] \[client ([\d\.]+)\] ((File|Premature|Directory|client|request)[
  target(0).service.iana_protocol_name=tcp; \
  target(0).service.iana_protocol_number=6; \
  target(0).service.name=http; \
- last;
+ last
 
+#DESCRIPTION:Web server - Error
 #LOG:[Sat Apr 16 14:30:12 2005] [error] [client ::1] File does not exist: /var/www/favicon.ico
 regex=\[error\] \[client ([A-Fa-f\d:]+)\] ((File|Premature|Directory|client|request)[\S+\s]+): (.+); \
  classification.text=Web server error; \
@@ -70,11 +76,9 @@ regex=\[error\] \[client ([A-Fa-f\d:]+)\] ((File|Premature|Directory|client|requ
  target(0).service.iana_protocol_name=tcp; \
  target(0).service.iana_protocol_number=6; \
  target(0).service.name=http; \
- last;
+ last
 
-# Copyright (C) 2005 G Ramon Gomez <gene at gomezbrothers dot com>
-# All Rights Reserved
-
+#DESCRIPTION:Web server - SSL passphrase correct
 #LOG:Apr 17 12:58:51 mail httpd: OK: Pass Phrase Dialog successful.
 regex=OK: Pass Phrase Dialog successful; \
  classification.text=Web server SSL passphrase correct; \
@@ -86,9 +90,10 @@ regex=OK: Pass Phrase Dialog successful; \
  assessment.impact.severity=low; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=other; \
- assessment.impact.description=Apache was started and an SSL passphrase was required.  This passphrase was entered correctly.; \
- last;
+ assessment.impact.description=Apache was started and an SSL passphrase was required. This passphrase was entered correctly.; \
+ last
 
+#DESCRIPTION:Web server - SSL passphrase incorrect
 #LOG:Apr 17 12:58:48 mail httpd: Apache:mod_ssl:Error: Pass phrase incorrect (5 more retries permitted).
 regex=Error: Pass phrase incorrect \(; \
  classification.text=Web server SSL passphrase incorrect; \
@@ -100,9 +105,10 @@ regex=Error: Pass phrase incorrect \(; \
  assessment.impact.severity=medium; \
  assessment.impact.completion=failed; \
  assessment.impact.type=other; \
- assessment.impact.description=Apache was started and an SSL passphrase was required.  This passphrase was not entered correctly, but additional passphrase attempts will be allowed.; \
- last;
+ assessment.impact.description=Apache was started and an SSL passphrase was required. This passphrase was not entered correctly, but additional passphrase attempts will be allowed.; \
+ last
 
+#DESCRIPTION:Web server - SSL passphrase incorrect
 #LOG:Apr 17 14:00:48 mail httpd: Apache:mod_ssl:Error: Pass phrase incorrect.
 regex=Error: Pass phrase incorrect\.; \
  classification.text=Web server SSL passphrase incorrect; \
@@ -115,8 +121,9 @@ regex=Error: Pass phrase incorrect\.; \
  assessment.impact.completion=failed; \
  assessment.impact.type=other; \
  assessment.impact.description=Apache was started and an SSL passphrase was required.  This passphrase was not entered correctly.  No additional passphrase attempts will be allowed.; \
- last;
+ last
 
+#DESCRIPTION:Web server - shutdown
 #LOG:Apr 17 14:00:13 mail httpd: httpd shutdown succeeded
 regex=httpd shutdown succeeded; \
  classification.text=Web server shutdown; \
@@ -130,8 +137,9 @@ regex=httpd shutdown succeeded; \
  assessment.impact.type=other; \
  assessment.impact.description=Apache httpd shutdown seen.; \
  target(0).service.name=http; \
- last;
+ last
 
+#DESCRIPTION:Web server - startup
 #LOG:Apr 17 14:02:41 mail httpd: httpd startup succeeded
 regex=httpd startup succeeded; \
  classification.text=Web server startup; \
@@ -145,4 +153,4 @@ regex=httpd startup succeeded; \
  assessment.impact.type=other; \
  assessment.impact.description=Apache httpd startup seen.; \
  target(0).service.name=http; \
- last;
+ last

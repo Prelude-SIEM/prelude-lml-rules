@@ -25,7 +25,7 @@
 #
 #####
 
-
+#DESCRIPTION:Wireless PC connected
 #LOG:Jan 21 17:22:34 192.168.0.17 Wireless PC connected   00-30-65-05-17-AD
 #LOG:Jul 17 19:46:15 smf-syslog-02.smf.ragingwire.net smf-wap-02/smf-wap-02 Wireless PC connected   00-12-F0-0D-2C-66
 regex=Wireless PC connected[\s]+([A-Fa-f\d-]+); \
@@ -42,6 +42,7 @@ regex=Wireless PC connected[\s]+([A-Fa-f\d-]+); \
  source(0).node.address(0).address=$1; \
  last
 
+#DESCRIPTION:Unauthorized wireless PC connection attempt
 #LOG:Jan 21 17:27:46 192.168.0.17 Unauthorized wireless PC try to connected   00-30-65-05-17-AD
 #LOG:Jul 18 16:18:09 smf-syslog-02.smf.ragingwire.net smf-wap-02/smf-wap-02 Unauthorized wireless PC try to connected   00-90-4B-AD-2A-AC
 regex=Unauthorized wireless PC try to connected[\s]+([A-Fa-f\d\-]+); \

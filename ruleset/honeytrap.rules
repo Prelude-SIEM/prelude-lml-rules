@@ -25,9 +25,7 @@
 #
 #####
 
-#Ruleset for Honeytrap. Might be a bit noisy, deactivate the rules you don't need
-
-
+#DESCRIPTION:Reconnaissance Probe
 #LOG:[2007-05-26 16:48:09]  * 22       No bytes received from 157.100.50.58:57701.
  regex=\* (\d+)\s+No bytes received from (\S+):(\d+).; \
  classification.text=Reconnaissance Probe; \
@@ -43,8 +41,9 @@
  assessment.impact.type=recon; \
  assessment.impact.severity=low; \
  assessment.impact.description=A connection to honeytrap has been established, but no data was received.; \
- last;
+ last
 
+#DESCRIPTION:Attack attempt
 #LOG:[2007-05-26 16:49:23]  * 22       724 bytes attack string from 157.100.50.58:47537.
  regex=\* (\d+)\s+(\d+) bytes attack string from (\S+):(\d+).; \
  classification.text=Attack attempt; \
@@ -61,10 +60,9 @@
  additional_data(0).type=integer; \
  additional_data(0).meaning=Attack string size; \
  additional_data(0).data=$2; \
- last;
+ last
 
-
-
+#DESCRIPTION:Attempt to download Malware
 #LOG:[2007-05-26 17:14:30] FTP download - Requesting 'install_58181.exe' from 193.11.129.193:5836.
  regex=(\S*) download - Requesting '(.*)' from (\S+):(\d+).; \
  classification.text=Malware download attempt; \
@@ -82,4 +80,4 @@
  additional_data(0).type=string; \
  additional_data(0).meaning=Filename; \
  additional_data(0).data=$2; \
- last;
+ last

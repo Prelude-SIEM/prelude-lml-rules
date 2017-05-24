@@ -1,6 +1,6 @@
 #FULLNAME: Dell OpenManage
 #VERSION: 1.0
-#DESCRIPTION: Dell OpenManage is a set of systems management applications built using industry standard protocols and specifications.
+#DESCRIPTION: Dell OpenManage is a set of systems management applications built using industry standard protocols and specifications. The rules included here were developed using an unknown version of Dell Open Management Server Administrator.
 
 #####
 #
@@ -25,14 +25,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using an unknown version of Dell
-# Open Management Server Administrator.  Please report any inconsistencies
-# on other versions to G Ramon Gomez at the address provided above
-#
-#####
-
+#DESCRIPTION:Redundancy failure
 #LOG:Jun  8 18:12:44 12.34.56.78 server administrator[warning] 1306  Redundancy lost Redundancy unit: System Power Unit Chassis location: Main System Chassis Previous redundancy state was: FULL Number of devices required for full redundancy: 2
 regex=1306  Redundancy lost Redundancy unit: (.+?) Chassis location: (.+?) Previous redundancy state was: (.+?) Number of devices required for full redundancy: (\d+); \
  classification.text=Redundancy failure; \
@@ -63,6 +56,7 @@ regex=1306  Redundancy lost Redundancy unit: (.+?) Chassis location: (.+?) Previ
  additional_data(3).data=$4; \
  last
 
+#DESCRIPTION:Power supply normal
 #LOG:Jun 24 08:56:25 neo server administrator[info] 1352  Power supply returned to normal Sensor location: Power supply 2 Chassis location: Main System Chassis Previous state was: Critical (Failed)
 regex=1352  Power supply returned to normal Sensor location: (.+?) Chassis location: (.+?) Previous state was: (.+); \
  classification.text=Power supply normal; \
@@ -90,6 +84,7 @@ regex=1352  Power supply returned to normal Sensor location: (.+?) Chassis locat
  additional_data(2).data=$3; \
  last
 
+#DESCRIPTION:Power supply warning
 #LOG:Jun  8 18:12:44 12.34.56.78 server administrator[warning] 1353  Power supply detected a warning Sensor location: Power supply 1 Chassis location: Main System Chassis Previous state was: OK (Normal) Power supply fan has failed
 regex=1353  Power supply detected a warning Sensor location: (.+?) Chassis location: (.+?) Previous state was: (\w+ \(\w+\)|Unknown) (.+); \
  classification.text=Power supply warning; \
@@ -120,6 +115,7 @@ regex=1353  Power supply detected a warning Sensor location: (.+?) Chassis locat
  additional_data(3).data=$4; \
  last
 
+#DESCRIPTION:Power supply failure
 #LOG:Jun 24 08:46:30 neo server administrator[error] 1354  Power supply detected a failure Sensor location: Power supply 2 Chassis location: Main System Chassis Previous state was: OK (Normal) Power supply input AC is off Power supply POK signal is not normal Power supply is turned off
 regex=1354  Power supply detected a failure Sensor location: (.+?) Chassis location: (.+?) Previous state was: (\w+ \(\w+\)|Unknown) (.+); \
  classification.text=Power supply failure; \
@@ -149,8 +145,3 @@ regex=1354  Power supply detected a failure Sensor location: (.+?) Chassis locat
  additional_data(3).meaning=Event description; \
  additional_data(3).data=$4; \
  last
-
-# Still needed:
-# Lots of other events according to the documentation, but the format of the
-# events here differs from those in the document (certain words capitalized,
-# etc).

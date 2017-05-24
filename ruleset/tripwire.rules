@@ -27,6 +27,7 @@
 #
 #####
 
+#DESCRIPTION:Integrity check ran successfully without warnings
 #LOG:Jan 22 11:32:26 host tripwire[5265]: Integrity Check Complete: /usr/local/tripwire/tfs/report/host-.twr TWReport host 20040122113203 V:0 S:0 A:0 R:0 C:0 L:0 M:0 H:0
 regex=(\S+) TWReport \S+ \d+ V:0; \
  classification.text=Integrity Check OK; \
@@ -45,6 +46,7 @@ regex=(\S+) TWReport \S+ \d+ V:0; \
  additional_data(0).data=$1; \
  last
 
+#DESCRIPTION:Integrity check ran successfully, warning file(s) added
 #LOG:Jan 22 11:32:26 host tripwire[5265]: Integrity Check Complete: /usr/local/tripwire/tfs/report/host-.twr TWReport host 20040122113203 V:91 S:100 A:51 R:0 C:40 L:0 M:8 H:83
 regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:(?!0)(\d+); \
  classification.text=Integrity Check Warning: file(s) added; \
@@ -63,8 +65,9 @@ regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:(?!0)(\d+); \
  additional_data(0).data=$1; \
  additional_data(1).type=integer; \
  additional_data(1).meaning=Files added; \
- additional_data(1).data=$2;
+ additional_data(1).data=$2
 
+#DESCRIPTION:Integrity check ran successfully, warning file(s) removed
 #LOG:Jan 22 11:32:26 host tripwire[5265]: Integrity Check Complete: /usr/local/tripwire/tfs/report/host-.twr TWReport host 20040122113203 V:91 S:100 A:51 R:42 C:40 L:0 M:8 H:83
 regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:\d+ R:(?!0)(\d+); \
  classification.text=Integrity Check Warning: file(s) removed; \
@@ -76,15 +79,16 @@ regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:\d+ R:(?!0)(\d+); \
  assessment.impact.severity=high; \
  assessment.impact.type=file; \
  assessment.impact.completion=succeeded; \
- assessment.impact.description=Integrity check ran successfully, warning: $2 files removed; \
+ assessment.impact.description=Integrity check ran successfully, warning: $2 file(s) removed; \
  target(0).decoy=no; \
  additional_data(0).type=string; \
  additional_data(0).meaning=Report file; \
  additional_data(0).data=$1; \
  additional_data(1).type=integer; \
  additional_data(1).meaning=Files deleted; \
- additional_data(1).data=$2;
+ additional_data(1).data=$2
 
+#DESCRIPTION:Integrity check ran successfully, warning file(s) modified
 #LOG:Jan 22 11:32:26 host tripwire[5265]: Integrity Check Complete: /usr/local/tripwire/tfs/report/host-.twr TWReport host 20040122113203 V:91 S:100 A:51 R:42 C:40 L:0 M:8 H:83
 regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:\d+ R:\d+ C:(?!0)(\d+); \
  classification.text=Integrity Check Warning: file(s) modified; \
@@ -103,4 +107,4 @@ regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:\d+ R:\d+ C:(?!0)(\d+); \
  additional_data(0).data=$1; \
  additional_data(1).type=integer; \
  additional_data(1).meaning=Files modified; \
- additional_data(1).data=$2;
+ additional_data(1).data=$2

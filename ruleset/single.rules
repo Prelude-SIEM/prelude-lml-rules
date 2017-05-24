@@ -1,8 +1,23 @@
 #FULLNAME: Single rules
 #VERSION: 1.0
-#DESCRIPTION: Single and standalone rules that don't match up with any particular ruleset.
+#DESCRIPTION:Single and standalone rules that don't match up with any particular ruleset. All of these rules are single, standalone rules that don't match up with any particular ruleset.
 
 #####
+#
+# Copyright (C) 2004 Yoann Vandoorselaere <yoann@prelude-siem.org>
+# All Rights Reserved
+#
+# RulesID "Execution attempt"
+# Copyright (C) 2002 Brad Spengler <spender@grsecurity.net>
+# All Rights Reserved
+#
+# RulesID 403, 411
+# Copyright (C) 2004-2005 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+#
+# RulesID 410
+# Copyright (C) 2005 M LeBlanc <mleblanc at cpan dot org>
+# All Rights Reserved
 #
 # This file is part of the Prelude-LML program.
 #
@@ -22,14 +37,7 @@
 #
 #####
 
-#
-# All of these rules are single, standalone rules that don't match up
-# with any particular ruleset.  Comment out as needed.
-#
-
-# Copyright (C) 2004 Yoann Vandoorselaere <yoann@prelude-siem.org>
-# All Rights Reserved
-
+#DESCRIPTION:Promiscuous mode detected
 #LOG:Mar 28 12:30:01 gtsdmzuxids1 kernel: device eth1 entered promiscuous mode
 regex=device (\S+) entered promiscuous mode; \
  classification.text=Promiscuous mode detected; \
@@ -44,16 +52,14 @@ regex=device (\S+) entered promiscuous mode; \
  target(0).interface=$1; \
  last
 
-
-# Copyright (C) 2002 Brad Spengler <spender@grsecurity.net>
-# All Rights Reserved
-
+#DESCRIPTION:PAX - Execution attempt
 #LOG:Apr  9 20:56:41 emma kernel: PAX: From 1.2.3.4: execution attempt in: /usr/lib/paxtest/shlibtest.so, 25891000-25892000 00001000
 regex=From (\S+): execution attempt in:; \
  add_context=PAX_OVERFLOW_SOURCE; \
  source(0).node.address(>>).address = $1; \
- silent; last;
+ silent; last
 
+#DESCRIPTION:PAX - Possible buffer overflow
 #LOG:Sep  6 18:21:18 amoeba PAX: terminating task: /usr/X11R6/bin/glxinfo(glxinfo):7661, uid/euid: 9999/9999, PC: 25755afc, SP: 5bc95e2c
 #LOG:Oct 13 20:56:41 emma kernel: PAX: terminating task: /usr/bin/localedef(localedef):5208, uid/euid: 0/0, EIP: BFF4C330, ESP: BFF4C21C
 regex=terminating task: ([^(]+)\(([^)]+)\):(\d+), uid/euid: (\d+)/(\d+); \
@@ -79,9 +85,7 @@ regex=terminating task: ([^(]+)\(([^)]+)\):(\d+), uid/euid: (\d+)/(\d+); \
  assessment.impact.description=A possible buffer overflow occured in $1.  You should consider this an attack against your system.; \
  last
 
-# Copyright (C) 2004-2005 G Ramon Gomez <gene at gomezbrothers dot com>
-# All Rights Reserved
-
+#DESCRIPTION:Oracle - Command audit
 #LOG:Apr 13 11:31:55 12.34.56.78 oracle.pr[info] 34  Audit trail: ACTION : 'connect internal' OSPRIV : DBA CLIENT USER: linc CLIENT TERMINAL: DB3  STATUS: SUCCEEDED ( 0 )  .
 regex=Audit trail: ACTION : ('.+') OSPRIV : DBA CLIENT USER: (\S+) CLIENT TERMINAL: (\S+); \
  classification.text=Command audit; \
@@ -103,6 +107,7 @@ regex=Audit trail: ACTION : ('.+') OSPRIV : DBA CLIENT USER: (\S+) CLIENT TERMIN
  additional_data(0).data=$1; \
  last
 
+#DESCRIPTION:Xinetd - TFTP Session
 #LOG:Apr 28 08:56:46 somehost xinetd[17300]: START: tftp pid=10590 from=12.34.56.78
 regex=START: tftp pid=(\d+) from=([\d\.]+); \
  classification.text=TFTP Session; \
@@ -125,6 +130,7 @@ regex=START: tftp pid=(\d+) from=([\d\.]+); \
  target(0).process.pid=$1; \
  last
 
+#DESCRIPTION:P3Scan - Virus found
 #LOG:Jun 14 05:38:52 oahu p3scan[5973]: '/var/spool/p3scan/children/5973/p3scan.Pu3u8g' contains a virus (Infection: W32/Zafi.B@mm)!
 #LOG:Jul 13 19:44:44 localhost p3scan[529]: '/var/spool/p3scan/children/529/p3scan.ASA1Cl' contains a virus (Worm.Mytob.GH)!
 regex='(\S+)' contains a virus \((Infection: )?(\S+)\); \
@@ -143,6 +149,7 @@ regex='(\S+)' contains a virus \((Infection: )?(\S+)\); \
  additional_data(0).data=$1; \
  last
 
+#DESCRIPTION:Syslogd (startup|shutdown) succeeded
 #LOG:Jun 22 12:58:25 mail syslog: syslogd shutdown succeeded
 #LOG:Jun 22 12:58:55 mail syslog: syslogd startup succeeded
 regex=syslogd (startup|shutdown) succeeded; \
@@ -150,13 +157,14 @@ regex=syslogd (startup|shutdown) succeeded; \
  id=406; \
  revision=1; \
  analyzer(0).name=syslog; \
- analyzer(0).class=Logging; \
+ analyzer(0).class=Service; \
  assessment.impact.severity=low; \
  assessment.impact.type=dos; \
  assessment.impact.completion=succeeded; \
  assessment.impact.description=The syslogd service reported a $1; \
  last
 
+#DESCRIPTION:DLink Syslog - Packet denied
 #LOG:Apr 11 19:59:02 penguin dlink-syslog[28178]: Apr/11/2005 14:26:01 Drop TCP packet from WAN 80.231.184.68:3685  12.34.56.78:17300 Rule: Default deny
 #LOG:Apr 11 19:59:02 penguin dlink-syslog[28178]: Apr/11/2005 15:08:57 Drop UDP packet from WAN 218.83.153.58:54234  12.34.56.78:1026 Rule: Default deny
 regex=Drop (TCP|UDP) packet from ([LW]AN) ([\d\.]+):(\d+)  ([\d\.]+):(\d+) Rule: (.+); \
@@ -182,6 +190,7 @@ regex=Drop (TCP|UDP) packet from ([LW]AN) ([\d\.]+):(\d+)  ([\d\.]+):(\d+) Rule:
  additional_data(0).data=$7; \
  last
 
+#DESCRIPTION:Identd - Ident response issued
 #LOG:Apr 17 17:44:59 mail identd[27274]: reply to 82.96.64.2: 3937, 6667 : USERID : OTHER :[75PrAJ2FwE4EG1wv3UoKG55njQibNgOU]
 regex=reply to ([\d\.]+): (\d+), (\d+) : USERID : \S+ :(.+); \
  classification.text=Ident response issued; \
@@ -202,8 +211,9 @@ regex=reply to ([\d\.]+): (\d+), (\d+) : USERID : \S+ :(.+); \
  additional_data(1).type=string; \
  additional_data(1).meaning=Ident session destination port; \
  additional_data(1).data=$3; \
- last;
+ last
 
+#DESCRIPTION:Systrace - Deny User
 #LOG:Apr 17 05:43:08 src@sphere systrace: deny user: neonman, prog: /usr/bin/groups, pid: 27090(7)[6914], policy: /usr/bin/groups, filters: 0, syscall: native-sigaction(46), args: 12
 #LOG:Apr 17 05:43:08 src@sphere systrace: deny user: neonman, prog: /usr/bin/groups, pid: 27090(7)[6914], policy: /usr/bin/groups, filters: 0, syscall: native-kill(37), pidname: <unknown>, signame: SIGABRT
 regex=deny user: (\S+), prog: (\D+), pid: \d+\(\d+\)\[(\d+)\], policy: (\S+) filters: (\d+), syscall: (\S+),; \
@@ -228,11 +238,9 @@ regex=deny user: (\S+), prog: (\D+), pid: \d+\(\d+\)\[(\d+)\], policy: (\S+) fil
  additional_data(2).type=string; \
  additional_data(2).meaning=System call; \
  additional_data(2).data=$6; \
- last;
+ last
 
-# Copyright (C) 2005 M LeBlanc <mleblanc at cpan dot org>
-# All Rights Reserved
-
+#DESCRIPTION:PureFTPD - Authentication failed
 #LOG:May 10 15:24:21 mighty pure-ftpd: (?@127.0.0.1) [WARNING] Authentication failed for user [asdfasdf]
 regex=([\d\.]+)\) \[WARNING\] Authentication failed for user \[(.+)\]; \
  classification.text=FTP login; \
@@ -255,12 +263,9 @@ regex=([\d\.]+)\) \[WARNING\] Authentication failed for user \[(.+)\]; \
  target(0).service.iana_protocol_number=6; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$2; \
- last;
+ last
 
-# Copyright (C) 2006 G Ramon Gomez <gene at gomezbrothers dot com>
-# All Rights Reserved
-
-#RHEL4
+#DESCRIPTION:Yum - Package (Installed|Updated)
 #LOG:Oct 19 16:44:12 localhost yum: Installed: mysql-server.i386 4.1.20-1.RHEL4.1
 #LOG:Oct 20 09:03:55 localhost yum: Updated: tzdata.noarch 2006m-2.el4
 #RHEL6
@@ -274,7 +279,7 @@ regex=(Installed|Updated): (\S+)[-| ]([^-]*-[^-]*)$; \
  revision=1; \
  analyzer(0).name=yum; \
  analyzer(0).manufacturer=http://linux.duke.edu/projects/yum/; \
- analyzer(0).class=Patch Management; \
+ analyzer(0).class=Package Manager; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=file; \
  assessment.impact.severity=low; \
@@ -285,8 +290,9 @@ regex=(Installed|Updated): (\S+)[-| ]([^-]*-[^-]*)$; \
  additional_data(1).type=string; \
  additional_data(1).meaning=Package version; \
  additional_data(1).data=$3; \
- last;
+ last
 
+#DESCRIPTION:Yum - Package Erased
 #LOG:Oct 05 18:39:58 Erased: libreoffice-presenter-screen
 #LOG:Nov 26 19:01:28 Erased: ossec-hids-server
 regex=Erased: (\S+); \
@@ -295,7 +301,7 @@ regex=Erased: (\S+); \
  revision=1; \
  analyzer(0).name=yum; \
  analyzer(0).manufacturer=http://linux.duke.edu/projects/yum/; \
- analyzer(0).class=Patch Management; \
+ analyzer(0).class=Packet Manager; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=file; \
  assessment.impact.severity=low; \
@@ -303,8 +309,9 @@ regex=Erased: (\S+); \
  additional_data(0).type=string; \
  additional_data(0).meaning=Package; \
  additional_data(0).data=$1; \
- last;
+ last
 
+#DESCRIPTION:Operating system halted
 #LOG:Oct 13 14:27:36 CentOS shutdown[2142]: shutting down for system halt
 regex=shutting down for system (?:halt|reboot); \
  id=414; \
@@ -314,9 +321,9 @@ regex=shutting down for system (?:halt|reboot); \
  assessment.impact.severity=info; \
  assessment.impact.type=other; \
  assessment.impact.description=An operating system has been halted; \
- last;
+ last
 
-
+#DESCRIPTION:Operating system started
 #LOG:Nov  4 16:00:34 CentOS kernel: [    0.000000] Command line: BOOT_IMAGE=/vmlinuz-2.6.32.59-custom64.grsec.mediumsec+build-20120614193912 root=/dev/mapper/VG_Debian-LV--Root ro clocksource=acpi_pm quiet
 regex=kernel: .*Command line: BOOT_IMAGE=; \
  id=415; \
@@ -326,4 +333,4 @@ regex=kernel: .*Command line: BOOT_IMAGE=; \
  assessment.impact.severity=info; \
  assessment.impact.type=other; \
  assessment.impact.description=An operating system has been started; \
- last;
+ last

@@ -25,9 +25,7 @@
 #
 #####
 
-
-# anomaly messages, one resource_body followed by multione router_body
-
+#DESCRIPTION:Arbor Anomaly
 #LOG:Apr 17 06:52:57 arbordos.mynetwork.net pfDoS: anomaly Protocol id 92480 status ongoing severity 5 src 0.0.0.0/0 All dst 2.2.0.0/16 Intellig_ start 2005-04-17 06:45:41 +0200 duration 360 percent 214.27 rate 5e+06 rateUnit bps protocol tcp flags nil url https://doscont/anomaly/?attack_id=92480
 regex=anomaly ([a-zA-Z_-]+) id (\d+) status (\w+) severity (\d+) src ([\d\.\/]+) \w+ dst ([\d\.\/]+) \w+ start ([\d\- :\+]+) duration (\d+) percent (\d+\.?\d*) rate ([\de\+\-]+) rateUnit (\w+) protocol (\w+) flags (\w+) url (\S+); \
  classification.text=Arbor Anomaly $1; \
@@ -77,6 +75,7 @@ regex=anomaly ([a-zA-Z_-]+) id (\d+) status (\w+) severity (\d+) src ([\d\.\/]+)
  additional_data(6).data=$14; \
  last
 
+#DESCRIPTION:Arbor Anomaly Router
 #LOG:Apr 17 06:52:57 arbordos.mynetwork.net pfDoS: anomaly Protocol id 92480 status ongoing severity 5 router 1.2.3.4 interface 14 incoming
 regex=anomaly ([a-zA-Z_-]+) id (\d+) status (\w+) severity (\d+) router ([\d\./]+) interface (\S+) (\S+); \
  classification.text=Arbor Anomaly Router $1; \
@@ -110,13 +109,7 @@ regex=anomaly ([a-zA-Z_-]+) id (\d+) status (\w+) severity (\d+) router ([\d\./]
  additional_data(2).data=$7; \
  last
 
-
-# collector_body
-
-# collector_body = collector IP collector_status_type since DATE duration SECONDS
-# /* collector_body fields */
-# collector_status_type = lost | found
-
+#DESCRIPTION:Arbor Collector
 regex=collector (\S+) (\S+) since (.+) duration (\d+); \
  classification.text=Arbor Collector; \
  id=4302; \
@@ -138,12 +131,7 @@ regex=collector (\S+) (\S+) since (.+) duration (\d+); \
  additional_data(3).data=$4; \
  last
 
-# # netflow_body
-
-# /* netflow_body description */
-# internalError location IP reason netflow_reason_type since DATE duration SECONDS
-# /* netflow_body fields */
-# netflow_reason_type = netflowMissing | netflowMissingDone
+#DESCRIPTION:Arbor Netflow
 regex=internalError location (\S+) reason (\S+) since (.+) duration (\d+); \
  classification.text=Arbor Netflow; \
  id=4303; \
@@ -165,11 +153,7 @@ regex=internalError location (\S+) reason (\S+) since (.+) duration (\d+); \
  additional_data(3).data=$4; \
  last
 
-
-# # darkip_body
-
-# # darkip_body = rtr IP rtrSampleRate INTEGER proto INTEGER src IP dst IP dstPort INTEGER firstSeen DATE lastSeen DATE bytes INTEGER pkts INTEGER flows INTEGER
-
+#DESCRIPTION:Arbor DarkIP
 #LOG:Apr 17 07:31:22 arbordos.mynetwork.net pfDoS: rtr 1.2.3.4 rtrSampleRate 1000 proto 17 src 192.168.0.69 dst 1.2.3.4 dstPort 11328 firstSeen 2005-04-17 06:31:46 +0200 lastSeen 2005-04-17 06:31:46 +0200 bytes 53 pkts 1 flows 1
 regex=rtr ([\d\.\/]+) rtrSampleRate (\d+) proto (\d+) src ([\d\.\/]+) dst ([\d\.\/]+) dstPort (\d+) firstSeen ([\d\- :\+]+) lastSeen ([\d\- :\+]+) bytes (\d+) pkts (\d+) flows (\d+); \
  classification.text=Arbor DarkIP; \

@@ -25,16 +25,14 @@
 #
 #####
 
-###################
-# Logging succeed #
-###################
-
+#DESCRIPTION:Logon process to root on
 regex=to root on; \
  id=10003; \
  assessment.impact.type=admin; \
  target(0).user.user_id(0).number=0; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:Logon process to root on
 #LOG:Jul 18 17:12:49 hids su: afonyashin to root on /dev/ttyp0
 #LOG:Jul 18 17:12:49 hids su: afonyashin to alice on /dev/ttyp0
 optgoto=10003; regex=su: (\S+) to (\S+) on (\S+); \
@@ -42,6 +40,7 @@ optgoto=10003; regex=su: (\S+) to (\S+) on (\S+); \
  id=10000; \
  revision=1; \
  analyzer(0).name=su; \
+ analyzer(0).manufacturer=GNU; \
  analyzer(0).class=Authentication; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=user; \
@@ -54,13 +53,9 @@ optgoto=10003; regex=su: (\S+) to (\S+) on (\S+); \
  target(0).user.category=os-device; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$2; \
- last;
+ last
 
-
-################
-# Login failed #
-################
-
+#DESCRIPTION:Login failed
 #LOG:Jul 18 17:12:44 hids su: BAD SU afonyashin to root on /dev/ttyp0
 #LOG:Jul 18 17:12:44 hids su: BAD SU afonyashin to alice on /dev/ttyp0
 regex=su: BAD SU (\S+) to (\S+) on (\S+); \
@@ -69,6 +64,7 @@ regex=su: BAD SU (\S+) to (\S+) on (\S+); \
  id=10002; \
  revision=1; \
  analyzer(0).name=su; \
+ analyzer(0).manufacturer=GNU; \
  analyzer(0).class=Authentication; \
  assessment.impact.completion=failed; \
  assessment.impact.type=user; \
@@ -81,4 +77,4 @@ regex=su: BAD SU (\S+) to (\S+) on (\S+); \
  target(0).user.category=os-device; \
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$2; \
- last;
+ last

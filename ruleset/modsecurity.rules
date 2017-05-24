@@ -1,6 +1,6 @@
 #FULLNAME: ModSecurity
 #VERSION: 1.0
-#DESCRIPTION: ModSecurity is a toolkit for real-time web application monitoring, logging, and access control.
+#DESCRIPTION:ModSecurity is a toolkit for real-time web application monitoring, logging, and access control. These rules were developed using mod_security-2.5.6 (tested with 2.1.7 and 2.5.6).
 
 #####
 #
@@ -25,22 +25,8 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 #####
-# The rules developed using mod_security-2.5.6 (tested with 2.1.7 and 2.5.6)
-#####
 
-# Here are some example log entries that should match against rules defined below:
-#
-#LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 400 (phase 1). Pattern match "," at REQUEST_HEADERS:Transfer-Encoding. [id "950012"] [msg "HTTP Request Smuggling Attack."] [severity "ALERT"] [uri "/"] [unique_id "CqsKfwoiIjEAAGO7d7cAAAAE"]
-#LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 400 (phase 1). Match of "rx ^(?:(?:[a-z]{3,10}\\\\s+(?:\\\\w{3,7}?://[\\\\w\\\\-\\\\./]*(?::\\\\d+))??/[^?#]*(?:\\\\?[^#\\\\s]*)?(?:#[\\\\S]*)?|connect (?:\\\\d{1,3}\\\\.){3}\\\\d{1,3}\\\\.?(?::\\\\d+)?|options \\\\*)\\\\s+[\\\\w\\\\./]+|get /[^?#]*(?:\\\\?[^#\\\\s]*)?(?:#[\\\\S]*)?)$" against "REQUEST_LINE" required. [id "960911"] [msg "Invalid HTTP Request Line"] [severity "CRITICAL"] [uri "Jul"] [unique_id "A30u2woiIjEAAGO7d7YAAAAE"]
-#LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with connection close (phase 2). Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/\\xc4\\x9b+\\xc5\\xa1\\xc4\\x8d\\xc5\\xa1\\xc5\\x99\\xc5\\x99\\xc4\\x8d\\xc3\\xbd\\xc3\\xbd\\xc3\\xa1"] [unique_id "4B63aQoiIjEAAGO5dL8AAAAC"]
-#LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied using proxy to (phase 2) http://foo.bar/. Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/2\\xc5\\xa1\\xc4\\x9b\\xc4\\x8d\\xc4\\x9b\\xc5\\xa1\\xc5\\x99\\xc5\\xa1\\xc4\\x8d\\xc5\\x99\\xc5\\xa1\\xc4\\x8d\\xc5\\xbe"] [unique_id "YVFqFwoiIjEAAAiuLsMAAAAA"]
-#LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with redirection to http://foo.bar/ using status 302 (phase 2). Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/\\xc5\\xa1\\xc4\\x9b\\xc4\\x9b\\xc5\\xa1\\xc5\\x99\\xc5\\xbe\\xc4\\x8d\\xc5\\x99\\xc5\\xbe"] [unique_id "aTOstwoiIjEAAAlUMRsAAAAA"]
-#LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Warning. Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/\\xc4\\x9b+\\xc5\\xa1\\xc4\\x8d\\xc5\\xa1\\xc5\\x99\\xc5\\x99\\xc4\\x8d\\xc3\\xbd\\xc3\\xbd\\xc3\\xa1"] [unique_id "pNLe4woiIjEAAF4fLq0AAAAH"]
-#LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Warning. Match of "rx ^OPTIONS$" against "REQUEST_METHOD" required. [id "960015"] [msg "Request Missing an Accept Header"] [severity "CRITICAL"] [uri "/\\xc4\\x9b+\\xc5\\xa1\\xc4\\x8d\\xc5\\xa1\\xc5\\x99\\xc5\\x99\\xc4\\x8d\\xc3\\xbd\\xc3\\xbd\\xc3\\xa1"] [unique_id "S2NY@woiIjEAAF4eLX8AAAAG"]
-
-########################
-
-# Protocol violation
+#DESCRIPTION:HTTP Protocol violation
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 400 (phase 1). Pattern match "," at REQUEST_HEADERS:Transfer-Encoding. [id "950012"] [msg "HTTP Request Smuggling Attack."] [severity "ALERT"] [uri "/"] [unique_id "CqsKfwoiIjEAAGO7d7cAAAAE"]
 regex=\[id "(960911|950012|960912|960016|960011|960012|960013|950107|950801|950116|960014|960018|960901)"\]; \
  id=3167; \
@@ -50,9 +36,9 @@ regex=\[id "(960911|950012|960912|960016|960011|960012|960013|950107|950801|9501
  additional_data(-1).meaning=ModSec Rule ID; \
  additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
- chained; silent;
+ chained; silent
 
-# Protocol anomaly
+#DESCRIPTION:HTTP Protocol anomaly
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Warning. Match of "rx ^OPTIONS$" against "REQUEST_METHOD" required. [id "960015"] [msg "Request Missing an Accept Header"] [severity "CRITICAL"] [uri "/\\xc4\\x9b+\\xc5\\xa1\\xc4\\x8d\\xc5\\xa1\\xc5\\x99\\xc5\\x99\\xc4\\x8d\\xc3\\xbd\\xc3\\xbd\\xc3\\xa1"] [unique_id "S2NY@woiIjEAAF4eLX8AAAAG"]
 regex=\[id "(960019|960008|960015|960009|960904|960913)"\]; \
  id=3168; \
@@ -62,9 +48,9 @@ regex=\[id "(960019|960008|960015|960009|960904|960913)"\]; \
  additional_data(-1).meaning=ModSec Rule ID; \
  additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
- chained; silent;
+ chained; silent
 
-# Request limits
+#DESCRIPTION:Request limits exceeded
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 403 (phase2). Operator GT matched 0 at ARGS. [file "/etc/apache2/modsecurity/activated_rules/modsecurity_crs_23_request_limits.conf"] [line "31"] [id "960335"] [rev "2.2.5"] [msg "Too many arguments in request"] [severity "WARNING"] [hostname "alphard.stars.example"] [uri "/index.html"] [unique_id "VI4p6X8AAAIAABgVFe8AAAAA"]
 regex=\[id "(960335)"\]; \
  id=3169; \
@@ -74,9 +60,9 @@ regex=\[id "(960335)"\]; \
  additional_data(-1).meaning=ModSec Rule ID; \
  additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
- chained; silent;
+ chained; silent
 
-# HTTP policy
+#DESCRIPTION:HTTP policy violation
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Warning. Match of "rx ^%{tx.allowed_request_content_type}$" against "TX:" required. [file "/etc/apache2/modsecurity/activated_rules/modsecurity_crs_30_http_policy.conf"] [line "64"] [id "960010"] [msg "Request content type is not allowed by policy"] [data "application/x-www-form-urlencoded"] [severity "WARNING"] [tag "POLICY/ENCODING_NOT_ALLOWED"] [tag "WASCTC/WASC-20"] [tag "OWASP_TOP_10/A1"] [tag "OWASP_AppSensor/EE2"] [tag "PCI/12.1"] [hostname "saiph.stars.example"] [uri "/phpMyAdmin/index.php"] [unique_id "VTHCZAoAAkIAAFkcFJ0AAAAD"]
 regex=\[id "(960032|960010|960034|960035|960038|960902|960903)"\]; \
  id=3170; \
@@ -86,9 +72,9 @@ regex=\[id "(960032|960010|960034|960035|960038|960902|960903)"\]; \
  additional_data(-1).meaning=ModSec Rule ID; \
  additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
- chained; silent;
+ chained; silent
 
-# Bad robots
+#DESCRIPTION:Bad HTTP robots
 #LOG:[Fri Nov 19 17:18:37 2010] [error] [client 204.124.182.203] ModSecurity: Access denied with code 406 (phase 2). Match of "rx ^apache.*perl" against "REQUEST_HEADERS:User-Agent" required. [file "/usr/local/apache/conf/modsec2.user.conf"] [line "58"] [id "990011"] [msg "Request Indicates an automated program explored the site"] [severity "NOTICE"] [hostname "www.unlockuriphonenow.com"] [uri "/cron.php"] [unique_id "TOZkLcx8tssAAHkegJ4AAABV"]
 regex=\[id "(990002|990901|990902|990012|990011)"\]; \
  id=3171; \
@@ -98,9 +84,9 @@ regex=\[id "(990002|990901|990902|990012|990011)"\]; \
  additional_data(-1).meaning=ModSec Rule ID; \
  additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
- chained; silent;
+ chained; silent
 
-# Generic attacks
+#DESCRIPTION:Generic HTTP attacks
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Warning. Pattern match "(?i:([\\\\s'\\"`\\xc2\\xb4\\xe2\\x80\\x99\\xe2\\x80\\x98\\\\(\\\\)]*)?([\\\\d\\\\w]+)([\\\\s'\\"`\\xc2\\xb4\\xe2\\x80\\x99\\xe2\\x80\\x98\\\\(\\\\)]*)?(?:=|<=>|r?like|sounds\\\\s+like|regexp)([\\\\s'\\"`\\xc2\\xb4\\xe2\\x80\\x98\\ ..." at ARGS:text. [file "/etc/httpd/modsecurity.d/activated_rules/modsecurity_crs_41_sql_injection_attacks.conf"] [line "77"] [id "950901"] [rev "2.2.5"] [msg "SQL Injection Attack"] [data "p>This"] [severity "CRITICAL"] [tag "WEB_ATTACK/SQL_INJECTION"] [tag "WASCTC/WASC-19"] [tag "OWASP_TOP_10/A1"] [tag "OWASP_AppSensor/CIE1"] [tag "PCI/6.5.2"] [hostname "bellatrix.stars.example"] [uri "/joomla/administrator/index.php"] [unique_id "cfesVwoAAikAADZlCD8AAA"]
 regex=\[id "(959009|950007|959007|950904|959904|950001|959001|950901|959901|950906|959906|950908|959908|950004|959004|959005|950002|950006|959006|950907|959907|950008|959008|950010|959010|950011|959011|950013|959013|950018|959018|950019|959019|950910|950911)"\]; \
  id=3172; \
@@ -110,8 +96,9 @@ regex=\[id "(959009|950007|959007|950904|959904|950001|959001|950901|959901|9509
  additional_data(-1).meaning=ModSec Rule ID; \
  additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:HTTP trojan
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 404 (phase 4). Pattern match "(?:<title>[^<]*?(?:\\b(?:(?:c(?:ehennemden|gi-telnet)|gamma web shell)\\b|imhabirligi phpftp)|(?:r(?:emote explorer|57shell)|aventis klasvayv|zehir)\\b|\\.::(?:news remote php shell injection::\\.| rhtools\\b)|ph(?:p(?:(?: commander|-terminal)\\b|remoteview)| ..." at RESPONSE_BODY. [file "/dh/apache2/template/etc/mod_sec2/modsecurity_crs_45_trojans.conf"] [line "34"] [id "950922"] [msg "Backdoor access"] [severity "CRITICAL"] [tag "MALICIOUS_SOFTWARE/TROJAN"] [hostname "www.example.com"] [uri "/egroupware/setup/check_install.php"] [unique_id "SRgxB0PNBIMAAGqtIdcAAAAC"]
 regex=\[id "(950921|950922)"\]; \
  id=3173; \
@@ -121,9 +108,9 @@ regex=\[id "(950921|950922)"\]; \
  additional_data(-1).meaning=ModSec Rule ID; \
  additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
- chained; silent;
+ chained; silent
 
-# Outbound
+#DESCRIPTION:HTTP outbound policy violation
 #LOG:[Mon Nov 24 11:30:49.314543 2014] [security2:error] [pid 6110:tid 4130134896] [client 10.15.1.2] ModSecurity: Rule 9a05c50 [id "970003"][file "/usr/apache/conf/waf/modsecurity_crs_outbound.conf"][line "123"] - Execution error - PCRE limits exceeded (-8): (null). [hostname "labtest.lab.local"] [uri "/public/login.htm"] [unique_id "VHMI2cJMnBQAABfeeCIAAABA"]
 regex=\[id "(970003|970004|970904|970007|970008|970009|970010|970012|970013|970014|970903|970015|970902|970016|970018|970901|970118|970021|970011)"\]; \
  id=3174; \
@@ -133,15 +120,17 @@ regex=\[id "(970003|970004|970904|970007|970008|970009|970010|970012|970013|9700
  additional_data(-1).meaning=ModSec Rule ID; \
  additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:Generic
 regex=Pattern match ".+" at \S+:(.*?/?([^/]+?))\.; \
  id=3177; \
  assessment.impact.type=file; \
  target(0).file(0).name=$2; \
  target(0).file(0).path=$1; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:Generic HTTP attack
 #LOG:[Mon Sep 09 17:38:38 2013] [error] [client 1.1.1.1] ModSecurity: Warning. Pattern match "(?:\\\\b(?:\\\\.(?:ht(?:access|passwd|group)|www_?acl)|global\\\\.asa|httpd\\\\.conf|boot\\\\.ini)\\\\b|\\\\/etc\\\\/)" at ARGS:f. [file "/etc/apache2/conf.d/mod_security2/base_rules/modsecurity_crs_40_generic_attacks.conf"] [line "193"] [id "950005"] [rev "2"] [msg "Remote File Access Attempt"] [data "Matched Data: /etc/ found within ARGS:f: /etc/passwd"] [severity "CRITICAL"] [ver "OWASP_CRS/2.2.6"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/WEB_ATTACK/FILE_INJECTION"] [tag "WASCTC/WASC-33"] [tag "OWASP_TOP_10/A4"] [tag "PCI/6.5.4"] [hostname "www.example.com"] [uri "/index.php"] [unique_id "Ui3rftX@FAIAAEXTJuEAAAAE"]
 regex=\[id "950005"\]; \
  optgoto=3177; \
@@ -153,8 +142,9 @@ regex=\[id "950005"\]; \
  additional_data(-1).meaning=ModSec Rule ID; \
  additional_data(-1).data=950005; \
  classification.reference(0).name=950005; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:HTTP Protocol anomaly
 #LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[id "960017"\]; \
  id=3176; \
@@ -165,43 +155,45 @@ regex=\[id "960017"\]; \
  additional_data(-1).data=960017; \
  classification.reference(0).name=960017; \
  assessment.impact.type=recon; \
- chained; silent;
+ chained; silent
 
-#########################
-
-# 3160-3166
+#DESCRIPTION:ModSec Ruleset File
 #LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[file "([^"]+)"\]; \
  id=3160; \
  additional_data(>>).type=string; \
  additional_data(-1).meaning=ModSec Ruleset File; \
  additional_data(-1).data=$1; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:ModSec Ruleset Line
 #LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[line "(\d+)"\]; \
  id=3161; \
  additional_data(>>).type=integer; \
  additional_data(-1).meaning=ModSec Ruleset Line; \
  additional_data(-1).data=$1; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:ModSec Rule Tag
 #LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[tag "(\S+)"\]; \
  id=3162; \
  additional_data(>>).type=string; \
  additional_data(-1).meaning=ModSec Rule Tag; \
  additional_data(-1).data=$1; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:ModSec Severity
 #LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[severity "(\S+)"\]; \
  id=3163; \
  additional_data(>>).type=string; \
  additional_data(-1).meaning=ModSec Severity; \
  additional_data(-1).data=$1; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:Generic message
 #LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[msg "([^"]+)"\]; \
  optgoto=3167-3176; \
@@ -209,123 +201,136 @@ regex=\[msg "([^"]+)"\]; \
  id=3164; \
  classification.reference(0).meaning=$1; \
  classification.reference(0).origin=vendor-specific; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:Generic hostname
 #LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[hostname "(\S+)"\]; \
  id=3165; \
  target(0).node.address(0).address=$1; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:Unique ID
 #LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[unique_id "(\S+)"\]; \
  id=3166; \
  additional_data(>>).type=string; \
  additional_data(-1).meaning=Unique ID; \
  additional_data(-1).data=$1; \
- chained; silent;
+ chained; silent
 
-# 3120-3125
+#DESCRIPTION:ModSecurity found pattern
+#DESCRIPTION:3120-3125
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 400 (phase 1). Match of "rx ^(?:(?:[a-z]{3,10}\\\\s+(?:\\\\w{3,7}?://[\\\\w\\\\-\\\\./]*(?::\\\\d+))??/[^?#]*(?:\\\\?[^#\\\\s]*)?(?:#[\\\\S]*)?|connect (?:\\\\d{1,3}\\\\.){3}\\\\d{1,3}\\\\.?(?::\\\\d+)?|options \\\\*)\\\\s+[\\\\w\\\\./]+|get /[^?#]*(?:\\\\?[^#\\\\s]*)?(?:#[\\\\S]*)?)$" against "REQUEST_LINE" required. [id "960911"] [msg "Invalid HTTP Request Line"] [severity "CRITICAL"] [uri "Jul"] [unique_id "A30u2woiIjEAAGO7d7YAAAAE"]
 regex=Match of "(.+)" against "(\S+)" required\.; \
  optgoto=3160-3166; \
  id=3120; \
  assessment.impact.description=ModSecurity found pattern match "$1" in HTTP object $2.; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:ModSecurity found operator
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with connection close (phase 2). Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/\\xc4\\x9b+\\xc5\\xa1\\xc4\\x8d\\xc5\\xa1\\xc5\\x99\\xc5\\x99\\xc4\\x8d\\xc3\\xbd\\xc3\\xbd\\xc3\\xa1"] [unique_id "4B63aQoiIjEAAGO5dL8AAAAC"]
 regex=Operator ([A-Z]{2}) match: (\d+)\.; \
  optgoto=3160-3166; \
  id=3121; \
  assessment.impact.description=ModSecurity found operator "$1" match "$2".; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:ModSecurity found pattern
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 400 (phase 1). Pattern match "," at REQUEST_HEADERS:Transfer-Encoding. [id "950012"] [msg "HTTP Request Smuggling Attack."] [severity "ALERT"] [uri "/"] [unique_id "CqsKfwoiIjEAAGO7d7cAAAAE"]
 regex=Pattern match "(.+)" at (.+?)\.; \
  optgoto=3160-3166; \
  id=3122; \
  assessment.impact.description=ModSecurity found pattern match "$1" in HTTP object $2.; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:ModSecurity found
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 403 (phase2). Operator GT matched 0 at ARGS. [file "/etc/apache2/modsecurity/activated_rules/modsecurity_crs_23_request_limits.conf"] [line "31"] [id "960335"] [rev "2.2.5"] [msg "Too many arguments in request"] [severity "WARNING"] [hostname "alphard.stars.example"] [uri "/index.html"] [unique_id "VI4p6X8AAAIAABgVFe8AAAAA"]
 regex=Operator ([A-Z]{2}) matched (\d+) at (\S+)\.; \
  optgoto=3160-3166; \
  id=3123; \
  assessment.impact.description=ModSecurity found operator "$1" match "$2".; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:ModSecurity found outside range
 #LOG:[Fri Apr 17 23:07:33 2015] [error] [client 10.0.2.222] ModSecurity: Warning. Found 1 byte(s) in ARGS:from_prefix outside range: 1-255. [file "/etc/apache2/modsecurity/activated_rules/modsecurity_crs_20_protocol_violations.conf"] [line "353"] [id "960901"] [rev "2.2.5"] [msg "Invalid character in request"] [severity "WARNING"] [tag "PROTOCOL_VIOLATION/EVASION"] [tag "WASCTC/WASC-28"] [tag "OWASP_TOP_10/A1"] [tag "OWASP_AppSensor/RE8"] [tag "PCI/6.5.2"] [tag "http://i-technica.com/whitestuff/asciichart.html"] [hostname "saiph.stars.example"] [uri "/phpMyAdmin/db_structure.php"] [unique_id "VTHKdQoAAkIAAF0CFbEAAAAE"]
 regex=Found (\d+) byte\(s\) in (\S+) outside range: (\S+)\.; \
  optgoto=3160-3166; \
  id=3124; \
  assessment.impact.description=ModSecurity found $1 byte(s) in "$2" outside range $3.; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:ModSecurity found outside range
 #LOG:[Mon Sep 24 21:41:29 2007] [error] [client 192.168.1.50] ModSecurity: Access denied with code 400 (phase 2). Found 1 byte(s) outside range: 1-255. [id "960901"] [msg "Invalid character in request"] [severity "WARNING"] [hostname "www.example.com"] [uri "/forum/posting.php?mode=3Dedit&f=3D33&sid=3D1bbae563df5ac108526808f52b7b24d1&t=3D13&p=3D19"] [unique_id "zo1qB8CoAW4AASoSC7UAAAAF"]
 regex=Found (\d+) byte\(s\) outside range: (\S+)\.; \
  optgoto=3160-3166; \
  id=3125; \
  assessment.impact.description=ModSecurity found $1 byte(s) outside range $3.; \
- chained; silent;
+ chained; silent
 
-# 3130-3133; Access denied + ...
+#DESCRIPTION:Access blocked
 #LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=with code (\d+) \(phase \d\)\.; \
  optgoto=3120-3125; \
  id=3130; \
- assessment.action(0).category = block-installed; \
- assessment.action(0).description = Access was blocked with HTTP response code $1.; \
- chained; silent;
+ assessment.action(0).category=block-installed; \
+ assessment.action(0).description=Access was blocked with HTTP response code $1.; \
+ chained; silent
 
+#DESCRIPTION:Access denied using proxy
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied using proxy to (phase 2) http://foo.bar/. Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/2\\xc5\\xa1\\xc4\\x9b\\xc4\\x8d\\xc4\\x9b\\xc5\\xa1\\xc5\\x99\\xc5\\xa1\\xc4\\x8d\\xc5\\x99\\xc5\\xa1\\xc4\\x8d\\xc5\\xbe"] [unique_id "YVFqFwoiIjEAAAiuLsMAAAAA"]
 regex=using proxy to \(phase (\d+)\) (\S+)\.; \
  optgoto=3120-3125; \
  id=3131; \
- assessment.action(0).category = block-installed; \
- assessment.action(0).description = Access was denied using proxy to $2.; \
- chained; silent;
+ assessment.action(0).category=block-installed; \
+ assessment.action(0).description=Access was denied using proxy to $2.; \
+ chained; silent
 
+#DESCRIPTION:Access was redirection
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with redirection to http://foo.bar/ using status 302 (phase 2). Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/\\xc5\\xa1\\xc4\\x9b\\xc4\\x9b\\xc5\\xa1\\xc5\\x99\\xc5\\xbe\\xc4\\x8d\\xc5\\x99\\xc5\\xbe"] [unique_id "aTOstwoiIjEAAAlUMRsAAAAA"]
 regex=with redirection to (\S+) using status (\d+) \(phase (\d+)\)\.; \
  optgoto=3120-3125; \
  id=3132; \
- assessment.action(0).category = block-installed; \
- assessment.action(0).description = Access was redirected to $1.; \
- chained; silent;
+ assessment.action(0).category=block-installed; \
+ assessment.action(0).description=Access was redirected to $1.; \
+ chained; silent
 
+#DESCRIPTION:Connection close
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with connection close (phase 2). Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/\\xc4\\x9b+\\xc5\\xa1\\xc4\\x8d\\xc5\\xa1\\xc5\\x99\\xc5\\x99\\xc4\\x8d\\xc3\\xbd\\xc3\\xbd\\xc3\\xa1"] [unique_id "4B63aQoiIjEAAGO5dL8AAAAC"]
 regex=with connection close \(phase (\d+)\).; \
  optgoto=3120-3125; \
  id=3133; \
- assessment.action(0).category = block-installed; \
- assessment.action(0).description = Connection was closed.; \
- chained; silent;
+ assessment.action(0).category=block-installed; \
+ assessment.action(0).description=Connection was closed.; \
+ chained; silent
 
-# Output filter
+#DESCRIPTION:Response body too large
 #LOG:[Mon Oct 26 10:31:13 2009] [error] [client 172.16.167.48] ModSecurity: Output filter: Response body too large (over limit of 524288, total not specified). [hostname "example.com"] [uri "/wp-admin/wpmu-edit.php"] [unique_id "adpkLkPA-0QAABypFGAAAAAR"]
 regex=Response body too large \(over limit of (\d+)(.+?)\)\.; \
  optgoto=3160-3166; \
  id=3150; \
  assessment.impact.description=Response body too large (over limit of $1$2); \
- chained; silent;
+ chained; silent
 
-# 3100-3102
+#DESCRIPTION:Warning
 #LOG:[Mon Sep 09 17:38:38 2013] [error] [client 1.1.1.1] ModSecurity: Warning. Pattern match "(?:\\\\b(?:\\\\.(?:ht(?:access|passwd|group)|www_?acl)|global\\\\.asa|httpd\\\\.conf|boot\\\\.ini)\\\\b|\\\\/etc\\\\/)" at ARGS:f. [file "/etc/apache2/conf.d/mod_security2/base_rules/modsecurity_crs_40_generic_attacks.conf"] [line "193"] [id "950005"] [rev "2"] [msg "Remote File Access Attempt"] [data "Matched Data: /etc/ found within ARGS:f: /etc/passwd"] [severity "CRITICAL"] [ver "OWASP_CRS/2.2.6"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/WEB_ATTACK/FILE_INJECTION"] [tag "WASCTC/WASC-33"] [tag "OWASP_TOP_10/A4"] [tag "PCI/6.5.4"] [hostname "www.example.com"] [uri "/index.php"] [unique_id "Ui3rftX@FAIAAEXTJuEAAAAE"]
 regex=Warning\.; \
  optgoto=3120-3125; \
  id=3101; \
  classification.text=HTTP Warning.; \
  assessment.impact.completion=succeeded; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:Access denied
 #LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=Access denied; \
  optgoto=3130-3133; \
  id=3102; \
  classification.text=HTTP Access denied.; \
  assessment.impact.completion=failed; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:Output filter
 #LOG:[Mon Oct 26 10:31:13 2009] [error] [client 172.16.167.48] ModSecurity: Output filter: Response body too large (over limit of 524288, total not specified). [hostname "example.com"] [uri "/wp-admin/wpmu-edit.php"] [unique_id "adpkLkPA-0QAABypFGAAAAAR"]
 regex=Output filter:; \
  optgoto=3150; \
@@ -333,8 +338,9 @@ regex=Output filter:; \
  classification.text=HTTP Output filer error; \
  assessment.impact.completion=failed; \
  assessment.impact.severity=high; \
- chained; silent;
+ chained; silent
 
+#DESCRIPTION:ModSecurity
 #LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[client ([\d\.]+)\] ModSecurity:.*\[uri "([^"]+)"\]; \
  optgoto=3101-3103; \

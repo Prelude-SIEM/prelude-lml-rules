@@ -1,6 +1,6 @@
 #FULLNAME: Microsoft Cluster
 #VERSION: 1.0
-#DESCRIPTION: Cluster service from Microsoft.
+#DESCRIPTION: Cluster service from Microsoft. The rules included here were developed using NTSyslog and Windows 2003 Cluster Service.
 
 #####
 #
@@ -25,14 +25,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using NTSyslog and Windows 2003
-# Cluster Service.  Please report any inconsistencies on other models
-# to G Ramon Gomez at the address provided above
-#
-#####
-
+#DESCRIPTION:Cluster communication failure
 #LOG:Oct 22 04:15:01 smf-syslog-02 smf-exchange-06/smf-exchange-06 clussvc[error] 1079  The node cannot join the cluster because it cannot communicate with node SMF-EXCHANGE-05 over any network configured for internal cluster communication. Check the network configuration of the node and the cluster.
 regex=The node cannot join the cluster because it cannot communicate with node (\S+) over any network configured for internal cluster communication.; \
  classification.text=Cluster communication failure; \
@@ -55,6 +48,7 @@ regex=The node cannot join the cluster because it cannot communicate with node (
  target(0).process.name=clussvc; \
  last
 
+#DESCRIPTION:Cluster node removed from the active cluster membership
 #LOG:Oct 22 04:16:04 smf-syslog-02 smf-exchange-05/smf-exchange-05 clussvc[warning] 1135  Cluster node SMF-EXCHANGE-06 was removed from the active cluster membership. The Clustering Service may have been stopped on the node, the node may have failed, or the node may have lost communication with the other active cluster nodes
 regex=Cluster node (\S+) was removed from the active cluster membership; \
  classification.text=Cluster communication failure; \
@@ -77,6 +71,7 @@ regex=Cluster node (\S+) was removed from the active cluster membership; \
  target(0).process.name=clussvc; \
  last
 
+#DESCRIPTION:Cluster is UP
 #LOG:Oct 23 19:09:38 smf-syslog-02 smf-exchange-02/smf-exchange-02 clussvc[info] Cluster network 'Public' is operational (up). All available cluster nodes attached to the network can communicate using it.
 regex=Cluster network '(.+)' is operational \(up\); \
  classification.text=Cluster up; \

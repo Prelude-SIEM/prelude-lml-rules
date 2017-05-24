@@ -1,6 +1,6 @@
 #FULLNAME: Webmin
 #VERSION: 1.0
-#DESCRIPTION: Webmin is a web-based system configuration tool.
+#DESCRIPTION: Webmin is a web-based system configuration tool. The rules included here were developed using Webmin 1.130.
 
 #####
 #
@@ -26,14 +26,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using Webmin 1.130.  Please
-# report any inconsistencies on other versions to G Ramon Gomez at the
-# address provided above
-#
-#####
-
+#DESCRIPTION:A user began a Webmin session
 #LOG:Mar 14 15:18:22 gtsproduxlvs1 webmin[27244]: Successful login as root from 12.34.56.78
 regex=Successful login as (.+) from ([\d\.]+); \
  classification.text=Web administration admin login; \
@@ -55,6 +48,7 @@ regex=Successful login as (.+) from ([\d\.]+); \
  target(0).service.name=http; \
  last
 
+#DESCRIPTION:A user tried to begin a Webmin session. Failed
 #LOG:Mar 17 19:18:32 gtsdmzuxids1 webmin[28655]: Invalid login as root from 10.100.17.38
 regex=Invalid login as (.+) from ([\d\.]+); \
  classification.text=Web administration admin login; \

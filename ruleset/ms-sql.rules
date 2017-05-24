@@ -1,6 +1,6 @@
 #FULLNAME: Microsoft SQL
 #VERSION: 1.0
-#DESCRIPTION: SQL Database from Microsoft.
+#DESCRIPTION: SQL Database from Microsoft. The rules included here were developed using Microsoft SQL Server 2000 SP3a events collected using NTSysLog.
 
 #####
 #
@@ -26,14 +26,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using Microsoft SQL Server 2000 SP3a
-# events collected using NTSysLog.  Please report any inconsistencies on other
-# versions to G Ramon Gomez at the address provided above
-#
-#####
-
+#DESCRIPTION:Attempt failed to login to MS-SQL instance as generic user
 #LOG:Nov 24 14:45:58 testdb.itg.sac.tfs mssqlserver[info] 17055  18456 : Login failed for user 'probe'.
 regex=(mssql.+)\[\w+\] \d+  \d+ : Login failed for user '(?!sa)(.+)'; \
  classification.text=Database user login; \
@@ -51,6 +44,7 @@ regex=(mssql.+)\[\w+\] \d+  \d+ : Login failed for user '(?!sa)(.+)'; \
  target(0).process.name=$1; \
  last
 
+#DESCRIPTION:Attempt failed to login to MS-SQL instance as admin user
 #LOG:Nov 24 14:45:58 testdb.itg.sac.tfs mssqlserver[info] 17055  18456 : Login failed for user 'sa'.
 regex=(mssql.+)\[\w+\] \d+  \d+ : Login failed for user 'sa'; \
  classification.text=Database admin login; \

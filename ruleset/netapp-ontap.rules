@@ -1,6 +1,6 @@
 #FULLNAME: NetApp ONTAP
 #VERSION: 1.0
-#DESCRIPTION: Data ONTAP is NetApp's internal operating system, specially optimised for storage functions at high and low level.
+#DESCRIPTION: Data ONTAP is NetApp's internal operating system, specially optimised for storage functions at high and low level. The rules included here were developed using NetApp ONTAP 6.4.4R1 on a F820 Filer.
 
 #####
 #
@@ -25,14 +25,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using NetApp ONTAP 6.4.4R1 on a
-# F820 Filer.  Please report any inconsistencies on other versions to G
-# Ramon Gomez at the address provided above
-#
-#####
-
+#DESCRIPTION:Storage full
 #LOG:Jul 22 12:12:57 cahco3 Thu Jul 22 12:09:00 PDT [monitor.globalStatus.nonCritical:warning]: /vol/RanchoFiles is full (using or reserving 98% of space and 6% of inodes).
 regex=\[monitor.globalStatus.nonCritical:warning\]: (\S+) is full \(using or reserving (\d+%) of space and (\d+%) of inodes; \
  classification.text=Storage capacity warning; \
@@ -47,6 +40,7 @@ regex=\[monitor.globalStatus.nonCritical:warning\]: (\S+) is full \(using or res
  assessment.impact.description=The storage on volume $1 is either approaching or has reached full capacity.  $2 of available storage and $3 of available inodes have been consumed.; \
  last
 
+#DESCRIPTION:Directory close to the maxdirsize limit
 #LOG:Jul 15 13:21:04 cahco3 Thu Jul 15 13:17:16 PDT [FastEnet-10/100/e0:warning]: Directory /vol/Imaging/idmds/MAXLIB01/stacks/shelf006/ is getting close to the maxdirsize limit. Please increase the maxdirsize by using the vol option command.
 regex=Directory (\S+) is getting close to the maxdirsize limit; \
  classification.text=Storage capacity warning; \
@@ -61,7 +55,7 @@ regex=Directory (\S+) is getting close to the maxdirsize limit; \
  assessment.impact.description=The directory $1 is either approaching or has reached full capacity.; \
  last
 
-
+#DESCRIPTION:HTTP Authentication failed
 #LOG:Jul 15 10:55:40 cahco3 Thu Jul 15 10:51:52 PDT [httpd_slowproc:warning]: HTTP Authentication from 12.34.56.78 to realm Administration failed
 regex=\[httpd_slowproc:warning\]: HTTP Authentication from ([\d\.]+) to realm \w+ failed; \
  classification.text=Web administration admin login; \
@@ -83,6 +77,7 @@ regex=\[httpd_slowproc:warning\]: HTTP Authentication from ([\d\.]+) to realm \w
  target(0).service.name=http; \
  last
 
+#DESCRIPTION:Remote Login
 #LOG:Jul 15 10:57:55 cahco3 Thu Jul 15 10:54:07 PDT [telnet_0:info]: clark logged in from host: localhost
 regex=\[telnet_\d+:info\]: (\S+) logged in from host: ([\w\-\.]+); \
  classification.text=Remote control admin login; \
@@ -106,6 +101,7 @@ regex=\[telnet_\d+:info\]: (\S+) logged in from host: ([\w\-\.]+); \
  target(0).service.name=telnet; \
  last
 
+#DESCRIPTION:Addition of disk success
 #LOG:Jul 15 11:20:49 cahco3 Thu Jul 15 11:17:01 PDT [raid.vol.disk.add.done:notice]: Addition of disk 8.64 (S/N 3HZ6YQHN00007433ARFV) to volume Callrec has completed successfully
 regex=\[raid.vol.disk.add.done:notice\]: Addition of disk ([\d\.]+) \(S\/N (\S+)\) to volume (\S+) has completed successfully; \
  classification.text=Storage disk added to RAID; \
@@ -120,6 +116,7 @@ regex=\[raid.vol.disk.add.done:notice\]: Addition of disk ([\d\.]+) \(S\/N (\S+)
  assessment.impact.description=Disk $1 with serial $2 was added to volume $3.; \
  last
 
+#DESCRIPTION:Disk zeroing complete
 #LOG:Jul 15 11:39:59 cahco3 Thu Jul 15 11:36:11 PDT [raid.disk.zero.done:notice]: 8.34 (S/N 3FP0H0JE000072074RFP): disk zeroing complete
 regex=\[raid.disk.zero.done:notice]: ([\d\.]+) \(S\/N (\S+)\): disk zeroing complete; \
  classification.text=Storage disk zeroed; \

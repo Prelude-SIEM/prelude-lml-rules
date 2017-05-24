@@ -1,6 +1,6 @@
 #FULLNAME: Postfix
 #VERSION: 1.0
-#DESCRIPTION: Postfix is a mail transfer agent (MTA) that routes and delivers electronic mail.
+#DESCRIPTION: Postfix is a mail transfer agent (MTA) that routes and delivers electronic mail. This ruleset aims for analyzing postfix log. Tested with postfix-2.0.11.
 
 #####
 #
@@ -28,17 +28,7 @@
 #
 #####
 
-
-#############################################################################
-#
-# This ruleset aims for analyzing postfix log
-#
-# You need to listen for /var/log/maillog
-#
-# Tested with postfix-2.0.11
-#
-#############################################################################
-
+#DESCRIPTION:Mail server - Relay access denied
 #LOG:May  3 17:41:05 exademo postfix/smtpd[6161]: 7F70283BF6: reject: RCPT from unknown[212.180.111.248]: 554 <dmaciejak@exaprobe.com>: Relay access denied; from=<DIEU> to=<dmaciejak@exaprobe.com> proto=SMTP helo=<koma>
 regex=reject: RCPT from [\w\-\.]+\[([\d\.]+)\]: .* Relay access denied. from=<(\S+)> to=<(\S+)> proto=SMTP; \
  classification.text=Mail server: Relay access denied; \
@@ -63,8 +53,9 @@ regex=reject: RCPT from [\w\-\.]+\[([\d\.]+)\]: .* Relay access denied. from=<(\
  target(0).service.name=smtp; \
  target(0).node.address(0).category=e-mail; \
  target(0).node.address(0).address=$3; \
- last;
+ last
 
+#DESCRIPTION:Mail server - Startup
 #LOG:May  3 12:22:14 exademo postfix/postfix-script: starting the Postfix mail system
 regex=starting the Postfix mail system; \
  classification.text=Mail server startup; \
@@ -77,8 +68,9 @@ regex=starting the Postfix mail system; \
  assessment.impact.description=Mail server started; \
  assessment.impact.type=other; \
  assessment.impact.severity=info; \
- last;
+ last
 
+#DESCRIPTION:Mail server - Shutdown
 #LOG:May  4 11:43:10 exademo postfix/postfix-script: stopping the Postfix mail system
 regex=stopping the Postfix mail system; \
  classification.text=Mail server shutdown; \
@@ -91,8 +83,9 @@ regex=stopping the Postfix mail system; \
  assessment.impact.description=Mail server stopped; \
  assessment.impact.type=other; \
  assessment.impact.severity=medium; \
- last;
+ last
 
+#DESCRIPTION:Mail server - Suspicious access
 #LOG:May  4 09:26:15 exademo postfix/smtpd[8472]: lost connection after CONNECT from localhost[127.0.0.1]
 regex=lost connection after (\S+) from [\w\-\.]+\[([\d\.]+)\]; \
  classification.text=Mail server suspicious access; \
@@ -111,4 +104,4 @@ regex=lost connection after (\S+) from [\w\-\.]+\[([\d\.]+)\]; \
  target(0).service.iana_protocol_number=6; \
  target(0).service.port=25; \
  target(0).service.name=smtp; \
- last;
+ last

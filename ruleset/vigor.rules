@@ -25,8 +25,7 @@
 #
 #####
 
-# 1) TCP :
-
+#DESCRIPTION:Packet dropped
 #LOG:Apr 27 02:55:31 81.2.127.129 r00t3r: 295:34:52.730 lan @Group:Rule=0:10 b 200.187.15.1,18775 -> 81.2.127.129,www    PR tcp len 20 48 -S 895123185 0 16384 IN
 regex=([wl]an) @Group:Rule=(\d+:\d+) b ([\d\.]+),(\w+) -> ([\d\.]+),(\w+)    PR (\S+) len (\d+) (\d+) (\S+) (\d+) (\d+) (\d+) (IN|OUT); \
  classification.text=$7 Packet dropped; \
@@ -70,10 +69,9 @@ regex=([wl]an) @Group:Rule=(\d+:\d+) b ([\d\.]+),(\w+) -> ([\d\.]+),(\w+)    PR 
  additional_data(7).type=string; \
  additional_data(7).meaning=Direction; \
  additional_data(7).data=$14; \
- last;
+ last
 
-# 2) ICMP :
-
+#DESCRIPTION:ICMP Packet dropped
 #LOG:Apr 27 00:38:25 81.2.127.129 r00t3r: 293:17:47.390 lan @Group:Rule=0:10 b 66.112.44.26 -> 81.2.127.142    PR icmp len 20 28 icmp 8/0 IN
 regex=([wl]an) @Group:Rule=(\d+:\d+) b ([\d\.]+) -> ([\d\.]+)    PR icmp len (\d+) (\d+) icmp (\d+)/(\d+) (IN|OUT); \
  classification.text=ICMP Packet dropped; \
@@ -111,4 +109,4 @@ regex=([wl]an) @Group:Rule=(\d+:\d+) b ([\d\.]+) -> ([\d\.]+)    PR icmp len (\d
  additional_data(5).type=string; \
  additional_data(5).meaning=Direction; \
  additional_data(5).data=$9; \
- last;
+ last

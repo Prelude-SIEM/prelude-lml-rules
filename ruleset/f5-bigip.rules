@@ -1,6 +1,6 @@
 #FULLNAME: F5 BIG-IP
 #VERSION: 1.0
-#DESCRIPTION: F5's BIG-IP product family comprises purpose-built hardware, modularized software, and virtualized solutions that run the F5 TMOS operating system.
+#DESCRIPTION: F5's BIG-IP product family comprises purpose-built hardware, modularized software, and virtualized solutions that run the F5 TMOS operating system. The rules included here were developed using BIG-IP Kernel 4.5PTF-06 Build25.
 
 #####
 #
@@ -25,14 +25,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using BIG-IP Kernel 4.5PTF-06 Build25.
-# Please report any inconsistencies on other versions to G Ramon Gomez at the
-# address provided above
-#
-#####
-
+#DESCRIPTION:Load balancer audit
 #LOG:Jun 10 14:03:08 12.4.18.135 bigconf.cgi: AUDIT -- Create MEMBER 10.5.253.52:0 (Parent: POOL SMDEMO) User: admin
 regex=AUDIT -- (\w+) (?!VIPPORT)(\w+) ([\d\.]+).+User: (\S+); \
  classification.text=Load balancer $1 audit; \
@@ -50,8 +43,9 @@ regex=AUDIT -- (\w+) (?!VIPPORT)(\w+) ([\d\.]+).+User: (\S+); \
  source(0).user.user_id(0).name=$4; \
  target(0).node.address(0).category=ipv4-addr; \
  target(0).node.address(0).address=$3; \
- last;
+ last
 
+#DESCRIPTION:Load balancer audit
 #LOG:Jun 10 18:05:43 12.4.18.135 bigconf.cgi: AUDIT -- Delete POOL SMDEMO User: admin
 regex=AUDIT -- (\w+) (\w+) (\w+)\s+User: (\S+); \
  classification.text=Load balancer $1 audit; \
@@ -67,8 +61,9 @@ regex=AUDIT -- (\w+) (\w+) (\w+)\s+User: (\S+); \
  source(0).user.category=os-device; \
  source(0).user.user_id(0).type=current-user; \
  source(0).user.user_id(0).name=$4; \
- last;
+ last
 
+#DESCRIPTION:Packet denied
 #LOG:Jun 14 07:06:05 12.34.56.78 kernel: security: UDP port denial 90.12.34.56:20031 -> 78.90.12.34:20031
 #regex=security: (\S+) .*port denial ([\d\.]+):(\d+) -> ([\d\.]+):(\d+); \
 # classification.text=Packet denied; \

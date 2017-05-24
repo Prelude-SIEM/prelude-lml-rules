@@ -1,6 +1,6 @@
 #FULLNAME: Cisco CSS
 #VERSION: 1.0
-#DESCRIPTION: The Cisco CSS (Content Services Switch) is a high-performance, high-availability modular architecture for Web infrastructures.
+#DESCRIPTION: The Cisco CSS (Content Services Switch) is a high-performance, high-availability modular architecture for Web infrastructures. The rules included here were developed using BIG-IP Kernel 4.5PTF-06 Build25.
 
 #####
 #
@@ -25,14 +25,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using BIG-IP Kernel 4.5PTF-06 Build25.
-# Please report any inconsistencies on other versions to G Ramon Gomez at the
-# address provided above
-#
-#####
-
+#DESCRIPTION:Generic LINK DOWN
 #LOG:AUG 14 08:31:13 smf-custlog-02 1/1 88 NETMAN-2: Generic:LINK DOWN for e3
 regex=NETMAN-\d: Generic:LINK DOWN for (\S+); \
  classification.text=Interface down; \
@@ -54,6 +47,7 @@ regex=NETMAN-\d: Generic:LINK DOWN for (\S+); \
  additional_data(0).data=down; \
  last
 
+#DESCRIPTION:Cisco command - Write memory
 #LOG:AUG 16 06:45:00 smf-custlog-02 1/1 1022 NETMAN-6: CLMcmd: wr mem,neteng@12.34.56.78
 #LOG:AUG 16 00:12:35 smf-custlog-02 1/1 49169 NETMAN-6: CLMcmd: wr memory ,neteng@90.12.34.56
 regex=NETMAN-\d: CLMcmd: wr (\S+)\s*,(\S+)@([\d\.]+); \
@@ -80,6 +74,7 @@ regex=NETMAN-\d: CLMcmd: wr (\S+)\s*,(\S+)@([\d\.]+); \
  additional_data(0).data=$1; \
  last
 
+#DESCRIPTION:Cisco command - Exit
 #LOG:AUG 16 07:31:45 smf-custlog-02 1/1 1065 NETMAN-6: CLMcmd: exit,neteng@12.34.56.78
 regex=NETMAN-\d: CLMcmd: (.+)\s*,(\S+)@([\d\.]+); \
  classification.text=Command audit; \
@@ -105,6 +100,7 @@ regex=NETMAN-\d: CLMcmd: (.+)\s*,(\S+)@([\d\.]+); \
  additional_data(0).data=$1; \
  last
 
+#DESCRIPTION:Access attempt
 #LOG:AUG 16 00:13:46 smf-custlog-02 1/1 49172 SSHD-4: Access attempted by  from 12.34.56.78 port 1106
 #LOG:AUG 16 07:31:52 smf-custlog-02 1/1 1067 SSHD-4: Access attempted by neteng from 12.34.56.78 port 1121
 regex=SSHD-\d: Access attempted by (.*) from ([\d\.]+) port (\d+); \
@@ -130,6 +126,7 @@ regex=SSHD-\d: Access attempted by (.*) from ([\d\.]+) port (\d+); \
  target(0).user.user_id(0).name=$1; \
  last
 
+#DESCRIPTION:Cisco - Login
 #LOG:AUG 16 07:31:57 smf-custlog-02 1/1 1069 NETMAN-6: CLM: Login neteng@12.34.56.78
 regex=NETMAN-\d: CLM: Login (\S+)@([\d\.]+); \
  classification.text=User login; \
@@ -152,6 +149,7 @@ regex=NETMAN-\d: CLM: Login (\S+)@([\d\.]+); \
  target(0).user.user_id(0).name=$1; \
  last
 
+#DESCRIPTION:Duplicate IP address detection
 #LOG:AUG 18 05:44:35 smf-custlog-02 1/1 3201 IPV4-4: Duplicate IP address detected: 12.34.56.78 00-0a-b8-68-2d-8c
 regex=IPV4-\d: Duplicate IP address detected: ([\d\.]+) ([a-f\d\-]+); \
  classification.text=Duplicate IP; \
@@ -175,6 +173,7 @@ regex=IPV4-\d: Duplicate IP address detected: ([\d\.]+) ([a-f\d\-]+); \
  target(0).node.address(0).address=$1; \
  last
 
+#DESCRIPTION:Enterprise Service Transition
 #LOG:AUG 16 06:46:56 smf-custlog-02 1/1 49124 NETMAN-2: Enterprise:Service Transition:web1-rw -> suspended
 regex=NETMAN-\d: Enterprise:Service Transition:(\S+) -> (\S+); \
  classification.text=Service $2; \
@@ -193,5 +192,3 @@ regex=NETMAN-\d: Enterprise:Service Transition:(\S+) -> (\S+); \
  additional_data(0).meaning=Service name; \
  additional_data(0).data=$1; \
  last
-
-#TODO: More rules (lots of stuff left in my logs to go through)

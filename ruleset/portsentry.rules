@@ -7,6 +7,10 @@
 # Copyright (C) 2003 Stephane Loeuillet (stephane.loeuillet@tiscali.fr)
 # All Rights Reserved
 #
+# RulesID: 1503
+# Copyright (C) 2004-2005 G Ramon Gomez <gene at gomezbrothers dot com>
+# All Rights Reserved
+#
 # This file is part of the Prelude-LML program.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,11 +29,7 @@
 #
 #####
 
-# 1) Scan :
-
-# source regex : portsentry\[?(\d+)+\]?:.* attackalert: (\S+) scan from host: (\S+)/($IP) to (TCP|UDP) port: (\d+)
-
-# Sample matching logs :
+#DESCRIPTION:Someone performed a scan
 #LOG:May 11 23:29:48 icecube portsentry[791]: attackalert: SYN/Normal scan from host: server1.miniclip.com/64.23.60.30 to TCP port: 443
 #LOG:May  8 08:58:22 icecube portsentry[795]: attackalert: UDP scan from host: 193.63.249.24/193.63.249.24 to UDP port: 177
 #LOG:Apr 18 10:42:51 20.0.0.3 portsentry[2549]: attackalert: TCP SYN/Normal scan from  host: 2.0.0.3/2.0.0.3 to TCP port: 119
@@ -50,12 +50,9 @@ regex=attackalert:.*?(\S+) scan from\s+host: (\S+)/([\d\.]+|[\dA-Fa-f\:]+) to (T
  source(0).service.iana_protocol_name=$4; \
  target(0).service.iana_protocol_name=$4; \
  source(0).service.port=$5; \
- last;
+ last
 
-# 2) Connection :
-#
-# source regex : portsentry\[?(\d+)+\]?:.* attackalert: Connect from host: (\S+)/($IP) to (TCP|UDP) port: (\d+)
-#
+#DESCRIPTION:Connection logged
 #LOG:Mar 28 00:03:25 hoste portsentry[103]: attackalert: Connect from host: 217.33.28.29/217.33.28.29 to TCP port: 111
 regex=attackalert: Connect from host: (\S+)/([\d\.]+|[\dA-Fa-f\:]+) to (TCP|UDP) port: (\d+); \
  classification.text=Connection logged; \
@@ -74,10 +71,9 @@ regex=attackalert: Connect from host: (\S+)/([\d\.]+|[\dA-Fa-f\:]+) to (TCP|UDP)
  source(0).service.iana_protocol_name=$3; \
  target(0).service.iana_protocol_name=$3; \
  target(0).service.port=$4; \
- last;
+ last
 
-# 3) Rules :
-#
+#DESCRIPTION:Host blocked
 #LOG:Oct 15 13:50:07 basile portsentry[28412]: attackalert: Host 195.220.107.15 has been blocked via dropped route using command: "/sbin/ipchains -I input -s 195.220.107.15 -j DENY"
 regex=attackalert: Host ([\d\.]+) has been blocked via dropped route using command: "([^"]+)"; \
  classification.text=Host blocked; \
@@ -92,11 +88,9 @@ regex=attackalert: Host ([\d\.]+) has been blocked via dropped route using comma
  assessment.impact.description=PortSentry saw your firewall blocked a host via : $2; \
  source(0).node.address(0).category=ipv4-addr; \
  source(0).node.address(0).address=$1; \
- last;
+ last
 
-# Copyright (C) 2004-2005 G Ramon Gomez <gene at gomezbrothers dot com>
-# All Rights Reserved
-
+#DESCRIPTION:Host already blocked
 #LOG:Apr 18 10:42:51 20.0.0.3 portsentry[2549]: attackalert: Host: 2.0.0.3/2.0.0.3 is  already blocked Ignoring
 regex=attackalert: Host: (\S+)/([\d\.]+) is\s+already blocked; \
  classification.text=Host blocked; \
@@ -112,4 +106,4 @@ regex=attackalert: Host: (\S+)/([\d\.]+) is\s+already blocked; \
  source(0).node.address(0).category=ipv4-addr; \
  source(0).node.address(0).address=$2; \
  source(0).node.name=$1; \
- last;
+ last

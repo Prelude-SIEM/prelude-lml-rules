@@ -29,11 +29,7 @@
 #
 #####
 
-#########################
-## Juniper MAG/SA VPN  ##
-#########################
-
-# General Messages
+#DESCRIPTION:General Messages
 #LOG:Mar 30 15:11:50 127.167.193.109 Juniper: 2012-03-30 15:11:50 - vpn - [142.186.141.93] Root::System(Intranet)[Administrators] - Login failed.  Reason: Failed
 regex=- (\S+) - \[([^\]]+)\] (?:Root::)?(\S+)\([^\)]*\)\[\w*\] ; \
  classification.reference(0).origin=vendor-specific; \
@@ -47,8 +43,9 @@ regex=- (\S+) - \[([^\]]+)\] (?:Root::)?(\S+)\([^\)]*\)\[\w*\] ; \
  source(0).node.address(0).category=ipv4-addr; \
  source(0).node.address(0).address=$2; \
  target(0).node.address(0).category=ipv4-addr; \
- target(0).node.address(0).address=$1;
+ target(0).node.address(0).address=$1
 
+#DESCRIPTION:Login failed
 #LOG:Mar 30 15:11:50 127.167.193.109 Juniper: 2012-03-30 15:11:50 - vpn - [142.186.141.93] Root::System(Intranet)[Administrators] - Login failed.  Reason: Failed
 #LOG:Jul  8 17:02:23 224.195.17.199 Juniper: 2013-07-08 17:00:55 - vpn - [224.195.17.199] bob(Users)[Administrators] - Login failed using auth server Administrators (Local Authentication).  Reason: Failed
 #LOG:Mar 30 14:36:29 45.208.182.48 Juniper: 2012-03-30 14:36:29 - vpn - [111.198.162.171] Root::pparker(Intranet)[] - Login failed.  Reason: NoRoles
@@ -56,6 +53,9 @@ regex=Login failed.+ Reason: (\w+); \
  classification.text=Login failed; \
  id=158000100; \
  revision=1; \
+ analyzer(0).name=Juniper SA/MAG; \
+ analyzer(0).manufacturer=www.juniper.net; \
+ analyzer(0).class=VPN; \
  assessment.impact.severity=low; \
  assessment.impact.type=user; \
  assessment.impact.completion=failed; \
@@ -63,11 +63,15 @@ regex=Login failed.+ Reason: (\w+); \
  goto=158000000; \
  last
 
+#DESCRIPTION:Login succeeded
 #LOG:Jul  8 17:02:23 224.195.17.199 Juniper: 2008-08-21 08:01:22 - vpn - [192.168.1.2] Root::jsmith(Intranet)[Employee] - Login succeeded for jsmith/EPT-ACCESS from 192.168.1.2.
 regex=Login succeeded for; \
  classification.text=Login succeeded; \
  id=158000101; \
  revision=1; \
+ analyzer(0).name=Juniper SA/MAG; \
+ analyzer(0).manufacturer=www.juniper.net; \
+ analyzer(0).class=VPN; \
  assessment.impact.severity=info; \
  assessment.impact.type=user; \
  assessment.impact.completion=succeeded; \
@@ -75,12 +79,15 @@ regex=Login succeeded for; \
  goto=158000000; \
  last
 
-
+#DESCRIPTION:Virus signature list imported successfully
 #LOG:Apr 10 12:23:33 181.150.154.85 Juniper: 2012-04-10 12:23:33 - vpn - [17.4.29.105] Root::System()[] - The current virus signature list imported successfully
 regex=The current virus signature list imported successfully; \
  classification.text=Virus Signature Update; \
  id=158000200; \
  revision=1; \
+ analyzer(0).name=Juniper SA/MAG; \
+ analyzer(0).manufacturer=www.juniper.net; \
+ analyzer(0).class=VPN; \
  assessment.impact.severity=info; \
  assessment.impact.type=other; \
  assessment.impact.completion=succeeded; \
@@ -88,11 +95,15 @@ regex=The current virus signature list imported successfully; \
  goto=158000000; \
  last
 
+#DESCRIPTION:Patch Management data imported successfully
 #LOG:Apr 10 12:23:33 181.150.154.85 Juniper: 2012-04-10 12:23:33 - vpn - [17.4.29.105] Root::System()[] - The current patch management data imported successfully
 regex=The current patch management data imported successfully; \
  classification.text=Patch Management Update; \
  id=158000201; \
  revision=1; \
+ analyzer(0).name=Juniper SA/MAG; \
+ analyzer(0).manufacturer=www.juniper.net; \
+ analyzer(0).class=VPN; \
  assessment.impact.severity=info; \
  assessment.impact.type=other; \
  assessment.impact.completion=succeeded; \
@@ -100,11 +111,15 @@ regex=The current patch management data imported successfully; \
  goto=158000000; \
  last
 
+#DESCRIPTION:Patch Management Update failed
 #LOG:Apr 10 12:23:33 181.150.154.85 Juniper: 2012-04-10 12:23:33 - vpn - [17.4.29.105] Root::System()[] - Unable to download current patch management
 regex=Unable to download current patch management; \
  classification.text=Patch Management Update; \
  id=158000202; \
  revision=1; \
+ analyzer(0).name=Juniper SA/MAG; \
+ analyzer(0).manufacturer=www.juniper.net; \
+ analyzer(0).class=VPN; \
  assessment.impact.severity=low; \
  assessment.impact.type=other; \
  assessment.impact.completion=failed; \
@@ -112,11 +127,15 @@ regex=Unable to download current patch management; \
  goto=158000000; \
  last
 
+#DESCRIPTION:Virus Signature Update failed
 #LOG:Apr 10 12:23:33 181.150.154.85 Juniper: 2012-04-10 12:23:33 - vpn - [17.4.29.105] Root::System()[] - Unable to download current virus signature
 regex=Unable to download current virus signature; \
  classification.text=Virus Signature Update; \
  id=158000203; \
  revision=1; \
+ analyzer(0).name=Juniper SA/MAG; \
+ analyzer(0).manufacturer=www.juniper.net; \
+ analyzer(0).class=VPN; \
  assessment.impact.severity=low; \
  assessment.impact.type=other; \
  assessment.impact.completion=failed; \
@@ -124,11 +143,15 @@ regex=Unable to download current virus signature; \
  goto=158000000; \
  last
 
+#DESCRIPTION:Node deactivated in cluster
 #LOG:2009-04-28 15:53:14 Juniper: 2009-04-28 15:53:13 - vpnmaster - [192.168.1.1] System()[] - Node 'vpnmaster' deactivated in cluster 'vpncluster [vpnslave, 192.168.1.2] [vpnmaster, 192.168.1.1]'.
 regex=Node '(\S+)' deactivated in cluster; \
  classification.text=Failover: deactivated in cluster; \
  id=158000300; \
  revision=1; \
+ analyzer(0).name=Juniper SA/MAG; \
+ analyzer(0).manufacturer=www.juniper.net; \
+ analyzer(0).class=VPN; \
  assessment.impact.severity=medium; \
  assessment.impact.type=other; \
  assessment.impact.completion=succeeded; \
@@ -136,11 +159,15 @@ regex=Node '(\S+)' deactivated in cluster; \
  goto=158000000; \
  last
 
+#DESCRIPTION:Node activated in cluster
 #LOG:2009-04-28 15:53:14 Juniper: 2009-04-28 15:53:13 - vpnmaster - [192.168.1.1] System()[] - Node 'vpnmaster' activated in cluster 'vpncluster [vpnslave, 192.168.1.2] [vpnmaster, 192.168.1.1]'.
 regex=Node '(\S+)' activated in cluster; \
  classification.text=Failover: activated in cluster; \
  id=158000301; \
  revision=1; \
+ analyzer(0).name=Juniper SA/MAG; \
+ analyzer(0).manufacturer=www.juniper.net; \
+ analyzer(0).class=VPN; \
  assessment.impact.severity=info; \
  assessment.impact.type=other; \
  assessment.impact.completion=succeeded; \

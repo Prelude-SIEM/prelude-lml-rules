@@ -1,6 +1,6 @@
 #FULLNAME: Norton AntiVirus CE
 #VERSION: 1.0
-#DESCRIPTION: Norton Anti Virus Corporate Edition is an antivirus.
+#DESCRIPTION: Norton Anti Virus Corporate Edition is an antivirus. The rules included here were developed using Norton Antivirus Corportate Edition 7.60 events collected using NTSysLog.
 
 #####
 #
@@ -26,15 +26,7 @@
 #
 #####
 
-#####
-#
-# The rules included here were developed using Norton Antivirus Corportate
-# Edition 7.60 events collected using NTSysLog.  Please report any
-# inconsistencies on other versions to G Ramon Gomez at the address provided
-# above
-#
-#####
-
+#DESCRIPTION:Virus found
 #LOG:Nov  3 17:10:28 mrfreeze.itg.sac.tfs norton antivirus[error] 5  Virus Found!Virus name: W32.Yaha.F@mm.enc in File: C:\Program Files\Exchsrvr\Mailroot\vsi 1\Queue\NTFS_6e44a57a01c3a270000282de.EML by: Realtime Protection scan.  Action: Clean failed : Quarantine failed : Access denied
 regex=Virus Found!Virus name: (\S+) in File: (.+) by: (.+). Action: (.+); \
  classification.text=Virus found: $1; \
@@ -59,6 +51,7 @@ regex=Virus Found!Virus name: (\S+) in File: (.+) by: (.+). Action: (.+); \
  additional_data(2).data=$4; \
  last
 
+#DESCRIPTION:Download of virus definition file
 #LOG:Nov  6 00:23:51 superman.itg.sac.tfs norton antivirus[info] 16  Download of virus definition file from LiveUpdate server succeeded.
 regex=Download of virus definition file from LiveUpdate server succeeded; \
  classification.text=Virus definition update; \
@@ -73,6 +66,7 @@ regex=Download of virus definition file from LiveUpdate server succeeded; \
  assessment.impact.description=Norton Antivirus Virus definitions have been updated; \
  last
 
+#DESCRIPTION:New virus definition file loaded
 #LOG:Oct 23 08:46:50 smf-syslog-02 norton/smf-utility-01 antivirus[info] New virus definition file loaded. Version: 81019bn.
 regex=New virus definition file loaded. Version: (\S+); \
  classification.text=Virus definition update; \
@@ -90,6 +84,7 @@ regex=New virus definition file loaded. Version: (\S+); \
  additional_data(0).data=$1; \
  last
 
+#DESCRIPTION:Norton Antivirus Virus definition update failed
 #LOG:Oct 25 11:28:00 smf-syslog-02 norton/smf-utility-01 antivirus[info] Update to computer SMF-SLS-CBROWN2 of virus definition file 81019bn failed. Status FFFFFFFF
 regex=Update to computer (\S+) of virus definition file (\S+) failed. Status (\S+); \
  classification.text=Virus definition update; \
@@ -113,6 +108,7 @@ regex=Update to computer (\S+) of virus definition file (\S+) failed. Status (\S
  additional_data(1).data=$3; \
  last
 
+#DESCRIPTION:Norton Antivirus no longer manages system
 #LOG:Oct 23 09:05:04 smf-syslog-02 norton/smf-utility-01 antivirus[info] Removed Client SMF-HR-JLEE_::_CE2C654442CBAD576E3B25A97E378EFF Last Checkin Time: Thu Oct 19 18:33:08 2006
 regex=Removed Client (\S+)_::\S+ Last Checkin Time: (.+); \
  classification.text=System unmanaged; \

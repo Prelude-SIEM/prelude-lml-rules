@@ -1,6 +1,17 @@
 #FULLNAME: Symantec SCSP
 #VERSION: 1.0
-#DESCRIPTION: Symantec Critical System Protection combines intrusion monitoring, auditing, alerting, and protection. It integrates both intrusion detection and intrusion protection.
+#DESCRIPTION: Symantec Critical System Protection combines intrusion monitoring, auditing, alerting, and protection. It integrates both intrusion detection and intrusion protection. Rules to monitor Symantec Critical System Protection 5.2.
+#DESCRIPTION: The rules included here were developed using a Cisco IPS module running on an
+#DESCRIPTION: ASA.  Please report any inconsistencies on other models to G Ramon Gomez at
+#DESCRIPTION: the address provided above
+#DESCRIPTION: Special configuration is needed for this support:
+#DESCRIPTION: * In your IDM interface, "SNMP" -> "Traps Configuration", "Enable SNMP Traps"
+#DESCRIPTION:   box must be on.  "Enable detailed traps for alerts" must be off.
+#DESCRIPTION: * In your IDM interface, "Signature Definition" -> "Signature Configuration",
+#DESCRIPTION:   all of the rules must be modified using the "Select All" button, followed
+#DESCRIPTION:   by the "Actions" button, and click the "Request SNMP Trap" box on.
+#DESCRIPTION: * On your Prelude system, run snmptrapd using this command:
+#DESCRIPTION:   "snmptrapd -Ls 20 -Osq"
 
 #####
 #
@@ -26,30 +37,7 @@
 #
 #####
 
-
-#####
-#
-# Rules to monitor Symantec Critical System Protection 5.2
-#
-#####
-
-#####
-#
-# The rules included here were developed using a Cisco IPS module running on an
-# ASA.  Please report any inconsistencies on other models to G Ramon Gomez at
-# the address provided above
-# Special configuration is needed for this support:
-# * In your IDM interface, "SNMP" -> "Traps Configuration", "Enable SNMP Traps"
-#   box must be on.  "Enable detailed traps for alerts" must be off.
-# * In your IDM interface, "Signature Definition" -> "Signature Configuration",
-#   all of the rules must be modified using the "Select All" button, followed
-#   by the "Actions" button, and click the "Request SNMP Trap" box on.
-# * On your Prelude system, run snmptrapd using this command:
-#   "snmptrapd -Ls 20 -Osq"
-#
-#####
-#ID:43200
-
+#DESCRIPTION:Symantec Critical System Protection Event
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterprises.393.273.1.2 "([\S ]+|\S+)"+.+011enterprises.393.273.1.3 "([\S ]+|\S+)"#011enterprises.393.273.1.4 +.+011enterprises.393.273.1.5 "([\S ]+|\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"#011enterprises.393.273.1.7 "([\S ]+|\S+)"#011enterprises.393.273.1.8 +.+011enterprises.393.273.1.9 "(Information|Notice)"#011enterprises.393.273.1.10 "([\S ]+|\S+)"#011enterprises.393.273.1.11 +.+011enterprises.393.273.1.12 "(Success|Allow|R)"+.+011enterprises.393.273.1.16 "([\S ]+|\S+)"#011enterprises.393.273.1.17 +.+011enterprises.393.273.1.22 "([\S ]+|\S+); \
  classification.text=$9 - $11; \
  id=43201; \
@@ -79,6 +67,7 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterpri
  target(0).node.address(0).address=$6; \
  last
 
+#DESCRIPTION:Symantec Critical System Protection Event
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterprises.393.273.1.2 "([\S ]+|\S+)"+.+011enterprises.393.273.1.3 "([\S ]+|\S+)"#011enterprises.393.273.1.4 +.+011enterprises.393.273.1.5 "([\S ]+|\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"#011enterprises.393.273.1.7 "([\S ]+|\S+)"#011enterprises.393.273.1.8 +.+011enterprises.393.273.1.9 "(Warning)"#011enterprises.393.273.1.10 "([\S ]+|\S+)"#011enterprises.393.273.1.11 +.+011enterprises.393.273.1.12 "(Success|Allow|R)"+.+011enterprises.393.273.1.16 "([\S ]+|\S+)"#011enterprises.393.273.1.17 +.+011enterprises.393.273.1.22 "([\S ]+|\S+); \
  classification.text=$9 - $11; \
  id=43202; \
@@ -108,6 +97,7 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterpri
  target(0).node.address(0).address=$6; \
  last
 
+#DESCRIPTION:Symantec Critical System Protection Event
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterprises.393.273.1.2 "([\S ]+|\S+)"+.+011enterprises.393.273.1.3 "([\S ]+|\S+)"#011enterprises.393.273.1.4 +.+011enterprises.393.273.1.5 "([\S ]+|\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"#011enterprises.393.273.1.7 "([\S ]+|\S+)"#011enterprises.393.273.1.8 +.+011enterprises.393.273.1.9 "(Major|Critical)"#011enterprises.393.273.1.10 "([\S ]+|\S+)"#011enterprises.393.273.1.11 +.+011enterprises.393.273.1.12 "(Success|Allow|R)"+.+011enterprises.393.273.1.16 "([\S ]+|\S+)"#011enterprises.393.273.1.17 +.+011enterprises.393.273.1.22 "([\S ]+|\S+); \
  classification.text=$9 - $11; \
  id=43203; \
@@ -137,6 +127,7 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterpri
  target(0).node.address(0).address=$6; \
  last
 
+#DESCRIPTION:Symantec Critical System Protection Event
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterprises.393.273.1.2 "([\S ]+|\S+)"+.+011enterprises.393.273.1.3 "([\S ]+|\S+)"#011enterprises.393.273.1.4 +.+011enterprises.393.273.1.5 "([\S ]+|\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"#011enterprises.393.273.1.7 "([\S ]+|\S+)"#011enterprises.393.273.1.8 +.+011enterprises.393.273.1.9 "(Information|Notice)"#011enterprises.393.273.1.10 "([\S ]+|\S+)"#011enterprises.393.273.1.11 +.+011enterprises.393.273.1.12 "(Denied|NULL|R|Failure)"+.+011enterprises.393.273.1.16 "([\S ]+|\S+)"#011enterprises.393.273.1.17 +.+011enterprises.393.273.1.22 "([\S ]+|\S+); \
  classification.text=$9 - $11; \
  id=43204; \
@@ -166,6 +157,7 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterpri
  target(0).node.address(0).address=$6; \
  last
 
+#DESCRIPTION:Symantec Critical System Protection Event
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterprises.393.273.1.2 "([\S ]+|\S+)"+.+011enterprises.393.273.1.3 "([\S ]+|\S+)"#011enterprises.393.273.1.4 +.+011enterprises.393.273.1.5 "([\S ]+|\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"#011enterprises.393.273.1.7 "([\S ]+|\S+)"#011enterprises.393.273.1.8 +.+011enterprises.393.273.1.9 "(Warning)"#011enterprises.393.273.1.10 "([\S ]+|\S+)"#011enterprises.393.273.1.11 +.+011enterprises.393.273.1.12 "(Denied|NULL|R|Failure)"+.+011enterprises.393.273.1.16 "([\S ]+|\S+)"#011enterprises.393.273.1.17 +.+011enterprises.393.273.1.22 "([\S ]+|\S+); \
  classification.text=$9 - $11; \
  id=43205; \
@@ -195,6 +187,7 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterpri
  target(0).node.address(0).address=$6; \
  last
 
+#DESCRIPTION:Symantec Critical System Protection Event
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterprises.393.273.1.2 "([\S ]+|\S+)"+.+011enterprises.393.273.1.3 "([\S ]+|\S+)"#011enterprises.393.273.1.4 +.+011enterprises.393.273.1.5 "([\S ]+|\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"#011enterprises.393.273.1.7 "([\S ]+|\S+)"#011enterprises.393.273.1.8 +.+011enterprises.393.273.1.9 "(Major|Critical)"#011enterprises.393.273.1.10 "([\S ]+|\S+)"#011enterprises.393.273.1.11 +.+011enterprises.393.273.1.12 "(Denied|NULL|R|Failure)"+.+011enterprises.393.273.1.16 "([\S ]+|\S+)"#011enterprises.393.273.1.17 +.+011enterprises.393.273.1.22 "([\S ]+|\S+); \
  classification.text=$9 - $11; \
  id=43206; \
@@ -224,8 +217,7 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterpri
  target(0).node.address(0).address=$6; \
  last
 
-############## Generic RULE: ##############
-
+#DESCRIPTION:Generic RULE - Symantec Critical System Protection Event
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.5 "(\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"+.+011enterprises.393.273.1.10 "([\S ]+)"#011enterprises.393.273.1.11 ; \
  classification.text= Generic Rule: $4; \
  id=43213; \
