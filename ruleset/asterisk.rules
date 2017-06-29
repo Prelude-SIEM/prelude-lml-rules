@@ -26,6 +26,7 @@
 #####
 
 #DESCRIPTION:Registration failed
+#CATEGORY:VoIP
 #LOG:Nov 29 09:44:15 NOTICE[23701] chan_sip.c: Registration from '<sip:dmc@asterisk-server>' failed for '192.168.33.180' - Wrong password
 regex=Registration from '<sip:(\S*)>' failed for '(\S+)' - (.*)$; \
  classification.text=$3; \
@@ -45,6 +46,7 @@ regex=Registration from '<sip:(\S*)>' failed for '(\S+)' - (.*)$; \
  last
 
 #DESCRIPTION:Invalid SIP message
+#CATEGORY:VoIP
 #LOG:Dec  3 10:32:10 NOTICE[23701] chan_sip.c: Invalid to address: '' from 192.168.33.180 (missing sip:) trying to use anyway...
 regex=: ([[:print:]]+): '(\S*)' from (\S+) \(([[:print:]]+)\) trying to use anyway...; \
  classification.text=$1; \

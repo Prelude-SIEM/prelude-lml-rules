@@ -26,6 +26,7 @@
 #####
 
 #DESCRIPTION:Group created
+#CATEGORY:Account Management
 #LOG:Oct 30 10:18:37 localhost groupadd[3491]: new group: name=test, GID=1003
 #LOG:May 10 16:37:57 somehost groupadd[618]: new group: name=clamav, gid=46
 regex=new group: name=(\S+), [gG][iI][dD]=(?!0)(\d+); \
@@ -44,6 +45,7 @@ regex=new group: name=(\S+), [gG][iI][dD]=(?!0)(\d+); \
  last
 
 #DESCRIPTION:Group created with GID 0 (wheel)
+#CATEGORY:Account Management
 #LOG:Oct 30 10:19:22 localhost groupadd[3491]: new group: name=wheel, GID=0
 #LOG:May 10 16:37:57 somehost groupadd[618]: new group: name=wheel, gid=0
 regex=new group: name=(\S+), [gG][iI][dD]=0; \
@@ -62,6 +64,7 @@ regex=new group: name=(\S+), [gG][iI][dD]=0; \
  last
 
 #DESCRIPTION:User created
+#CATEGORY:Account Management
 #LOG:Oct 30 10:18:37 localhost useradd[3495]: new user: name=test, UID=1005, GID=1003, home=/home/test, shell=/bin/bash
 #LOG:May 10 16:37:57 somehost useradd[621]: new user: name=clamav, uid=46, gid=46, home=/tmp, shell=/sbin/nologin
 regex=new user: name=(\S+), [uU][iI][dD]=(?!0)(\d+), [gG][iI][dD]=(?!0)(\d+), home=(\S+), shell=(\S+); \
@@ -88,6 +91,7 @@ regex=new user: name=(\S+), [uU][iI][dD]=(?!0)(\d+), [gG][iI][dD]=(?!0)(\d+), ho
  last
 
 #DESCRIPTION:User created with UID 0
+#CATEGORY:Account Management
 #LOG:Oct 30 10:18:37 localhost useradd[3495]: new user: name=test, UID=0, GID=45, home=/home/test, shell=/bin/bash
 #LOG:May 10 16:37:57 somehost useradd[621]: new user: name=someuser, uid=0, gid=46, home=/tmp, shell=/sbin/nologin
 regex=new user: name=(\S+), [uU][iI][dD]=0, [gG][iI][dD]=(?!0)(\d+), home=(\S+), shell=(\S+); \
@@ -114,6 +118,7 @@ regex=new user: name=(\S+), [uU][iI][dD]=0, [gG][iI][dD]=(?!0)(\d+), home=(\S+),
  last
 
 #DESCRIPTION:User created with GID 0
+#CATEGORY:Account Management
 #LOG:Oct 30 10:18:37 localhost useradd[3495]: new user: name=test, UID=55, GID=0, home=/home/test, shell=/bin/bash
 #LOG:May 10 16:37:57 somehost useradd[621]: new user: name=someuser, uid=46, gid=0, home=/tmp, shell=/sbin/nologin
 regex=new user: name=(\S+), [uU][iI][dD]=(?!0)(\d+), [gG][iI][dD]=0, home=(\S+), shell=(\S+); \
@@ -140,6 +145,7 @@ regex=new user: name=(\S+), [uU][iI][dD]=(?!0)(\d+), [gG][iI][dD]=0, home=(\S+),
  last
 
 #DESCRIPTION:User created with UID/GID 0
+#CATEGORY:Account Management
 #LOG:Oct 30 10:18:37 localhost useradd[3495]: new user: name=test, UID=0, GID=0, home=/home/test, shell=/bin/bash
 #LOG:May 10 16:37:57 somehost useradd[621]: new user: name=someuser, uid=0, gid=0, home=/tmp, shell=/sbin/nologin
 regex=new user: name=(\S+), [uU][iI][dD]=0, [gG][iI][dD]=0, home=(\S+), shell=(\S+); \
@@ -166,6 +172,7 @@ regex=new user: name=(\S+), [uU][iI][dD]=0, [gG][iI][dD]=0, home=(\S+), shell=(\
  last
 
 #DESCRIPTION:User name changed
+#CATEGORY:Account Management
 #LOG:May 12 16:16:34 metatron usermod[14432]: change user name `bogususer' to `nonbogususer'
 #LOG:Dec  4 10:23:20 maximus usermod[2939]: change user name 'tartempion' to 'tartuf'
 regex=change user name ['`](\S+)' to ['`](\S+)'; \
@@ -185,6 +192,7 @@ regex=change user name ['`](\S+)' to ['`](\S+)'; \
  last
 
 #DESCRIPTION:User UID changed
+#CATEGORY:Account Management
 #LOG:May 12 16:16:34 metatron usermod[14432]: change user `nonbogususer' UID from `555' to `503'
 #LOG:Dec  4 10:28:51 maximus usermod[3081]: change user 'tartuf' UID from '502' to '888'
 regex=change user ['`](\S+)' UID from ['`](\d+)' to ['`](?!0)(\d+)'; \
@@ -206,6 +214,7 @@ regex=change user ['`](\S+)' UID from ['`](\d+)' to ['`](?!0)(\d+)'; \
  last
 
 #DESCRIPTION:User UID changed to 0
+#CATEGORY:Account Management
 #LOG:May 12 16:16:34 metatron usermod[14432]: change user `nonbogususer' UID from `555' to `0'
 #LOG:Dec  4 10:28:51 maximus usermod[3081]: change user 'tartuf' UID from '502' to '0'
 regex=change user ['`](\S+)' UID from ['`](\d+)' to ['`]0'; \
@@ -227,6 +236,7 @@ regex=change user ['`](\S+)' UID from ['`](\d+)' to ['`]0'; \
  last
 
 #DESCRIPTION:User primary GID changed
+#CATEGORY:Account Management
 #LOG:May 12 16:16:34 metatron usermod[14432]: change user `nonbogususer' GID from `503' to `503'
 #LOG:Dec  4 10:32:33 maximus usermod[3368]: change user 'tartuf' GID from '503' to '500'
 regex=change user ['`](\S+)' GID from ['`](\d+)' to ['`](?!0)(\d+)'; \
@@ -246,6 +256,7 @@ regex=change user ['`](\S+)' GID from ['`](\d+)' to ['`](?!0)(\d+)'; \
  last
 
 #DESCRIPTION:User primary GID changed to 0
+#CATEGORY:Account Management
 #LOG:May 12 16:16:34 metatron usermod[14432]: change user `nonbogususer' GID from `503' to `0'
 #LOG:Dec  4 10:32:33 maximus usermod[3368]: change user 'tartuf' GID from '503' to '0'
 regex=change user ['`](\S+)' GID from ['`](\d+)' to ['`]0'; \
@@ -265,6 +276,7 @@ regex=change user ['`](\S+)' GID from ['`](\d+)' to ['`]0'; \
  last
 
 #DESCRIPTION:Group GID changed
+#CATEGORY:Account Management
 #LOG:May 12 16:11:01 metatron groupmod[9873]: change gid for `nonbogusgroup' to 504
 regex=change gid for `(\S+)' to (?!0)(\d+); \
  classification.text=Group GID Changed; \
@@ -282,6 +294,7 @@ regex=change gid for `(\S+)' to (?!0)(\d+); \
  last
 
 #DESCRIPTION:Group GID changed to 0
+#CATEGORY:Account Management
 #LOG:May 12 16:11:01 metatron groupmod[9873]: change gid for `nonbogusgroup' to 0
 regex=change gid for `(\S+)' to 0; \
  classification.text=Group GID Changed to 0; \
@@ -299,6 +312,7 @@ regex=change gid for `(\S+)' to 0; \
  last
 
 #DESCRIPTION:User added to group
+#CATEGORY:Account Management
 #LOG:May 13 15:55:12 metatron usermod[20587]: add `bogususer' to group `slocate'
 #LOG:Dec  4 11:03:18 maximus usermod[5438]: add 'tartuf' to group 'tonton'
 regex=add ['`](\S+)' to group ['`](?!wheel|root|sudo)(\S+)'; \
@@ -318,6 +332,7 @@ regex=add ['`](\S+)' to group ['`](?!wheel|root|sudo)(\S+)'; \
  last
 
 #DESCRIPTION:User added to group
+#CATEGORY:Account Management
 #LOG:May 13 15:55:12 metatron usermod[20587]: add `test' to group `sudo'
 #LOG:May 13 15:55:12 metatron usermod[20587]: add `bogususer' to group `wheel'
 #LOG:Dec  4 11:03:18 maximus usermod[5438]: add 'tartuf' to group 'wheel'
@@ -338,6 +353,7 @@ regex=add ['`](\S+)' to group ['`](wheel|root|sudo)'; \
  last
 
 #DESCRIPTION:Group GID changed
+#CATEGORY:Account Management
 #LOG:Dec  4 10:43:35 maximus groupmod[5097]: group changed in /etc/passwd (group tonton/504, new gid: 888)
 #LOG:Dec  4 10:43:35 maximus groupmod[5097]: group changed in /etc/group (group tonton/504, new gid: 888)
 regex=group changed in (/etc/passwd|/etc/group) \(group ([^/]+)\/(\d+), new gid: (?!0)(\d+)\); \
@@ -357,6 +373,7 @@ regex=group changed in (/etc/passwd|/etc/group) \(group ([^/]+)\/(\d+), new gid:
  last
 
 #DESCRIPTION:Group GID changed to 0
+#CATEGORY:Account Management
 #LOG:Dec  4 10:43:35 maximus groupmod[5097]: group changed in /etc/passwd (group tonton/504, new gid: 0)
 #LOG:Dec  4 10:43:35 maximus groupmod[5097]: group changed in /etc/group (group tonton/504, new gid: 0)
 regex=group changed in (/etc/passwd|/etc/group) \(group ([^/]+)\/(\d+), new gid: 0\); \
@@ -376,6 +393,7 @@ regex=group changed in (/etc/passwd|/etc/group) \(group ([^/]+)\/(\d+), new gid:
  last
 
 #DESCRIPTION:User deleted
+#CATEGORY:Account Management
 #LOG:Nov  4 15:18:16 exatest1 userdel[10259]: delete user `testuser'
 #LOG:Dec  4 11:14:44 maximus userdel[5627]: delete user 'tartuf'
 regex=userdel\[\d+\]: delete user ['`]([^']+)'; \
@@ -393,6 +411,7 @@ regex=userdel\[\d+\]: delete user ['`]([^']+)'; \
  last
 
 #DESCRIPTION:Group deleted
+#CATEGORY:Account Management
 #LOG:Dec  4 11:15:55 maximus groupdel[5648]: group 'tonton' removed
 regex=groupdel\[\d+\]: group ['`]([^']+)' removed; \
  classification.text=Group deleted; \

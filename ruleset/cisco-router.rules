@@ -36,6 +36,7 @@
 #####
 
 #DESCRIPTION:Packet denied - Someone tried to bypass access-list
+#CATEGORY:Packet Filtering
 #LOG:Sep 23 07:30:41 gate 301270: 5d17h: %SEC-6-IPACCESSLOGP: list 101 denied tcp 1.2.3.4(1929) -> 5.6.7.8(80), 1 packet
 #LOG:Jun  5 16:15:59 router1 8919: Jun  5 16:15:58.190 EDT: %SEC-6-IPACCESSLOGP: list somelist2 denied udp 10.12.7.4(42) -> 10.0.3.24(42), 1 packet
 regex=SEC-6-IPACCESSLOGP: list (\w+) denied (udp|tcp) ([\d\.]+)\((\d+)\).*-> ([\d\.]+)\((\d+)\), (\d+); \
@@ -70,6 +71,7 @@ regex=SEC-6-IPACCESSLOGP: list (\w+) denied (udp|tcp) ([\d\.]+)\((\d+)\).*-> ([\
  last
 
 #DESCRIPTION:RSH attempt
+#CATEGORY:Authentication
 #LOG:Apr 11 20:13:49 wormhole.flash.net 2279: %RCMD-4-RSHPORTATTEMPT: Attempted to connect to RSHELL from 1.2.3.4
 regex=RCMD-4-RSHPORTATTEMPT:.* from ([\d\.]+); \
  classification.text=RSH attempt; \
@@ -92,6 +94,7 @@ regex=RCMD-4-RSHPORTATTEMPT:.* from ([\d\.]+); \
  last
 
 #DESCRIPTION:Interface status changed
+#CATEGORY:Monitoring
 #LOG:Jun  1 13:59:17 rtr-dsl-01 3972256: 5w5d: %LINEPROTO-5-UPDOWN: Line protocol on Interface BRI0:1, changed state to down
 regex=%LINEPROTO-5-UPDOWN: Line protocol on Interface (\S+), changed state to (down|up); \
  classification.text=Interface $2; \
@@ -115,6 +118,7 @@ regex=%LINEPROTO-5-UPDOWN: Line protocol on Interface (\S+), changed state to (d
  last
 
 #DESCRIPTION:Match if a host has requested an unknown key exchange
+#CATEGORY:Network Security
 #LOG:Jun  1 15:20:39 rtr-dsl-01 3972364: 5w5d: %CRYPTO-6-IKMP_UNK_EXCHANGE: IKE peer at 1.1.1.1      sent a message with unknown exchange 1
 regex=%CRYPTO-6-IKMP_UNK_EXCHANGE: IKE peer at (\S+) * sent a message with unknown; \
  classification.text=Router unknown IKE key exchange request; \
@@ -138,6 +142,7 @@ regex=%CRYPTO-6-IKMP_UNK_EXCHANGE: IKE peer at (\S+) * sent a message with unkno
  last
 
 #DESCRIPTION:An IDS event was observed by the IOS IDS
+#CATEGORY:Generic IDS/IPS
 #LOG:Jul 10 17:56:13 somehost.ragingwire.net somehost/somehost 139826: .Jul 10 17:53:16 GMT: %IDS-4-TCP_SENDMAIL_VRFY_SIG: Sig:3103:Sendmail Reconnaissance - from 12.34.56.78 to 90.12.34.56
 #LOG:Jul 10 18:28:42 somehost.ragingwire.net somehost/somehost 3246718: .Jul 10 18:25:45 GMT: %IDS-4-IP_UNKNOWN_PROTO_SIG: Sig:1101:Unknown IP Protocol - from 12.34.56.78 to 90.12.34.56
 regex=%IDS-4-(\S+)_SIG: Sig:(\d+):(.+) - from ([\d\.]+) to ([\d\.]+); \

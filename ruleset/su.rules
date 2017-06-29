@@ -26,6 +26,7 @@
 #####
 
 #DESCRIPTION:Logon process to root on
+#CATEGORY:Authentication
 regex=to root on; \
  id=10003; \
  assessment.impact.type=admin; \
@@ -33,6 +34,7 @@ regex=to root on; \
  chained; silent
 
 #DESCRIPTION:Logon process to root on
+#CATEGORY:Authentication
 #LOG:Jul 18 17:12:49 hids su: afonyashin to root on /dev/ttyp0
 #LOG:Jul 18 17:12:49 hids su: afonyashin to alice on /dev/ttyp0
 optgoto=10003; regex=su: (\S+) to (\S+) on (\S+); \
@@ -56,6 +58,7 @@ optgoto=10003; regex=su: (\S+) to (\S+) on (\S+); \
  last
 
 #DESCRIPTION:Login failed
+#CATEGORY:Authentication
 #LOG:Jul 18 17:12:44 hids su: BAD SU afonyashin to root on /dev/ttyp0
 #LOG:Jul 18 17:12:44 hids su: BAD SU afonyashin to alice on /dev/ttyp0
 regex=su: BAD SU (\S+) to (\S+) on (\S+); \

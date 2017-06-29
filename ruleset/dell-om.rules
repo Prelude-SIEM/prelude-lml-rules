@@ -26,6 +26,7 @@
 #####
 
 #DESCRIPTION:Redundancy failure
+#CATEGORY:Monitoring
 #LOG:Jun  8 18:12:44 12.34.56.78 server administrator[warning] 1306  Redundancy lost Redundancy unit: System Power Unit Chassis location: Main System Chassis Previous redundancy state was: FULL Number of devices required for full redundancy: 2
 regex=1306  Redundancy lost Redundancy unit: (.+?) Chassis location: (.+?) Previous redundancy state was: (.+?) Number of devices required for full redundancy: (\d+); \
  classification.text=Redundancy failure; \
@@ -57,6 +58,7 @@ regex=1306  Redundancy lost Redundancy unit: (.+?) Chassis location: (.+?) Previ
  last
 
 #DESCRIPTION:Power supply normal
+#CATEGORY:Monitoring
 #LOG:Jun 24 08:56:25 neo server administrator[info] 1352  Power supply returned to normal Sensor location: Power supply 2 Chassis location: Main System Chassis Previous state was: Critical (Failed)
 regex=1352  Power supply returned to normal Sensor location: (.+?) Chassis location: (.+?) Previous state was: (.+); \
  classification.text=Power supply normal; \
@@ -85,6 +87,7 @@ regex=1352  Power supply returned to normal Sensor location: (.+?) Chassis locat
  last
 
 #DESCRIPTION:Power supply warning
+#CATEGORY:Monitoring
 #LOG:Jun  8 18:12:44 12.34.56.78 server administrator[warning] 1353  Power supply detected a warning Sensor location: Power supply 1 Chassis location: Main System Chassis Previous state was: OK (Normal) Power supply fan has failed
 regex=1353  Power supply detected a warning Sensor location: (.+?) Chassis location: (.+?) Previous state was: (\w+ \(\w+\)|Unknown) (.+); \
  classification.text=Power supply warning; \
@@ -116,6 +119,7 @@ regex=1353  Power supply detected a warning Sensor location: (.+?) Chassis locat
  last
 
 #DESCRIPTION:Power supply failure
+#CATEGORY:Monitoring
 #LOG:Jun 24 08:46:30 neo server administrator[error] 1354  Power supply detected a failure Sensor location: Power supply 2 Chassis location: Main System Chassis Previous state was: OK (Normal) Power supply input AC is off Power supply POK signal is not normal Power supply is turned off
 regex=1354  Power supply detected a failure Sensor location: (.+?) Chassis location: (.+?) Previous state was: (\w+ \(\w+\)|Unknown) (.+); \
  classification.text=Power supply failure; \

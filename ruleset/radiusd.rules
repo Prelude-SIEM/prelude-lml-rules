@@ -1,6 +1,6 @@
 #FULLNAME: Radius
 #VERSION: 1.0
-#DESCRIPTION:Remote Authentication Dial-In User Service (RADIUS) is a networking protocol that provides centralized Authentication, Authorization, and Accounting management for users who connect and use a network service. These rules mnonitor Freeradius 1.1.7.
+#DESCRIPTION: Remote Authentication Dial-In User Service (RADIUS) is a networking protocol that provides centralized Authentication, Authorization, and Accounting management for users who connect and use a network service. These rules mnonitors Freeradius 1.1.7.
 
 #####
 #
@@ -27,6 +27,7 @@
 #####
 
 #DESCRIPTION:Ready to process requests
+#CATEGORY:Account Management
 #LOG:May  3 14:43:38 SERVER_NAME radiusd[2081]: Ready to process requests.
 regex=: Ready to process requests; \
  classification.text=Radius Server has started.; \
@@ -42,6 +43,7 @@ regex=: Ready to process requests; \
  last
 
 #DESCRIPTION:Login incorrect
+#CATEGORY:Authentication
 #LOG:May  3 14:43:48 SERVER_NAME radiusd[name3]: Login incorrect: [USER] (from client HOST_NAME port xxx cli x.x.x.x)
 regex=: Login incorrect: \[(\S+)\] \(from client (\S+) port (\d+) cli ([\d\.]+)\); \
  classification.text=Radiusd: Login incorrect.; \
@@ -64,6 +66,7 @@ regex=: Login incorrect: \[(\S+)\] \(from client (\S+) port (\d+) cli ([\d\.]+)\
  last
 
 #DESCRIPTION:Login incorrect
+#CATEGORY:Authentication
 #LOG:May  3 14:43:48 SERVER_NAME radiusd[name2]: Login incorrect: [USER] (from client HOST_NAME port xxx cli ip:source-ip=x.x.x.x)
 regex=: Login incorrect: \[(\S+)\] \(from client (\S+) port (\d+) cli ip:source-ip\=([\d\.]+)\); \
  classification.text=Radiusd: Login incorrect.; \
@@ -86,6 +89,7 @@ regex=: Login incorrect: \[(\S+)\] \(from client (\S+) port (\d+) cli ip:source-
  last
 
 #DESCRIPTION:Login OK
+#CATEGORY:Authentication
 #LOG:May  3 14:44:12 SERVER_NAME radiusd[name1]: Login OK: [USER] (from client HOST_NAME port xxx cli x.x.x.x)
 regex=: Login OK: \[(\S+)\] \(from client (\S+) port (\d+) cli ([\d\.]+)\); \
  classification.text=Radiusd: Login OK.; \
@@ -108,6 +112,7 @@ regex=: Login OK: \[(\S+)\] \(from client (\S+) port (\d+) cli ([\d\.]+)\); \
  last
 
 #DESCRIPTION:Login OK
+#CATEGORY:Authentication
 #LOG:May  3 15:25:21 SERVER_NAME radiusd[xxx]: Login OK: [USER] (from client HOST_NAME port x)
 regex=: Login OK: \[(\S+)\] \(from client (\S+); \
  classification.text=Radiusd: Login OK.; \

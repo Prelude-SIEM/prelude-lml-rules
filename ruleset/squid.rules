@@ -27,6 +27,7 @@
 #####
 
 #DESCRIPTION:Squid Proxy started
+#CATEGORY:Service Management
 #LOG:2005/11/28 06:00:42| Starting Squid Cache version 2.5.STABLE1 for i386-redhat-linux-gnu...
 regex=Starting Squid Cache version ([\w\.]+) for (\S+)\.\.\.; \
  classification.text=Proxy started; \
@@ -48,6 +49,7 @@ regex=Starting Squid Cache version ([\w\.]+) for (\S+)\.\.\.; \
  last
 
 #DESCRIPTION:Accepting connections or disabled services
+#CATEGORY:Service Management
 #LOG:2005/11/28 06:00:44| Accepting HTTP connections at 0.0.0.0, port 3128, FD 12.
 regex=Accepting HTTP connections at ([\d\.]+), port (\d+), FD (\d+)\.; \
  classification.text=Proxy accepts HTTP; \
@@ -70,6 +72,7 @@ regex=Accepting HTTP connections at ([\d\.]+), port (\d+), FD (\d+)\.; \
  last
 
 #DESCRIPTION:Proxy accepts ICP
+#CATEGORY:Service Management
 #LOG:2005/11/28 06:00:44| Accepting ICP messages at 0.0.0.0, port 3130, FD 13.
 regex=Accepting ICP messages at ([\d\.]+), port (\d+), FD (\d+)\.; \
  classification.text=Proxy accepts ICP; \
@@ -92,6 +95,7 @@ regex=Accepting ICP messages at ([\d\.]+), port (\d+), FD (\d+)\.; \
  last
 
 #DESCRIPTION:Proxy accepts HTCP
+#CATEGORY:Service Management
 #LOG:2005/11/28 06:00:44| Accepting HTCP messages on port 4827, FD 15.
 regex=Accepting HTCP messages on port (\d+), FD (\d+)\.; \
  classification.text=Proxy accepts HTCP; \
@@ -112,6 +116,7 @@ regex=Accepting HTCP messages on port (\d+), FD (\d+)\.; \
  last
 
 #DESCRIPTION:Proxy accepts WCCP
+#CATEGORY:Service Management
 #LOG:2005/11/28 06:00:44| Accepting WCCP messages on port 2048, FD 18.
 regex=Accepting WCCP messages on port (\d+), FD (\d+)\.; \
  classification.text=Proxy accepts WCCP; \
@@ -132,6 +137,7 @@ regex=Accepting WCCP messages on port (\d+), FD (\d+)\.; \
  last
 
 #DESCRIPTION:Proxy started without HTCP
+#CATEGORY:Service Management
 #LOG:2005/11/28 06:00:44| HTCP Disabled.
 regex=HTCP Disabled\.; \
  classification.text=Proxy started without HTCP; \
@@ -146,6 +152,7 @@ regex=HTCP Disabled\.; \
  last
 
 #DESCRIPTION:Proxy started without WCCP
+#CATEGORY:Service Management
 #LOG:2005/11/28 06:00:44| WCCP Disabled.
 regex=WCCP Disabled\.; \
  classification.text=Proxy started without WCCP; \
@@ -160,6 +167,7 @@ regex=WCCP Disabled\.; \
  last
 
 #DESCRIPTION:A Squid child process exited
+#CATEGORY:Service Management
 #LOG:2005/11/28 06:00:44| Squid Parent: child process 10216 exited due to signal 6
 regex=Squid Parent: child process (\d+) exited due to signal (\d+); \
  classification.text=Proxy child process stopped; \
@@ -175,6 +183,7 @@ regex=Squid Parent: child process (\d+) exited due to signal (\d+); \
  last
 
 #DESCRIPTION:Host attempt to violate Squid ACL. Failed
+#CATEGORY:Network Security
 #LOG:1133224765.027     23 12.34.56.78 TCP_DENIED/403 1387 GET http://was.nld.l.google.com:81/hit? - NONE/- text/html
 regex=(\d+) ([\d\.]+) (\S+DENIED)/(\d+) (\d+) (\S+) (\S+); \
  classification.text=Proxy ACL violation attempt; \

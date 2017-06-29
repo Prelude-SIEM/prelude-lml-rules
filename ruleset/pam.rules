@@ -27,6 +27,7 @@
 
 #DESCRIPTION:Old pam format (< 0.99):
 #DESCRIPTION:Ignore opened or closed sessions
+#CATEGORY:Authentication
 #LOG:Apr 20 11:55:01 piche CRON[23295]: (pam_unix) session opened for user root by (uid=0)
 #LOG:Apr 20 11:55:01 piche CRON[23293]: (pam_unix) session closed for user root
 #LOG:Dec 14 09:31:58 piche sshd[8778]: pam_unix(ssh:session): session opened for user pollux by (uid=0)
@@ -36,6 +37,7 @@ regex=CRON\[\d+\]: \(pam_unix\) session (opened|closed) for user; \
 
 #DESCRIPTION:New pam format
 #DESCRIPTION:Ignore opened or closed sessions (for all pam modules)
+#CATEGORY:Authentication
 #LOG:Dec 14 09:09:01 piche CRON[5898]: pam_unix(cron:session): session opened for user root by (uid=0)
 #LOG:Dec 14 09:09:01 piche CRON[5898]: pam_unix(cron:session): session closed for user root
 #LOG:Dec 14 09:31:58 piche sshd[8778]: pam_unix(ssh:session): session opened for user pollux by (uid=0)
@@ -44,6 +46,7 @@ regex=CRON\[\d+\]: \S+\(cron:\S+\): session (opened|closed) for user; \
  last
 
 #DESCRIPTION:Session opened for user root
+#CATEGORY:Authentication
 #LOG:Apr 20 11:55:01 piche CRON[23295]: (pam_unix) session opened for user root by (uid=0)
 regex=for user root by; \
  id=4; \
@@ -51,6 +54,7 @@ regex=for user root by; \
  chained; silent
 
 #DESCRIPTION:Session opened for user
+#CATEGORY:Authentication
 #LOG:Aug 14 17:32:19 blah su(pam_unix)[17944]: session opened for user root by (uid=123)
 #LOG:Dec  9 18:47:10 devel5 sshd(pam_unix)[13189]: session opened for user yyyy by xxxx(uid=0)
 regex=session opened for user (\S+) by (\S*)\(uid=(\d*)\); \
@@ -75,6 +79,7 @@ regex=session opened for user (\S+) by (\S*)\(uid=(\d*)\); \
  last
 
 #DESCRIPTION:Authentication failure
+#CATEGORY:Authentication
 #LOG:Dec 21 21:18:46 share2 sshd(pam_unix)[15525]: authentication failure; logname= uid=0 euid=0 tty=NODEVssh ruser= rhost=a.b.c.d  user=root
 regex=authentication failure\; logname=([^ ]*)[ ]*uid=([^ ]*)[ ]*euid=.* tty=([^ ]*)[ ]*ruser=([^ ]*)[ ]*rhost=([^ ]*)[ ]*user=([^ ]*); \
  classification.text=Credentials Change; \
@@ -101,6 +106,7 @@ regex=authentication failure\; logname=([^ ]*)[ ]*uid=([^ ]*)[ ]*euid=.* tty=([^
  last
 
 #DESCRIPTION:No such user
+#CATEGORY:Authentication
 #LOG:Dec 21 21:18:46 share2 sshd[15525]: pam_tally(sshd:auth): pam_get_uid; no such user
 regex=no such user; \
  classification.text=Invalid User; \

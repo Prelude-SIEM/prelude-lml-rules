@@ -28,6 +28,7 @@
 #####
 
 #DESCRIPTION:Integrity check ran successfully without warnings
+#CATEGORY:Integrity
 #LOG:Jan 22 11:32:26 host tripwire[5265]: Integrity Check Complete: /usr/local/tripwire/tfs/report/host-.twr TWReport host 20040122113203 V:0 S:0 A:0 R:0 C:0 L:0 M:0 H:0
 regex=(\S+) TWReport \S+ \d+ V:0; \
  classification.text=Integrity Check OK; \
@@ -47,6 +48,7 @@ regex=(\S+) TWReport \S+ \d+ V:0; \
  last
 
 #DESCRIPTION:Integrity check ran successfully, warning file(s) added
+#CATEGORY:Integrity
 #LOG:Jan 22 11:32:26 host tripwire[5265]: Integrity Check Complete: /usr/local/tripwire/tfs/report/host-.twr TWReport host 20040122113203 V:91 S:100 A:51 R:0 C:40 L:0 M:8 H:83
 regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:(?!0)(\d+); \
  classification.text=Integrity Check Warning: file(s) added; \
@@ -68,6 +70,7 @@ regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:(?!0)(\d+); \
  additional_data(1).data=$2
 
 #DESCRIPTION:Integrity check ran successfully, warning file(s) removed
+#CATEGORY:Integrity
 #LOG:Jan 22 11:32:26 host tripwire[5265]: Integrity Check Complete: /usr/local/tripwire/tfs/report/host-.twr TWReport host 20040122113203 V:91 S:100 A:51 R:42 C:40 L:0 M:8 H:83
 regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:\d+ R:(?!0)(\d+); \
  classification.text=Integrity Check Warning: file(s) removed; \
@@ -89,6 +92,7 @@ regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:\d+ R:(?!0)(\d+); \
  additional_data(1).data=$2
 
 #DESCRIPTION:Integrity check ran successfully, warning file(s) modified
+#CATEGORY:Integrity
 #LOG:Jan 22 11:32:26 host tripwire[5265]: Integrity Check Complete: /usr/local/tripwire/tfs/report/host-.twr TWReport host 20040122113203 V:91 S:100 A:51 R:42 C:40 L:0 M:8 H:83
 regex=(\S+) TWReport \S+ \d+ V:\d+ S:\d+ A:\d+ R:\d+ C:(?!0)(\d+); \
  classification.text=Integrity Check Warning: file(s) modified; \

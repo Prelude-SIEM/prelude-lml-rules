@@ -26,6 +26,7 @@
 #####
 
 #DESCRIPTION:Load balancer audit
+#CATEGORY:High Availability
 #LOG:Jun 10 14:03:08 12.4.18.135 bigconf.cgi: AUDIT -- Create MEMBER 10.5.253.52:0 (Parent: POOL SMDEMO) User: admin
 regex=AUDIT -- (\w+) (?!VIPPORT)(\w+) ([\d\.]+).+User: (\S+); \
  classification.text=Load balancer $1 audit; \
@@ -46,6 +47,7 @@ regex=AUDIT -- (\w+) (?!VIPPORT)(\w+) ([\d\.]+).+User: (\S+); \
  last
 
 #DESCRIPTION:Load balancer audit
+#CATEGORY:High Availability
 #LOG:Jun 10 18:05:43 12.4.18.135 bigconf.cgi: AUDIT -- Delete POOL SMDEMO User: admin
 regex=AUDIT -- (\w+) (\w+) (\w+)\s+User: (\S+); \
  classification.text=Load balancer $1 audit; \
@@ -64,6 +66,7 @@ regex=AUDIT -- (\w+) (\w+) (\w+)\s+User: (\S+); \
  last
 
 #DESCRIPTION:Packet denied
+#CATEGORY:Packet Filtering
 #LOG:Jun 14 07:06:05 12.34.56.78 kernel: security: UDP port denial 90.12.34.56:20031 -> 78.90.12.34:20031
 #regex=security: (\S+) .*port denial ([\d\.]+):(\d+) -> ([\d\.]+):(\d+); \
 # classification.text=Packet denied; \

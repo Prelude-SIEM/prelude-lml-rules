@@ -26,6 +26,7 @@
 #####
 
 #DESCRIPTION:Mail server - Invalid password for this user
+#CATEGORY:Email
 #LOG:Jan 13 21:05:09 myhostname popper[6950]: [AUTH] Failed attempted login to vegeta from host (Mix-Dijon-114-2-232.abo.wanadoo.fr) 193.249.231.232
 regex=\[AUTH\] Failed attempted login to (\S+) from host \(?([\w\-\.]+)\)? ([\d\.]+); \
  classification.text=Mail server - invalid password for this user; \
@@ -51,6 +52,7 @@ regex=\[AUTH\] Failed attempted login to (\S+) from host \(?([\w\-\.]+)\)? ([\d\
  last
 
 #DESCRIPTION:Mail server - Invalid password for user
+#CATEGORY:Email
 #LOG:Jan 13 20:42:31 myhostname popper[6752]: azerty at www.leroutier.net (81.91.66.90): -ERR [AUTH] Password supplied for "myuser" is incorrect.
 regex=(\S+) at [\w\-\.]+ \(([\d\.]+)\): -ERR \[AUTH\] Password supplied for "\S+" is incorrect; \
  classification.text=Mail server - invalid password for user; \

@@ -38,6 +38,7 @@
 #####
 
 #DESCRIPTION:Symantec Critical System Protection Event
+#CATEGORY:Monitoring
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterprises.393.273.1.2 "([\S ]+|\S+)"+.+011enterprises.393.273.1.3 "([\S ]+|\S+)"#011enterprises.393.273.1.4 +.+011enterprises.393.273.1.5 "([\S ]+|\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"#011enterprises.393.273.1.7 "([\S ]+|\S+)"#011enterprises.393.273.1.8 +.+011enterprises.393.273.1.9 "(Information|Notice)"#011enterprises.393.273.1.10 "([\S ]+|\S+)"#011enterprises.393.273.1.11 +.+011enterprises.393.273.1.12 "(Success|Allow|R)"+.+011enterprises.393.273.1.16 "([\S ]+|\S+)"#011enterprises.393.273.1.17 +.+011enterprises.393.273.1.22 "([\S ]+|\S+); \
  classification.text=$9 - $11; \
  id=43201; \
@@ -68,6 +69,7 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterpri
  last
 
 #DESCRIPTION:Symantec Critical System Protection Event
+#CATEGORY:Monitoring
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterprises.393.273.1.2 "([\S ]+|\S+)"+.+011enterprises.393.273.1.3 "([\S ]+|\S+)"#011enterprises.393.273.1.4 +.+011enterprises.393.273.1.5 "([\S ]+|\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"#011enterprises.393.273.1.7 "([\S ]+|\S+)"#011enterprises.393.273.1.8 +.+011enterprises.393.273.1.9 "(Warning)"#011enterprises.393.273.1.10 "([\S ]+|\S+)"#011enterprises.393.273.1.11 +.+011enterprises.393.273.1.12 "(Success|Allow|R)"+.+011enterprises.393.273.1.16 "([\S ]+|\S+)"#011enterprises.393.273.1.17 +.+011enterprises.393.273.1.22 "([\S ]+|\S+); \
  classification.text=$9 - $11; \
  id=43202; \
@@ -98,6 +100,7 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterpri
  last
 
 #DESCRIPTION:Symantec Critical System Protection Event
+#CATEGORY:Monitoring
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterprises.393.273.1.2 "([\S ]+|\S+)"+.+011enterprises.393.273.1.3 "([\S ]+|\S+)"#011enterprises.393.273.1.4 +.+011enterprises.393.273.1.5 "([\S ]+|\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"#011enterprises.393.273.1.7 "([\S ]+|\S+)"#011enterprises.393.273.1.8 +.+011enterprises.393.273.1.9 "(Major|Critical)"#011enterprises.393.273.1.10 "([\S ]+|\S+)"#011enterprises.393.273.1.11 +.+011enterprises.393.273.1.12 "(Success|Allow|R)"+.+011enterprises.393.273.1.16 "([\S ]+|\S+)"#011enterprises.393.273.1.17 +.+011enterprises.393.273.1.22 "([\S ]+|\S+); \
  classification.text=$9 - $11; \
  id=43203; \
@@ -128,6 +131,7 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterpri
  last
 
 #DESCRIPTION:Symantec Critical System Protection Event
+#CATEGORY:Monitoring
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterprises.393.273.1.2 "([\S ]+|\S+)"+.+011enterprises.393.273.1.3 "([\S ]+|\S+)"#011enterprises.393.273.1.4 +.+011enterprises.393.273.1.5 "([\S ]+|\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"#011enterprises.393.273.1.7 "([\S ]+|\S+)"#011enterprises.393.273.1.8 +.+011enterprises.393.273.1.9 "(Information|Notice)"#011enterprises.393.273.1.10 "([\S ]+|\S+)"#011enterprises.393.273.1.11 +.+011enterprises.393.273.1.12 "(Denied|NULL|R|Failure)"+.+011enterprises.393.273.1.16 "([\S ]+|\S+)"#011enterprises.393.273.1.17 +.+011enterprises.393.273.1.22 "([\S ]+|\S+); \
  classification.text=$9 - $11; \
  id=43204; \
@@ -158,6 +162,7 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterpri
  last
 
 #DESCRIPTION:Symantec Critical System Protection Event
+#CATEGORY:Monitoring
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterprises.393.273.1.2 "([\S ]+|\S+)"+.+011enterprises.393.273.1.3 "([\S ]+|\S+)"#011enterprises.393.273.1.4 +.+011enterprises.393.273.1.5 "([\S ]+|\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"#011enterprises.393.273.1.7 "([\S ]+|\S+)"#011enterprises.393.273.1.8 +.+011enterprises.393.273.1.9 "(Warning)"#011enterprises.393.273.1.10 "([\S ]+|\S+)"#011enterprises.393.273.1.11 +.+011enterprises.393.273.1.12 "(Denied|NULL|R|Failure)"+.+011enterprises.393.273.1.16 "([\S ]+|\S+)"#011enterprises.393.273.1.17 +.+011enterprises.393.273.1.22 "([\S ]+|\S+); \
  classification.text=$9 - $11; \
  id=43205; \
@@ -188,6 +193,7 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterpri
  last
 
 #DESCRIPTION:Symantec Critical System Protection Event
+#CATEGORY:Monitoring
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterprises.393.273.1.2 "([\S ]+|\S+)"+.+011enterprises.393.273.1.3 "([\S ]+|\S+)"#011enterprises.393.273.1.4 +.+011enterprises.393.273.1.5 "([\S ]+|\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"#011enterprises.393.273.1.7 "([\S ]+|\S+)"#011enterprises.393.273.1.8 +.+011enterprises.393.273.1.9 "(Major|Critical)"#011enterprises.393.273.1.10 "([\S ]+|\S+)"#011enterprises.393.273.1.11 +.+011enterprises.393.273.1.12 "(Denied|NULL|R|Failure)"+.+011enterprises.393.273.1.16 "([\S ]+|\S+)"#011enterprises.393.273.1.17 +.+011enterprises.393.273.1.22 "([\S ]+|\S+); \
  classification.text=$9 - $11; \
  id=43206; \
@@ -218,6 +224,7 @@ regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.1 "([\S ]+|\S+)"#011enterpri
  last
 
 #DESCRIPTION:Generic RULE - Symantec Critical System Protection Event
+#CATEGORY:Generic
 regex=snmptrapd\[(\d+)]:+.+011enterprises.393.273.1.5 "(\S+)"#011enterprises.393.273.1.6 "([\d\.]+)"+.+011enterprises.393.273.1.10 "([\S ]+)"#011enterprises.393.273.1.11 ; \
  classification.text= Generic Rule: $4; \
  id=43213; \

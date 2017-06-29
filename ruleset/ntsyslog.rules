@@ -27,6 +27,7 @@
 #####
 
 #DESCRIPTION:Windows Event ID 515 - A trusted logon process has registered
+#CATEGORY:Authentication
 #LOG:Jul 11 09:33:18 somehost.ragingwire.net smf-eng-srobins/smf-eng-srobins security[success] 515 NT AUTHORITY\SYSTEM  A trusted logon process has registered with the Local Security Authority. This logon process will be trusted to submit logon requests.     Logon Process Name:KSecDD
 regex=security\[success\] 515 (.*)  A trusted logon process has registered with the Local Security Authority. This logon process will be trusted to submit logon requests.     Logon Process Name:([\w\\]+); \
  classification.text=Logon process started; \
@@ -49,6 +50,7 @@ regex=security\[success\] 515 (.*)  A trusted logon process has registered with 
  last
 
 #DESCRIPTION:Windows Event ID 528 - Successful Logon
+#CATEGORY:Authentication
 #LOG:Jul 11 13:44:11 somehost.ragingwire.net smf-eng-srobins/smf-eng-srobins security[success] 528 SACRAMENTO\ggomez  Successful Logon:  User Name:ggomez  Domain:SACRAMENTO  Logon ID:(0x0,0x16AC1854)  Logon Type:7  Logon Process:User32    Authentication Package:Negotiate  Workstation Name:SMF-ENG-GGOMEZ  Logon GUID: {621924db-649e-3b17-b41a-215e55680eb3}
 regex=security\[success\] 528 (.*) Successful Logon:  User Name:([\w ]+)  Domain:(.+)  Logon ID:\(.*\)  Logon Type:(\d+)  Logon Process:(\w+) .* Workstation Name:(\S+); \
  classification.text=Logon; \
@@ -83,6 +85,7 @@ regex=security\[success\] 528 (.*) Successful Logon:  User Name:([\w ]+)  Domain
  last
 
 #DESCRIPTION:Windows Event ID 538 - User Logoff
+#CATEGORY:Authentication
 #LOG:Jun 24 15:22:39 bigipnet security[success] 538 NT AUTHORITY\ANONYMOUS LOGON User Logoff: User Name:ANONYMOUS LOGON Domain:NT AUTHORITY Logon ID:(0x0,0x938205) Logon Type:3
 regex=security\[success\] 538 .* User Logoff:\s+User Name:([\w ]+) Domain:([\w ]+) Logon ID:\S+ Logon Type:(\d+); \
  classification.text=Logoff; \
@@ -111,6 +114,7 @@ regex=security\[success\] 538 .* User Logoff:\s+User Name:([\w ]+) Domain:([\w ]
  last
 
 #DESCRIPTION:Windows Event ID 560 - Object Open (Currently broken on Windows 2003; verify against older Windows)
+#CATEGORY:Authentication
 #LOG:Jul 11 08:55:16 somehost.ragingwire.net smf-eng-srobins/smf-eng-srobins security[success] 560 NT AUTHORITY\SYSTEM  Object Open:  Object Server:Security Account Manager  Object Type:SAM_DOMAIN  Object Name:SMF-ENG-GGOMEZ  Handle ID:1290248  Operation ID:{0,378510053}  Process ID:944  Image File Name: C:\WINDOWS\system32\lsass.exe  Primary User Name:SMF-ENG-GGOMEZ$  Primary Domain:RES  Primary Logon ID:(0x0,0x3E7)  Client User Name:SMF-ENG-GGOMEZ$  Client Domain:RES  Client Logon ID:(0x0,0x3E7)  Accesses: %%1537 %%1538 %%1539 %%1540 %%5392 %%5393 %%5394 %%5395 %%5396 %%5398 %%5399 %%5400 %%5401 %%5402   Privileges:-  Restricted Sid Count: 0
 regex=security\[success\] 560 (.*) Object Open:\s* Object Server:[\w\s]+ Object Type:[\w\_]+\s* Object Name:([\w-]+)\s* Handle ID:\d+\s* Operation ID:.*\s* Process ID:(\d+) [\S ]+ Primary User Name:(\S*)\s* Primary Domain:\S+\s* Primary Logon ID:\S*\s* Client User Name:(\S+)\s* Client Domain; \
  classification.text=Object opened; \
@@ -138,6 +142,7 @@ regex=security\[success\] 560 (.*) Object Open:\s* Object Server:[\w\s]+ Object 
  last
 
 #DESCRIPTION:Windows Event ID 562 - Object closed
+#CATEGORY:Authentication
 #LOG:Jul 11 08:55:16 somehost.ragingwire.net smf-eng-srobins/smf-eng-srobins security[success] 562 NT AUTHORITY\SYSTEM  Handle Closed:  Object Server:Security Account Manager  Handle ID:1093856  Process ID:944  Image File Name: C:\WINDOWS\system32\lsass.exe
 regex=security\[success\] 562 (.*) Handle Closed:  Object Server:[\w\s]+  Handle ID:(\d+)  Process ID:(\d+)  Image File Name: (.+); \
  classification.text=Object closed; \
@@ -166,6 +171,7 @@ regex=security\[success\] 562 (.*) Handle Closed:  Object Server:[\w\s]+  Handle
  last
 
 #DESCRIPTION:Windows Event ID 577 - Privileged Service Called
+#CATEGORY:Authentication
 #LOG:Jul 11 15:09:21 somehost.ragingwire.net smf-eng-srobins/smf-eng-srobins security[success] 577 NT AUTHORITY\SYSTEM  Privileged Service Called:  Server: NT Local Security Authority / Authentication Service  Service:LsaRegisterLogonProcess()  Primary User Name:SMF-ENG-GGOMEZ$  Primary Domain:RES  Primary Logon ID:(0x0,0x3E7)  Client User Name:SMF-ENG-GGOMEZ$  Client Domain:RES  Client Logon ID:(0x0,0x3E7)  Privileges:SeTcbPrivilege
 regex= security\[success\] 577 (.*)  Privileged Service Called:  Server:.+  Service:(.*)  Primary User Name:(.+)  Primary Domain:.+  Primary Logon ID:\(.*\)  Client User Name:(.+)  Client Domain:.+  Client Logon ID:.+  Privileges:(.+); \
  classification.text=User privilege exercised; \
@@ -195,6 +201,7 @@ regex= security\[success\] 577 (.*)  Privileged Service Called:  Server:.+  Serv
  last
 
 #DESCRIPTION:Windows Event ID 643 - Domain Policy Changed
+#CATEGORY:Account Management
 #LOG:Oct 31 18:02:39 192.168.1.100 security[success] 643 NT AUTHORITY\SYSTEM  Domain Policy Changed: Password Policy modified  Domain:ELMW2  Domain ID:ELMW2  Caller User Name:W2DC$  Caller Domain:ELMW2  Caller Logon ID:(0x0,0x3E7)  Privileges:-
 regex= security\[success\] 643 (.*)  Domain Policy Changed: Password Policy  modified  Domain:(.+)  Domain ID: .+  Caller User Name:(.+); \
  classification.text=Password policy modified; \
@@ -219,6 +226,7 @@ regex= security\[success\] 643 (.*)  Domain Policy Changed: Password Policy  mod
  last
 
 #DESCRIPTION:Windows Event ID 680 - Account Used for Logon
+#CATEGORY:Authentication
 #LOG:Oct 22 20:57:03 smf-syslog-02 smf-dc-01/smf-dc-01 security[success] Account Used for Logon by: MICROSOFT_AUTHENTICATION_PACKAGE_V1_0  Account Name:  DRankin  Workstation:   SMF-HLP-16
 regex= security\[success\].*Account Used for Logon by: (.+)  Account Name: (.+)  Workstation: (.+); \
  classification.text=Login; \
@@ -244,6 +252,7 @@ regex= security\[success\].*Account Used for Logon by: (.+)  Account Name: (.+) 
  last
 
 #DESCRIPTION:Windows Event ID 682 - Session reconnected to winstation
+#CATEGORY:Authentication
 #LOG:Oct 31 18:02:39 192.168.1.100 security[success] 682 NT AUTHORITY\SYSTEM  Session reconnected to winstation:  User Name:Jean Dupond  Domain:IBM17M  Logon ID:(0x0,0x1F5A9C)  Session Name:Console  Client Name:Unknown  Client Address:1.1.1.1
 regex= security\[success\] 682 (.*)  Session reconnected to winstation:  User Name:([\w ]+)  Domain:.+  Logon ID:\(.+\)  Session Name:.+  Client Name:(.+)  Client Address:([\d\.]+); \
  classification.text=Remote control user reconnected; \
@@ -272,6 +281,7 @@ regex= security\[success\] 682 (.*)  Session reconnected to winstation:  User Na
  last
 
 #DESCRIPTION:Windows Event ID 683 - Session disconnected from winstation
+#CATEGORY:Authentication
 #LOG:Oct 31 18:02:39 192.168.1.100 security[success] 683 NT AUTHORITY\SYSTEM  Session disconnected from winstation:  User Name:administrator  Domain:ELMW2  Logon ID:(0x0,0x5BAA5)  Session Name:Unknown  Client Name:CPQ  Client Address:10.42.42.90
 regex= security\[success\] 683 (.*)  Session disconnected from winstation:  User Name:([\w ]+)  Domain:.+  Logon ID:\(.+\)  Session Name:.+  Client Name:(.+)  Client Address:([\d\.]+); \
  classification.text=Remote control user disconnected; \
@@ -300,6 +310,7 @@ regex= security\[success\] 683 (.*)  Session disconnected from winstation:  User
  last
 
 #DESCRIPTION:Windows Event ID other - Security Success message
+#CATEGORY:Generic
 #regex= security\[success\] (\d+); \
 # classification.text=Windows Event ID [$1]; \
 # id=1411; \
@@ -313,6 +324,7 @@ regex= security\[success\] 683 (.*)  Session disconnected from winstation:  User
 # last
 
 #DESCRIPTION:Windows Event ID other - Security Failure message
+#CATEGORY:Generic
 #regex= security\[failure\] (\d+); \
 # classification.text=Windows Event ID [$1]; \
 # id=1416; \
@@ -326,6 +338,7 @@ regex= security\[success\] 683 (.*)  Session disconnected from winstation:  User
 # last
 
 #DESCRIPTION:Windows Event ID 529 or 534 - Logon Failure
+#CATEGORY:Authentication
 #LOG:Dec 10 00:23:37 webbrain.itg.sac.tfs security[failure] 529 NT AUTHORITY\SYSTEM  Logon Failure:  Reason:Unknown user name or bad password  User Name:administrator  Domain:ITG  Logon Type:2  Logon Process:Advapi    Authentication Package: MICROSOFT_AUTHENTICATION_PACKAGE_V1_0  Workstation Name:WEBBRAIN
 regex=security\[failure\] (529|534) .+ Logon Failure:  Reason:(.+)  User Name:([\w ]+)  Domain:(.+)  Logon Type:(\d+)  Logon Process:(\w+)    Authentication Package:.+  Workstation Name:(.+); \
  classification.text=Login; \
@@ -357,6 +370,7 @@ regex=security\[failure\] (529|534) .+ Logon Failure:  Reason:(.+)  User Name:([
  last
 
 #DESCRIPTION:Windows Event ID 578 - Privileged object operation
+#CATEGORY:Authentication
 #LOG:Dec  9 17:42:49 testdb.itg.sac.tfs security[failure] 578 ITG\mzirion  Privileged object operation:  Object Server:Security  Object Handle:4294967295  Process ID:3540  Primary User Name:TESTDB$  Primary Domain:ITG  Primary Logon ID:(0x0,0x3E7)  Client User Name:mzirion  Client Domain:ITG  Client Logon ID:(0x2,0x5E829351)  Privileges:SeIncreaseBasePriorityPrivilege
 regex=security\[failure\] 578 .+ Privileged object operation:  Object Server:Security  Object Handle:\d+  Process ID:(\d+)  Primary User Name:(.+)  Primary Domain:(.+)  Primary Logon ID:\(.*\)  Client User Name:([\w ]+)  Client.+Privileges:(\S+); \
  classification.text=User privilege exercised; \
@@ -386,6 +400,7 @@ regex=security\[failure\] 578 .+ Privileged object operation:  Object Server:Sec
  last
 
 #DESCRIPTION:Windows Event ID 627 - Attemptation to change password
+#CATEGORY:Account Management
 #LOG:Dec  7 20:07:49 testdb.itg.sac.tfs security[failure] 627 NT AUTHORITY\SYSTEM  Change Password Attempt:  Target Account Name:TsInternetUser  Target Domain:TESTDB  Target Account ID: %{S-1-5-21-854245398-413027322-725345543-1000}  Caller User Name:TESTDB$  Caller Domain:ITG  Caller Logon ID:(0x0,0x3E7)  Privileges:-
 regex= security\[failure\] 627 (.+)  Change Password Attempt:  Target Account Name:(.+)  Target Domain:(.+)  Target Account ID:.+  Caller User Name:(.+); \
  classification.text=Password change; \
@@ -415,6 +430,7 @@ regex= security\[failure\] 627 (.+)  Change Password Attempt:  Target Account Na
  last
 
 #DESCRIPTION:Windows Event ID 681 - Logon to account
+#CATEGORY:Authentication
 #LOG:Dec 10 08:20:07 mrfreeze.itg.sac.tfs security[failure] 681 NT AUTHORITY\SYSTEM  The logon to account: tfslegalask@itg.sac.tfs  by: MICROSOFT_AUTHENTICATION_PACKAGE_V1_0  from workstation: MRFREEZE  failed. The error code was: 3221225572
 regex=security\[failure\] 681 (.+)  The logon to account: (\S+)  by:.+  from workstation: (\w+); \
  classification.text=Login; \
@@ -440,16 +456,3 @@ regex=security\[failure\] 681 (.+)  The logon to account: (\S+)  by:.+  from wor
  target(0).user.user_id(0).type=target-user; \
  target(0).user.user_id(0).name=$2; \
  last
-
-#DESCRIPTION: Windows Event ID other - Security Failure message
-#regex= security\[failure\] (\d+); \
-# classification.text=Windows Event ID [$1]; \
-# id=1416; \
-# revision=1; \
-# analyzer(0).name=NTsyslog; \
-# analyzer(0).manufacturer=ntsyslog.sourceforge.net; \
-# analyzer(0).class=Service; \
-# assessment.impact.severity=medium; \
-# assessment.impact.type=other; \
-# assessment.impact.description=Security Failure message with identifier #$1; \
-# last

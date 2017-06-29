@@ -29,6 +29,7 @@
 #####
 
 #DESCRIPTION:Packet denied (Both ports are numbers)
+#CATEGORY:Packet Filtering
 regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: (\d+). dst: ([\d\.]+). service: (\d+). proto: (\w+). rule: (\d+); \
  classification.text=$8 packet denied; \
  id=100; \
@@ -54,6 +55,7 @@ regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+
  last
 
 #DESCRIPTION:Packet denied (Source or Target port is a service name)
+#CATEGORY:Packet Filtering
 regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: (\d+). dst: ([\d\.]+). service: ([\w-]+). proto: (\w+). rule: (\d+); \
  classification.text=$8 packet denied; \
  id=101; \
@@ -79,6 +81,7 @@ regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+
  last
 
 #DESCRIPTION:Packet denied
+#CATEGORY:Packet Filtering
 regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: (\d+). proto: (\w+). rule: (\d+); \
  classification.text=$8 packet denied; \
  id=102; \
@@ -104,6 +107,7 @@ regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+
  last
 
 #DESCRIPTION:Packet denied (Both ports are service names)
+#CATEGORY:Packet Filtering
 regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: ([\w-]+). proto: (\w+). rule: (\d+); \
  classification.text=$8 packet denied; \
  id=103; \
@@ -129,6 +133,7 @@ regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+
  last
 
 #DESCRIPTION:Packet accepted (Both ports are numbers)
+#CATEGORY:Packet Filtering
 regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: (\d+). dst: ([\d\.]+). service: (\d+). proto: (\w+). rule: (\d+); \
  classification.text=$8 packet accepted; \
  id=104; \
@@ -154,6 +159,7 @@ regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+
  last
 
 #DESCRIPTION:Packet accepted (One port is a service name)
+#CATEGORY:Packet Filtering
 #LOG:14Aug2006 16:38:54 accept 12.34.56.78 >eth1c0 product: VPN-1 & FireWall-1; src: 90.12.34.56; s_port: 41307; dst: 78.90.12.34; service: domain-udp; proto: udp; rule: 8;
 regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: (\d+). dst: ([\d\.]+). service: ([\w-]+). proto: (\w+). rule: (\d+); \
  classification.text=$8 packet accepted; \
@@ -180,6 +186,7 @@ regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+
  last
 
 #DESCRIPTION:Packet accepted
+#CATEGORY:Packet Filtering
 regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: (\d+). proto: (\w+). rule: (\d+); \
  classification.text=$8 packet accepted; \
  id=106; \
@@ -205,6 +212,7 @@ regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+
  last
 
 #DESCRIPTION:Packet accepted (Only service names)
+#CATEGORY:Packet Filtering
 regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: ([\w-]+). proto: (\w+). rule: (\d+); \
  classification.text=$8 packet accepted; \
  id=107; \
@@ -230,6 +238,7 @@ regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+
  last
 
 #DESCRIPTION:Packet denied (ICMP)
+#CATEGORY:Packet Filtering
 regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). dst: ([\d\.]+). proto: icmp. icmp-type: (\d+). icmp-code: (\d+). rule: (\d+); \
  classification.text=ICMP packet denied; \
  id=108; \
@@ -259,6 +268,7 @@ regex=drop   ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+
  last
 
 #DESCRIPTION:Packet accepted (ICMP)
+#CATEGORY:Packet Filtering
 regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+). dst: ([\d\.]+). proto: icmp. icmp-type: (\d+). icmp-code: (\d+). rule: (\d+); \
  classification.text=ICMP packet accepted; \
  id=109; \
@@ -288,6 +298,7 @@ regex=accept ([\d+\.]+) (<|>)([\w-]+) product: VPN-1 & FireWall-1. src: ([\d\.]+
  last
 
 #DESCRIPTION:Packet logged
+#CATEGORY:Packet Filtering
 regex=product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: ([\w-]+). proto: (\w+). rule: (\d+); \
  classification.text=Packet logged; \
  id=110; \
@@ -311,6 +322,7 @@ regex=product: VPN-1 & FireWall-1. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.
  last
 
 #DESCRIPTION:Generic VPN-1 / FW-1 alert
+#CATEGORY:Packet Filtering
 #LOG:14Aug2006 16:38:54 accept 12.34.56.78 >eth1c0 product: VPN-1 & FireWall-1; src: 90.12.34.56; s_port: 41307; dst: 78.90.12.34; service: domain-udp; proto: udp; rule: 8;
 regex=product: VPN-1 & FireWall-1; \
  classification.text=Generic alert; \
@@ -325,6 +337,7 @@ regex=product: VPN-1 & FireWall-1; \
  last
 
 #DESCRIPTION:SmartDefense - Attack
+#CATEGORY:Network Security
 #LOG:14Aug2006 16:39:44        12.34.56.78 >    alert product: SmartDefense; cpmad: CPMAD; attack: Port Scanning; dst: 90.12.34.56; src: 78.90.12.34;
 regex=product: SmartDefense\;.+attack: (.+)\; dst: ([\d\.]+)\; src: ([\d\.]+); \
  classification.text=$1; \
@@ -343,6 +356,7 @@ regex=product: SmartDefense\;.+attack: (.+)\; dst: ([\d\.]+)\; src: ([\d\.]+); \
  last
 
 #DESCRIPTION:SmartDefense - Successive multiple connections
+#CATEGORY:Network Security
 regex=product: SmartDefense. service: ([\w-]+|\d+). attack: Successive Multiple Connections. dst: ([\d\.]+). src: ([\d\.]+); \
  classification.text=Successive multiple connections; \
  id=114; \
@@ -361,6 +375,7 @@ regex=product: SmartDefense. service: ([\w-]+|\d+). attack: Successive Multiple 
  last
 
 #DESCRIPTION:SmartDefense - Attack (Port number to port number)
+#CATEGORY:Network Security
 regex=product: SmartDefense\;.+attack: (.+)\; src: ([\d\.]+)\; s_port: (\d+)\; dst: ([\d\.]+)\; service: (\d+)\; proto: ([\w\-]+|\d+); \
  classification.text=$1; \
  id=115; \
@@ -380,6 +395,7 @@ regex=product: SmartDefense\;.+attack: (.+)\; src: ([\d\.]+)\; s_port: (\d+)\; d
  last
 
 #DESCRIPTION:SmartDefense - Attack (Port number to service name)
+#CATEGORY:Network Security
 regex=product: SmartDefense. Attack Info: (.+). attack: Bad packet. src: ([\d\.]+). s_port: (\d+). dst: ([\d\.]+). service: ([\w-]+). proto: ([\w-]+|\d+); \
  classification.text=Bad $6 flags; \
  id=116; \
@@ -399,6 +415,7 @@ regex=product: SmartDefense. Attack Info: (.+). attack: Bad packet. src: ([\d\.]
  last
 
 #DESCRIPTION:SmartDefense - Attack (Service name to service name)
+#CATEGORY:Network Security
 regex=product: SmartDefense. Attack Info: (.+). attack: Bad packet. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: ([\w-]+). proto: ([\w-]+|\d+); \
  classification.text=Bad $6 flags; \
  id=117; \
@@ -418,6 +435,7 @@ regex=product: SmartDefense. Attack Info: (.+). attack: Bad packet. src: ([\d\.]
  last
 
 #DESCRIPTION:SmartDefense - Attack (Service name to port number)
+#CATEGORY:Network Security
 regex=product: SmartDefense. Attack Info: (.+). attack: Bad packet. src: ([\d\.]+). s_port: ([\w-]+). dst: ([\d\.]+). service: (\d+). proto: ([\w-]+|\d+); \
  classification.text=Bad $6 flags; \
  id=118; \
@@ -437,6 +455,7 @@ regex=product: SmartDefense. Attack Info: (.+). attack: Bad packet. src: ([\d\.]
  last
 
 #DESCRIPTION:SmartDefense - Attack (Large ping)
+#CATEGORY:Network Security
 regex=product: SmartDefense\;.+attack: (.+)\; src: ([\d\.]+)\; dst: ([\d\.]+); \
  classification.text=$1; \
  id=119; \
@@ -454,6 +473,7 @@ regex=product: SmartDefense\;.+attack: (.+)\; src: ([\d\.]+)\; dst: ([\d\.]+); \
  last
 
 #DESCRIPTION:SmartDefense - Attack
+#CATEGORY:Network Security
 #LOG:14Aug2006 16:39:44        12.34.56.78 >    alert product: SmartDefense; cpmad: CPMAD; attack: Port Scanning; dst: 90.12.34.56; src: 78.90.12.34;
 regex=product: SmartDefense\;.+attack: (.+?)\;; \
  classification.text=$1; \
@@ -468,6 +488,7 @@ regex=product: SmartDefense\;.+attack: (.+?)\;; \
  last
 
 #DESCRIPTION:SmartDefense - Generic alert
+#CATEGORY:Network Security
 #LOG:14Aug2006 16:39:44        12.34.56.78 >    alert product: SmartDefense; cpmad: CPMAD; attack: Port Scanning; dst: 90.12.34.56; src: 78.90.12.34;
 regex=product: SmartDefense; \
  classification.text=Misc logs; \
@@ -482,6 +503,7 @@ regex=product: SmartDefense; \
  last
 
 #DESCRIPTION:System Alert message
+#CATEGORY:Monitoring
 regex=([\d+\.]+) (<|>)\s+(\w+) System Alert message: (.+). Object: (\w+). (.+). product: System Monitor; \
  classification.text=Checkpoint System Monitor; \
  id=127; \

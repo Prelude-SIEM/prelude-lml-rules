@@ -27,6 +27,7 @@
 #####
 
 #DESCRIPTION:A high-severity event has occured N times
+#CATEGORY:Network Security
 #LOG:Apr 28 08:45:38 2.0.0.2 ns5gt: NetScreen device_id=ns5gt  [Root]system-emergency-00005: SYN flood! From 2.0.0.3:38254 to 20.0.0.3:74, proto TCP (zone Untrust, int untrust). Occurred 1 times. (2002-01-31 00:01:51)
 regex=system-emergency-\d+: (.+)! From ([\d\.]+)?:?(\d+) to ([\d\.]+)?:?(\d+), proto (\S+) \(zone (\S+), int (\S.+)\). Occurred (\d+) times; \
  classification.text=$1; \
@@ -50,6 +51,7 @@ regex=system-emergency-\d+: (.+)! From ([\d\.]+)?:?(\d+) to ([\d\.]+)?:?(\d+), p
  last
 
 #DESCRIPTION:A medium-severity event has occured N times
+#CATEGORY:Network Security
 #LOG:Apr 28 08:45:38 2.0.0.2 ns5gt: NetScreen device_id=ns5gt  [Root]system-alert-00016: Port scan! From 1.2.3.4:5 to 6.7.8.9:10, proto TCP (zone Untrust, int untrust). Occurred 11 times.
 regex=system-alert-\d+: (.+)! From ([\d\.]+)?:?(\d+) to ([\d\.]+)?:?(\d+), proto (\S+) \(zone (\S+), int (\S.+)\). Occurred (\d+) times; \
  classification.text=$1; \

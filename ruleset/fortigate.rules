@@ -30,6 +30,7 @@
 #####
 
 #DESCRIPTION:System Activity Event (notice|information)
+#CATEGORY:Monitoring
 regex=devname=(\S+),devid=(\S+),logid=0100(\d+),+.+level=(notice|information); \
  classification.text=System Activity Event; \
  id=80000; \
@@ -55,6 +56,7 @@ regex=devname=(\S+),devid=(\S+),logid=0100(\d+),+.+level=(notice|information); \
  last
 
 #DESCRIPTION:System Activity Event (warning|error)
+#CATEGORY:Monitoring
 regex=devname=(\S+),devid=(\S+),logid=0100(\d+),+.+level=(warning|error); \
  classification.text=System Activity Event; \
  id=80001; \
@@ -80,6 +82,7 @@ regex=devname=(\S+),devid=(\S+),logid=0100(\d+),+.+level=(warning|error); \
  last
 
 #DESCRIPTION:System Activity Event (emergency|alert|critical)
+#CATEGORY:Monitoring
 regex=devname=(\S+),devid=(\S+),logid=0100(\d+),+.+level=(emergency|alert|critical); \
  classification.text=System Activity Event; \
  id=80002; \
@@ -105,6 +108,7 @@ regex=devname=(\S+),devid=(\S+),logid=0100(\d+),+.+level=(emergency|alert|critic
  last
 
 #DESCRIPTION:IPSec Negotiation Event (notice|information)
+#CATEGORY:Network Security
 regex=devname=(\S+),devid=(\S+),logid=0101(\d+),+.+level=(notice|information); \
  classification.text=IPSec Negotiation Event; \
  id=80003; \
@@ -130,6 +134,7 @@ regex=devname=(\S+),devid=(\S+),logid=0101(\d+),+.+level=(notice|information); \
  last
 
 #DESCRIPTION:IPSec Negotiation Event (warning|error)
+#CATEGORY:Network Security
 regex=devname=(\S+),devid=(\S+),logid=0101(\d+),+.+level=(warning|error); \
  classification.text=IPSec Negotiation Event; \
  id=80004; \
@@ -155,6 +160,7 @@ regex=devname=(\S+),devid=(\S+),logid=0101(\d+),+.+level=(warning|error); \
  last
 
 #DESCRIPTION:IPSec Negotiation Event (emergency|alert|critical)
+#CATEGORY:Network Security
 regex=devname=(\S+),devid=(\S+),logid=0101(\d+),+.+level=(emergency|alert|critical); \
  classification.text=IPSec Negotiation Event; \
  id=80005; \
@@ -180,6 +186,7 @@ regex=devname=(\S+),devid=(\S+),logid=0101(\d+),+.+level=(emergency|alert|critic
  last
 
 #DESCRIPTION:DHCP Service Event (notice|information)
+#CATEGORY:Monitoring
 regex=devname=(\S+),devid=(\S+),logid=0102(\d+),+.+level=(notice|information); \
  classification.text=DHCP Service Event; \
  id=80006; \
@@ -205,6 +212,7 @@ regex=devname=(\S+),devid=(\S+),logid=0102(\d+),+.+level=(notice|information); \
  last
 
 #DESCRIPTION:DHCP Service Event (warning|error)
+#CATEGORY:Monitoring
 regex=devname=(\S+),devid=(\S+),logid=0101(\d+),+.+level=(warning|error); \
  classification.text=DHCP Service Event; \
  id=80007; \
@@ -230,6 +238,7 @@ regex=devname=(\S+),devid=(\S+),logid=0101(\d+),+.+level=(warning|error); \
  last
 
 #DESCRIPTION:DHCP Service Event (emergency|alert|critical)
+#CATEGORY:Monitoring
 regex=devname=(\S+),devid=(\S+),logid=0101(\d+),+.+level=(emergency|alert|critical); \
  classification.text=DHCP Service Event; \
  id=80008; \
@@ -255,6 +264,7 @@ regex=devname=(\S+),devid=(\S+),logid=0101(\d+),+.+level=(emergency|alert|critic
  last
 
 #DESCRIPTION:Admin Event (notice|information)
+#CATEGORY:Monitoring
 regex=devname=(\S+),devid=(\S+),logid=0104(\d+),+.+level=(notice|information); \
  classification.text=Admin Event; \
  id=80009; \
@@ -280,6 +290,7 @@ regex=devname=(\S+),devid=(\S+),logid=0104(\d+),+.+level=(notice|information); \
  last
 
 #DESCRIPTION:Admin Event (warning|error)
+#CATEGORY:Monitoring
 regex=devname=(\S+),devid=(\S+),logid=0104(\d+),+.+level=(warning|error); \
  classification.text=Admin Event; \
  id=80010; \
@@ -305,6 +316,7 @@ regex=devname=(\S+),devid=(\S+),logid=0104(\d+),+.+level=(warning|error); \
  last
 
 #DESCRIPTION:Admin Event (emergency|alert|critical)
+#CATEGORY:Monitoring
 regex=devname=(\S+),devid=(\S+),logid=0104(\d+),+.+level=(emergency|alert|critical); \
  classification.text=Admin Event; \
  id=80011; \
@@ -330,6 +342,7 @@ regex=devname=(\S+),devid=(\S+),logid=0104(\d+),+.+level=(emergency|alert|critic
  last
 
 #DESCRIPTION:HA Activity Event (notice|information)
+#CATEGORY:High Availability
 regex=devname=(\S+),devid=(\S+),logid=0105(\d+),+.+level=(notice|information); \
  classification.text=HA Activity Event; \
  id=80012; \
@@ -355,6 +368,7 @@ regex=devname=(\S+),devid=(\S+),logid=0105(\d+),+.+level=(notice|information); \
  last
 
 #DESCRIPTION:HA Activity Event (warning|error)
+#CATEGORY:High Availability
 regex=devname=(\S+),devid=(\S+),logid=0105(\d+),+.+level=(warning|error); \
  classification.text=HA Activity Event; \
  id=80013; \
@@ -380,6 +394,7 @@ regex=devname=(\S+),devid=(\S+),logid=0105(\d+),+.+level=(warning|error); \
  last
 
 #DESCRIPTION:HA Activity Event (emergency|alert|critical)
+#CATEGORY:High Availability
 regex=devname=(\S+),devid=(\S+),logid=0105(\d+),+.+level=(emergency|alert|critical); \
  classification.text=HA Activity Event; \
  id=80014; \
@@ -405,6 +420,7 @@ regex=devname=(\S+),devid=(\S+),logid=0105(\d+),+.+level=(emergency|alert|critic
  last
 
 #DESCRIPTION:Firewall Authentication Event (notice|information)
+#CATEGORY:Authentication
 regex=devname=(\S+),devid=(\S+),logid=0106(\d+),+.+level=(notice|information); \
  classification.text=Firewall Authentication Event; \
  id=80026; \
@@ -430,6 +446,7 @@ regex=devname=(\S+),devid=(\S+),logid=0106(\d+),+.+level=(notice|information); \
  last
 
 #DESCRIPTION:Firewall Authentication Event (warning|error)
+#CATEGORY:Authentication
 regex=devname=(\S+),devid=(\S+),logid=0106(\d+),+.+level=(warning|error); \
  classification.text=Firewall Authentication Event; \
  id=80015; \
@@ -455,6 +472,7 @@ regex=devname=(\S+),devid=(\S+),logid=0106(\d+),+.+level=(warning|error); \
  last
 
 #DESCRIPTION:Firewall Authentication Event (emergency|alert|critical)
+#CATEGORY:Authentication
 regex=devname=(\S+),devid=(\S+),logid=0106(\d+),+.+level=(emergency|alert|critical); \
  classification.text=Firewall Authentication Event; \
  id=80016; \
@@ -480,6 +498,7 @@ regex=devname=(\S+),devid=(\S+),logid=0106(\d+),+.+level=(emergency|alert|critic
  last
 
 #DESCRIPTION:Chassis Event (notice|information)
+#CATEGORY:Hardware
 regex=devname=(\S+),devid=(\S+),logid=0130(\d+),+.+level=(notice|information); \
  classification.text=Chassis Event; \
  id=80017; \
@@ -505,6 +524,7 @@ regex=devname=(\S+),devid=(\S+),logid=0130(\d+),+.+level=(notice|information); \
  last
 
 #DESCRIPTION:Chassis Event (warning|error)
+#CATEGORY:Hardware
 regex=devname=(\S+),devid=(\S+),logid=0130(\d+),+.+level=(warning|error); \
  classification.text=Chassis Event; \
  id=80018; \
@@ -530,6 +550,7 @@ regex=devname=(\S+),devid=(\S+),logid=0130(\d+),+.+level=(warning|error); \
  last
 
 #DESCRIPTION:Chassis Event (emergency|alert|critical)
+#CATEGORY:Hardware
 regex=devname=(\S+),devid=(\S+),logid=0130(\d+),+.+level=(emergency|alert|critical); \
  classification.text=Chassis Event; \
  id=80019; \
@@ -555,6 +576,7 @@ regex=devname=(\S+),devid=(\S+),logid=0130(\d+),+.+level=(emergency|alert|critic
  last
 
 #DESCRIPTION:Traffic Blocked by UTM (notice|information)
+#CATEGORY:Network Security
 regex=devname=(\S+),devid=(\S+),logid=0000(\d+),+.+level=(notice|information),vd=(\S+)(\,)srcip=([\d\.]+),srcport=(\d+),+.+dstip=([\d\.]+),dstport=(\d+),+.+service=(\S+)(\,)proto=(\d+)(\,)+.+utmaction=blocked,utmevent=(\S+)(\,)utmsubtype; \
  classification.text= Traffic Blocked by UTM - $15; \
  id=80020; \
@@ -596,6 +618,7 @@ regex=devname=(\S+),devid=(\S+),logid=0000(\d+),+.+level=(notice|information),vd
  last
 
 #DESCRIPTION:Traffic Blocked by UTM (warning|error)
+#CATEGORY:Network Security
 regex=devname=(\S+),devid=(\S+),logid=0000(\d+),+.+level=(warning|error),vd=(\S+)(\,)srcip=([\d\.]+),srcport=(\d+),+.+dstip=([\d\.]+),dstport=(\d+),+.+service=(\S+)(\,)proto=(\d+)(\,)+.+utmaction=blocked,utmevent=(\S+)(\,)utmsubtype; \
  classification.text= Traffic Blocked by UTM - $15; \
  id=80021; \
@@ -637,6 +660,7 @@ regex=devname=(\S+),devid=(\S+),logid=0000(\d+),+.+level=(warning|error),vd=(\S+
  last
 
 #DESCRIPTION:Traffic Blocked by UTM (emergency|alert|critical)
+#CATEGORY:Network Security
 regex=devname=(\S+),devid=(\S+),logid=0000(\d+),+.+level=(emergency|alert|critical),vd=(\S+)(\,)srcip=([\d\.]+),srcport=(\d+),+.+dstip=([\d\.]+),dstport=(\d+),+.+service=(\S+)(\,)proto=(\d+)(\,)+.+utmaction=blocked,utmevent=(\S+)(\,)utmsubtype; \
  classification.text= Traffic Blocked by UTM - $15; \
  id=80022; \
@@ -678,6 +702,7 @@ regex=devname=(\S+),devid=(\S+),logid=0000(\d+),+.+level=(emergency|alert|critic
  last
 
 #DESCRIPTION:IDS Signature / Attack Signature
+#CATEGORY:IDS Signature / Attack Signature
 regex=devname=(\S+),devid=(\S+),logid=0420(\d+),+.+vd=(\S+)(\,)severity=(\S+)(\,)srcip=([\d\.]+),dstip=([\d\.]+),+.+proto=(\d+)(\,)service=(\S+)(\,)attackname=(\S+)(\,)srcport=(\d+),dstport=(\d+),attackid=(\d+),sensor=(\S+)(\,)ref=(\S+)(\,)incidentserialno; \
  classification.text= $14; \
  id=80023; \
@@ -725,6 +750,7 @@ regex=devname=(\S+),devid=(\S+),logid=0420(\d+),+.+vd=(\S+)(\,)severity=(\S+)(\,
  last
 
 #DESCRIPTION:IDS Anomaly / Attack Anomaly
+#CATEGORY:IDS Anomaly / Attack Anomaly
 regex=devname=(\S+),devid=(\S+),logid=0421(\d+),+.+vd=(\S+)(\,)severity=(\S+)(\,)srcip=([\d\.]+),dstip=([\d\.]+),+.+proto=(\d+)(\,)service=(\S+)(\,)attackname=(\S+)(\,)srcport=(\d+),dstport=(\d+),attackid=(\d+),sensor=(\S+)(\,)ref=(\S+)(\,)incidentserialno; \
  classification.text= $14; \
  id=80024; \
@@ -772,6 +798,7 @@ regex=devname=(\S+),devid=(\S+),logid=0421(\d+),+.+vd=(\S+)(\,)severity=(\S+)(\,
  last
 
 #DESCRIPTION:IDS Generic Event
+#CATEGORY:Generic IDS/IPS
 regex=devname=(\S+),devid=(\S+),logid=04(\d+),+.+vd=(\S+)(\,)severity=(\S+)(\,)srcip=([\d\.]+),dstip=([\d\.]+),+.+proto=(\d+)(\,)service=(\S+)(\,)+.+attackname=(\S+)(\,)srcport=(\d+),dstport=(\d+),attackid=(\d+),sensor=(\S+)(\,)ref=(\S+)(\,)incidentserialno; \
  classification.text= $14; \
  id=80025; \

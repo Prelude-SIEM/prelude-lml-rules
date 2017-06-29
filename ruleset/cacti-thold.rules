@@ -26,6 +26,7 @@
 #####
 
 #DESCRIPTION:Service threshold CRITICAL
+#CATEGORY:Monitoring
 #LOG:Oct  2 05:26:15 smf-syslog-02 172/172 CactiTholdLog[19647]: smf-core-02 - 5 Minute CPU went above threshold of 85 with 90.8067 at trigger 1 out of 1
 regex=(\S+) - (.+) went above threshold of ([\d\.]+) with ([\d\.]+) at trigger; \
  classification.text=Service CRITICAL; \
@@ -50,6 +51,7 @@ regex=(\S+) - (.+) went above threshold of ([\d\.]+) with ([\d\.]+) at trigger; 
  last
 
 #DESCRIPTION:Service OK
+#CATEGORY:Monitoring
 #LOG:Oct  2 05:30:46 smf-syslog-02 172/172 CactiTholdLog[25849]: smf-core-02 - 5 Minute CPU restored to normal with 68.1533 at trigger 1 out of 1
 regex=(\S+) - (.+) restored to normal with ([\d\.]+) at trigger; \
  classification.text=Service OK; \

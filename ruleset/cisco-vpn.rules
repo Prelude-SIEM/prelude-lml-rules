@@ -27,6 +27,7 @@
 #####
 
 #DESCRIPTION:VPN user disconnected
+#CATEGORY:Authentication
 #LOG:Oct 28 19:00:35 vpn 1453 10/28/2003 19:00:34.930 SEV=4 AUTH/28 RPT=22 12.34.56.78  User [gene.gomez], Group [Staff] disconnected:  Duration: 0:10:12  Bytes xmt: 2745816  Bytes rcv: 172696  Reason: User Requested
 regex=([\d\.]+)  User \[(\S+)\], Group \[(\S+)\] disconnected:  Duration: (\S+)  Bytes xmt: (\d+)  Bytes rcv: (\d+)  Reason: (.+); \
  classification.text=VPN user disconnected; \
@@ -65,6 +66,7 @@ regex=([\d\.]+)  User \[(\S+)\], Group \[(\S+)\] disconnected:  Duration: (\S+) 
  last
 
 #DESCRIPTION:Authentication rejected
+#CATEGORY:Authentication
 #LOG:Oct 29 19:18:20 vpn 1793 10/29/2003 19:18:20.190 SEV=3 AUTH/5 RPT=6 12.34.56.78  Authentication rejected: Reason = Invalid password handle = 66, server = Internal, user = gene.gomez, domain = <not specified>
 regex=([\d\.]+)  Authentication rejected: Reason = (.+) handle = \d+, server = (\S+), user = (\S+), domain = (.+); \
  classification.text=VPN user authentication; \
@@ -100,6 +102,7 @@ regex=([\d\.]+)  Authentication rejected: Reason = (.+) handle = \d+, server = (
  last
 
 #DESCRIPTION:VPN user authentication
+#CATEGORY:Authentication
 #LOG:Oct 28 18:50:21 vpn 1414 10/28/2003 18:50:21.930 SEV=4 IKE/52 RPT=22 12.34.56.78  Group [Staff] User [gene.gomez] User (gene.gomez) authenticated.
 regex=([\d\.]+)  Group \[(\S+)\] User \[(\S+)\] User \(\S+\) authenticated; \
  classification.text=VPN user authentication; \
@@ -128,6 +131,7 @@ regex=([\d\.]+)  Group \[(\S+)\] User \[(\S+)\] User \(\S+\) authenticated; \
  last
 
 #DESCRIPTION:VPN administration authentication
+#CATEGORY:Authentication
 #LOG:Oct 29 19:53:18 vpn 1843 10/29/2003 19:53:18.680 SEV=5 AUTH/31 RPT=2  User [ admin ] Protocol [ HTTP ] attempted ADMIN logon.. Status: <REFUSED> authentication failure !
 regex=User \[ (\S+) \] Protocol \[ (\S+) \] attempted ADMIN logon.. Status: <REFUSED>; \
  classification.text=VPN administration authentication; \
@@ -153,6 +157,7 @@ regex=User \[ (\S+) \] Protocol \[ (\S+) \] attempted ADMIN logon.. Status: <REF
  last
 
 #DESCRIPTION:VPN administration authentication
+#CATEGORY:Authentication
 #LOG:Oct 28 12:33:48 vpn 1359 10/28/2003 12:33:48.610 SEV=5 AUTH/36 RPT=1 12.34.56.78  User [ admin ] Protocol [ HTTP ] attempted ADMIN logon.. Status: <ACCESS GRANTED> !
 regex=([\d\.]+)  User \[ (\S+) \] Protocol \[ (\S+) \] attempted ADMIN logon.. Status: <ACCESS GRANTED>; \
  classification.text=VPN administration authentication; \

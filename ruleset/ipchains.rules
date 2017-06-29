@@ -27,6 +27,7 @@
 #####
 
 #DESCRIPTION:TCP packet denied
+#CATEGORY:Packet Filtering
 #LOG:May 14 11:03:57 gateway kernel: Packet log: input DENY eth0 PROTO=6 1.2.3.4:3894 5.6.7.8:10008 L=60 S=0x00 I=50210 F=0x4000 T=48
 regex=Packet log: ([\w-]+) DENY (\w+) PROTO=6 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
  classification.text=TCP packet denied; \
@@ -53,6 +54,7 @@ regex=Packet log: ([\w-]+) DENY (\w+) PROTO=6 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
  last
 
 #DESCRIPTION:UDP packet denied
+#CATEGORY:Packet Filtering
 #LOG:May 14 11:03:57 gateway kernel: Packet log: input DENY eth0 PROTO=17 1.2.3.4:67 5.6.7.8:68 L=328 S=0x01 I=35569 F=0x4000 T=64 (#3)
 regex=Packet log: ([\w-]+) DENY (\w+) PROTO=17 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
  classification.text=UDP packet denied; \
@@ -79,6 +81,7 @@ regex=Packet log: ([\w-]+) DENY (\w+) PROTO=17 ([\d\.]+):(\d+) ([\d\.]+):(\d+); 
  last
 
 #DESCRIPTION:ICMP Packet denied
+#CATEGORY:Packet Filtering
 #LOG:Dec 15 12:30:15 firewall kernel: Packet log: bad-if DENY lo PROTO=1 1.2.3.4:3 5.6.7.8:1 L=92 S=0xC0 I=4595 F=0x0000 T=255 (#1)
 regex=Packet log: ([\w-]+) DENY (\w+) PROTO=1 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
  classification.text=ICMP Packet denied; \
@@ -105,6 +108,7 @@ regex=Packet log: ([\w-]+) DENY (\w+) PROTO=1 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
  last
 
 #DESCRIPTION:TCP packet accepted
+#CATEGORY:Packet Filtering
 #LOG:May 19 16:00:12 redhat kernel: Packet log: input ACCEPT eth1 PROTO=6 1.2.3.4:1318 5.6.7.8:80 L=48 S=0x00 I=40225 F=0x4000 T=126 SYN (#1)
 regex=Packet log: ([\w-]+) ACCEPT (\w+) PROTO=6 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
  classification.text=TCP packet accepted; \
@@ -131,6 +135,7 @@ regex=Packet log: ([\w-]+) ACCEPT (\w+) PROTO=6 ([\d\.]+):(\d+) ([\d\.]+):(\d+);
  last
 
 #DESCRIPTION:UDP packet accepted
+#CATEGORY:Packet Filtering
 #LOG:Aug 20 11:39:08 ipseca kernel: Packet log: input ACCEPT eth0 PROTO=17 1.2.3.4:1563 5.6.7.8:53 L=77 S=0x00 I=5608 F=0x0000 T=128 (#11)
 regex=Packet log: ([\w-]+) ACCEPT (\w+) PROTO=17 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
  classification.text=UDP packet accepted; \
@@ -157,6 +162,7 @@ regex=Packet log: ([\w-]+) ACCEPT (\w+) PROTO=17 ([\d\.]+):(\d+) ([\d\.]+):(\d+)
  last
 
 #DESCRIPTION:ICMP Packet accepted
+#CATEGORY:Packet Filtering
 #LOG:Aug 20 11:39:08 ipseca kernel: Packet log: input ACCEPT eth0 PROTO=1 1.2.3.4:8 5.6.7.8:0 L=60 S=0x00 I=5612 F=0x0000 T=128 (#11)
 regex=Packet log: ([\w-]+) ACCEPT (\w+) PROTO=1 ([\d\.]+):(\d+) ([\d\.]+):(\d+); \
  classification.text=ICMP Packet accepted; \

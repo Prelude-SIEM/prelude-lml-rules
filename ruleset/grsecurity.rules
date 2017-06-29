@@ -27,6 +27,7 @@
 #####
 
 #DESCRIPTION:GRSEC2 event
+#CATEGORY:Hardening Features
 #LOG:Jan 11 01:40:09 gw kernel: grsec: From X: denied attach of shared memory outside of chroot by /chroot/usr/local/apache/bin/httpd[httpd:21579] uid/euid:1000/1000 gid/egid:103/103, parent /chroot/apache/usr/local/apache/bin/httpd[httpd:20755] uid/euid:0/0 gid/egid:0/0
 regex=uid/euid:(\d+)/(\d+) gid/egid:(\d+)/(\d+), parent; \
  id=690; \
@@ -42,6 +43,7 @@ regex=uid/euid:(\d+)/(\d+) gid/egid:(\d+)/(\d+), parent; \
  chained; silent
 
 #DESCRIPTION:Generic GRSEC2 goto rules
+#CATEGORY:Hardening Features
 regex=(to|on|against) ([^[ ]+)\[([^:]+):(\d+)] uid/euid:(\d+)/(\d+) gid/egid:(\d+)/(\d+), parent ([^[]+)\[([^:]+):(\d+)] uid/euid:(\d+)/(\d+) gid/egid:(\d+)/(\d+); \
  id=691; \
  revision = 1; \
@@ -71,6 +73,7 @@ regex=(to|on|against) ([^[ ]+)\[([^:]+):(\d+)] uid/euid:(\d+)/(\d+) gid/egid:(\d
  chained; silent
 
 #DESCRIPTION:Generic GRSEC2 goto rules
+#CATEGORY:Hardening Features
 #LOG:Jan 11 01:40:09 gw kernel: grsec: From 123.123.123.123: denied ptrace of /usr/sbin/sw-engine-fpm(sw-engine-fpm:8880) by /usr/sbin/sw-engine-fpm[sw-engine-fpm:8881] uid/euid:1000/1000 gid/egid:1000/1000, parent /usr/sbin/sw-engine-fpm[sw-engine-fpm:8880] uid/euid:1000/1000 gid/egid:1000/1000
 regex=From (\S+):; \
  id=693; \
@@ -79,6 +82,7 @@ regex=From (\S+):; \
  chained; silent
 
 #DESCRIPTION:GRSEC2 event. Generic
+#CATEGORY:Hardening Features
 regex=(by|for) (IP:([^ ]+) )?([^[ ]+)\[([^:]+):(\d+)]( uid/euid:(\d+)/(\d+) gid/egid:(\d+)/(\d+))?, parent ([^[]+)\[([^:]+):(\d+)]( uid/euid:(\d+)/(\d+) gid/egid:(\d+)/(\d+))?; \
  optgoto=693; \
  id=692; \
@@ -90,19 +94,21 @@ regex=(by|for) (IP:([^ ]+) )?([^[ ]+)\[([^:]+):(\d+)]( uid/euid:(\d+)/(\d+) gid/
  chained; silent
 
 #DESCRIPTION:GRSEC2 event. Failed
+#CATEGORY:Hardening Features
 #LOG:Jan 11 01:40:09 gw kernel: grsec: From 123.123.123.123: denied ptrace of /usr/sbin/sw-engine-fpm(sw-engine-fpm:8880) by /usr/sbin/sw-engine-fpm[sw-engine-fpm:8881] uid/euid:1000/1000 gid/egid:1000/1000, parent /usr/sbin/sw-engine-fpm[sw-engine-fpm:8880] uid/euid:1000/1000 gid/egid:1000/1000
 regex=denied; \
  id=694; \
  assessment.impact.completion = failed; \
  chained; silent
 
-#DESCRIPTION: GRSEC2 event. Succeeded
+#DESCRIPTION:GRSEC2 event. Succeeded
 regex=successful; \
  id=695; \
  assessment.impact.completion = succeeded; \
  chained; silent
 
 #DESCRIPTION:Attemptation to ptrace. Access denied
+#CATEGORY:Recognition
 #LOG:Jan 11 01:40:09 gw kernel: grsec: From 123.123.123.123: denied ptrace of /usr/sbin/sw-engine-fpm(sw-engine-fpm:8880) by /usr/sbin/sw-engine-fpm[sw-engine-fpm:8881] uid/euid:1000/1000 gid/egid:1000/1000, parent /usr/sbin/sw-engine-fpm[sw-engine-fpm:8880] uid/euid:1000/1000 gid/egid:1000/1000
 regex=denied ptrace of ([^(]+)\(([^:]+):(\d+)\) by ; \
  goto=692; \
@@ -122,6 +128,7 @@ regex=denied ptrace of ([^(]+)\(([^:]+):(\d+)\) by ; \
  last
 
 #DESCRIPTION:Denied use of (ioperm|iopl)
+#CATEGORY:Hardening Features
 #LOG:Jan 11 01:40:09 gw kernel: grsec: From 192.168.1.51: denied use of ioperm() by /usr/bin/scanimage[scanimage:20422] uid/euid:0/0 gid/egid:0/0, parent /usr/local/bin/scanfile.sh[scanfile.sh:20421] uid/euid:0/0 gid/egid:0/0
 regex=denied use of (ioperm|iopl)\(\) by ; \
  goto=692; \
@@ -137,12 +144,15 @@ regex=denied use of (ioperm|iopl)\(\) by ; \
  last
 
 #DESCRIPTION:Define GR_SHMAT_ACL_MSG "denied attach of shared memory of UID %u, PID %d, ID %u by "
+#CATEGORY:Hardening Features
 #LOG:FIXME
 
 #DESCRIPTION:Define GR_UNIX_CHROOT_MSG "denied connect() to abstract AF_UNIX socket outside of chroot by "
+#CATEGORY:Hardening Features
 #LOG:FIXME
 
 #DESCRIPTION:Denied attach of shared memory outside of chroot
+#CATEGORY:Hardening Features
 #LOG:Jan 11 01:40:09 gw kernel: grsec: From X: denied attach of shared memory outside of chroot by /chroot/usr/local/apache/bin/httpd[httpd:21579] uid/euid:1000/1000 gid/egid:103/103, parent /chroot/apache/usr/local/apache/bin/httpd[httpd:20755] uid/euid:0/0 gid/egid:0/0
 regex=denied attach of shared memory outside of chroot by; \
  goto=692; \
@@ -158,6 +168,7 @@ regex=denied attach of shared memory outside of chroot by; \
  last
 
 #DESCRIPTION:Attemptation to ((mmap )?write|open). Denied
+#CATEGORY:Integrity
 #LOG:Jan 11 01:40:09 gw kernel: grsec: From 10.0.2.2: (root:U:/) denied open of /proc/1677/oom_score_adj for writing by /usr/sbin/sshd[sshd:1677] uid/euid:0/0 gid/egid:0/0, parent
 regex=denied ((mmap )?write|open) of (/dev/[^ ]+) by; \
  optgoto=693-694; \
@@ -174,6 +185,7 @@ regex=denied ((mmap )?write|open) of (/dev/[^ ]+) by; \
  last
 
 #DESCRIPTION:Attemptation to access to an hidden file
+#CATEGORY:Integrity
 #LOG:Jan 14 10:48:00 gw kernel: grsec: (default:D:/) denied access to hidden file /tmp by /bin/bash[bash:8531] uid/euid:0/0 gid/egid:0/0, parent /bin/bash[bash:18897] uid/euid:1000/1000 gid/egid:1000/1000
 regex=denied access to hidden file ([^ ]+) by ; \
  goto=692; \
@@ -193,6 +205,7 @@ regex=denied access to hidden file ([^ ]+) by ; \
  last
 
 #DESCRIPTION:Attemptation to write to a FIFO in a world-writable directory that was created by a non-root user. Denied
+#CATEGORY:Integrity
 #LOG:Jan 13 15:28:40 gw kernel: grsec: denied writing FIFO /tmp/kmsg of 17.17 by /bin/dd[dd:1407] uid/euid:0/0 gid/egid:0/0, parent /sbin/init[init:1] uid/euid:0/0 gid/egid:0/0
 regex=(denied|successful) (open|create|writing) (of|FIFO) for ; \
  classification.text=Potential FIFO race; \
@@ -208,6 +221,7 @@ regex=(denied|successful) (open|create|writing) (of|FIFO) for ; \
  last
 
 #DESCRIPTION:Denied mknod from chroot
+#CATEGORY:Command Execution
 #LOG:Jan 13 15:28:40 gw kernel: grsec: denied mknod of /tmp/test00030374_mknod from chroot by /root/regression/chroot_mknod_test[chroot_mknod_te:30374] uid/euid:0/0 gid/egid:0/0, parent /usr/bin/make[make:31808] uid/euid:0/0 gid/egid:0/0
 regex=denied mknod of ([^ ]+) from chroot by ; \
  goto=692; \
@@ -227,6 +241,7 @@ regex=denied mknod of ([^ ]+) from chroot by ; \
  last
 
 #DESCRIPTION:Attemptation to connect to UNIX domain
+#CATEGORY:Network Security
 #LOG:Jan 11 01:40:09 gw kernel: grsec: (default:D:/) denied connect() to the unix domain socket /dev/log by /bin/login[login:31903] uid/euid:0/0 gid/egid:0/0, parent /sbin/init[init:1] uid/euid:0/0 gid/egid:0/0
 regex=(denied|successful) connect\(\) to the unix domain socket ([^ ]+) by ; \
  goto=692; \
@@ -245,6 +260,7 @@ regex=(denied|successful) connect\(\) to the unix domain socket ([^ ]+) by ; \
  last
 
 #DESCRIPTION:Terminal being sniffed
+#CATEGORY:Network Security
 #LOG:Jan 11 01:35:04 gw kernel: grsec: terminal being sniffed by IP:0.0.0.0 /usr/bin/vmnet-natd[vmnet-natd:574], parent /sbin/init[init:1] against /sbin/gradm[gradm:1182] uid/euid:0/0 gid/egid:0/0, parent /bin/bash[bash:23506] uid/euid:0/0 gid/egid:0/0
 regex=terminal being sniffed by; \
  goto=691; \
@@ -260,6 +276,7 @@ regex=terminal being sniffed by; \
  last
 
 #DESCRIPTION:Attemptation to (rename|link|symlink)
+#CATEGORY:Command Execution
 #LOG:FIXME
 regex=(denied|successful) (rename|link|symlink) (of|from) ([^ ]+) to ([^ ]+) by ; \
  goto=692; \
@@ -278,10 +295,12 @@ regex=(denied|successful) (rename|link|symlink) (of|from) ([^ ]+) to ([^ ]+) by 
  last
 
 #DESCRIPTION:Possible exploit bruteforcing
+#CATEGORY:Generic IDS/IPS
 regex=possible exploit bruteforcing on; \
  goto=691;
 
 #DESCRIPTION:Possible exploit bruteforcing
+#CATEGORY:Generic IDS/IPS
 regex=banning uid (\d+) from login for (\d+) seconds; \
  optgoto=692-694; \
  classification.text=Possible exploit bruteforcing; \
@@ -300,10 +319,12 @@ regex=banning uid (\d+) from login for (\d+) seconds; \
  last
 
 #DESCRIPTION:Possible exploit bruteforcing
+#CATEGORY:Generic IDS/IPS
 regex=possible exploit bruteforcing on; \
  goto=691;
 
 #DESCRIPTION:Possible exploit bruteforcing
+#CATEGORY:Generic IDS/IPS
 #LOG:Oct 31 21:02:08 data kernel: grsec: From 1.1.1.1: (default:D:/) possible exploit bruteforcing on /home/jdupond/work/test_getpwnam/getpwnam[getpwnam:14350] uid/euid:500/500 gid/egid:500/500, parent /usr/bin/ltrace[ltrace:14349] uid/euid:500/500 gid/egid:500/500 banning execution for 600 seconds/home/jdupond/work/test_getpwnam/getpwnam[getpwnam:14350] uid/euid:500/500 gid/egid:500/500, parent /usr/bin/ltrace[ltrace:14349] uid/euid:500/500 gid/egid:500/500
 regex=banning execution for (\d+) seconds; \
  optgoto=692-694; \
@@ -320,6 +341,7 @@ regex=banning execution for (\d+) seconds; \
  last
 
 #DESCRIPTION:Denied chmod
+#CATEGORY:Command Execution
 #LOG:Jan 13 15:20:27 gw kernel: grsec: denied chmod +s /tmp/test0008410_chmod by /root/regression/chroot_chmod_test[chroot_chmod_te:8410] uid/euid:0/0 gid/egid:0/0, parent /usr/bin/make[make:15418] uid/euid:0/0 gid/egid:0/0
 regex=denied chmod \+s ([^ ]+) by ; \
  goto=692; \
@@ -337,6 +359,7 @@ regex=denied chmod \+s ([^ ]+) by ; \
  last
 
 #DESCRIPTION:Denied fchdir outside of chroot
+#CATEGORY:Command Execution
 #LOG:Jan 13 15:28:40 gw kernel: grsec: denied fchdir outside of chroot to /etc by /root/regression/chroot_fchdir_test[chroot_fchdir_t:9025] uid/euid:0/0 gid/egid:0/0, parent /usr/bin/make[make:31808] uid/euid:0/0 gid/egid:0/0
 regex=denied fchdir outside of chroot to ([^ ]+) by; \
  goto=692; \
@@ -356,6 +379,7 @@ regex=denied fchdir outside of chroot to ([^ ]+) by; \
  last
 
 #DESCRIPTION:Shutdown auth (success|failure)
+#CATEGORY:Account Management
 #LOG:Jan 11 01:36:27 gw kernel: grsec: shutdown auth success for /sbin/gradm[gradm:27128] uid/euid:0/0 gid/egid:0/0, parent /bin/bash[bash:14872] uid/euid:0/0 gid/egid:0/0
 #LOG:Jan 11 01:51:59 gw kernel: grsec: (default:D:/sbin/gradm) shutdown auth failure for /sbin/gradm[gradm:8974] uid/euid:0/0 gid/egid:0/0, parent /bin/bash[bash:27363] uid/euid:0/0 gid/egid:0/0
 regex=shutdown auth (success|failure) for; \
@@ -373,6 +397,7 @@ regex=shutdown auth (success|failure) for; \
  last
 
 #DESCRIPTION:ACL system segvmod
+#CATEGORY:Account Management
 #LOG:FIXME
 regex=segvmod auth (success|failure); \
  classification.text=ACL system segvmod $1; \
@@ -387,6 +412,7 @@ regex=segvmod auth (success|failure); \
  last
 
 #DESCRIPTION:Ignoring segvmod for disabled RBAC system
+#CATEGORY:Monitoring
 #LOG:FIXME
 regex=ignoring segvmod for disabled RBAC system for ; \
  classification.text=ACL system segvmod ignored; \
@@ -402,6 +428,7 @@ regex=ignoring segvmod for disabled RBAC system for ; \
  last
 
 #DESCRIPTION:RBAC system loaded
+#CATEGORY:Monitoring
 #LOG:Jan 11 01:35:04 gw kernel: grsec: (default:D:/sbin/gradm) grsecurity 2.1.1 RBAC system loaded by /sbin/gradm[gradm:1182] uid/euid:0/0 gid/egid:0/0, parent /bin/bash[bash:23506] uid/euid:0/0 gid/egid:0/0
 regex=RBAC system loaded by; \
  goto=692; \
@@ -418,6 +445,7 @@ regex=RBAC system loaded by; \
  last
 
 #DESCRIPTION:Attemptation failed to (load|reload) the ACL system
+#CATEGORY:Monitoring
 #LOG:Jan 13 15:28:40 gw kernel: grsec: From 192.168.101.52: Failed reload of grsecurity 2.0 for (gradm:3056) uid/euid:0/0 gid/egid:0/0, parent (bash:9160) uid/euid:0/0 gid/egid:0/0
 regex=([Uu]nable to|[Ff]ailed) (load|reload); \
  goto=692; \
@@ -434,6 +462,7 @@ regex=([Uu]nable to|[Ff]ailed) (load|reload); \
  last
 
 #DESCRIPTION:Attemptation to change the priority of a process. Access denied.
+#CATEGORY:Monitoring
 #LOG:Jan 13 15:28:40 gw kernel: grsec: denied priority change of process (chroot_nice_tes:15707) by /root/regression/chroot_nice_test[chroot_nice_tes:15707] uid/euid:0/0 gid/egid:0/0, parent /usr/bin/make[make:31808] uid/euid:0/0 gid/egid:0/0
 regex=denied priority change of process \(([^:]+):(\d+)\) by ; \
  goto=692; \
@@ -453,6 +482,7 @@ regex=denied priority change of process \(([^:]+):(\d+)\) by ; \
  last
 
 #DESCRIPTION:Program tried to fork and failed
+#CATEGORY:Monitoring
 #LOG:Mar 15 16:14:35 sysadmin kernel: grsec: From 192.168.1.25: failed fork with errno -11 by /root/test/fork-bomb[fork-bomb:4362] uid/euid:0/0 gid/egid:0/0, parent /root/test/fork-bomb[fork-bomb:4009] uid/euid:0/0 gid/egid:0/0
 regex=failed fork with errno (-?\d+) by ([^[]+); \
  optgoto=691; \
@@ -470,6 +500,7 @@ regex=failed fork with errno (-?\d+) by ([^[]+); \
  last
 
 #DESCRIPTION:Signal sent to a process
+#CATEGORY:Monitoring
 #LOG:Jan  9 22:36:13 gw kernel: grsec: signal 11 sent to /usr/lib/vmware/bin/vmware-vmx[vmware-vmx:11733] uid/euid:1000/1000 gid/egid:1000/1000, parent /usr/lib/vmware/bin/vmware[vmware:25692] uid/euid:1000/1000 gid/egid:1000/1000
 #LOG:May  2 18:13:42 lt kernel: grsec: From 82.226.58.44: signal 11 sent to /usr/lib/paxtest/writetext[writetext:2806] uid/euid:1/2 gid/egid:3/4, parent /usr/lib/paxtest/writetext[writetext:23332] uid/euid:5/6 gid/egid:7/8
 regex=signal (\d+) sent to; \
@@ -488,6 +519,7 @@ regex=signal (\d+) sent to; \
  last
 
 #DESCRIPTION:Attemptation to send signal to a protected process. Access denied.
+#CATEGORY:Monitoring
 #LOG:May  2 18:13:42 lt kernel: grsec: (root:U:/) denied send of signal 19 to protected task /sbin/udevd[udevd:277] uid/euid:0/0 gid/egid:0/0, parent /sbin/init[init:1] uid/euid:0/0 gid/egid:0/0 by /sbin/killall5[killall5:1550] uid/euid:0/0 gid/egid:0/0, parent /etc/init.d/sendsigs[sendsigs:1546] uid/euid:0/0 gid/egid:0/0
 regex=denied send of signal (\d+) to protected task; \
  goto=691; \
@@ -505,6 +537,7 @@ regex=denied send of signal (\d+) to protected task; \
  last
 
 #DESCRIPTION:System time changed
+#CATEGORY:Monitoring
 #LOG:Jan 10 06:32:09 gw kernel: grsec: time set by /usr/sbin/ntpdate[ntpdate:18730] uid/euid:0/0 gid/egid:0/0, parent /etc/cron.daily/ntpdate[ntpdate:24082] uid/euid:0/0 gid/egid:0/0
 #LOG:Jun 19 15:53:23 lomo kernel: grsec: time set by /sbin/hwclock[hwclock:27144] uid/euid:1/2 gid/egid:3/4, parent /sbin/rc[rc:1229] uid/euid:5/6 gid/egid:7/8
 #LOG:May  2 12:55:27 lsd kernel: grsec: From x.x.y.z: time set by /usr/bin/ntpd[ntpd:30864] uid/euid:123/123 gid/egid:123/123, parent /sbin/init[init:1] uid/euid:0/0 gid/egid:0/0
@@ -524,6 +557,7 @@ regex=time set by; \
  last
 
 #DESCRIPTION:Attemptation to (mmap|mprotect) a file.
+#CATEGORY:Monitoring
 #LOG:Jun 19 15:53:23 lomo kernel: grsec: From x.x.x.x: denied executable mmap of /var/www/blah.gif by /usr/sbin/apache-ssl[apache-ssl:257] uid/euid:33/33 gid/egid:33/33, parent /usr/sbin/apache-ssl[apache-ssl:14121] uid/euid:0/0 gid/egid:0/0
 regex=(denied|successful) executable (mmap|mprotect) of ([^ ]+) by ; \
  goto=691; \
@@ -541,6 +575,7 @@ regex=(denied|successful) executable (mmap|mprotect) of ([^ ]+) by ; \
  last
 
 #DESCRIPTION:Attemptation to socket XXX made.
+#CATEGORY:Monitoring
 #LOG:Jul 10 01:15:47 worker kernel: grsec: (root:U:/usr/lib/cgi-bin/awstats.pl) denied socket(inet,stream,ip) by /usr/lib/cgi-bin/awstats.pl[awstats.pl:22937] uid/euid:0/0 gid/egid:0/0, parent /bin/bash[bash:29005] uid/euid:0/0 gid/egid:0/0
 regex=(successful|denied) socket\((\w+),(\w+),(\w+)\) by ; \
  goto=692; \
@@ -557,6 +592,7 @@ regex=(successful|denied) socket\((\w+),(\w+),(\w+)\) by ; \
  last
 
 #DESCRIPTION:Attemtation to (connect|bind) denied.
+#CATEGORY:Monitoring
 #LOG:Jul 10 01:15:47 worker kernel: grsec: From 10.0.2.2: (root:U:/) denied connect() to the unix domain socket /dev/log by /usr/sbin/sshd[sshd:1677] uid/euid:0/0 gid/egid:0/0, parent /usr/sbin/sshd[sshd:1527] uid/euid:0/0 gid/egid:0/0
 #LOG:Jul 10 01:15:47 worker kernel: grsec: (root:U:/bin/mount) denied bind() to 0.0.0.0 port 725 sock type stream protocol tcp by /bin/mount[mount:3259] uid/euid:0/0 gid/egid:0/0, parent /sbin/init[init:1] uid/euid:0/0 gid/egid:0/0
 regex=denied (connect\(\)|bind\(\)) to; \
@@ -574,6 +610,7 @@ regex=denied (connect\(\)|bind\(\)) to; \
  last
 
 #DESCRIPTION:Attemptation to (connect|bind) denied
+#CATEGORY:Monitoring
 #LOG:Jul 10 01:15:47 worker kernel: grsec: From 1.2.3.4: (root:U:/usr/sbin/proftpd) denied bind() to 1.1.1.1 port 46304 sock type stream protocol tcp by /usr/sbin/proftpd[proftpd:27198] uid/euid:0/104 gid/egid:65534/65534, parent /usr/sbin/inetd[inetd:538] uid/euid:0/0 gid/egid:0/0
 regex=denied (connect|bind)\(\) to (\d+\.\d+\.\d+\.\d+) port (\d+) sock type (\w+) protocol (\w+); \
  goto=692; \
@@ -593,6 +630,7 @@ regex=denied (connect|bind)\(\) to (\d+\.\d+\.\d+\.\d+) port (\d+) sock type (\w
  last
 
 #DESCRIPTION:Filesystem (unmount|remount)
+#CATEGORY:Monitoring
 #LOG:Jan 13 12:08:42 gw kernel: grsec: unmount of none by /sbin/init[init:1] uid/euid:0/0 gid/egid:0/0, parent /[swapper/0:0] uid/euid:0/0 gid/egid:0/0
 regex=(unmount|remount) of ([^ ]+) by; \
  goto=691; \
@@ -611,6 +649,7 @@ regex=(unmount|remount) of ([^ ]+) by; \
  last
 
 #DESCRIPTION:Filesystem mounted
+#CATEGORY:Monitoring
 #LOG:Jan 13 12:08:42 gw kernel: grsec: mount of proc to /proc by /bin/mount[mount:669] uid/euid:0/0 gid/egid:0/0, parent /bin/bash[sh:650] uid/euid:0/0 gid/egid:0/0
 regex=(mount) of ([^ ]+) to ([^ ]+) by; \
  goto=691; \
@@ -629,6 +668,7 @@ regex=(mount) of ([^ ]+) to ([^ ]+) by; \
  last
 
 #DESCRIPTION:Attemptation du change directory
+#CATEGORY:Monitoring
 #LOG:Jan 13 12:08:42 gw kernel: grsec: From 192.168.1.25: chdir to /home/client/test by /bin/bash[bash:2532] uid/euid:1000/1000 gid/egid:2000/2000, parent /usr/sbin/sshd[sshd:2531] uid/euid:1000/1000 gid/egid:2000/2000
 regex=chdir to ([^ ]+) by ; \
  goto=692; \
@@ -643,6 +683,7 @@ regex=chdir to ([^ ]+) by ; \
  last
 
 #DESCRIPTION:Binary executed
+#CATEGORY:Command Execution
 #LOG:Jan 13 12:08:42 gw kernel: grsec: exec of /sbin/start-stop-daemon (start-stop-daemon --stop --quiet --exec /sbin/klogd --pidfile /var/run/klogd.pid ) by /etc/init.d/klogd[K89klogd:7612] uid/euid:0/0 gid/egid:0/0, parent /etc/init.d/klogd[K89klogd:11922] uid/euid:0/0 gid/egid:0/0
 regex=exec of ([^ ]+) \(([^ ]+) ([^)]+)\) by ; \
 goto=692; \
@@ -663,6 +704,7 @@ optgoto=693-694; \
  last
 
 #DESCRIPTION:(semaphore|message queue) created
+#CATEGORY:Monitoring
 #LOG:Mar 22 11:25:37 sysadmin kernel: grsec: From 192.168.1.25: semaphore created by /home/client/testshm.php[testshm.php:17904] uid/euid:1000/1000 gid/egid:2000/2000, parent /bin/bash[bash:17888] uid/euid:1000/1000 gid/egid:2000/2000
 regex=(semaphore|message queue) created by ; \
  classification.text=$1 created; \
@@ -678,6 +720,7 @@ regex=(semaphore|message queue) created by ; \
  last
 
 #DESCRIPTION:Shared memory created
+#CATEGORY:Monitoring
 #LOG:Mar 22 11:25:29 sysadmin kernel: grsec: From 192.168.1.25: shared memory of size 1024 created by /home/client/testshm.php[testshm.php:17904] uid/euid:1000/1000 gid/egid:2000/2000, parent /bin/bash[bash:17888] uid/euid:1000/1000 gid/egid:2000/2000
 regex=shared memory of size (\d+) created by ; \
  classification.text=Shared memory created; \
@@ -693,6 +736,7 @@ regex=shared memory of size (\d+) created by ; \
  last
 
 #DESCRIPTION:(message queue|semaphore|shared memory) removed
+#CATEGORY:Monitoring
 #LOG:Mar 22 11:25:37 sysadmin kernel: grsec: From 192.168.1.25: shared memory of uid:1000 euid:1000 removed by /home/client/testshm.php[testshm.php:17904] uid/euid:1000/1000 gid/egid:2000/2000, parent /bin/bash[bash:17888] uid/euid:1000/1000 gid/egid:2000/2000
 regex=(message queue|semaphore|shared memory) of uid:(\d+) euid:(\d+) removed by ; \
  goto=692; \
@@ -713,6 +757,7 @@ regex=(message queue|semaphore|shared memory) of uid:(\d+) euid:(\d+) removed by
  last
 
 #DESCRIPTION:Attemptation to overstep the process limit.
+#CATEGORY:Monitoring
 #LOG:Jan 12 19:48:15 gw kernel: grsec: denied resource overstep by requesting 495360 for RLIMIT_DATA against limit 0 by /usr/bin/valgrind.bin[valgrind.bin:29839] uid/euid:0/0 gid/egid:0/0, parent /bin/bash[bash:31044] uid/euid:0/0 gid/egid:0/0
 regex=denied resource overstep by requesting (\d+) for (\w+) against limit (\d+) by ; \
  goto=692; \
@@ -730,6 +775,7 @@ regex=denied resource overstep by requesting (\d+) for (\w+) against limit (\d+)
  last
 
 #DESCRIPTION:Incomplete ACL, or an attack may be in progress on the system.
+#CATEGORY:Integrity
 #LOG:Jan 11 01:51:51 gw kernel: grsec: (default:D:/) denied open of /var/log/lastlog for reading writing by /bin/login[login:27363] uid/euid:0/0 gid/egid:0/0, parent /sbin/init[init:1] uid/euid:0/0 gid/egid:0/0
 #LOG:Jan 11 01:36:18 gw kernel: grsec: (default:D:/) successful open of /root/.nano_history for writing by /bin/nano[pico:27085] uid/euid:0/0 gid/egid:0/0, parent /bin/bash[bash:23506] uid/euid:0/0 gid/egid:0/0
 regex=(denied|successful) (open|access) of ([^ ]+) for (.*) by ; \
@@ -749,6 +795,7 @@ regex=(denied|successful) (open|access) of ([^ ]+) for (.*) by ; \
  last
 
 #DESCRIPTION:Attemptation command (denied|successful)
+#CATEGORY:Command Execution
 #LOG:Jan 11 01:36:18 gw kernel: grsec: (default:D:/) successful execution of /bin/blah by /bin/nano[pico:27085] uid/euid:0/0 gid/egid:0/0, parent /bin/bash[bash:23506] uid/euid:0/0 gid/egid:0/0
 #LOG:Jan 13 15:28:40 gw kernel: grsec: denied chmod of /tmp/su by /usr/sbin/ntpdate[ntpdate:1189] uid/euid:0/0 gid/egid:0/0, parent /etc/cron.daily/ntpdate[ntpdate:23536] uid/euid:0/0 gid/egid:0/0
 #LOG:Jan 13 15:28:40 gw kernel: grsec: successful chmod of /tmp/su by /usr/sbin/ntpdate[ntpdate:1189] uid/euid:0/0 gid/egid:0/0, parent /etc/cron.daily/ntpdate[ntpdate:23536] uid/euid:0/0 gid/egid:0/0

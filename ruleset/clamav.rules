@@ -26,6 +26,7 @@
 #####
 
 #DESCRIPTION:Virus found
+#CATEGORY:Malware
 #LOG:May 10 15:19:28 mail clamd[14292]: /usr/share/doc/clamav-0.70/test/test2.badext: ClamAV-Test-Signature FOUND
 regex=(\S+): (\S+) FOUND; \
  classification.text=Virus found: $2; \
@@ -47,6 +48,7 @@ regex=(\S+): (\S+) FOUND; \
  last
 
 #DESCRIPTION:Virus definition update
+#CATEGORY:Update
 #LOG:May 10 15:18:56 mail clamd[14292]: Database correctly reloaded (21517 viruses)
 regex=Database correctly reloaded \(\d+ viruses\); \
  classification.text=Virus definition update; \

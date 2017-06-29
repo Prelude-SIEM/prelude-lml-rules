@@ -32,6 +32,7 @@
 
 #DESCRIPTION:Someone tried to connect to a port on the honeypot
 #DESCRIPTION:Rule for honeyd version 0.5 (and perhaps later, NOT TESTED with later!)
+#CATEGORY:Honeypot
 #LOG:Dec 30 20:09:03 hacklab honeyd[5711]: Killing attempted connection: tcp (127.0.0.1:46190 - 192.168.1.20:646)
 regex=Killing attempted connection: (tcp|udp) \(([\d\.]+):(\d+) - ([\d\.]+):(\d+)\); \
  classification.text=Killing attempted connection; \
@@ -56,6 +57,7 @@ regex=Killing attempted connection: (tcp|udp) \(([\d\.]+):(\d+) - ([\d\.]+):(\d+
 
 #DESCRIPTION:Someone tried to connect to a closed port on the honeypot
 #DESCRIPTION:Rule for honeyd version 0.5 (and perhaps later, NOT TESTED with later!)
+#CATEGORY:Honeypot
 #LOG:Dec 30 20:09:05 hacklab honeyd[5711]: Connection to closed port: udp (127.0.0.1:37806 - 192.168.1.20:1)
 regex=Connection to closed port: (tcp|udp) \(([\d\.]+):(\d+) - ([\d\.]+):(\d+)\); \
  classification.text=Connection to closed port; \
@@ -80,6 +82,7 @@ regex=Connection to closed port: (tcp|udp) \(([\d\.]+):(\d+) - ([\d\.]+):(\d+)\)
 
 #DESCRIPTION:Someone tried to connect to a port on the honeypot
 #DESCRIPTION:Rule for honeyd version 0.5 (and perhaps later, NOT TESTED with later!)
+#CATEGORY:Honeypot
 #LOG:Dec 30 20:09:08 hacklab honeyd[5711]: Killing unknown connection: tcp (127.0.0.1:37814 - 192.168.1.20:80)
 regex=Killing unknown connection: (tcp|udp) \(([\d\.]+):(\d+) - ([\d\.]+):(\d+)\); \
  classification.text=Connection to closed port; \
@@ -104,6 +107,7 @@ regex=Killing unknown connection: (tcp|udp) \(([\d\.]+):(\d+) - ([\d\.]+):(\d+)\
 
 #DESCRIPTION:Honeypot replied to a ICMP echo request
 #DESCRIPTION:Rule for honeyd version 0.5 (and perhaps later, NOT TESTED with later!)
+#CATEGORY:Honeypot
 #LOG:Dec 30 20:09:01 hacklab honeyd[5711]: Sending ICMP Echo Reply: 192.168.1.20 -> 127.0.0.1
 regex=Sending ICMP Echo Reply: ([\d\.]+) -> ([\d\.]+); \
  classification.text=Sending ICMP Echo Reply; \
@@ -128,6 +132,7 @@ regex=Sending ICMP Echo Reply: ([\d\.]+) -> ([\d\.]+); \
 
 #DESCRIPTION:Honeypot established a proxy connection
 #DESCRIPTION:Rule for honeyd version 0.5 (and perhaps later, NOT TESTED with later!)
+#CATEGORY:Honeypot
 #LOG:Dec 30 20:09:01 hacklab honeyd[5711]: Connection established: 192.168.1.20 -> proxy to 192.168.1.22:42
 regex=Connection established: ([\d\.]+) -> proxy to ([\d\.]+):(\d+); \
  classification.text=Proxy connection establised; \
@@ -149,6 +154,7 @@ regex=Connection established: ([\d\.]+) -> proxy to ([\d\.]+):(\d+); \
 
 #DESCRIPTION:Attacker accessed virtual service on honeypot
 #DESCRIPTION:Rule for honeyd version 0.5 (and perhaps later, NOT TESTED with later!)
+#CATEGORY:Honeypot
 regex=Connection established: ([\d\.]+) -> subsystem "(.*)"; \
  classification.text=Subsystem connection establised; \
  id=2605; \
@@ -167,6 +173,7 @@ regex=Connection established: ([\d\.]+) -> subsystem "(.*)"; \
 
 #DESCRIPTION:Honeypot virtual service responded to attacker
 #DESCRIPTION:Rule for honeyd version 0.5 (and perhaps later, NOT TESTED with later!)
+#CATEGORY:Honeypot
 regex=Connection established: subsystem \"(.*)\" -> ([\d\.]+); \
  classification.text=Subsystem connection establised; \
  id=2606; \
@@ -186,6 +193,7 @@ regex=Connection established: subsystem \"(.*)\" -> ([\d\.]+); \
 
 #DESCRIPTION:Honeypot switched to polling mode
 #DESCRIPTION:Rule for honeyd version 0.5 (and perhaps later, NOT TESTED with later!)
+#CATEGORY:Honeypot
 #LOG:Dec 30 20:09:01 hacklab honeyd[5711]: Switching to polling mode
 regex=switching to polling mode; \
  classification.text=Subsystem connection establised; \
@@ -202,6 +210,7 @@ regex=switching to polling mode; \
 
 #DESCRIPTION:Honeypot virtual service died
 #DESCRIPTION:Rule for honeyd version 0.5 (and perhaps later, NOT TESTED with later!)
+#CATEGORY:Service Management
 regex=Subsystem \"(.*)\" died; \
  classification.text=Virtual service died; \
  id=2608; \
@@ -217,6 +226,7 @@ regex=Subsystem \"(.*)\" died; \
 
 #DESCRIPTION:Honeypot virtual service attempted an illigal bind
 #DESCRIPTION:Rule for honeyd version 0.5 (and perhaps later, NOT TESTED with later!)
+#CATEGORY:Honeypot
 regex=Subsystem (.*) on (.*) attempts illegal bind ([\d\.]+):(\d+); \
  classification.text=Virtual service attempts illegal bind; \
  id=2609; \
@@ -232,6 +242,7 @@ regex=Subsystem (.*) on (.*) attempts illegal bind ([\d\.]+):(\d+); \
 
 #DESCRIPTION:Honeypot started
 #DESCRIPTION:Rule for honeyd version 0.5 (and perhaps later, NOT TESTED with later!)
+#CATEGORY:Service Management
 #LOG:Dec 30 20:08:24 hacklab honeyd[5711]: listening on eth0: ip  and not ether src 00:10:5a:7a:6c:47
 #LOG:Dec 30 20:12:21 hacklab honeyd[5752]: listening on eth0: ip and (dst 192.168.1.20) and not ether src 00:10:5a:7a:6c:47
 #LOG:Dec 30 20:15:53 hacklab honeyd[5779]: listening on lo: ip and (dst 192.168.1.20)
@@ -251,6 +262,7 @@ regex=listening on (\S+):; \
 
 #DESCRIPTION:Honeyd has (started|stopped) to write to its logfile
 #DESCRIPTION:Rule for honeyd version 1.5 (and probably later, NOT TESTED with later!). The rules should apply since honeyd version 0.7 or 0.8.
+#CATEGORY:Honeypot
 #LOG:2006-08-18-12:21:12.1239 honeyd log started ------
  regex=honeyd log (started|stopped) ------; \
  classification.text=Honeypot log $1; \
@@ -267,6 +279,7 @@ regex=listening on (\S+):; \
 
 #DESCRIPTION:Honeypot *probably* replied to an echo request (PING)
 #DESCRIPTION:Rule for honeyd version 1.5 (and probably later, NOT TESTED with later!). The rules should apply since honeyd version 0.7 or 0.8.
+#CATEGORY:Honeypot
 #LOG:2006-08-18-12:21:12.1239 icmp(1) - 11.11.11.11 22.22.22.22: 8(0): 84 [SunOS 4.1 ]
  regex=icmp\(1\) - ([\d\.]+) ([\d\.]+): (\d+)\((\d+)\): (\d*) \[(.*)\]; \
  classification.text=ICMP connection; \
@@ -303,6 +316,7 @@ regex=listening on (\S+):; \
 
 #DESCRIPTION:Someone tried to connect to a closed port on honeypot
 #DESCRIPTION:Rule for honeyd version 1.5 (and probably later, NOT TESTED with later!). The rules should apply since honeyd version 0.7 or 0.8.
+#CATEGORY:Honeypot
 #LOG:2006-08-18-12:21:12.1239 tcp(6) - 11.11.11.11 53952 22.22.22.22 10078: 44 S [Linux 2.6 ]
  regex=tcp\(6\) - ([\d\.]+) (\d+) ([\d\.]+) (\d+): (\d+) (\S*) \[(.*)\]; \
  classification.text=TCP connection to closed port; \
@@ -338,6 +352,7 @@ regex=listening on (\S+):; \
 
 #DESCRIPTION:Someone tried to connect to a closed port on honeypot
 #DESCRIPTION:Rule for honeyd version 1.5 (and probably later, NOT TESTED with later!). The rules should apply since honeyd version 0.7 or 0.8.
+#CATEGORY:Honeypot
 #LOG:2006-08-18-12:21:12.1239 udp(17) - 11.11.11.11 36722 22.22.22.22 545: 28 [Linux 2.6 ]
  regex=udp\(17\) - ([\d\.]+) (\d+) ([\d\.]+) (\d+): (\d+) \[(.*)\]; \
  classification.text=UDP connection to closed port; \
@@ -370,6 +385,7 @@ regex=listening on (\S+):; \
 
 #DESCRIPTION:(udp|tcp) connection to honeypot has been closed
 #DESCRIPTION:Rule for honeyd version 1.5 (and probably later, NOT TESTED with later!). The rules should apply since honeyd version 0.7 or 0.8.
+#CATEGORY:Honeypot
 #LOG:2006-08-18-12:21:12.1239 udp(17) E 11.11.11.11 43569 22.22.22.22 135: 280 0
  regex=(udp|tcp)\((\d+)\) E ([\d\.]+) (\d+) ([\d\.]+) (\d+): (\d+) (\d+); \
  classification.text=End of connection; \
@@ -402,6 +418,7 @@ regex=listening on (\S+):; \
 
 #DESCRIPTION:(udp|tcp) connection to honeypot has been opened
 #DESCRIPTION:Rule for honeyd version 1.5 (and probably later, NOT TESTED with later!). The rules should apply since honeyd version 0.7 or 0.8.
+#CATEGORY:Honeypot
 #LOG:2006-08-18-12:21:12.1239 tcp(6) S 11.11.11.11 48877 22.22.22.22 2778 [Linux 2.6 ]
  regex=(udp|tcp)\((\d+)\) S ([\d\.]+) (\d+) ([\d\.]+) (\d+) \[(.*)\]; \
  classification.text=Start of connection; \

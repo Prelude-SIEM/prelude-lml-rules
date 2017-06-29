@@ -27,6 +27,7 @@
 #####
 
 #DESCRIPTION:Environmental Monitoring - high  humidity violation
+#CATEGORY:Environmental
 #LOG:Mar 28 04:22:18 enviro1 12.34.56.78 EMU: Probe 2 'Loc Env Probe 2' high  humidity violation, '40%RH'. 0x101C
 regex=EMU: Probe (\d+) (\'.+\') high  humidity violation, \'(\d+%); \
  classification.text=High Environmental Humidity; \
@@ -51,6 +52,7 @@ regex=EMU: Probe (\d+) (\'.+\') high  humidity violation, \'(\d+%); \
  last
 
 #DESCRIPTION:Environmental Monitoring - high  humidity violation cleared
+#CATEGORY:Environmental
 #LOG:Mar 28 04:06:27 enviro1 12.34.56.78 EMU: Probe 2 'Loc Env Probe 2' high  humidity violation cleared, '39%RH'. 0x101D
 regex=EMU: Probe (\d+) (\'.+\') high  humidity violation cleared, \'(\d+%); \
  classification.text=Environmental Humidity Normal; \
@@ -75,6 +77,7 @@ regex=EMU: Probe (\d+) (\'.+\') high  humidity violation cleared, \'(\d+%); \
  last
 
 #DESCRIPTION:Environmental Monitoring - Device Contact Opened
+#CATEGORY:Environmental
 #LOG:Mar 22 16:27:50 enviro1 12.34.56.78 EMU: Input Contact 4 'Rack 4 Front Door' opened, abnormal condition. 0x1013
 regex=EMU: Input Contact (\d+) (\'.+\') opened, abnormal condition; \
  classification.text=Device Contact Opened; \
@@ -96,6 +99,7 @@ regex=EMU: Input Contact (\d+) (\'.+\') opened, abnormal condition; \
  last
 
 #DESCRIPTION:Environmental Monitoring - Device Contact Closed
+#CATEGORY:Environmental
 #LOG:Mar 22 16:28:51 enviro1 10.100.17.252 EMU: Input Contact 4 'Rack 4 Front Door' closed, abnormal condition cleared. 0x1014
 regex=EMU: Input Contact (\d+) (\'.+\') closed, abnormal condition cleared; \
  classification.text=Device Contact Closed; \

@@ -26,6 +26,7 @@
 #####
 
 #DESCRIPTION:Cluster communication failure
+#CATEGORY:High Availability
 #LOG:Oct 22 04:15:01 smf-syslog-02 smf-exchange-06/smf-exchange-06 clussvc[error] 1079  The node cannot join the cluster because it cannot communicate with node SMF-EXCHANGE-05 over any network configured for internal cluster communication. Check the network configuration of the node and the cluster.
 regex=The node cannot join the cluster because it cannot communicate with node (\S+) over any network configured for internal cluster communication.; \
  classification.text=Cluster communication failure; \
@@ -49,6 +50,7 @@ regex=The node cannot join the cluster because it cannot communicate with node (
  last
 
 #DESCRIPTION:Cluster node removed from the active cluster membership
+#CATEGORY:High Availability
 #LOG:Oct 22 04:16:04 smf-syslog-02 smf-exchange-05/smf-exchange-05 clussvc[warning] 1135  Cluster node SMF-EXCHANGE-06 was removed from the active cluster membership. The Clustering Service may have been stopped on the node, the node may have failed, or the node may have lost communication with the other active cluster nodes
 regex=Cluster node (\S+) was removed from the active cluster membership; \
  classification.text=Cluster communication failure; \
@@ -72,6 +74,7 @@ regex=Cluster node (\S+) was removed from the active cluster membership; \
  last
 
 #DESCRIPTION:Cluster is UP
+#CATEGORY:High Availability
 #LOG:Oct 23 19:09:38 smf-syslog-02 smf-exchange-02/smf-exchange-02 clussvc[info] Cluster network 'Public' is operational (up). All available cluster nodes attached to the network can communicate using it.
 regex=Cluster network '(.+)' is operational \(up\); \
  classification.text=Cluster up; \

@@ -30,6 +30,7 @@
 #####
 
 #DESCRIPTION:General Messages
+#CATEGORY:Monitoring
 #LOG:Mar 30 15:11:50 127.167.193.109 Juniper: 2012-03-30 15:11:50 - vpn - [142.186.141.93] Root::System(Intranet)[Administrators] - Login failed.  Reason: Failed
 regex=- (\S+) - \[([^\]]+)\] (?:Root::)?(\S+)\([^\)]*\)\[\w*\] ; \
  classification.reference(0).origin=vendor-specific; \
@@ -46,6 +47,7 @@ regex=- (\S+) - \[([^\]]+)\] (?:Root::)?(\S+)\([^\)]*\)\[\w*\] ; \
  target(0).node.address(0).address=$1
 
 #DESCRIPTION:Login failed
+#CATEGORY:Authentication
 #LOG:Mar 30 15:11:50 127.167.193.109 Juniper: 2012-03-30 15:11:50 - vpn - [142.186.141.93] Root::System(Intranet)[Administrators] - Login failed.  Reason: Failed
 #LOG:Jul  8 17:02:23 224.195.17.199 Juniper: 2013-07-08 17:00:55 - vpn - [224.195.17.199] bob(Users)[Administrators] - Login failed using auth server Administrators (Local Authentication).  Reason: Failed
 #LOG:Mar 30 14:36:29 45.208.182.48 Juniper: 2012-03-30 14:36:29 - vpn - [111.198.162.171] Root::pparker(Intranet)[] - Login failed.  Reason: NoRoles
@@ -64,6 +66,7 @@ regex=Login failed.+ Reason: (\w+); \
  last
 
 #DESCRIPTION:Login succeeded
+#CATEGORY:Authentication
 #LOG:Jul  8 17:02:23 224.195.17.199 Juniper: 2008-08-21 08:01:22 - vpn - [192.168.1.2] Root::jsmith(Intranet)[Employee] - Login succeeded for jsmith/EPT-ACCESS from 192.168.1.2.
 regex=Login succeeded for; \
  classification.text=Login succeeded; \
@@ -80,6 +83,7 @@ regex=Login succeeded for; \
  last
 
 #DESCRIPTION:Virus signature list imported successfully
+#CATEGORY:Update
 #LOG:Apr 10 12:23:33 181.150.154.85 Juniper: 2012-04-10 12:23:33 - vpn - [17.4.29.105] Root::System()[] - The current virus signature list imported successfully
 regex=The current virus signature list imported successfully; \
  classification.text=Virus Signature Update; \
@@ -96,6 +100,7 @@ regex=The current virus signature list imported successfully; \
  last
 
 #DESCRIPTION:Patch Management data imported successfully
+#CATEGORY:Update
 #LOG:Apr 10 12:23:33 181.150.154.85 Juniper: 2012-04-10 12:23:33 - vpn - [17.4.29.105] Root::System()[] - The current patch management data imported successfully
 regex=The current patch management data imported successfully; \
  classification.text=Patch Management Update; \
@@ -112,6 +117,7 @@ regex=The current patch management data imported successfully; \
  last
 
 #DESCRIPTION:Patch Management Update failed
+#CATEGORY:Update
 #LOG:Apr 10 12:23:33 181.150.154.85 Juniper: 2012-04-10 12:23:33 - vpn - [17.4.29.105] Root::System()[] - Unable to download current patch management
 regex=Unable to download current patch management; \
  classification.text=Patch Management Update; \
@@ -128,6 +134,7 @@ regex=Unable to download current patch management; \
  last
 
 #DESCRIPTION:Virus Signature Update failed
+#CATEGORY:Update
 #LOG:Apr 10 12:23:33 181.150.154.85 Juniper: 2012-04-10 12:23:33 - vpn - [17.4.29.105] Root::System()[] - Unable to download current virus signature
 regex=Unable to download current virus signature; \
  classification.text=Virus Signature Update; \
@@ -144,6 +151,7 @@ regex=Unable to download current virus signature; \
  last
 
 #DESCRIPTION:Node deactivated in cluster
+#CATEGORY:Monitoring
 #LOG:2009-04-28 15:53:14 Juniper: 2009-04-28 15:53:13 - vpnmaster - [192.168.1.1] System()[] - Node 'vpnmaster' deactivated in cluster 'vpncluster [vpnslave, 192.168.1.2] [vpnmaster, 192.168.1.1]'.
 regex=Node '(\S+)' deactivated in cluster; \
  classification.text=Failover: deactivated in cluster; \
@@ -160,6 +168,7 @@ regex=Node '(\S+)' deactivated in cluster; \
  last
 
 #DESCRIPTION:Node activated in cluster
+#CATEGORY:Monitoring
 #LOG:2009-04-28 15:53:14 Juniper: 2009-04-28 15:53:13 - vpnmaster - [192.168.1.1] System()[] - Node 'vpnmaster' activated in cluster 'vpncluster [vpnslave, 192.168.1.2] [vpnmaster, 192.168.1.1]'.
 regex=Node '(\S+)' activated in cluster; \
  classification.text=Failover: activated in cluster; \

@@ -27,6 +27,7 @@
 #####
 
 #DESCRIPTION:Attempt failed to login to MS-SQL instance as generic user
+#CATEGORY:Authentication
 #LOG:Nov 24 14:45:58 testdb.itg.sac.tfs mssqlserver[info] 17055  18456 : Login failed for user 'probe'.
 regex=(mssql.+)\[\w+\] \d+  \d+ : Login failed for user '(?!sa)(.+)'; \
  classification.text=Database user login; \
@@ -45,6 +46,7 @@ regex=(mssql.+)\[\w+\] \d+  \d+ : Login failed for user '(?!sa)(.+)'; \
  last
 
 #DESCRIPTION:Attempt failed to login to MS-SQL instance as admin user
+#CATEGORY:Authentication
 #LOG:Nov 24 14:45:58 testdb.itg.sac.tfs mssqlserver[info] 17055  18456 : Login failed for user 'sa'.
 regex=(mssql.+)\[\w+\] \d+  \d+ : Login failed for user 'sa'; \
  classification.text=Database admin login; \

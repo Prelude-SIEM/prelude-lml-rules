@@ -26,6 +26,7 @@
 #####
 
 #DESCRIPTION:New ARP address detection
+#CATEGORY:Monitoring
 #LOG:Oct 14 00:47:50 hal arpwatch: new activity 12.34.56.78 0:20:a9:a:c:2a
 regex=new (station|activity) ([\d\.]+) ([\da-f:]+); \
  classification.text=New ARP address detected; \
@@ -45,6 +46,7 @@ regex=new (station|activity) ([\d\.]+) ([\da-f:]+); \
  last
 
 #DESCRIPTION:Ethernet address change detection
+#CATEGORY:Monitoring
 #LOG:Apr 21 23:05:00 192.168.1.35 arpwatch: flip flop 192.168.1.33 0:90:6d:f2:24:0 (8:0:20:c8:fe:15)
 regex=(flip flop|changed ethernet address|reused old ethernet address) ([\d\.]+) ([\da-f:]+) \(([\da-f:]+)\); \
  classification.text=Ethernet address change detected; \
@@ -66,6 +68,7 @@ regex=(flip flop|changed ethernet address|reused old ethernet address) ([\d\.]+)
  last
 
 #DESCRIPTION:(ethernet|ip) broadcast address detection
+#CATEGORY:Monitoring
 #LOG:Apr 21 16:53:59 soledad arpwatch: ethernet broadcast 100.100.100.150 0:0:0:0:0:0
 regex=(ethernet|ip) broadcast ([\d\.]+) ([\da-f:]+); \
  classification.text=$1 broadcast address detected; \
@@ -85,6 +88,7 @@ regex=(ethernet|ip) broadcast ([\d\.]+) ([\da-f:]+); \
  last
 
 #DESCRIPTION:Bogus IP address detection
+#CATEGORY:Network Security
 #LOG:Nov 18 15:57:50 fw arpwatch: bogon 169.254.189.71 0:c:f1:16:87:d9
 regex=bogon ([\d\.]+) ([\da-f:]+); \
  classification.text=Bogus IP address detected; \
@@ -104,6 +108,7 @@ regex=bogon ([\d\.]+) ([\da-f:]+); \
  last
 
 #DESCRIPTION:MAC address mismatch detection
+#CATEGORY:Network Security
 #LOG:Feb 24 19:18:36 hal arpwatch: ethernet mismatch 195.215.178.10 0:4:c1:a7:f6:38 (0:50:4:40:c9:8f)
 regex=ethernet mismatch ([\d\.]+) ([\da-f:]+) \(([\da-f:]+)\); \
  classification.text=MAC address mismatch detected; \

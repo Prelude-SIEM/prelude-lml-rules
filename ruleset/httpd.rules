@@ -30,6 +30,7 @@
 #####
 
 #DESCRIPTION:Web server - Error
+#CATEGORY:Web Service
 #LOG:[Sat Mar 12 22:56:12 2005] [error] [client 127.0.0.1] File does not exist: /var/www/favicon.ico
 #LOG:[Sat Mar 12 22:56:13 2005] [error] [client 127.0.0.1] Premature end of script headers: /var/www/sample/index.pl
 #LOG:[Sat Mar 12 22:48:24 2005] [error] [client 127.0.0.1] Directory index forbidden by rule: /var/www/sample/
@@ -57,6 +58,7 @@ regex=\[error\] \[client ([\d\.]+)\] ((File|Premature|Directory|client|request)[
  last
 
 #DESCRIPTION:Web server - Error
+#CATEGORY:Web Service
 #LOG:[Sat Apr 16 14:30:12 2005] [error] [client ::1] File does not exist: /var/www/favicon.ico
 regex=\[error\] \[client ([A-Fa-f\d:]+)\] ((File|Premature|Directory|client|request)[\S+\s]+): (.+); \
  classification.text=Web server error; \
@@ -79,6 +81,7 @@ regex=\[error\] \[client ([A-Fa-f\d:]+)\] ((File|Premature|Directory|client|requ
  last
 
 #DESCRIPTION:Web server - SSL passphrase correct
+#CATEGORY:Authentication
 #LOG:Apr 17 12:58:51 mail httpd: OK: Pass Phrase Dialog successful.
 regex=OK: Pass Phrase Dialog successful; \
  classification.text=Web server SSL passphrase correct; \
@@ -94,6 +97,7 @@ regex=OK: Pass Phrase Dialog successful; \
  last
 
 #DESCRIPTION:Web server - SSL passphrase incorrect
+#CATEGORY:Authentication
 #LOG:Apr 17 12:58:48 mail httpd: Apache:mod_ssl:Error: Pass phrase incorrect (5 more retries permitted).
 regex=Error: Pass phrase incorrect \(; \
  classification.text=Web server SSL passphrase incorrect; \
@@ -109,6 +113,7 @@ regex=Error: Pass phrase incorrect \(; \
  last
 
 #DESCRIPTION:Web server - SSL passphrase incorrect
+#CATEGORY:Authentication
 #LOG:Apr 17 14:00:48 mail httpd: Apache:mod_ssl:Error: Pass phrase incorrect.
 regex=Error: Pass phrase incorrect\.; \
  classification.text=Web server SSL passphrase incorrect; \
@@ -124,6 +129,7 @@ regex=Error: Pass phrase incorrect\.; \
  last
 
 #DESCRIPTION:Web server - shutdown
+#CATEGORY:Service Management
 #LOG:Apr 17 14:00:13 mail httpd: httpd shutdown succeeded
 regex=httpd shutdown succeeded; \
  classification.text=Web server shutdown; \
@@ -140,6 +146,7 @@ regex=httpd shutdown succeeded; \
  last
 
 #DESCRIPTION:Web server - startup
+#CATEGORY:Service Management
 #LOG:Apr 17 14:02:41 mail httpd: httpd startup succeeded
 regex=httpd startup succeeded; \
  classification.text=Web server startup; \

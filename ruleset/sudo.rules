@@ -27,6 +27,7 @@
 #####
 
 #DESCRIPTION:Sudo command
+#CATEGORY:Authentication
 #LOG:Feb 11 06:52:09 12.34.56.78 sudo:   cpatel : TTY=pts/0 ; PWD=/etc/rc.d/init.d ; USER=root ; COMMAND=./resin start
 regex=(\S+) : TTY=(\S+) \; PWD=(.+) \; USER=(\S+) \; COMMAND=(.+); \
  classification.text=SUDO Command Executed; \
@@ -57,6 +58,7 @@ regex=(\S+) : TTY=(\S+) \; PWD=(.+) \; USER=(\S+) \; COMMAND=(.+); \
  last
 
 #DESCRIPTION:User NOT in sudoers
+#CATEGORY:Authentication
 #LOG:Jan 15 09:53:11 12.34.56.78 sudo:   ekwong : user NOT in sudoers ; TTY=pts/2 ; PWD=/ ; USER=root ; COMMAND=/bin/ls
 regex=(\S+) : user NOT in sudoers \; TTY=(\S+) \; PWD=(.+) \; USER=(\S+) \; COMMAND=(.+); \
  classification.text=SUDO from Unauthorized User; \

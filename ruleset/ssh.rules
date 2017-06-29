@@ -25,6 +25,7 @@
 #####
 
 #DESCRIPTION:SSH from root
+#CATEGORY:Authentication
 #LOG:Dec  8 14:45:17 itguxweb1 sshd[32112]: Accepted publickey for root from 12.34.56.78 port 56634 ssh2
 regex=for root from|user root; \
  id=1907; \
@@ -33,6 +34,7 @@ regex=for root from|user root; \
  silent; chained
 
 #DESCRIPTION:Remote Login succeeded
+#CATEGORY:Authentication
 #LOG:Dec  8 14:45:17 itguxweb1 sshd[32112]: Accepted publickey for root from 12.34.56.78 port 56634 ssh2
 #LOG:Jan 14 03:30:44 mail sshd[20298]: Accepted publickey for root from fec0:0:201::3 port 63018 ssh2
 #LOG:Jan 14 03:30:44 mail sshd[20298]: Accepted publickey for john from fec0:0:201::3 port 63018 ssh2
@@ -66,6 +68,7 @@ regex=Accepted (\S+) for (\S+) from (\S+) port (\d+); \
  last
 
 #DESCRIPTION:Remote Login failed
+#CATEGORY:Authentication
 #LOG:Dec  9 16:00:35 itguxweb2 sshd[24541]: Failed password for root from 12.34.56.78 port 1806
 #LOG:Dec  9 21:29:56 devel5 sshd[17554]: Failed password for akarade from 12.34.56.78 port 4214
 regex=Failed (\S+) for (\S+) from (\S+) port (\d+); \
@@ -97,6 +100,7 @@ regex=Failed (\S+) for (\S+) from (\S+) port (\d+); \
  last
 
 #DESCRIPTION:Invalid (not existing) user tried to login
+#CATEGORY:Authentication
 #LOG:Jan 20 14:10:02 blah sshd[25443]: Invalid user admin from 213.201.222.134
 regex=(Illegal|Invalid) user (\S+) from (\S+); \
  classification.text=User login failed with an invalid user; \
@@ -122,6 +126,7 @@ regex=(Illegal|Invalid) user (\S+) from (\S+); \
  last
 
 #DESCRIPTION:User listed in DenyGroups or DenyUsers (sshd_config directives) tried to login
+#CATEGORY:Authentication
 #LOG:Jan  6 22:50:24 localhost sshd[15489]: User nobody not allowed because none of user's groups are listed in AllowGroups
 regex=User (\S+) not allowed because (.*)listed in (\w+); \
  classification.text=User login failed with a denied user; \
@@ -153,6 +158,7 @@ regex=User (\S+) not allowed because (.*)listed in (\w+); \
 
 #DESCRIPTION:Sshd did not receive the identification string from the client
 #DESCRIPTION:(maybe a ssh server recognition)
+#CATEGORY:Recognition
 #LOG:Jun 10 09:51:57 server sshd[9100]: Did not receive identification string from 1.2.3.4
 regex=Did not receive identification string from (\S+); \
  classification.text=Server recognition; \
@@ -179,6 +185,7 @@ regex=Did not receive identification string from (\S+); \
 
 #DESCRIPTION:Forbidden root login (directive PermitRootLogin and keyword "no" or "forced-commands-only"
 #DESCRIPTION:of the sshd_config file)
+#CATEGORY:Authentication
 #LOG:Jan  5 01:31:41 www sshd[1643]: ROOT LOGIN REFUSED FROM 1.2.3.4
 regex=ROOT LOGIN REFUSED FROM (\S+); \
  classification.text=Admin login; \
@@ -205,6 +212,7 @@ regex=ROOT LOGIN REFUSED FROM (\S+); \
 
 #DESCRIPTION:Generic Message Exchange Authentication For SSH (<draft-ietf-secsh-auth-kbdinteract-06.txt>)
 #DESCRIPTION:Invalid|Illegal user
+#CATEGORY:Authentication
 #LOG:Jan 14 08:19:21 ras sshd[22774]: input_userauth_request: invalid user remote-mail
 regex=input_userauth_request: (illegal|invalid) user (\S+); \
  classification.text=Invalid user in authentication request; \
@@ -233,6 +241,7 @@ regex=input_userauth_request: (illegal|invalid) user (\S+); \
 
 #DESCRIPTION:Generic Message Exchange Authentication For SSH. (<draft-ietf-secsh-auth-kbdinteract-06.txt>)
 #DESCRIPTION:This rule catches several other combinations that can be output by input_userauth_request() in auth2.c
+#CATEGORY:Authentication
 #LOG:Jan 14 08:19:21 ras sshd[22774]: input_userauth_request: invalid user remote-mail
 regex=input_userauth_request: (.+); \
  classification.text=Invalid user in authentication request; \
@@ -258,6 +267,7 @@ regex=input_userauth_request: (.+); \
  last
 
 #DESCRIPTION:Failed password|none|publickey for invalid|illegal user
+#CATEGORY:Authentication
 #LOG:Dec  9 18:48:29 itguxweb2 sshd[29536]: Failed password for illegal user ROOT from 12.34.56.78 port 2886
 #LOG:Jan 14 08:19:21 ras sshd[22774]: Failed none for invalid user remote-mail from 192.168.1.22 port 65407 ssh2
 #LOG:Jan 14 11:29:17 ras sshd[18163]: Failed publickey for invalid user fred from fec0:0:201::3 port 62788 ssh2
@@ -295,6 +305,7 @@ regex=Failed (\S+) for (illegal|invalid) user (\S+) from (\S+) port (\d+); \
  last
 
 #DESCRIPTION:Authentication failure
+#CATEGORY:Authentication
 #LOG:Oct  2 14:40:05 suse-9.2 sshd[18725]: error: PAM: Authentication failure for root from unknown.anywhere.net
 #LOG:Oct  2 14:46:52 suse-9.2 sshd[18804]: error: PAM: Authentication failure for foobar from unknown.anywhere.net
 regex=error: PAM: Authentication failure for (\S+) from (\S+); \

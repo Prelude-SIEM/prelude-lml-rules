@@ -48,6 +48,7 @@
 #####
 
 #DESCRIPTION:Netfilter dropped a packet
+#CATEGORY:Packet Filtering
 #LOG:Oct 16 11:16:51 blah kernel: Drop IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=48 TOS=0x00 PREC=0x00 TTL=113 ID=12776 DF PROTO=TCP SPT=3979 DPT=139 WINDOW=65535 RES=0x00 SYN URGP=0
 regex=[Dd][Rr][Oo][Pp].*PROTO=(UDP|TCP|ICMP|AH|ESP); \
  id=1310; \
@@ -58,6 +59,7 @@ regex=[Dd][Rr][Oo][Pp].*PROTO=(UDP|TCP|ICMP|AH|ESP); \
  chained; silent
 
 #DESCRIPTION:Netfilter accepted a packet
+#CATEGORY:Packet Filtering
 #LOG:Oct 16 11:16:51 blah kernel: Drop IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=48 TOS=0x00 PREC=0x00 TTL=113 ID=12776 DF PROTO=TCP SPT=3979 DPT=139 WINDOW=65535 RES=0x00 SYN URGP=0
 regex=[Aa][Cc][Cc][Ee][Pp][Tt].*PROTO=(UDP|TCP|ICMP|AH|ESP); \
  id=1311; \
@@ -68,6 +70,7 @@ regex=[Aa][Cc][Cc][Ee][Pp][Tt].*PROTO=(UDP|TCP|ICMP|AH|ESP); \
  chained; silent
 
 #DESCRIPTION:Netfilter matched a TCP packet
+#CATEGORY:Packet Filtering
 #LOG:Oct 16 11:16:51 blah kernel: Drop IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=48 TOS=0x00 PREC=0x00 TTL=113 ID=12776 DF PROTO=TCP SPT=3979 DPT=139 WINDOW=65535 RES=0x00 SYN URGP=0
 #LOG:Oct 16 11:16:51 blah kernel: Drop IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=48 TOS=0x00 PREC=0x00 TTL=113 ID=12776 DF PROTO=TCP SPT=3979 DPT=139 WINDOW=65535 SYN URGP=0
 #LOG:Oct 16 11:16:51 blah kernel: IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=48 TOS=0x00 PREC=0x00 TTL=113 ID=12776 DF PROTO=TCP SPT=3979 DPT=139 WINDOW=65535 RES=0x00 SYN URGP=0
@@ -95,6 +98,7 @@ regex=IN=(\w*) OUT=(\w*)( MAC=)?([\w:]+)?\s+SRC=([\d\.]+) DST=([\d\.]+) LEN=(\d+
  last
 
 #DESCRIPTION:Netfilter matched an UDP packet
+#CATEGORY:Packet Filtering
 #LOG:Oct 16 07:53:44 blah kernel: Drop IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=78 TOS=0x00 PREC=0x00 TTL=128 ID=59110 PROTO=UDP SPT=137 DPT=137 LEN=58
 #LOG:Oct 16 07:53:44 blah kernel: IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=78 TOS=0x00 PREC=0x00 TTL=128 ID=59110 PROTO=UDP SPT=137 DPT=137 LEN=58
 optgoto=1310-1311; \
@@ -121,6 +125,7 @@ regex=IN=(\w*) OUT=(\w*)( MAC=)?([\w:]+)?\s+SRC=([\d\.]+) DST=([\d\.]+) LEN=(\d+
  last
 
 #DESCRIPTION:Netfilter matched an ICMP packet
+#CATEGORY:Packet Filtering
 #LOG:Oct 20 23:59:41 blah kernel: Drop IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=84 TOS=0x00 PREC=0x00 TTL=58 ID=9 DF PROTO=ICMP TYPE=8 CODE=0 ID=51318 SEQ=10
 #LOG:Oct 20 23:59:41 blah kernel: IN=eth0 OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:00:00 SRC=1.1.1.1 DST=2.2.2.2 LEN=84 TOS=0x00 PREC=0x00 TTL=58 ID=9 DF PROTO=ICMP TYPE=8 CODE=0 ID=51318 SEQ=10
 optgoto=1310-1311; \
@@ -145,6 +150,7 @@ regex=IN=(\w*) OUT=(\w*)( MAC=)?([\w:]+)?\s+SRC=([\d\.]+) DST=([\d\.]+) LEN=(\d+
  last
 
 #DESCRIPTION:Netfilter matched a packet
+#CATEGORY:Packet Filtering
 #LOG:Oct 20 17:13:25 blah kernel: Drop IN=ppp0 OUT= MAC= SRC=1.1.1.1 DST=2.2.2.2 LEN=128 TOS=0x00 PREC=0x00 TTL=234 ID=15586 PROTO=ESP SPI=0xa7d839
 #LOG:Oct 20 17:13:25 blah kernel: IN=ppp0 OUT= MAC= SRC=1.1.1.1 DST=2.2.2.2 LEN=128 TOS=0x00 PREC=0x00 TTL=234 ID=15586 PROTO=ESP SPI=0xa7d839
 optgoto=1310-1311; \
@@ -168,6 +174,7 @@ id=1303; \
  last
 
 #DESCRIPTION:Netfilter matched a packet
+#CATEGORY:Packet Filtering
 #LOG:Oct 29 13:10:04 localhost kernel: [71575.889092]  dropped by firewall (OUTPUT)IN= OUT=eth0 SRC=1.1.1.1 DST=2.2.2.2 LEN=116 TOS=0x00 PREC=0x00 TTL=255 ID=7628 DF PROTO=41
 optgoto=1310-1311; \
 regex=IN=(\w*) OUT=(\w*)( MAC=)?([\w:]+)?\s+SRC=([\d\.]+) DST=([\d\.]+) LEN=(\d+) TOS=(\w+) PREC=(\w+) TTL=(\d+) ID=(\d+) (CE )?(DF )?(MF )?(FRAG:\d+ )?(OPT \(\w+\) )?PROTO=(\d+); \

@@ -26,6 +26,7 @@
 #####
 
 #DESCRIPTION:Configured request variable name length limit exceeded
+#CATEGORY:Hardening Features
 #LOG:Dec 30 05:18:11 zoubida suhosin[15086]: ALERT - configured request variable name length limit exceeded - dropped variable 'article2/include/engine/MakeXML4statusCounter_php?fileOreonConf' (attacker '192.168.3.4', file '/var/www/zorglub/www/htdocs/spip.php')
 regex=ALERT - configured request variable name length limit exceeded - dropped variable '(\S+)' \(attacker '(\S+)', file '(\S+)'\); \
  classification.text=Variable length too long; \
@@ -46,6 +47,7 @@ regex=ALERT - configured request variable name length limit exceeded - dropped v
  last
 
 #DESCRIPTION:Tried to register forbidden variable
+#CATEGORY:Hardening Features
 #LOG:Jan  2 12:36:27 zoubida suhosin[2258]: ALERT - tried to register forbidden variable '_REQUEST' through GET variables (attacker '62.193.236.107', file '/var/www/zorglub/www/htdocs/index.php')
 regex=ALERT - tried to register forbidden variable '(\S+)' through (.*) variables \(attacker '(\S+)', file '(\S+)'\); \
  classification.text=Forbidden variable; \
@@ -66,6 +68,7 @@ regex=ALERT - tried to register forbidden variable '(\S+)' through (.*) variable
  last
 
 #DESCRIPTION:Configured variable length limit exceeded
+#CATEGORY:Hardening Features
 #LOG:Jan 12 17:02:54 zoubida suhosin[27745]: ALERT - configured GET variable value length limit exceeded - dropped variable 'email' (attacker '131.158.223.4', file '/var/www/zorglub/www/htdocs/php/poll.php')
 regex=ALERT - configured (\S+) variable value length limit exceeded - dropped variable '(\S+)' \(attacker '(\S+)', file '(\S+)'\); \
  classification.text=Variable length too long; \
@@ -86,6 +89,7 @@ regex=ALERT - configured (\S+) variable value length limit exceeded - dropped va
  last
 
 #DESCRIPTION:ASCII-NUL chars not allowed within request variables
+#CATEGORY:Hardening Features
 #LOG:Jan 22 19:54:16 zoubida suhosin[2580]: ALERT - ASCII-NUL chars not allowed within request variables - dropped variable 'page' (attacker '85.18.136.89', file '/var/www/zorglub/www/htdocs/index.php')
 regex=ALERT - ASCII-NUL chars not allowed within request variables - dropped variable '(\S+)' \(attacker '(\S+)', file '(\S+)'\); \
  classification.text=Invalid characters; \

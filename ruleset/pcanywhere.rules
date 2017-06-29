@@ -26,6 +26,7 @@
 #####
 
 #DESCRIPTION:Remote control user connection
+#CATEGORY:Authentication
 #LOG:Apr 13 10:31:03 12.34.56.78 pcanywhere[info] 127 NT AUTHORITY\SYSTEM  Host In Session  Host Name: DB3  Host Licensee: MAXIMUS  Remote Name: JM15575  Remote User: NUT&BOLT  Device Type: TCP/IP
 regex=Host In Session  Host Name: (\S+)  Host Licensee: \S+  Remote Name: (\S+)  Remote User: (\S+); \
 classification.text=Remote control user connected; \
@@ -46,6 +47,7 @@ classification.text=Remote control user connected; \
  last
 
 #DESCRIPTION:Remote control user disconnection
+#CATEGORY:Authentication
 #LOG:Apr 14 06:29:55 db3 pcanywhere[info] 123 NT AUTHORITY\SYSTEM  Host End Session  Device Type: TCP/IP  Description: Remote logged off
 regex=Host End Session  Device Type: \S+  Description: (.+); \
  classification.text=Remote control user disconnected; \

@@ -32,6 +32,7 @@
 # Dec  4 23:01:25 beorc ppp[24796]: tun2: IPCP: Selected IP address 5.6.7.8
 
 #DESCRIPTION:Logging succeed
+#CATEGORY:Authentication
 #LOG:Dec  4 23:01:36 beorc ppp[24796]: tun2: Phase: Chap Input: RESPONSE (49 bytes from afonyashin)
 regex=ppp\[(\d+)\]: (\S+): Phase: \S+ Input: RESPONSE \(\d+ bytes from (\S+)\); \
  new_context=PPP_$1,expire:0; \
@@ -44,6 +45,7 @@ regex=ppp\[(\d+)\]: (\S+): Phase: \S+ Input: RESPONSE \(\d+ bytes from (\S+)\); 
  silent
 
 #DESCRIPTION:Output SUCCESS
+#CATEGORY:Authentication
 #LOG:Dec  4 23:01:36 beorc ppp[24796]: tun2: Phase: Chap Output: SUCCESS
 regex=ppp\[(\d+)\]: \S+: Phase: \S+ Output: SUCCESS; \
  require_context=PPP_$1; \
@@ -55,6 +57,7 @@ regex=ppp\[(\d+)\]: \S+: Phase: \S+ Output: SUCCESS; \
  silent
 
 #DESCRIPTION:Output FAILURE
+#CATEGORY:Authentication
 #LOG:Dec  4 23:01:36 beorc ppp[24796]: tun2: Phase: Chap Output: FAILURE
 regex=ppp\[(\d+)\]: \S+: Phase: \S+ Output: FAILURE; \
  require_context=PPP_$1; \
@@ -66,6 +69,7 @@ regex=ppp\[(\d+)\]: \S+: Phase: \S+ Output: FAILURE; \
  silent
 
 #DESCRIPTION:CTRL
+#CATEGORY:Authentication
 #LOG:Dec  4 23:01:49 beorc pptpd[24795]: CTRL: Reaping child PPP[24796]
 regex=pptpd\[(\d+)\]: CTRL: \S+ \S+ PPP\[(\d+)\]; \
  require_context=PPP_$2; \
@@ -74,6 +78,7 @@ regex=pptpd\[(\d+)\]: CTRL: \S+ \S+ PPP\[(\d+)\]; \
  silent
 
 #DESCRIPTION:CTRL Client control
+#CATEGORY:Authentication
 #LOG:Dec  4 23:01:49 beorc pptpd[24795]: CTRL: Client 1.2.3.4 control connection finished
 regex=pptpd\[(\d+)\]: CTRL: Client (\S+) control; \
  require_context=PPTPD_$1; \

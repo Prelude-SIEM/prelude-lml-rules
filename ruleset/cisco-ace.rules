@@ -27,6 +27,7 @@
 #####
 
 #DESCRIPTION:Health probe detection - State change to DOWN
+#CATEGORY:Service Management
 #LOG:Sep 25 11:53:19 x.x.x.x ACE_NAME %ACE-4-442002: Health probe CHECK_NAME detected SERVER_NAME (interface vlanXX) in serverfarm SF_NAME changed state to DOWN
 regex=-442002: Health probe (\S+) detected (\S+) \(interface (\S+)\) in serverfarm (\S+) changed state to DOWN; \
  classification.text=Health probe $1; \
@@ -49,6 +50,7 @@ regex=-442002: Health probe (\S+) detected (\S+) \(interface (\S+)\) in serverfa
  last
 
 #DESCRIPTION:Health probe detection - State change to UP
+#CATEGORY:Service Management
 #LOG:Sep 25 11:53:19 x.x.x.x ACE_NAME %ACE-4-442001: Health probe CHECK_NAME detected SERVER_NAME (interface vlanXX) in serverfarm SF_NAME changed state to UP
 regex=-442001: Health probe (\S+) detected (\S+) \(interface (\S+)\) in serverfarm (\S+) changed state to UP; \
  classification.text=Health probe $1; \
@@ -71,6 +73,7 @@ regex=-442001: Health probe (\S+) detected (\S+) \(interface (\S+)\) in serverfa
  last
 
 #DESCRIPTION:VIP in class - State change from XXX to YYY
+#CATEGORY:Service Management
 #LOG:Sep 25 12:02:44 x.x.x.x ACE_NAME %ACE-4-442007: VIP in class: 'VIP_NAME' changed state from OUTOFSERVICE to INSERVICE
 regex=-442007: VIP in class: '(\S+)' changed state from (\S+) to (\S+); \
  classification.text=VIP in class $1 changed state; \
@@ -90,6 +93,7 @@ regex=-442007: VIP in class: '(\S+)' changed state from (\S+) to (\S+); \
  last
 
 #DESCRIPTION:Serverfarm back in service
+#CATEGORY:Monitoring
 #LOG:Sep 25 12:02:44 x.x.x.x ACE_NAME %ACE-5-441002: Serverfarm (SF_NAME) is now back in service in policy_map (PM_NAME) --> class_map (#class_default_slb). Number of failovers = 0, number of times back in service = 0
 regex=-441002: Serverfarm \((\S+)\) is now back in service; \
  classification.text=Serverfarm $1 is now back in service; \
@@ -109,6 +113,7 @@ regex=-441002: Serverfarm \((\S+)\) is now back in service; \
  last
 
 #DESCRIPTION:Serverfarm failed over to backup
+#CATEGORY:Monitoring
 regex=-441001: Serverfarm \((\S+)\) failed over to backup; \
  classification.text=Serverfarm $1 failed; \
  classification.reference(0).origin=vendor-specific; \
@@ -127,6 +132,7 @@ regex=-441001: Serverfarm \((\S+)\) failed over to backup; \
  last
 
 #DESCRIPTION:HA - FT Track Interface is UP
+#CATEGORY:High Availability
 #LOG:Sep 20 18:10:44 x.x.x.x ACE_NAME %ACE-2-727017: HA: FT Track Interface XX is UP.
 regex=-727017: HA: FT Track Interface (\d+); \
  classification.text=FT Track Interfac is UP; \
@@ -146,6 +152,7 @@ regex=-727017: HA: FT Track Interface (\d+); \
  last
 
 #DESCRIPTION:HA - FT Track Interface is DOWN
+#CATEGORY:High Availability
 #LOG:Sep 20 18:10:57 x.x.x.x ACE_NAME %ACE-2-727018: HA: FT Track Interface XX is DOWN.
 regex=-727018: HA: FT Track Interface (\d+); \
  classification.text=FT Track Interface is DOWN; \
@@ -165,6 +172,7 @@ regex=-727018: HA: FT Track Interface (\d+); \
  last
 
 #DESCRIPTION:HA - FT Group state changes
+#CATEGORY:High Availability
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-2-727012: HA: FT Group 1 changed state to FSM_FT_STATE_STANDBY_HOT. Event: FSM_FT_EV_BULK_SYNC_STATUS
 regex=-727012: HA: FT Group (\d+) changed state to (\S+); \
  classification.text=FT Group changed state $2; \
@@ -184,6 +192,7 @@ regex=-727012: HA: FT Group (\d+) changed state to (\S+); \
  last
 
 #DESCRIPTION:Memory allocation Error
+#CATEGORY:Monitoring
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-3-211001: Memory allocation Error
 regex=-211001; \
  classification.text=Memory allocation Error; \
@@ -203,6 +212,7 @@ regex=-211001; \
  last
 
 #DESCRIPTION:ACL resource usage beyond maximum limit
+#CATEGORY:Monitoring
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-254001: ACL resource usage beyond maximum limit for context context_id. Free up some resources.
 regex=-254001; \
  classification.text=ACL resource usage beyond maximum limit; \
@@ -222,6 +232,7 @@ regex=-254001; \
  last
 
 #DESCRIPTION:Line protocol - changed state to up
+#CATEGORY:Monitoring
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-411001: Line protocol on interface interface_name changed state to up
 regex=-411001; \
  classification.text=Line protocol changed state to up; \
@@ -241,6 +252,7 @@ regex=-411001; \
  last
 
 #DESCRIPTION:Line protocol - changed state to down
+#CATEGORY:Monitoring
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-411002: Line protocol on interface interface_name changed state to down
 regex=-411002; \
  classification.text=Line protocol changed state to down; \
@@ -260,6 +272,7 @@ regex=-411002; \
  last
 
 #DESCRIPTION:Configuration status - changed state to up
+#CATEGORY:Monitoring
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-411003: Configuration status on interface interface_name changed state to up
 regex=-411003; \
  classification.text=Configuration status changed state to up; \
@@ -279,6 +292,7 @@ regex=-411003; \
  last
 
 #DESCRIPTION:Configuration status - changed state to down
+#CATEGORY:Monitoring
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-411004: Configuration status on interface interface_name changed state to down
 regex=-411004; \
  classification.text=Configuration status changed state to down; \
@@ -298,6 +312,7 @@ regex=-411004; \
  last
 
 #DESCRIPTION:HA - Configuration replication will not happen
+#CATEGORY:High Availability
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-2-727011: HA: Configuration replication for context ctx name will not happen.
 regex=-727011; \
  classification.text=HA: Configuration replication will not happen; \
@@ -317,6 +332,7 @@ regex=-727011; \
  last
 
 #DESCRIPTION:HA - Heartbeats from Peer become unidirectional
+#CATEGORY:High Availability
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-2-727014: HA: Heartbeats from Peer PEER_ID have become unidirectional.
 regex=-727014; \
  classification.text=HA: Heartbeats from Peer become unidirectional; \
@@ -336,6 +352,7 @@ regex=-727014; \
  last
 
 #DESCRIPTION:HA - FT Track track type track name is DOWN
+#CATEGORY:High Availability
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-2-727018: HA: FT Track track type track name is DOWN.
 regex=-727018; \
  classification.text=HA: FT Track track type track name is DOWN; \
@@ -355,6 +372,7 @@ regex=-727018; \
  last
 
 #DESCRIPTION:HA - Detected mismatch in heartbeat interval
+#CATEGORY:High Availability
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-2-727015: HA: Detected mismatch in heartbeat interval from Peer peer id. Modified interval to interval.
 regex=-727015; \
  classification.text=HA: Detected mismatch in heartbeat interval; \
@@ -374,6 +392,7 @@ regex=-727015; \
  last
 
 #DESCRIPTION:Deny MAC address MAC_address, possible spoof attempt
+#CATEGORY:Network Security
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-3-322001: Deny MAC address MAC_address, possible spoof attempt on interface interface
 regex=-322001; \
  classification.text=Deny MAC address MAC_address, possible spoof attempt; \
@@ -393,6 +412,7 @@ regex=-322001; \
  last
 
 #DESCRIPTION:ARP inspection check failed
+#CATEGORY:Monitoring
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-3-322002: ARP inspection check failed for arp {request|response} received from host MAC_address on interface interface. This host is advertising MAC Address MAC_address_1 for IP Address IP_address, which is {statically|dynamically} bound to MAC Address MAC_address_2.
 regex=-322002; \
  classification.text=ARP inspection check failed; \
@@ -412,6 +432,7 @@ regex=-322002; \
  last
 
 #DESCRIPTION:ARP inspection check failed
+#CATEGORY:Monitoring
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-3-322003: ARP inspection check failed for arp {request|response} received from host MAC_address on interface interface. This host is advertising MAC Address MAC_address_1 for IP Address IP_address, which is not bound to any MAC Address.
 regex=-322003; \
  classification.text=ARP inspection check failed; \
@@ -431,6 +452,7 @@ regex=-322003; \
  last
 
 #DESCRIPTION:Event on Cisco ACE
+#CATEGORY:Network Security
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-400000: IDS:1000 IP Option Bad Option List from IP_address to IP_address on interface interface_name
 regex=-4000(\d+): IDS:(\d+); \
  classification.text=IDS:$2 Event on Cisco ACE; \
@@ -450,6 +472,7 @@ regex=-4000(\d+): IDS:(\d+); \
  last
 
 #DESCRIPTION:Received ARP collision
+#CATEGORY:Network Security
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-405001: Received ARP {request | response} collision from IP_address/mac_address on interface interface_name
 regex=-405001: Received ARP (\S+) collision from ([\d\.]+); \
  classification.text=Received ARP collision; \
@@ -472,6 +495,7 @@ regex=-405001: Received ARP (\S+) collision from ([\d\.]+); \
  last
 
 #DESCRIPTION:Dropped UDP DNS
+#CATEGORY:Packet Filtering
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-410001: Dropped UDP DNS packet_type from source_interface:source_address/source_port to dest_interface:dest_address/dest_port; error_length_type length length bytes exceeds max_length_type limit of maximum_length bytes
 regex=-410001; \
  classification.text=Dropped UDP DNS; \
@@ -491,6 +515,7 @@ regex=-410001; \
  last
 
 #DESCRIPTION:MAC address moved from interface
+#CATEGORY:Monitoring
 #LOG:Sep 20 18:25:50 x.x.x.x ACE_NAME %ACE-4-412001: MAC MAC_address moved from interface_1 to interface_2
 regex=-412001; \
  classification.text=MAC address moved from interface; \
@@ -510,6 +535,7 @@ regex=-412001; \
  last
 
 #DESCRIPTION:User executed command
+#CATEGORY:Command Execution
 #LOG:Dec 13 17:58:27 x.x.x.x xxx %ACE-5-111008: User 'xx' executed the 'no set tcp timeout embryonic 30' command.
 regex=-111008; \
  classification.text=User $1 executed command; \
