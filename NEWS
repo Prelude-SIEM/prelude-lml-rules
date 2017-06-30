@@ -1,3 +1,12 @@
+* 2017-06-30, prelude-lml-rules-4.1.0rc1:
+
+Author: Enguerrand de Mauduit
+
+- Add #DESCRIPTION to rules
+- Add #CATEGORY to rules
+
+
+
 * 2017-06-23, prelude-lml-rules-4.1.0beta2:
 
 No new changes.
