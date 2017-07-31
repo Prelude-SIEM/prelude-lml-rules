@@ -1,25 +1,25 @@
 #FULLNAME: Netfilter
 #VERSION: 1.0
 #DESCRIPTION: Netfilter offers various functions and operations for packet filtering, network address translation, and port translation.
-#DESCRIPTION: Packet Matching with improved pattern research
-#DESCRIPTION:
-#DESCRIPTION: Owing to a specific way of writing iptables rules, you can improve
-#DESCRIPTION: the pattern matching of prelude-lml in your logs by specifying few things
-#DESCRIPTION: like : was the packet dropped or accepted ?
-#DESCRIPTION:
-#DESCRIPTION: In order to benefit from this improvement, you have to pay attention
-#DESCRIPTION: for netfilter rules that you will create.
-#DESCRIPTION: If you want to log packet using the LOG target with iptables,
-#DESCRIPTION: just respect this proposition
-#DESCRIPTION: (that you can change if you master all of that) :
-#DESCRIPTION:
-#DESCRIPTION: If you use a LOG target for a packet that you Accept
-#DESCRIPTION: then add a prefix containing the word "Accept" to your rules:
-#DESCRIPTION:    -j LOG --log-prefix "Accept "
-#DESCRIPTION:
-#DESCRIPTION: If you use a LOG target for a packet that you Drop
-#DESCRIPTION: then add a prefix containing the word "Drop" to your rules:
-#DESCRIPTION:    -j LOG --log-prefix "Drop "
+#Packet Matching with improved pattern research
+#
+#Owing to a specific way of writing iptables rules, you can improve
+#the pattern matching of prelude-lml in your logs by specifying few things
+#like : was the packet dropped or accepted ?
+#
+#In order to benefit from this improvement, you have to pay attention
+#for netfilter rules that you will create.
+#If you want to log packet using the LOG target with iptables,
+#just respect this proposition
+#(that you can change if you master all of that) :
+#
+#If you use a LOG target for a packet that you Accept
+#then add a prefix containing the word "Accept" to your rules:
+#   -j LOG --log-prefix "Accept "
+#
+#If you use a LOG target for a packet that you Drop
+#then add a prefix containing the word "Drop" to your rules:
+#   -j LOG --log-prefix "Drop "
 
 #####
 #

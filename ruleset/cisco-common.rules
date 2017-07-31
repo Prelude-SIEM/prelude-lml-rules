@@ -1,15 +1,14 @@
 #FULLNAME: Cisco Common
 #VERSION: 1.0
 #DESCRIPTION: Cisco designs, manufactures, and sells networking equipment. This ruleset can work with any Cisco device.
-#DESCRIPTION: These rules where created from logs of Cisco switchs.
-#DESCRIPTION: Some models but not limited to are :
-#DESCRIPTION: - C3750
-#DESCRIPTION: - C35xx series (C3500, C3500 in.power, C3550, C3560G, etc)
-#DESCRIPTION: - C29xx series (C2900, C2900M, C2950 TSI, C2960, etc)
-#DESCRIPTION: At first, this file was cisco-switch.rules, but then I realize that there are a load of Cisco messages that are the same for all IOS.
-#DESCRIPTION: So it is now cisco-commons.rules. Logic would require to put some other rules in this cisco-commons.rules.
-#DESCRIPTION: Logic would require to put some other rules in this file. For example the "LINEPROTO-5-UPDOWN" rule in cisco-router.rules.
-#DESCRIPTION: But that is only my opinion ;)
+#These rules where created from logs of Cisco switchs.
+#Some models but not limited to are :
+#- C3750
+#- C35xx series (C3500, C3500 in.power, C3550, C3560G, etc)
+#- C29xx series (C2900, C2900M, C2950 TSI, C2960, etc)
+#At first, this file was cisco-switch.rules, but then I realize that there are a load of Cisco messages that are the same for all IOS.
+#So it is now cisco-commons.rules. Logic would require to put some other rules in this cisco-commons.rules.
+#Logic would require to put some other rules in this file. For example the "LINEPROTO-5-UPDOWN" rule in cisco-router.rules.
 
 #####
 #

@@ -1,21 +1,21 @@
 #FULLNAME: DataPower XG45
 #VERSION: 1.0
 #DESCRIPTION: DataPower SOA Appliances is a family of pre-built, pre-configured rack mountable network devices (XML appliances) that can help accelerate XML and Web Services deployments while extending SOA infrastructure.
-#DESCRIPTION: The rules included here were developed using a IBM Data Power xG45.
-#DESCRIPTION: Special configuration is needed for the support:
-#DESCRIPTION: * In your DPW Web interface:
-#DESCRIPTION:   - Go to "Control Panel -> Administration -> Access -> SNMP Settings" and create
-#DESCRIPTION:   a new SNMP destination for send traps in "Trap and Notification Targets".
-#DESCRIPTION:   - Then, go to "Control Pannel -> Objects -> Logging Configuration -> Log Target",
-#DESCRIPTION:   and create a new log target to send traps. You must select "Target Type: SNMP",
-#DESCRIPTION:   "Timestamp Format: syslog" in "General Configuration", and select a "Event Category = all,
-#DESCRIPTION:   and "Minimum Event Priority = notice" in the "Event Subscriptions" tab.
-#DESCRIPTION:   - In The "Trap Event Subscriptions", select "Enable Default Event Subscriptions = on" and
-#DESCRIPTION:   "Minimum Priority = debug".
-#DESCRIPTION:   Note: You can suppress messages from your DPW by adding the event log ID on
-#DESCRIPTION:   "Event Suppression Filter"  in the "Event Filters" tab, on log target configuration form.
-#DESCRIPTION: * On your Prelude system, run snmptrapd using this command:
-#DESCRIPTION:   "snmptrapd -Ls 16 -Osq"
+#The rules included here were developed using a IBM Data Power xG45.
+#Special configuration is needed for the support:
+#* In your DPW Web interface:
+#  - Go to "Control Panel -> Administration -> Access -> SNMP Settings" and create
+#  a new SNMP destination for send traps in "Trap and Notification Targets".
+#  - Then, go to "Control Pannel -> Objects -> Logging Configuration -> Log Target",
+#  and create a new log target to send traps. You must select "Target Type: SNMP",
+#  "Timestamp Format: syslog" in "General Configuration", and select a "Event Category = all,
+#  and "Minimum Event Priority = notice" in the "Event Subscriptions" tab.
+#  - In The "Trap Event Subscriptions", select "Enable Default Event Subscriptions = on" and
+#  "Minimum Priority = debug".
+#  Note: You can suppress messages from your DPW by adding the event log ID on
+#  "Event Suppression Filter"  in the "Event Filters" tab, on log target configuration form.
+#* On your Prelude system, run snmptrapd using this command:
+#  "snmptrapd -Ls 16 -Osq"
 
 #####
 #

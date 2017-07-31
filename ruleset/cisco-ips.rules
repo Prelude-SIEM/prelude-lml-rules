@@ -1,15 +1,15 @@
 #FULLNAME: Cisco IPS
 #VERSION: 1.0
 #DESCRIPTION: Cisco IPS is a network security appliance that monitor network and/or system activities for malicious activity.
-#DESCRIPTION: The rules included here were developed using a Cisco IPS module running on an ASA.
-#DESCRIPTION: Special configuration is needed for this support:
-#DESCRIPTION: * In your IDM interface, "SNMP" -> "Traps Configuration", "Enable SNMP Traps"
-#DESCRIPTION:   box must be on.  "Enable detailed traps for alerts" must be off.
-#DESCRIPTION: * In your IDM interface, "Signature Definition" -> "Signature Configuration",
-#DESCRIPTION:   all of the rules must be modified using the "Select All" button, followed
-#DESCRIPTION:   by the "Actions" button, and click the "Request SNMP Trap" box on.
-#DESCRIPTION: * On your Prelude system, run snmptrapd using this command:
-#DESCRIPTION:   "snmptrapd -Ls 16 -Osq"
+#The rules included here were developed using a Cisco IPS module running on an ASA.
+#Special configuration is needed for this support:
+#* In your IDM interface, "SNMP" -> "Traps Configuration", "Enable SNMP Traps"
+#  box must be on.  "Enable detailed traps for alerts" must be off.
+#* In your IDM interface, "Signature Definition" -> "Signature Configuration",
+#  all of the rules must be modified using the "Select All" button, followed
+#  by the "Actions" button, and click the "Request SNMP Trap" box on.
+#* On your Prelude system, run snmptrapd using this command:
+#  "snmptrapd -Ls 16 -Osq"
 
 #####
 #
