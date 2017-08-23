@@ -33,9 +33,6 @@ regex=\[id "(960911|950012|960912|960016|960011|960012|960013|950107|950801|9501
  id=3167; \
  classification.text=HTTP Protocol violation; \
  assessment.impact.severity=medium; \
- additional_data(>>).type=integer; \
- additional_data(-1).meaning=ModSec Rule ID; \
- additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
  chained; silent
 
@@ -46,9 +43,6 @@ regex=\[id "(960019|960008|960015|960009|960904|960913)"\]; \
  id=3168; \
  classification.text=HTTP Protocol anomaly; \
  assessment.impact.severity=low; \
- additional_data(>>).type=integer; \
- additional_data(-1).meaning=ModSec Rule ID; \
- additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
  chained; silent
 
@@ -59,9 +53,6 @@ regex=\[id "(960335)"\]; \
  id=3169; \
  classification.text=HTTP Request limit exceeded; \
  assessment.impact.severity=high; \
- additional_data(>>).type=integer; \
- additional_data(-1).meaning=ModSec Rule ID; \
- additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
  chained; silent
 
@@ -72,9 +63,6 @@ regex=\[id "(960032|960010|960034|960035|960038|960902|960903)"\]; \
  id=3170; \
  classification.text=HTTP policy violation; \
  assessment.impact.severity=high; \
- additional_data(>>).type=integer; \
- additional_data(-1).meaning=ModSec Rule ID; \
- additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
  chained; silent
 
@@ -85,9 +73,6 @@ regex=\[id "(990002|990901|990902|990012|990011)"\]; \
  id=3171; \
  classification.text=Bad HTTP robot; \
  assessment.impact.severity=info; \
- additional_data(>>).type=integer; \
- additional_data(-1).meaning=ModSec Rule ID; \
- additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
  chained; silent
 
@@ -98,9 +83,6 @@ regex=\[id "(959009|950007|959007|950904|959904|950001|959001|950901|959901|9509
  id=3172; \
  classification.text=Generic HTTP attack; \
  assessment.impact.severity=high; \
- additional_data(>>).type=integer; \
- additional_data(-1).meaning=ModSec Rule ID; \
- additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
  chained; silent
 
@@ -111,9 +93,6 @@ regex=\[id "(950921|950922)"\]; \
  id=3173; \
  classification.text=HTTP trojan; \
  assessment.impact.severity=high; \
- additional_data(>>).type=integer; \
- additional_data(-1).meaning=ModSec Rule ID; \
- additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
  chained; silent
 
@@ -124,16 +103,13 @@ regex=\[id "(970003|970004|970904|970007|970008|970009|970010|970012|970013|9700
  id=3174; \
  classification.text=HTTP outbound policy violation; \
  assessment.impact.severity=high; \
- additional_data(>>).type=integer; \
- additional_data(-1).meaning=ModSec Rule ID; \
- additional_data(-1).data=$1; \
  classification.reference(0).name=$1; \
  chained; silent
 
 #DESCRIPTION:Generic
 #CATEGORY:Web Service
 regex=Pattern match ".+" at \S+:(.*?/?([^/]+?))\.; \
- id=3177; \
+ id=3178; \
  assessment.impact.type=file; \
  target(0).file(0).name=$2; \
  target(0).file(0).path=$1; \
@@ -143,14 +119,11 @@ regex=Pattern match ".+" at \S+:(.*?/?([^/]+?))\.; \
 #CATEGORY:Web Service
 #LOG:[Mon Sep 09 17:38:38 2013] [error] [client 1.1.1.1] ModSecurity: Warning. Pattern match "(?:\\\\b(?:\\\\.(?:ht(?:access|passwd|group)|www_?acl)|global\\\\.asa|httpd\\\\.conf|boot\\\\.ini)\\\\b|\\\\/etc\\\\/)" at ARGS:f. [file "/etc/apache2/conf.d/mod_security2/base_rules/modsecurity_crs_40_generic_attacks.conf"] [line "193"] [id "950005"] [rev "2"] [msg "Remote File Access Attempt"] [data "Matched Data: /etc/ found within ARGS:f: /etc/passwd"] [severity "CRITICAL"] [ver "OWASP_CRS/2.2.6"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/WEB_ATTACK/FILE_INJECTION"] [tag "WASCTC/WASC-33"] [tag "OWASP_TOP_10/A4"] [tag "PCI/6.5.4"] [hostname "www.example.com"] [uri "/index.php"] [unique_id "Ui3rftX@FAIAAEXTJuEAAAAE"]
 regex=\[id "950005"\]; \
- optgoto=3177; \
+ optgoto=3178; \
  min-optgoto-match=1; \
  id=3175; \
  classification.text=Generic HTTP attack; \
  assessment.impact.severity=high; \
- additional_data(>>).type=integer; \
- additional_data(-1).meaning=ModSec Rule ID; \
- additional_data(-1).data=950005; \
  classification.reference(0).name=950005; \
  chained; silent
 
@@ -161,11 +134,30 @@ regex=\[id "960017"\]; \
  id=3176; \
  classification.text=HTTP Protocol anomaly; \
  assessment.impact.severity=low; \
- additional_data(>>).type=integer; \
- additional_data(-1).meaning=ModSec Rule ID; \
- additional_data(-1).data=960017; \
  classification.reference(0).name=960017; \
  assessment.impact.type=recon; \
+ chained; silent
+
+#LOG: [Wed Jun 21 17:41:57 2017] [error] [client 192.168.95.108] ModSecurity: Access denied with code 403 (phase 2). Pattern match "\\\\W{4,}" at ARGS:mousepos. [file "/etc/httpd/modsecurity.d/activated_rules/modsecurity_crs_41_sql_injection_attacks.conf"] [line "154"] [id "960024"] [rev "2"] [msg "SQL Character Anomaly Detection Alert - Repetative Non-Word Characters"] [data "Matched Data: },{\\x22 found within ARGS:mousepos: [{\\x22x\\x22:992,\\x22y\\x22:170,\\x22i\\x22:1,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:883,\\x22y\\x22:174,\\x22i\\x22:129,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:72,\\x22y\\x22:390,\\x22i\\x22:1,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:1168,\\x22y\\x22:906,\\x22i\\x22:1,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:1592,\\x22y\\x22:899,\\x22i\\x22:1,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:1785,\\x22y\\x22:943,\\x22i\\x22:240,\\x22c\\x22:0..."] [ver "OWASP_CRS/2.2.6"] [maturity "9"] [accuracy "8"] [hostname "extranet.prolival.fr"] [uri "/index.php"] [unique_id "WUqTxawelgUAAAE8C@sAAAAD"]
+#CATEGORY: Web Service
+#DESCRIPTION: SQL Injection
+regex=\[id "(960024)"\]; \
+ id=3177; \
+ revision=1; \
+ classification.text=SQL injection attempt; \
+ assessment.impact.severity=medium; \
+ assessment.impact.completion=failed; \
+ classification.reference(0).name=$1; \
+ chained; silent;
+
+#DESCRIPTION:ModSec Ruleset ID
+#CATEGORY:Web Service
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+regex=\[id "(\S+)"\]; \
+ id=3159; \
+ additional_data(>>).type=string; \
+ additional_data(-1).meaning=ModSec Rule ID; \
+ additional_data(-1).data=$1; \
  chained; silent
 
 #DESCRIPTION:ModSec Ruleset File
@@ -212,7 +204,7 @@ regex=\[severity "(\S+)"\]; \
 #CATEGORY:Web Service
 #LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[msg "([^"]+)"\]; \
- optgoto=3167-3176; \
+ optgoto=3167-3177; \
  min-optgoto-match=1; \
  id=3164; \
  classification.reference(0).meaning=$1; \
@@ -242,7 +234,7 @@ regex=\[unique_id "(\S+)"\]; \
 #DESCRIPTION:3120-3125
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 400 (phase 1). Match of "rx ^(?:(?:[a-z]{3,10}\\\\s+(?:\\\\w{3,7}?://[\\\\w\\\\-\\\\./]*(?::\\\\d+))??/[^?#]*(?:\\\\?[^#\\\\s]*)?(?:#[\\\\S]*)?|connect (?:\\\\d{1,3}\\\\.){3}\\\\d{1,3}\\\\.?(?::\\\\d+)?|options \\\\*)\\\\s+[\\\\w\\\\./]+|get /[^?#]*(?:\\\\?[^#\\\\s]*)?(?:#[\\\\S]*)?)$" against "REQUEST_LINE" required. [id "960911"] [msg "Invalid HTTP Request Line"] [severity "CRITICAL"] [uri "Jul"] [unique_id "A30u2woiIjEAAGO7d7YAAAAE"]
 regex=Match of "(.+)" against "(\S+)" required\.; \
- optgoto=3160-3166; \
+ optgoto=3159-3166; \
  id=3120; \
  assessment.impact.description=ModSecurity found pattern match "$1" in HTTP object $2.; \
  chained; silent
@@ -251,7 +243,7 @@ regex=Match of "(.+)" against "(\S+)" required\.; \
 #CATEGORY:Web Service
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with connection close (phase 2). Operator EQ match: 0. [id "960008"] [msg "Request Missing a Host Header"] [severity "WARNING"] [uri "/\\xc4\\x9b+\\xc5\\xa1\\xc4\\x8d\\xc5\\xa1\\xc5\\x99\\xc5\\x99\\xc4\\x8d\\xc3\\xbd\\xc3\\xbd\\xc3\\xa1"] [unique_id "4B63aQoiIjEAAGO5dL8AAAAC"]
 regex=Operator ([A-Z]{2}) match: (\d+)\.; \
- optgoto=3160-3166; \
+ optgoto=3159-3166; \
  id=3121; \
  assessment.impact.description=ModSecurity found operator "$1" match "$2".; \
  chained; silent
@@ -260,7 +252,7 @@ regex=Operator ([A-Z]{2}) match: (\d+)\.; \
 #CATEGORY:Web Service
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 400 (phase 1). Pattern match "," at REQUEST_HEADERS:Transfer-Encoding. [id "950012"] [msg "HTTP Request Smuggling Attack."] [severity "ALERT"] [uri "/"] [unique_id "CqsKfwoiIjEAAGO7d7cAAAAE"]
 regex=Pattern match "(.+)" at (.+?)\.; \
- optgoto=3160-3166; \
+ optgoto=3159-3166; \
  id=3122; \
  assessment.impact.description=ModSecurity found pattern match "$1" in HTTP object $2.; \
  chained; silent
@@ -269,7 +261,7 @@ regex=Pattern match "(.+)" at (.+?)\.; \
 #CATEGORY:Web Service
 #LOG:[Mon Jul 21 16:55:56 2008] [error] [client 127.0.0.1] ModSecurity: Access denied with code 403 (phase2). Operator GT matched 0 at ARGS. [file "/etc/apache2/modsecurity/activated_rules/modsecurity_crs_23_request_limits.conf"] [line "31"] [id "960335"] [rev "2.2.5"] [msg "Too many arguments in request"] [severity "WARNING"] [hostname "alphard.stars.example"] [uri "/index.html"] [unique_id "VI4p6X8AAAIAABgVFe8AAAAA"]
 regex=Operator ([A-Z]{2}) matched (\d+) at (\S+)\.; \
- optgoto=3160-3166; \
+ optgoto=3159-3166; \
  id=3123; \
  assessment.impact.description=ModSecurity found operator "$1" match "$2".; \
  chained; silent
@@ -278,7 +270,7 @@ regex=Operator ([A-Z]{2}) matched (\d+) at (\S+)\.; \
 #CATEGORY:Web Service
 #LOG:[Fri Apr 17 23:07:33 2015] [error] [client 10.0.2.222] ModSecurity: Warning. Found 1 byte(s) in ARGS:from_prefix outside range: 1-255. [file "/etc/apache2/modsecurity/activated_rules/modsecurity_crs_20_protocol_violations.conf"] [line "353"] [id "960901"] [rev "2.2.5"] [msg "Invalid character in request"] [severity "WARNING"] [tag "PROTOCOL_VIOLATION/EVASION"] [tag "WASCTC/WASC-28"] [tag "OWASP_TOP_10/A1"] [tag "OWASP_AppSensor/RE8"] [tag "PCI/6.5.2"] [tag "http://i-technica.com/whitestuff/asciichart.html"] [hostname "saiph.stars.example"] [uri "/phpMyAdmin/db_structure.php"] [unique_id "VTHKdQoAAkIAAF0CFbEAAAAE"]
 regex=Found (\d+) byte\(s\) in (\S+) outside range: (\S+)\.; \
- optgoto=3160-3166; \
+ optgoto=3159-3166; \
  id=3124; \
  assessment.impact.description=ModSecurity found $1 byte(s) in "$2" outside range $3.; \
  chained; silent
@@ -287,7 +279,7 @@ regex=Found (\d+) byte\(s\) in (\S+) outside range: (\S+)\.; \
 #CATEGORY:Web Service
 #LOG:[Mon Sep 24 21:41:29 2007] [error] [client 192.168.1.50] ModSecurity: Access denied with code 400 (phase 2). Found 1 byte(s) outside range: 1-255. [id "960901"] [msg "Invalid character in request"] [severity "WARNING"] [hostname "www.example.com"] [uri "/forum/posting.php?mode=3Dedit&f=3D33&sid=3D1bbae563df5ac108526808f52b7b24d1&t=3D13&p=3D19"] [unique_id "zo1qB8CoAW4AASoSC7UAAAAF"]
 regex=Found (\d+) byte\(s\) outside range: (\S+)\.; \
- optgoto=3160-3166; \
+ optgoto=3159-3166; \
  id=3125; \
  assessment.impact.description=ModSecurity found $1 byte(s) outside range $3.; \
  chained; silent
@@ -336,7 +328,7 @@ regex=with connection close \(phase (\d+)\).; \
 #CATEGORY:Web Service
 #LOG:[Mon Oct 26 10:31:13 2009] [error] [client 172.16.167.48] ModSecurity: Output filter: Response body too large (over limit of 524288, total not specified). [hostname "example.com"] [uri "/wp-admin/wpmu-edit.php"] [unique_id "adpkLkPA-0QAABypFGAAAAAR"]
 regex=Response body too large \(over limit of (\d+)(.+?)\)\.; \
- optgoto=3160-3166; \
+ optgoto=3159-3166; \
  id=3150; \
  assessment.impact.description=Response body too large (over limit of $1$2); \
  chained; silent
