@@ -76,7 +76,7 @@ regex=\[(\S+):(warn|error|crit|alert|emerg)\]; \
 #LOG:[Sun Jan 31 18:26:01 2016] [error] [client 1.2.3.4] [host foo.cluster42.ovh.net] request failed: error reading the headers
 regex=request failed: ([^,]*); \
  id=4150; \
- classification.text=request failed; \
+ classification.text=Request failed; \
  assessment.impact.completion=failed; \
  assessment.impact.type=other; \
  assessment.impact.severity=low; \
@@ -88,7 +88,7 @@ regex=request failed: ([^,]*); \
 #LOG:[Sun Jan 31 16:35:18 2016] [warn] [client 1.2.3.4] [host foo.ovh] [ovhconfig] syntax error in /homez.1337/foo/.ovhconfig:5
 regex=syntax error in ([^,].+(?=,)|[^,]\S+); \
  id=4151; \
- classification.text=syntax error; \
+ classification.text=Syntax error; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=other; \
  assessment.impact.severity=low; \
@@ -100,7 +100,7 @@ regex=syntax error in ([^,].+(?=,)|[^,]\S+); \
 #LOG:[Wed Oct 21 19:28:42 2015] [:error] [pid 1337] [client 1.2.3.4:1234] script '/var/www/wordpress/wp-login.php' not found or unable to stat
 regex=script '(\S+)' not found; \
  id=4152; \
- classification.text=script not found; \
+ classification.text=Script not found; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=other; \
  assessment.impact.severity=low; \
@@ -155,7 +155,7 @@ regex=File does not exist: ([^,].+(?=,)|[^,].*); \
 #LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] client denied by server configuration: /var/www/wordpress/wp-login.php
 regex=client denied by server configuration: ([^,].+(?=,)|[^,].*); \
  id=4157; \
- classification.text=client denied by server configuration; \
+ classification.text=Client denied by server configuration; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=other; \
  assessment.impact.severity=low; \
@@ -167,7 +167,7 @@ regex=client denied by server configuration: ([^,].+(?=,)|[^,].*); \
 #LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] client sent HTTP/1.1 request without hostname (see RFC2616 section 14.23): /foobar.cgi
 regex=client sent (\S+) request without hostname; \
  id=4158; \
- classification.text=client sent request without hostname; \
+ classification.text=Client sent request without hostname; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=other; \
  assessment.impact.severity=low; \
