@@ -84,11 +84,11 @@ regex=devname=;                         include = fortigate.rules;
 regex=(honeyd|icmp|tcp|udp);            include = honeyd.rules;
 regex=\[([0-9-]+) ([0-9:]+)\];          include = honeytrap.rules;
 regex=\[(SSHChannel|SSHService);        include = kojoney.rules;
+regex=ModSecurity;                      include = modsecurity.rules;
 # Using this somewhat complex regex instead of the simpler httpd due to the
 # fact that we might be directly monitoring httpd logs instead of httpd syslog
 # entries (in which case we won't have the process name to match against)
-regex=(\[error\]|Pass|httpd);           include = httpd.rules; \
-                                        include = modsecurity.rules;
+regex=(\[error\]|Pass|httpd);           include = httpd.rules;
 regex=(kernel|ulogd);                   include = ipchains.rules; \
                                         include = netfilter.rules; \
                                         include = bonding.rules;
