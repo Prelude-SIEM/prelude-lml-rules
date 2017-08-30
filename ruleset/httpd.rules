@@ -114,7 +114,7 @@ regex=script '(\S+)' not found; \
 #LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] PHP Fatal error:  Call to undefined method dbrc_wpdb::get_charset_collate() in /var/www/wordpress/wp-admin/includes/schema.php on line 512
 regex=(PHP [^:].+(?=:)): (.*); \
  id=4153; \
- classification.text=$1; \
+ classification.text=PHP error; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=other; \
  assessment.impact.severity=low; \
