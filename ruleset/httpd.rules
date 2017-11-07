@@ -83,7 +83,7 @@ regex=request failed: ([^,]*); \
  additional_data(>>).type=string; \
  additional_data(-1).meaning=error; \
  additional_data(-1).data=$1; \
- chained; silent;
+ chained; last;
 
 #LOG:[Sun Jan 31 16:35:18 2016] [warn] [client 1.2.3.4] [host foo.ovh] [ovhconfig] syntax error in /homez.1337/foo/.ovhconfig:5
 regex=syntax error in ([^,].+(?=,)|[^,]\S+); \
@@ -95,7 +95,7 @@ regex=syntax error in ([^,].+(?=,)|[^,]\S+); \
  additional_data(>>).type=string; \
  additional_data(-1).meaning=file; \
  additional_data(-1).data=$1; \
- chained; silent;
+ chained; last;
 
 #LOG:[Wed Oct 21 19:28:42 2015] [:error] [pid 1337] [client 1.2.3.4:1234] script '/var/www/wordpress/wp-login.php' not found or unable to stat
 regex=script '(\S+)' not found; \
@@ -107,7 +107,7 @@ regex=script '(\S+)' not found; \
  additional_data(>>).type=string; \
  additional_data(-1).meaning=script; \
  additional_data(-1).data=$1; \
- chained; silent;
+ chained; last;
 
 #LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] PHP Warning:  pg_connect():  in /var/wordpress/foo.php on line 666
 #LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] PHP Notice:  Constant WP_DEBUG already defined in /var/www/wordpress/wp-config.php on line 42
@@ -121,7 +121,7 @@ regex=(PHP [^:].+(?=:)): (.*); \
  additional_data(>>).type=string; \
  additional_data(-1).meaning=PHP error; \
  additional_data(-1).data=$2; \
- chained; silent;
+ chained; last;
 
 #LOG:[Wed Oct 21 19:28:42 2015] [warn] Init: Name-based SSL virtual hosts only work for clients with TLS server name indication support (RFC 4366)
 regex=(RFC(\s|)(\d+)); \
@@ -138,7 +138,7 @@ regex=Bad file descriptor; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=other; \
  assessment.impact.severity=low; \
- chained; silent;
+ chained; last;
 
 #LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] File does not exist: /var/www/wordpress/robots.txt
 regex=File does not exist: ([^,].+(?=,)|[^,].*); \
@@ -150,7 +150,7 @@ regex=File does not exist: ([^,].+(?=,)|[^,].*); \
  additional_data(>>).type=string; \
  additional_data(-1).meaning=file; \
  additional_data(-1).data=$1; \
- chained; silent;
+ chained; last;
 
 #LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] client denied by server configuration: /var/www/wordpress/wp-login.php
 regex=client denied by server configuration: ([^,].+(?=,)|[^,].*); \
@@ -162,7 +162,7 @@ regex=client denied by server configuration: ([^,].+(?=,)|[^,].*); \
  additional_data(>>).type=string; \
  additional_data(-1).meaning=url; \
  additional_data(-1).data=$1; \
- chained; silent;
+ chained; last;
 
 #LOG:[Wed Oct 21 19:28:42 2015] [error] [client 1.2.3.4] client sent HTTP/1.1 request without hostname (see RFC2616 section 14.23): /foobar.cgi
 regex=client sent (\S+) request without hostname; \
@@ -174,7 +174,7 @@ regex=client sent (\S+) request without hostname; \
  additional_data(>>).type=string; \
  additional_data(-1).meaning=http protocol; \
  additional_data(-1).data=$1; \
- chained; silent;
+ chained; last;
 
 #LOG:[Wed Oct 21 19:28:42 2015] [error] Invalid URI in request GET HTTP/1.1 HTTP/1.1
 regex=Invalid URI in request; \
@@ -183,7 +183,7 @@ regex=Invalid URI in request; \
  assessment.impact.completion=succeeded; \
  assessment.impact.type=other; \
  assessment.impact.severity=low; \
- chained; silent;
+ chained; last;
 
 #LOG:[Wed Oct 21 19:28:42 2015] [error] Directory index forbidden by Options directive: /var/www/wordpress/wp-includes/css/
 regex=Directory index forbidden by (.*): ([^,].+(?=,)|[^,].*); \
@@ -195,7 +195,7 @@ regex=Directory index forbidden by (.*): ([^,].+(?=,)|[^,].*); \
  additional_data(>>).type=string; \
  additional_data(-1).meaning=path; \
  additional_data(-1).data=$2; \
- chained; silent;
+ chained; last;
 
 #LOG:[Wed Oct 21 19:28:42 2015] [error] Hostname 10.11.12.13 provided via SNI and hostname *.foobar.com provided via HTTP are different
 regex=Hostname (\S+) provided via (\S+) and hostname (\S+) provided via (\S+) are different; \
@@ -210,13 +210,13 @@ regex=Hostname (\S+) provided via (\S+) and hostname (\S+) provided via (\S+) ar
  additional_data(>>).type=string; \
  additional_data(-1).meaning=hostname provided by $4; \
  additional_data(-1).data=$3; \
- chained; silent;
+ chained; last;
 
 #LOG:[Sun Feb 01 06:25:03 2015] [warn] Init: Name-based SSL virtual hosts only work for clients with TLS server name indication support (RFC 4366)
 regex=Init:\s(.*); \
  id=4162; \
  classification.text=$1; \
- chained; silent;
+ chained; last;
 
 #DESCRIPTION:Format : [<date>] (1) (2) (3) (4) <message> (5) where (1) = "[<module>:<level>]" or "[:<level>]" or "[<level>]", (2) = "[pid <pid>]" if PID exists, (3) = "[client <ip>]" if client exists, (4) = "<key> <value>]" or "[<value>]" n times with n >= 0, (5) = optional values like "<key>: <value>"
 regex=\[((\S+):|:|)(warn|error|crit|alert|emerg)\](\s\[(\S+\s\S+|\S+)\]|){1,}(.*); \
@@ -232,8 +232,10 @@ regex=\[((\S+):|:|)(warn|error|crit|alert|emerg)\](\s\[(\S+\s\S+|\S+)\]|){1,}(.*
  target(0).process.name=httpd; \
  assessment.impact.description=$6; \
  optgoto=4101-4106; \
- optgoto=4150-4162; \
- last
+ optgoto=4154; \
+ optgoto=4150-4153; \
+ optgoto=4155-4162; \
+ silent;
 
 #DESCRIPTION:Web server - Error
 #CATEGORY:Web Service
