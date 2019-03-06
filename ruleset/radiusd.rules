@@ -1,6 +1,6 @@
 #FULLNAME: Radius
 #VERSION: 1.0
-#DESCRIPTION: Remote Authentication Dial-In User Service (RADIUS) is a networking protocol that provides centralized Authentication, Authorization, and Accounting management for users who connect and use a network service. These rules mnonitors Freeradius 1.1.7.
+#DESCRIPTION: Remote Authentication Dial-In User Service (RADIUS) is a networking protocol that provides centralized Authentication, Authorization, and Accounting management for users who connect and use a network service. These rules monitor Freeradius 1.1.7.
 
 #####
 #
