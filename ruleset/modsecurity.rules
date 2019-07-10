@@ -129,7 +129,7 @@ regex=\[id "950005"\]; \
 
 #DESCRIPTION:HTTP Protocol anomaly
 #CATEGORY:Web Service
-#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://test.domain.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[id "960017"\]; \
  id=3176; \
  classification.text=HTTP Protocol anomaly; \
@@ -138,7 +138,7 @@ regex=\[id "960017"\]; \
  assessment.impact.type=recon; \
  chained; silent
 
-#LOG: [Wed Jun 21 17:41:57 2017] [error] [client 192.168.95.108] ModSecurity: Access denied with code 403 (phase 2). Pattern match "\\\\W{4,}" at ARGS:mousepos. [file "/etc/httpd/modsecurity.d/activated_rules/modsecurity_crs_41_sql_injection_attacks.conf"] [line "154"] [id "960024"] [rev "2"] [msg "SQL Character Anomaly Detection Alert - Repetative Non-Word Characters"] [data "Matched Data: },{\\x22 found within ARGS:mousepos: [{\\x22x\\x22:992,\\x22y\\x22:170,\\x22i\\x22:1,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:883,\\x22y\\x22:174,\\x22i\\x22:129,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:72,\\x22y\\x22:390,\\x22i\\x22:1,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:1168,\\x22y\\x22:906,\\x22i\\x22:1,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:1592,\\x22y\\x22:899,\\x22i\\x22:1,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:1785,\\x22y\\x22:943,\\x22i\\x22:240,\\x22c\\x22:0..."] [ver "OWASP_CRS/2.2.6"] [maturity "9"] [accuracy "8"] [hostname "extranet.prolival.fr"] [uri "/index.php"] [unique_id "WUqTxawelgUAAAE8C@sAAAAD"]
+#LOG: [Wed Jun 21 17:41:57 2017] [error] [client 192.168.95.108] ModSecurity: Access denied with code 403 (phase 2). Pattern match "\\\\W{4,}" at ARGS:mousepos. [file "/etc/httpd/modsecurity.d/activated_rules/modsecurity_crs_41_sql_injection_attacks.conf"] [line "154"] [id "960024"] [rev "2"] [msg "SQL Character Anomaly Detection Alert - Repetative Non-Word Characters"] [data "Matched Data: },{\\x22 found within ARGS:mousepos: [{\\x22x\\x22:992,\\x22y\\x22:170,\\x22i\\x22:1,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:883,\\x22y\\x22:174,\\x22i\\x22:129,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:72,\\x22y\\x22:390,\\x22i\\x22:1,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:1168,\\x22y\\x22:906,\\x22i\\x22:1,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:1592,\\x22y\\x22:899,\\x22i\\x22:1,\\x22c\\x22:0,\\x22sy\\x22:0,\\x22sx\\x22:0},{\\x22x\\x22:1785,\\x22y\\x22:943,\\x22i\\x22:240,\\x22c\\x22:0..."] [ver "OWASP_CRS/2.2.6"] [maturity "9"] [accuracy "8"] [hostname "test.domain.com"] [uri "/index.php"] [unique_id "WUqTxawelgUAAAE8C@sAAAAD"]
 #CATEGORY: Web Service
 #DESCRIPTION: SQL Injection
 regex=\[id "(960024)"\]; \
@@ -152,7 +152,7 @@ regex=\[id "(960024)"\]; \
 
 #DESCRIPTION:ModSec Ruleset ID
 #CATEGORY:Web Service
-#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://test.domain.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[id "(\S+)"\]; \
  id=3159; \
  additional_data(>>).type=string; \
@@ -162,7 +162,7 @@ regex=\[id "(\S+)"\]; \
 
 #DESCRIPTION:ModSec Ruleset File
 #CATEGORY:Web Service
-#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://test.domain.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[file "([^"]+)"\]; \
  id=3160; \
  additional_data(>>).type=string; \
@@ -172,7 +172,7 @@ regex=\[file "([^"]+)"\]; \
 
 #DESCRIPTION:ModSec Ruleset Line
 #CATEGORY:Web Service
-#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://test.domain.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[line "(\d+)"\]; \
  id=3161; \
  additional_data(>>).type=integer; \
@@ -182,7 +182,7 @@ regex=\[line "(\d+)"\]; \
 
 #DESCRIPTION:ModSec Rule Tag
 #CATEGORY:Web Service
-#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://test.domain.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[tag "(\S+)"\]; \
  id=3162; \
  additional_data(>>).type=string; \
@@ -192,7 +192,7 @@ regex=\[tag "(\S+)"\]; \
 
 #DESCRIPTION:ModSec Severity
 #CATEGORY:Web Service
-#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://test.domain.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[severity "(\S+)"\]; \
  id=3163; \
  additional_data(>>).type=string; \
@@ -202,7 +202,7 @@ regex=\[severity "(\S+)"\]; \
 
 #DESCRIPTION:Generic message
 #CATEGORY:Web Service
-#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://test.domain.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[msg "([^"]+)"\]; \
  optgoto=3167-3177; \
  min-optgoto-match=1; \
@@ -213,7 +213,7 @@ regex=\[msg "([^"]+)"\]; \
 
 #DESCRIPTION:Generic hostname
 #CATEGORY:Web Service
-#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://test.domain.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[hostname "(\S+)"\]; \
  id=3165; \
  target(0).node.address(0).address=$1; \
@@ -221,7 +221,7 @@ regex=\[hostname "(\S+)"\]; \
 
 #DESCRIPTION:Unique ID
 #CATEGORY:Web Service
-#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://test.domain.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[unique_id "(\S+)"\]; \
  id=3166; \
  additional_data(>>).type=string; \
@@ -286,7 +286,7 @@ regex=Found (\d+) byte\(s\) outside range: (\S+)\.; \
 
 #DESCRIPTION:Access blocked
 #CATEGORY:Web Service
-#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://test.domain.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=with code (\d+) \(phase \d\)\.; \
  optgoto=3120-3125; \
  id=3130; \
@@ -345,7 +345,7 @@ regex=Warning\.; \
 
 #DESCRIPTION:Access denied
 #CATEGORY:Web Service
-#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://test.domain.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=Access denied; \
  optgoto=3130-3133; \
  id=3102; \
@@ -366,7 +366,7 @@ regex=Output filter:; \
 
 #DESCRIPTION:ModSecurity
 #CATEGORY:Web Service
-#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://technet.microsoft.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
+#LOG:[Tue May 27 06:52:51 2014] [error] [client 192.168.5.26] ModSecurity: Access denied with code 403 (phase 2). Pattern match "^[\\d.:]+$" at REQUEST_HEADERS:Host. [file "/etc/httpd/modsecurity.d/base_rules/modsecurity_crs_21_protocol_anomalies.conf"] [line "98"] [id "960017"] [rev "2"] [msg "Host header is a numeric IP address"] [data "192.168.5.40"] [severity "WARNING"] [ver "OWASP_CRS/2.2.8"] [maturity "9"] [accuracy "9"] [tag "OWASP_CRS/PROTOCOL_VIOLATION/IP_HOST"] [tag "WASCTC/WASC-21"] [tag "OWASP_TOP_10/A7"] [tag "PCI/6.5.10"] [tag "http://test.domain.com/en-us/magazine/2005.01.hackerbasher.aspx"] [hostname "192.168.5.40"] [uri "/dvwa/login.php"] [unique_id "U4QaI8CoBSgAAB0cA@QAAAAB"]
 regex=\[client ([\d\.]+)\] ModSecurity:.*\[uri "([^"]+)"\]; \
  optgoto=3101-3103; \
  id=3100; \
